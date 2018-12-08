@@ -15,7 +15,7 @@
 	</dto>
 
 	<dto name="Cars">
-		<field name="cars" type="Car[]" collection="true" />
+		<field name="cars" type="Car[]" collection="true" associative="true" />
 	</dto>
 
 	<dto name="Owner">

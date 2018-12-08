@@ -79,6 +79,7 @@ class XmlEngineTest extends TestCase {
 						'name' => 'cars',
 						'type' => 'Car[]',
 						'collection' => true,
+						'associative' => true
 					]
 				]
 			],

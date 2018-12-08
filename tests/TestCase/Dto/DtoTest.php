@@ -196,26 +196,33 @@ class DtoTest extends TestCase {
 	 */
 	public function testToArrayCollection() {
 		$carsDto = new CarsDto();
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 123]));
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 234]));
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 345]));
+		$carOne = new CarDto(['distanceTravelled' => 123]);
+		$carTwo = new CarDto(['distanceTravelled' => 234]);
+		$carThree = new CarDto(['distanceTravelled' => 345]);
+
+		$carsDto->addCar('one', $carOne);
+		$carsDto->addCar('two', $carTwo);
+		$carsDto->addCar('three', $carThree);
 
 		$result = $carsDto->touchedToArray();
 
 		$expected = [
 			'cars' => [
-				[
+				'one' => [
 					'distanceTravelled' => 123
 				],
-				[
+				'two' => [
 					'distanceTravelled' => 234
 				],
-				[
+				'three' => [
 					'distanceTravelled' => 345
 				]
 			]
 		];
 		$this->assertSame($expected, $result);
+		$this->assertSame($carOne, $carsDto->getCar('one'));
+		$this->assertSame($carTwo, $carsDto->getCar('two'));
+		$this->assertSame($carThree, $carsDto->getCar('three'));
 	}
 
 	/**
@@ -282,13 +289,13 @@ class DtoTest extends TestCase {
 	 */
 	public function testSerializeCollection() {
 		$carsDto = new CarsDto();
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 123]));
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 234]));
-		$carsDto->addCar(new CarDto(['distanceTravelled' => 345]));
+		$carsDto->addCar('one', new CarDto(['distanceTravelled' => 123]));
+		$carsDto->addCar('two', new CarDto(['distanceTravelled' => 234]));
+		$carsDto->addCar('three', new CarDto(['distanceTravelled' => 345]));
 
 		$result = $carsDto->serialize();
 
-		$expected = '{"cars":[{"distanceTravelled":123},{"distanceTravelled":234},{"distanceTravelled":345}]}';
+		$expected = '{"cars":{"one":{"distanceTravelled":123},"two":{"distanceTravelled":234},"three":{"distanceTravelled":345}}}';
 		$this->assertSame($expected, $result);
 
 		$carsDto->unserialize($expected);

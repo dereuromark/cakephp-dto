@@ -27,13 +27,13 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 		'cars' => [
 			'name' => 'cars',
 			'type' => 'CarDto[]|\ArrayObject',
+			'associative' => true,
 			'required' => false,
 			'defaultValue' => null,
 			'isDto' => false,
 			'class' => null,
 			'singularClass' => '\TestApp\Dto\CarDto',
 			'collectionType' => '\ArrayObject',
-			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
 		],
@@ -75,6 +75,21 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param string $key
+	 *
+	 * @return CarDto
+	 *
+	 * @throws \RuntimeException If value with this key is not set.
+	 */
+	public function getCar($key) {
+		if (!isset($this->cars[$key])) {
+			throw new \RuntimeException(sprintf('Value not set for field `cars` and key `%s` (expected to be not null)', $key));
+		}
+
+		return $this->cars[$key];
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function hasCars() {
@@ -84,16 +99,26 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 
 		return $this->cars->count() > 0;
 	}
+
 	/**
+	 * @param string $key
+	 * @return bool
+	 */
+	public function hasCar($key) {
+		return isset($this->cars[$key]);
+	}
+
+	/**
+	 * @param string $key
 	 * @param CarDto $car
 	 * @return $this
 	 */
-	public function addCar(CarDto $car) {
+	public function addCar($key, CarDto $car) {
 		if (!isset($this->cars)) {
 			$this->cars = new \ArrayObject([]);
 		}
 
-		$this->cars[] = $car;
+		$this->cars[$key] = $car;
 		$this->_touchedFields[self::FIELD_CARS] = true;
 
 		return $this;
