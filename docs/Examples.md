@@ -1,7 +1,7 @@
 ## Examples
 
 ### Mutable
-Using [basic.dto.xml](basic.dto.xml).
+Using [basic.dto.xml](examples/basic.dto.xml).
 
 In these cases the DTO is just an explicit transport tool, and it is OK/expected that the DTO changes over its lifetime,
 and code will set, add, remove from it. Values are also often expected to be not set.
@@ -27,7 +27,7 @@ $this->assertSame('The new owner', $carDto->getOwner()->getName());
 ```
 
 ### Immutable
-Using [immutable.dto.xml](immutable.dto.xml).
+Using [immutable.dto.xml](examples/immutable.dto.xml).
 
 In these cases we want to make sure, the DTO, once created, is not changing anymore that easily.
 Required values are for sure set. Modifications create a new object, keeping the previous one unchanged for further use with that dataset.
@@ -62,7 +62,7 @@ $this->assertSame($created, $articleDto->getCreated());
 ```
 
 ### ORM Entity to DTO
-Using [orm.dto.xml](orm.dto.xml) and immutable DTOs matching the entities (including primary keys, but without foreign keys).
+Using [orm.dto.xml](examples/orm.dto.xml) and immutable DTOs matching the entities (including primary keys, but without foreign keys).
 
 This is not so much that it should be done, but that it can be done :)
 This would be much more valuable (and necessary) for active record pattern ORMs (maybe someone can provide a Laravel example?^^).
