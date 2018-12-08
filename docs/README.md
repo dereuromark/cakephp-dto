@@ -1,5 +1,15 @@
 # DTO Plugin Documentation
 
+First of all: This is not meant to replace every array, entity, ...
+This should be used as a **conscious addition or replacement** for certain cluttered arrays or structures.
+It should have a benefit in the cases where you apply it:
+- Passing around a more explicit data container with clear content through a chain of objects/methods.
+- Useful IDE benefits for the developer as well as static analyzing to spot errors and mistakes earlier.
+
+If your current data structure can do all that already for you, don't apply a DTO on top :)
+Only bloat what really brings a big plus on top.
+
+
 ## Chose your poison
 
 You can chose between the following formats for the definitions:
@@ -167,20 +177,6 @@ An argument is always required, even for setting it to null: `->setManufactured(
 
 ### Deprecations
 You can add `deprecated="Reason why"` to any DTO or a specific field of it. It will mark the methods as strike-through in your IDE.
-
-
-## Validate in CI
-You can validate your currently generated DTOs in CI or via pre-commit hook.
-For this use the `dry-run` (`-d`) option:
-```
-bin/cake dto generate -d
-```
-The expected result is `0` (all good);
-
-If the error code is `2`, there are some changes detected, and the files need to be (re)generated.
-Error code `1` is bad and basically means that the definitions are invalid. The error output should give some details here.
-
-Tip: Use `--verbose` (`-v`) to see a diff of what's changing.
 
 
 ## Usage
@@ -437,6 +433,20 @@ return [
 ## Disable Code Style Check
 Generated code usually shouldn't run through code-style checks.
 Disable the folder by using `--ignore=/src/Dto/`.
+
+
+## Validate in CI
+You can validate your currently generated DTOs in CI or via pre-commit hook.
+For this use the `dry-run` (`-d`) option:
+```
+bin/cake dto generate -d
+```
+The expected result is `0` (all good);
+
+If the error code is `2`, there are some changes detected, and the files need to be (re)generated.
+Error code `1` is bad and basically means that the definitions are invalid. The error output should give some details here.
+
+Tip: Use `--verbose` (`-v`) to see a diff of what's changing.
 
 
 ## Version Control
