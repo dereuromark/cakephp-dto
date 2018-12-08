@@ -153,6 +153,8 @@ class GeneratorTest extends TestCase {
 	 * @return void
 	 */
 	public function testScalarTypeHints() {
+		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
+
 		$xml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
