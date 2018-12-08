@@ -23,7 +23,7 @@ Especially with PHP 7.1 and more strict typehinting moving forward this is rathe
 
 For more see [Motivation and Background](/docs/Motivation.md).
 
-This plugin will provide you with a tool to quickly generate custom and optmized DTOs for your special use cases.
+This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
 ## Examples
 
