@@ -131,7 +131,7 @@ class XmlEngineTest extends TestCase {
 				'name' => 'EmptyOne',
 				'fields' => [
 				],
-    		],
+			],
 		];
 
 		$this->assertSame($expected, $result, print_r($result, true));

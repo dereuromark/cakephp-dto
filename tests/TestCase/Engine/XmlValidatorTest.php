@@ -40,7 +40,7 @@ class XmlValidatorTest extends TestCase {
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_error.xml';
 
 		try {
-			/** @var XmlValidator $validator */
+			/** @var \CakeDto\Engine\XmlValidator $validator */
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
@@ -59,7 +59,7 @@ class XmlValidatorTest extends TestCase {
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_fatal_error.xml';
 
 		try {
-			/** @var XmlValidator $validator */
+			/** @var \CakeDto\Engine\XmlValidator $validator */
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
