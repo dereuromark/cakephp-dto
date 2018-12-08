@@ -1,6 +1,6 @@
 <?php
 
-namespace Dto;
+namespace CakeDto;
 
 use Cake\Core\BasePlugin;
 
