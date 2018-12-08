@@ -35,7 +35,6 @@
 	"require-dev": {
 		"ext-dom": "*",
 		"ext-libxml": "*",
-		"ext-yaml": "*",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"nette/neon": "^2.4"
 	},
