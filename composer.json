@@ -1,0 +1,53 @@
+{
+	"name": "dereuromark/cakephp-dto",
+	"description": "CakePHP DTO Plugin",
+	"type": "cakephp-plugin",
+	"keywords": ["cakephp", "dto", "plugin"],
+	"homepage": "https://github.com/dereuromark/cakephp-dto/",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mark Scherer",
+			"homepage": "https://www.dereuromark.de",
+			"role": "Maintainer"
+		},
+		{
+			"name": "Other contributors",
+			"homepage": "https://github.com/dereuromark/cakephp-dto/graphs/contributors"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/dereuromark/cakephp-dto/issues",
+		"source": "https://github.com/dereuromark/cakephp-dto/"
+	},
+	"require": {
+		"php": ">=5.6",
+		"cakephp/cakephp": "^3.6"
+	},
+	"require-dev": {
+		"nette/neon": "^2.4",
+		"fig-r/psr2r-sniffer": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Dto\\": "src/",
+			"Dto\\Test\\Fixture\\": "tests/Fixture/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Dto\\Test\\": "tests/",
+			"Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
+			"App\\": "tests/test_app/src/"
+		}
+	},
+	"scripts": {
+		"test": "php phpunit.phar",
+		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.8.phar && mv phpunit-6.5.8.phar phpunit.phar || true",
+		"test-coverage": "php phpunit.phar --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
+		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/",
+		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
+		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/cakephp-dto/vendor/,/tmp/,/logs/,/config/Migrations/ --extensions=php ./",
+		"cs-fix": "phpcbf --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/cakephp-dto/vendor/,/tmp/,/logs/,/config/Migrations/ --extensions=php ./"
+	}
+}
