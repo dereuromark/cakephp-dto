@@ -1,0 +1,6 @@
+	/**
+	 * @return bool
+	 */
+	public function hasDistanceTravelled() {
+		return $this->distanceTravelled !== null;
+	}

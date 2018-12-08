@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="Car">
+		<field name="color" type="\TestApp\ValueObject\Paint" />
+		<field name="isNew" type="bool" />
+		<field name="value" type="float" />
+		<field name="distanceTravelled" type="int" />
+		<field name="attributes" type="string[]" />
+		<field name="manufactured" type="\Cake\I18n\FrozenDate" />
+		<field name="owner" type="Owner"/>
+	</dto>
+
+	<dto name="Cars">
+		<field name="cars" type="Car[]" collection="true" />
+	</dto>
+
+	<dto name="Owner">
+		<field name="name" type="string"/>
+		<field name="birthYear" type="int"/>
+	</dto>
+
+	<dto name="FlyingCar" extends="Car">
+		<field name="maxAltitude" type="int" defaultValue="0"/>
+		<field name="maxSpeed" type="int" defaultValue="0" required="true"/>
+		<field name="complexAttributes" type="array" />
+	</dto>
+
+	<dto name="OldOne" extends="Car" deprecated="Yeah, sry">
+		<field name="name" type="string" />
+	</dto>
+
+	<dto name="EmptyOne">
+	</dto>
+
+</dtos>

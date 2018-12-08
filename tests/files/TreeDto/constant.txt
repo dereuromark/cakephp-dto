@@ -1,0 +1,4 @@
+	/**
+	 * @deprecated Deprecated for no reason
+	 */
+	const FIELD_SIZE = 'size';

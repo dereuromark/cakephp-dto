@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="Article" immutable="true">
+		<field name="id" type="int" required="true"/>
+		<field name="author" type="Author" required="true"/>
+		<field name="title" type="string" required="true"/>
+		<field name="created" type="\Cake\I18n\FrozenDate" required="true"/>
+		<field name="tags" type="Tag[]" collectionType="array"/>
+		<field name="meta" type="string[]" singular="metaValue" associative="true" collectionType="array"/>
+	</dto>
+
+	<dto name="Author" immutable="true">
+		<field name="id" type="int" required="true"/>
+		<field name="name" type="string" required="true"/>
+		<field name="email" type="string"/>
+	</dto>
+
+	<dto name="Tag" immutable="true">
+		<field name="id" type="int" required="true"/>
+		<field name="name" type="string" required="true"/>
+		<field name="weight" type="int" required="true" defaultValue="0"/>
+	</dto>
+
+	<dto name="MutableMeta">
+		<field name="title" type="string" required="true"/>
+		<field name="meta" type="string[]" singular="metaValue" associative="true" collectionType="array"/>
+	</dto>
+
+</dtos>

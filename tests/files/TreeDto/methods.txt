@@ -1,0 +1,46 @@
+	/**
+	 * @deprecated Deprecated for no reason
+	 *
+	 * @param int|null $size
+	 *
+	 * @return $this
+	 */
+	public function setSize($size) {
+		$this->size = $size;
+		$this->_touchedFields[self::FIELD_SIZE] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @deprecated Deprecated for no reason
+	 *
+	 * @return int|null
+	 */
+	public function getSize() {
+		return $this->size;
+	}
+
+	/**
+	 * @deprecated Deprecated for no reason
+	 *
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return int
+	 */
+	public function getSizeOrFail() {
+		if (!isset($this->size)) {
+			throw new \RuntimeException('Value not set for field `size` (expected to be not null)');
+		}
+
+		return $this->size;
+	}
+
+	/**
+	 * @deprecated Deprecated for no reason
+	 *
+	 * @return bool
+	 */
+	public function hasSize() {
+		return $this->size !== null;
+	}

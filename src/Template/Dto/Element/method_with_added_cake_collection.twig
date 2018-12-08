@@ -1,0 +1,29 @@
+{% if collection %}
+	/**
+{% if deprecated is not null %}
+	 * @deprecated {{ deprecated }}
+	 *
+{% endif %}
+{% if associative %}
+	 * @param string $key
+{% endif %}
+	 * @param {% if returnTypeHint == 'array' %}mixed{% else %}{{ singularType }}{% endif %} ${{ singular }}
+	 * @return static
+	 */
+	public function withAdded{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}{% if scalarTypeHints %}string {% endif %}$key, {% endif %}{% if singularTypeHint %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+		$new = clone $this;
+
+		if (!isset($new->{{ name }})) {
+			$new->{{ name }} = new {{ typeHint }}([]);
+		}
+
+{% if associative %}
+		$new->{{ name }}[$key] = ${{ singular }};
+{% else %}
+		$new->{{ name }} = $new->{{ name }}->appendItem(${{ singular }});
+{% endif %}
+		$new->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
+
+		return $new;
+	}
+{% endif -%}

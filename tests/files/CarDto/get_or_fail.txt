@@ -1,0 +1,12 @@
+	/**
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return int
+	 */
+	public function getDistanceTravelledOrFail() {
+		if (!isset($this->distanceTravelled)) {
+			throw new \RuntimeException('Value not set for field `distanceTravelled` (expected to be not null)');
+		}
+
+		return $this->distanceTravelled;
+	}

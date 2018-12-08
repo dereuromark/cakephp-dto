@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="Tree">
+		<field name="type" type="string" />
+		<field name="size" type="int" deprecated="Deprecated for no reason" />
+	</dto>
+
+	<dto name="Flower">
+		<field name="type" type="string" />
+		<field name="colors" type="string[]" collection="true" deprecated="Deprecated for sure" />
+	</dto>
+
+	<dto name="Animal" deprecated="Deprecated now">
+		<field name="name" type="string"/>
+	</dto>
+
+</dtos>

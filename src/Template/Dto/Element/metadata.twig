@@ -1,0 +1,12 @@
+	/**
+	 * Some data is only for debugging for now.
+	 *
+	 * @var array
+	 */
+	protected $_metadata = [
+{% for field in metaData %}
+		'{{ field.name }}' => [
+			{{- Template.stringifyList(field, {})|raw -}}
+		],
+{% endfor %}
+	];

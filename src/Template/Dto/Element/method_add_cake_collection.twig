@@ -1,0 +1,21 @@
+{% if collectionType %}
+	/**
+{% if deprecated is not null %}
+	 * @deprecated {{ deprecated }}
+	 *
+{% endif %}
+	 * @param {{ singularType }} ${{ singular }}
+	 *
+	 * @return $this
+	 */
+	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if singularTypeHint %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+		if (!isset($this->{{ name }})) {
+			$this->{{ name }} = new {{ typeHint }}([]);
+		}
+
+		$this->{{ name }} = $this->{{ name }}->appendItem(${{ singular }});
+		$this->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
+
+		return $this;
+	}
+{% endif -%}

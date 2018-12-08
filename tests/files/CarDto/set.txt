@@ -1,0 +1,11 @@
+	/**
+	 * @param int|null $distanceTravelled
+	 *
+	 * @return $this
+	 */
+	public function setDistanceTravelled($distanceTravelled) {
+		$this->distanceTravelled = $distanceTravelled;
+		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
+
+		return $this;
+	}

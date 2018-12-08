@@ -1,0 +1,39 @@
+	/**
+{% if deprecated is not null %}
+	 * @deprecated {{ deprecated }}
+	 *
+{% endif %}
+	 * @return {{ type }}{% if nullable %}|null{% endif %}
+
+	 */
+	public function get{{ name[:1]|upper ~ name[1:] }}(){% if returnTypeHint %}: {% if nullable %}?{% endif %}{{ returnTypeHint }}{% endif %} {
+{% if collection %}
+		if ($this->{{ name }} === null) {
+			return {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
+		}
+
+{% endif %}
+		return $this->{{ name }};
+	}
+{% if associative %}
+
+	/**
+{% if deprecated is not null %}
+	 * @deprecated {{ deprecated }}
+	 *
+{% endif %}
+	 * @param string $key
+	 *
+	 * @return {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}
+
+	 *
+	 * @throws \RuntimeException If value with this key is not set.
+	 */
+	public function get{{ singular[:1]|upper ~ singular[1:] }}({% if scalarTypeHints %}string {% endif %}$key){% if singularReturnTypeHint %}: {% if nullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+		if (!isset($this->{{ name }}[$key])) {
+			throw new \RuntimeException(sprintf('Value not set for field `{{ name }}` and key `%s` (expected to be not null)', $key));
+		}
+
+		return $this->{{ name }}[$key];
+	}
+{% endif %}

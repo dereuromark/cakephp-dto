@@ -1,0 +1,42 @@
+Car:
+  fields:
+    color: \TestApp\ValueObject\Paint
+    isNew: bool
+    value: float
+    distanceTravelled: int
+    attributes: string[]
+    manufactured: \Cake\I18n\FrozenDate
+    owner: Owner
+
+Cars:
+  fields:
+    cars:
+      type: Car[]
+      singular: car
+      collection: true
+      associative: true
+
+Owner:
+  fields:
+    name: string
+    birthYear: int
+
+FlyingCar:
+  extends: Car
+  fields:
+    maxAltitude:
+      type: int
+      defaultValue: 0
+    maxSpeed:
+      type: int
+      defaultValue: 0
+      required: true
+    complexAttributes: array
+
+OldOne:
+  deprecated: 'Yeah, sry'
+  fields:
+    name: string
+    sold:
+      type: bool
+      defaultValue: true

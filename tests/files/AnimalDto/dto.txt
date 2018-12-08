@@ -1,0 +1,6 @@
+/**
+ * Animal DTO
+ *
+ * @deprecated Deprecated now
+ */
+class AnimalDto

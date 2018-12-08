@@ -5,8 +5,7 @@ namespace Dto;
 use Cake\Core\BasePlugin;
 
 /**
- * Plugin for Dto
+ * Plugin for CakeDto
  */
-class Plugin extends BasePlugin
-{
+class Plugin extends BasePlugin {
 }

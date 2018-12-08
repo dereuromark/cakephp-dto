@@ -1,0 +1,6 @@
+	/**
+	 * @return int|null
+	 */
+	public function getDistanceTravelled() {
+		return $this->distanceTravelled;
+	}

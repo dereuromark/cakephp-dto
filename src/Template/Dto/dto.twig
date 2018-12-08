@@ -1,0 +1,27 @@
+<?php{% if strictTypes %} declare(strict_types=1);{% endif %}
+
+/**
+ * !!! Auto generated file. Do not directly modify this file. !!!
+ * You can either version control this or generate the file on the fly prior to usage/deployment.
+ */
+
+namespace {{ namespace }};
+
+/**
+ * {{ name }} DTO
+ {% if deprecated is not null -%}
+ *
+ * @deprecated {{ deprecated }}
+ {% endif -%}
+ */
+class {{ className }} extends {{ extends }} {
+
+{% element 'constants' fields %}
+
+{% element 'properties' fields %}
+{% element 'metadata' metaData %}
+
+{% element 'map' fields %}
+
+{% element 'methods' fields  %}
+}

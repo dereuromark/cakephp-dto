@@ -1,0 +1,29 @@
+{% for field in fields %}
+{% if immutable %}
+{% element 'method_with' field %}
+{% else %}
+{% element 'method_set' field %}
+{% endif %}
+
+{% element 'method_get' field %}
+
+{% if field.nullable %}
+{% element 'method_get_or_fail' field %}
+
+{% endif %}
+{% element 'method_has' field %}
+{% if immutable %}
+{% if field.collectionType == '\\Cake\\Collection\\Collection' %}
+{% element 'method_with_added_cake_collection' field %}
+{% else %}
+{% element 'method_with_added' field %}
+{% endif %}
+{% else %}
+{% if field.collectionType == '\\Cake\\Collection\\Collection' %}
+{% element 'method_add_cake_collection' field %}
+{% else %}
+{% element 'method_add' field %}
+{% endif %}
+{% endif %}
+
+{% endfor %}

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="Transaction" immutable="true">
+		<field name="customerAccount" type="CustomerAccount" required="true"/>
+		<field name="value" type="float" required="true"/>
+		<field name="comment" type="string"/>
+		<field name="created" type="\Cake\I18n\FrozenDate" required="true"/>
+	</dto>
+
+	<dto name="CustomerAccount">
+		<field name="customerName" type="string" required="true"/>
+		<field name="birthYear" type="int"/>
+	</dto>
+
+</dtos>

@@ -1,30 +1,47 @@
 <?php
-/**
- * Test suite bootstrap for Dto.
- *
- * This function is used to find the location of CakePHP whether CakePHP
- * has been installed as a dependency of the plugin, or the plugin is itself
- * installed as a dependency of an application.
- */
-$findRoot = function ($root) {
-    do {
-        $lastRoot = $root;
-        $root = dirname($root);
-        if (is_dir($root . '/vendor/cakephp/cakephp')) {
-            return $root;
-        }
-    } while ($root !== $lastRoot);
 
-    throw new Exception("Cannot find the root of the application, unable to run tests");
-};
-$root = $findRoot(__FILE__);
-unset($findRoot);
-
-chdir($root);
-
-if (file_exists($root . '/config/bootstrap.php')) {
-    require $root . '/config/bootstrap.php';
-
-    return;
+if (!defined('DS')) {
+	define('DS', DIRECTORY_SEPARATOR);
 }
-require $root . '/vendor/cakephp/cakephp/tests/bootstrap.php';
+define('ROOT', dirname(__DIR__));
+define('APP_DIR', 'src');
+
+define('APP', rtrim(sys_get_temp_dir(), DS) . DS . APP_DIR . DS);
+if (!is_dir(APP)) {
+	mkdir(APP, 0770, true);
+}
+
+define('TMP', ROOT . DS . 'tmp' . DS);
+if (!is_dir(TMP)) {
+	mkdir(TMP, 0770, true);
+}
+define('CONFIG', ROOT . DS . 'config' . DS);
+
+define('LOGS', TMP . 'logs' . DS);
+define('CACHE', TMP . 'cache' . DS);
+
+define('CAKE_CORE_INCLUDE_PATH', ROOT . '/vendor/cakephp/cakephp');
+define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+define('CAKE', CORE_PATH . APP_DIR . DS);
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+require CORE_PATH . 'config/bootstrap.php';
+
+Cake\Core\Configure::write('App', [
+	'namespace' => 'App',
+	'encoding' => 'utf-8',
+	'paths' => [
+		'templates' => [
+			ROOT . DS . 'src' . DS . 'Template' . DS,
+			ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS
+		],
+	]
+]);
+
+Cake\Core\Configure::write('CakeDto', [
+]);
+
+Cake\Core\Configure::write('debug', true);
+
+Cake\Core\Plugin::load('CakeDto', ['path' => ROOT . DS, 'autoload' => true, 'bootstrap' => true]);
+//Cake\Core\Plugin::load('WyriHaximus/TwigView', ['path' => ROOT . DS . 'vendor/wyrihaximus/twig-view/', 'autoload' => true, 'bootstrap' => true]);
