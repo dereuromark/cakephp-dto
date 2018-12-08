@@ -507,8 +507,7 @@ See [Examples](Examples.md) for basic, immutable and complex entity use cases.
 
 ## TODO
 
-- Add YAML and NEON (.neon) engines, requires `nette/neon` package as require-dev? PR welcome
-- Merging of plugin + app definitions?
+- Allow merging of plugin + app definitions? At least for non vendor cases maybe?
 - Provide a PHP generic lib, and this as wrapper around it for CakePHP? (`dereuromark/dto` as Dto and `dereuromark/cakephp-dto` CakeDto)
 - CakePHP 4.0 will drop PHP 5.6/7.0 support.
 - When PHP 7.4 introduces typed properties, we can remove the doc blocks and type the properties with the new, built-in syntax.
