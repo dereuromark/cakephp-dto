@@ -43,7 +43,7 @@ class YamlEngine implements EngineInterface {
 
 			$fields = isset($dto['fields']) ? $dto['fields'] : [];
 			foreach ($fields as $key => $field) {
-				if (is_string($field)) {
+				if (!is_array($field)) {
 					$field = [
 						'type' => $field,
 					];

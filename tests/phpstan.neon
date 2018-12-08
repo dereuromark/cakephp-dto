@@ -4,3 +4,6 @@ parameters:
 
 	ignoreErrors:
 		- '#Call to an undefined method object::toArray\(\)\.#'
+		- 'Function yaml_parse not found\.'
+
+	reportUnmatchedIgnoredErrors: false
