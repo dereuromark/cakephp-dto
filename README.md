@@ -43,7 +43,7 @@ composer require dereuromark/cakephp-dto:dev-master
 
 Then load the plugin with the following command:
 ```
-bin/cake plugin load dereuromark/cakephp-dto -b
+bin/cake plugin load CakeDto -b
 ```
 The bootstrap is needed for the TwigView events to be set up. If you already included TwigView, you might not need the bootstrap.
 
