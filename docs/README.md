@@ -58,6 +58,8 @@ Let's add some basic DTOs now:
 	</dto>
 ```
 
+Thanks to the XSD file you can fully autocomplete it, so almost no typing here. It will also show you invalid attributes in red.
+
 
 ## Generate your DTOs
 ```
