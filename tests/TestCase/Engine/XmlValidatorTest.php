@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class XmlValidatorTest extends TestCase {
 
 	/**
-	 * @var \CakeDto\Engine\XmlValidator
+	 * @var string
 	 */
 	protected $validator;
 
@@ -33,14 +33,17 @@ class XmlValidatorTest extends TestCase {
 
 	/**
 	 * @return void
+	 * @throws \InvalidArgumentException
 	 */
 	public function testValidateError() {
 		$this->expectException(InvalidArgumentException::class);
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_error.xml';
 
 		try {
-			$this->validator::validate($exampleXml);
-		} catch (\InvalidArgumentException $e) {
+			/** @var XmlValidator $validator */
+			$validator = $this->validator;
+			$validator::validate($exampleXml);
+		} catch (InvalidArgumentException $e) {
 			$this->assertContains('The attribute \'noname\' is not allowed', $e->getMessage());
 
 			throw $e;
@@ -49,13 +52,16 @@ class XmlValidatorTest extends TestCase {
 
 	/**
 	 * @return void
+	 * @throws \InvalidArgumentException
 	 */
 	public function testValidateFatalError() {
 		$this->expectException(InvalidArgumentException::class);
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_fatal_error.xml';
 
 		try {
-			$this->validator::validate($exampleXml);
+			/** @var XmlValidator $validator */
+			$validator = $this->validator;
+			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
 			$this->assertContains('Start tag expected', $e->getMessage());
 
