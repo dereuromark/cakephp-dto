@@ -108,4 +108,6 @@ The code behaves more correctly and can be tested and verified more easily, espe
 
 So after all, **developer speed, code readability and code reliability strongly increase with only a bit of speed decrease** that usually doesn't matter much for a normal web request.
 
+Overuse of (complex) collections sure slows things down further. Especially with immutable objects, try to use simple arrays for it where possible.
+
 If you want to replicate, check out the tests/benchmark/DtoBenchmarkShell and re-run it.
