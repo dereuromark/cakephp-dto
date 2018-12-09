@@ -31,6 +31,8 @@ class DtoShellTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->loadPlugins(['CakeDto']);
+
 		$this->out = new ConsoleOutput();
 		$this->err = new ConsoleOutput();
 		$io = new ConsoleIo($this->out, $this->err);

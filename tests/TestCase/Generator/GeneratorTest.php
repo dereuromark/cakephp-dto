@@ -52,6 +52,8 @@ class GeneratorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->loadPlugins(['CakeDto']);
+
 		// Why needed?
 		EventManager::instance()->on(new ExtensionsListener());
 		EventManager::instance()->on(new TokenParsersListener());

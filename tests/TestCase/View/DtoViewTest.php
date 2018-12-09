@@ -3,7 +3,6 @@ namespace CakeDto\Test\TestCase\View;
 
 use CakeDto\View\DtoView;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest as Request;
 use Cake\TestSuite\StringCompareTrait;
@@ -31,7 +30,7 @@ class DtoViewTest extends TestCase {
 
 		Configure::write(
 			'App.paths.templates.x',
-			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS . 'Twig' . DS
+			TEST_APP . DS . 'Template' . DS . 'Twig' . DS
 		);
 	}
 

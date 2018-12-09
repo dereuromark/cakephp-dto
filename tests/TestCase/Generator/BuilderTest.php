@@ -26,6 +26,7 @@ class BuilderTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->loadPlugins(['CakeDto']);
 		Configure::write('CakeDto.scalarTypeHints', false);
 
 		$engine = new XmlEngine();

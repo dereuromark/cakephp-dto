@@ -19,6 +19,7 @@ class XmlValidatorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->loadPlugins(['CakeDto']);
 		$this->validator = XmlValidator::class;
 	}
 

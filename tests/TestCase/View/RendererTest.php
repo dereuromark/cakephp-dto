@@ -4,7 +4,6 @@ namespace CakeDto\Test\TestCase\View;
 
 use CakeDto\View\Renderer;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 
 class RendererTest extends TestCase {
@@ -24,7 +23,7 @@ class RendererTest extends TestCase {
 
 		Configure::write(
 			'App.paths.templates.x',
-			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS . 'Renderer' . DS
+			TEST_APP . DS . 'Template' . DS . 'Renderer' . DS
 		);
 		Configure::delete('CakeDto.strictTypes');
 	}
