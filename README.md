@@ -30,6 +30,8 @@ This plugin will provide you with a tool to quickly generate custom and optimize
 See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
 The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/). 
 
+Note: They are 5.6+ as per min requirement, but you can easily generate them as 7.1+ and strict types on as well :)
+In fact, that is the default if your PHP setup matches locally.
 
 ## Installation
 
