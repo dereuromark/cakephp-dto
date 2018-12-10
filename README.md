@@ -19,7 +19,7 @@ Especially with PHP 7.1 and more strict typehinting moving forward this is rathe
 - We can use tools like PHPStan to statically analyze the code (more strictly).
 - We can simplify the logic where required fields will now just throw a meaningful exception.
 - We can work with different inflections of field names more easily.
-- Easy way of immutable DTos with required fields, to trust them in following code.
+- Easy way of immutable DTOs with required fields, to trust them in following code.
 
 For more see [Motivation and Background](/docs/Motivation.md).
 
