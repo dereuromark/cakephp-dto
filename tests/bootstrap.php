@@ -25,8 +25,8 @@ define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . APP_DIR . DS);
 
 require dirname(__DIR__) . '/vendor/autoload.php';
-require CONFIG . 'bootstrap.php';
 require CORE_PATH . 'config/bootstrap.php';
+require CONFIG . 'bootstrap.php';
 
 Cake\Core\Configure::write('App', [
 	'namespace' => 'App',
