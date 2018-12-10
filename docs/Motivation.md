@@ -40,7 +40,7 @@ The single most important benefits you get with these generated DTOs:
 
 ### Why not entities
 
-We could just bake more entities. But those are, as their namespace suggests, linked to their Table classes, the ORM and to actual tables in the DB.
+We could just bake more entities. But those are, as their namespace suggests, linked to their Table classes, the ORM and to actual rows in the DB tables.
 They have stuff (like dirty/persisted) we don't need need for basic value objects. They have a not so clean property access we don't want either.
 The more speaking and precise, the better.
 
