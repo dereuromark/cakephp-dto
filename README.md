@@ -28,7 +28,7 @@ This plugin will provide you with a tool to quickly generate custom and optimize
 ## Examples
 
 See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
-The generated demo DTOs of those are in `tests/test_app/src/Dto/`. 
+The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/). 
 
 
 ## Installation
