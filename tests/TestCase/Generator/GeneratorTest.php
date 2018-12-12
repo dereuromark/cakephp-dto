@@ -178,6 +178,10 @@ class GeneratorTest extends TestCase {
 		$this->assertNotContains(' getMaxAltitudeOrFail(', file_get_contents($file));
 		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
 		$this->assertContains(' getComplexAttributesOrFail(', file_get_contents($file));
+
+		$this->assertNotContains(' hasMaxAltitude(', file_get_contents($file));
+		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
+		$this->assertContains(' hasComplexAttributes(', file_get_contents($file));
 	}
 
 	/**

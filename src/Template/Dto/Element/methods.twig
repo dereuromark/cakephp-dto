@@ -11,7 +11,9 @@
 {% element 'method_get_or_fail' field %}
 
 {% endif %}
+{% if field.nullable or field.defaultValue is null %}
 {% element 'method_has' field %}
+{% endif %}
 {% if immutable %}
 {% if field.collectionType == '\\Cake\\Collection\\Collection' %}
 {% element 'method_with_added_cake_collection' field %}
