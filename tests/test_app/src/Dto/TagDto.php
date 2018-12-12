@@ -167,11 +167,5 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 		return $this->weight;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasWeight() {
-		return $this->weight !== null;
-	}
 
 }

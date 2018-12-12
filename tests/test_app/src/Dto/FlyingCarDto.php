@@ -16,7 +16,7 @@ class FlyingCarDto extends CarDto {
 	const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
 
 	/**
-	 * @var int|null
+	 * @var int
 	 */
 	protected $maxAltitude;
 
@@ -94,7 +94,7 @@ class FlyingCarDto extends CarDto {
 	];
 
 	/**
-	 * @param int|null $maxAltitude
+	 * @param int $maxAltitude
 	 *
 	 * @return $this
 	 */
@@ -106,31 +106,12 @@ class FlyingCarDto extends CarDto {
 	}
 
 	/**
-	 * @return int|null
+	 * @return int
 	 */
 	public function getMaxAltitude() {
 		return $this->maxAltitude;
 	}
 
-	/**
-	 * @throws \RuntimeException If value is not set.
-	 *
-	 * @return int
-	 */
-	public function getMaxAltitudeOrFail() {
-		if (!isset($this->maxAltitude)) {
-			throw new \RuntimeException('Value not set for field `maxAltitude` (expected to be not null)');
-		}
-
-		return $this->maxAltitude;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasMaxAltitude() {
-		return $this->maxAltitude !== null;
-	}
 
 	/**
 	 * @param int $maxSpeed
@@ -151,12 +132,6 @@ class FlyingCarDto extends CarDto {
 		return $this->maxSpeed;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasMaxSpeed() {
-		return $this->maxSpeed !== null;
-	}
 
 	/**
 	 * @param array|null $complexAttributes
