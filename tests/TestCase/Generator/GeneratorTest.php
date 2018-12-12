@@ -52,6 +52,8 @@ class GeneratorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		Configure::write('CakeDto.scalarTypeHints', false);
+
 		// Why needed?
 		EventManager::instance()->on(new ExtensionsListener());
 		EventManager::instance()->on(new TokenParsersListener());
@@ -59,8 +61,6 @@ class GeneratorTest extends TestCase {
 		$this->generator = $this->createGenerator();
 
 		$this->prepareDirectories();
-
-		Configure::write('CakeDto.scalarTypeHints', false);
 	}
 
 	/**
@@ -171,6 +171,36 @@ class GeneratorTest extends TestCase {
 
 		$file = $this->srcPath . 'Dto' . DS . 'CarDto.php';
 		$this->assertTemplateContains('ScalarTypeHints/CarDto.setDistanceTravelled', $file);
+
+		$file = $this->srcPath . 'Dto' . DS . 'FlyingCarDto.php';
+		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxAltitude', $file);
+		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxSpeed', $file);
+		$this->assertContains(' getMaxAltitudeOrFail(', file_get_contents($file));
+		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testScalarTypeHintsDefaultValueRequiredFalse() {
+		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
+
+		$xml = ROOT . DS . 'tests/files/xml/scalar_default_required_false.xml';
+		copy($xml, $this->configPath . 'dto.xml');
+
+		Configure::write('CakeDto.scalarTypeHints', true);
+		$this->generator = $this->createGenerator();
+
+		$options = [
+			'confirm' => true,
+			'force' => true,
+		];
+		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
+
+		$this->assertSame(2, $result);
+
+		$file = $this->srcPath . 'Dto' . DS . 'DefaultValueDto.php';
+		$this->assertTemplateContains('ScalarTypeHints/DefaultValueDto.setDefaultedOptionalField', $file);
 	}
 
 	/**

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="DefaultValue">
+		<field name="defaultedOptionalField" type="int" defaultValue="0" required="false" />
+	</dto>
+
+</dtos>

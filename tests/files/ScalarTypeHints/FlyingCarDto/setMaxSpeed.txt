@@ -1,0 +1,11 @@
+	/**
+	 * @param int $maxSpeed
+	 *
+	 * @return $this
+	 */
+	public function setMaxSpeed(int $maxSpeed) {
+		$this->maxSpeed = $maxSpeed;
+		$this->_touchedFields[self::FIELD_MAX_SPEED] = true;
+
+		return $this;
+	}
