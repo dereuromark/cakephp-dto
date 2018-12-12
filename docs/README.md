@@ -154,7 +154,7 @@ They automatically make non-required fields required (and not nullable) this way
 ```xml
 defaultValue="0" required="false"
 ```
-This similar to DB and for example not nullable integer columns with `0` as default value.
+This similar to DB and e.g. not nullable integer columns with `0` as default value.
 
 `null` is not a default value, but set via boolean `required` key independently from this and means you can set or get `null` as value.
 In PHP7.1+ this will have not an effect on default value behavior, 

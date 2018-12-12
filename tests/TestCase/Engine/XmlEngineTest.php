@@ -213,6 +213,11 @@ class XmlEngineTest extends TestCase {
 						'name' => 'defaultedBoolField',
 						'type' => 'bool',
 						'defaultValue' => true
+					],
+					'defaultedStringField' => [
+						'name' => 'defaultedStringField',
+						'type' => 'string',
+						'defaultValue' => ''
 					]
 				]
 			]
