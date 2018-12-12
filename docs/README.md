@@ -150,7 +150,10 @@ Based on the type of field, it will transform/cast values accordingly:
 - bool: string `true`/`false` become boolean values.
 
 Default values must be simple scalar values. 
-They automatically make non-required fields required (and not nullable) this way, unless specified differently.
+They automatically make non-required fields required (and not nullable) this way, unless specified differently:
+```xml
+defaultValue="0" required="false"
+```
 This similar to DB and for example not nullable integer columns with `0` as default value.
 
 Null is not a default value, but set via `nullable` key independently from this and means you can set or get null.
