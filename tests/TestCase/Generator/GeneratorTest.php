@@ -175,8 +175,9 @@ class GeneratorTest extends TestCase {
 		$file = $this->srcPath . 'Dto' . DS . 'FlyingCarDto.php';
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxAltitude', $file);
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxSpeed', $file);
-		$this->assertContains(' getMaxAltitudeOrFail(', file_get_contents($file));
+		$this->assertNotContains(' getMaxAltitudeOrFail(', file_get_contents($file));
 		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
+		$this->assertContains(' getComplexAttributesOrFail(', file_get_contents($file));
 	}
 
 	/**

@@ -40,7 +40,7 @@ class FlyingCarDto extends CarDto {
 			'name' => 'maxAltitude',
 			'type' => 'int',
 			'defaultValue' => 0,
-			'required' => false,
+			'required' => true,
 			'isDto' => false,
 			'class' => null,
 			'singularClass' => null,

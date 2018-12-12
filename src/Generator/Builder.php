@@ -248,9 +248,9 @@ class Builder {
 		$fields = $dto['fields'];
 		foreach ($fields as $field => $data) {
 			$data += [
-				'required' => false,
+				'required' => isset($data['defaultValue']),
 				'defaultValue' => null,
-				'nullable' => true,
+				'nullable' => empty($data['required']),
 				'isArray' => false,
 				'isDto' => false,
 				'class' => null,

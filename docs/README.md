@@ -143,13 +143,15 @@ You can add fields on top. You must not change already existing parent field att
 ### Default Value and Nullable
 Sometimes it can be handy to define a default value for a field.
 ```xml
-defaultValue="true"
+defaultValue="0"
 ```
 Based on the type of field, it will transform/cast values accordingly:
 - int, float: Simple cast
 - bool: string `true`/`false` become boolean values.
 
-Default values must be simple scalar values are only allowed for non-required fields.
+Default values must be simple scalar values. 
+They automatically make non-required fields required (and not nullable) this way, unless specified differently.
+This similar to DB and for example not nullable integer columns with `0` as default value.
 
 Null is not a default value, but set via `nullable` key independently from this and means you can set or get null.
 In PHP7.1+ this will have not an effect on default value behavior, 

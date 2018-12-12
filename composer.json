@@ -61,7 +61,7 @@
 		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/ tests/test_app/src/Dto/",
 		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
 		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/test_app/src/Dto/ --extensions=php src/ tests/",
-		"cs-fix": "phpcbf --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/test_app/src/Dto/ --extensions=php src/ tests/",
+		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/test_app/src/Dto/ --extensions=php src/ tests/",
 		"generate": "php tests/generate.php",
 		"generate-dry": "php tests/generate.php --dry-run"
 	}

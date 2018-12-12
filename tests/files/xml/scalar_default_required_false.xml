@@ -6,6 +6,7 @@
 
 	<dto name="DefaultValue">
 		<field name="defaultedOptionalField" type="int" defaultValue="0" required="false" />
+		<field name="defaultedBoolField" type="bool" defaultValue="true"/>
 	</dto>
 
 </dtos>

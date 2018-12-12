@@ -191,4 +191,33 @@ class XmlEngineTest extends TestCase {
 		$this->assertSame($expected, $result, print_r($result, true));
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testParseDefaultValue() {
+		$exampleXml = ROOT . DS . 'tests/files/xml/scalar_default_required_false.xml';
+		$content = file_get_contents($exampleXml);
+
+		$result = $this->engine->parse($content);
+		$expected = [
+			'DefaultValue' => [
+				'name' => 'DefaultValue',
+				'fields' => [
+					'defaultedOptionalField' => [
+						'name' => 'defaultedOptionalField',
+						'type' => 'int',
+						'defaultValue' => 0,
+						'required' => false
+					],
+					'defaultedBoolField' => [
+						'name' => 'defaultedBoolField',
+						'type' => 'bool',
+						'defaultValue' => true
+					]
+				]
+			]
+		];
+		$this->assertSame($expected, $result, print_r($result, true));
+	}
+
 }
