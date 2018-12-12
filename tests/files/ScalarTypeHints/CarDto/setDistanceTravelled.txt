@@ -3,7 +3,7 @@
 	 *
 	 * @return $this
 	 */
-	public function setDistanceTravelled(?int $distanceTravelled = null) {
+	public function setDistanceTravelled(?int $distanceTravelled) {
 		$this->distanceTravelled = $distanceTravelled;
 		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
 

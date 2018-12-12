@@ -7,7 +7,7 @@
 	 *
 	 * @return $this
 	 */
-	public function set{{ name[:1]|upper ~ name[1:] }}({% if typeHint %}{{ typeHint }} {% endif %}${{ name }}{% if typeHint and nullable %} = null{% endif %}) {
+	public function set{{ name[:1]|upper ~ name[1:] }}({% if typeHint %}{{ typeHint }} {% endif %}${{ name }}{% if typeHint and nullable and not scalarTypeHints %} = null{% endif %}) {
 		$this->{{ name }} = ${{ name }};
 		$this->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
 
