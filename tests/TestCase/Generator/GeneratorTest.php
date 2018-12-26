@@ -164,6 +164,9 @@ class GeneratorTest extends TestCase {
 
 		$this->assertSame(2, $result);
 
+		$file = $this->srcPath . 'Dto' . DS . 'MyForest' . DS . 'MyTreeDto.php';
+		$this->assertTemplateContains('Namespaced/MyTreeDto.setValue', $file);
+
 		$file = $this->srcPath . 'Dto' . DS . 'MyForest' . DS . 'MySpecialTreeDto.php';
 		$content = file_get_contents($file);
 		$expected = <<<TXT

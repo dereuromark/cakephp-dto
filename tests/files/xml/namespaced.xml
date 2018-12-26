@@ -6,7 +6,7 @@
 
 	<dto name="MyForest/MyTree">
 		<field name="type" type="string" />
-		<field name="size" type="int"/>
+		<field name="value" type="mixed"/>
 	</dto>
 
 	<dto name="MyForest/MySpecialTree" extends="MyForest/MyTree">

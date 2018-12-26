@@ -37,7 +37,14 @@ class Builder {
 		'string',
 		'bool',
 		'callable',
+	];
+
+	/**
+	 * @var array
+	 */
+	protected $simpleTypeAdditionsForDocBlock = [
 		'resource',
+		'mixed', // Not for [] array notation
 	];
 
 	/**
@@ -170,7 +177,7 @@ class Builder {
 	 * @return bool
 	 */
 	protected function isValidType($type) {
-		if ($this->isValidSimpleType($type)) {
+		if ($this->isValidSimpleType($type, $this->simpleTypeAdditionsForDocBlock)) {
 			return true;
 		}
 		if ($this->isValidDto($type) || $this->isValidInterfaceOrClass($type)) {
@@ -281,7 +288,7 @@ class Builder {
 		}
 
 		foreach ($fields as $key => $field) {
-			if ($this->isValidSimpleType($field['type'])) {
+			if ($this->isValidSimpleType($field['type'], $this->simpleTypeAdditionsForDocBlock)) {
 				continue;
 			}
 			if ($this->isValidDto($field['type'])) {
@@ -636,7 +643,10 @@ class Builder {
 	 * @return string|null
 	 */
 	protected function typehint($type) {
-		if (!$this->_config['scalarTypeHints'] && in_array($type, $this->simpleTypeWhitelist)) {
+		if (in_array($type, $this->simpleTypeAdditionsForDocBlock, true)) {
+			return null;
+		}
+		if (!$this->_config['scalarTypeHints'] && in_array($type, $this->simpleTypeWhitelist, true)) {
 			return null;
 		}
 
