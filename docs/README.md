@@ -113,10 +113,11 @@ Simple scalars and types:
 - `resource`
 - `iterable` (requires PHP 7.1+)
 - `object` (requires PHP 7.2+)
+- `mixed`
 
 Simple array types:
 - `array` without array typehinting, but no further annotation (assumes "mixed" type)
-- `...[]` with array typehinting and concrete annotation
+- `...[]` with array typehinting and concrete annotation ("mixed is not allowed here)
 
 Concrete objects:
 - DTOs (without suffix)
