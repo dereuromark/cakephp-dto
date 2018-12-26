@@ -132,6 +132,16 @@ Collections (require `type="array"` or `type="...[]"`):
 For collections you will also have `add{SingularName}()` methods as convenience wrappers available to add to the existing stack.
 So here it is important to either manually define `singular="..."`, or make sure it can be auto-singularized (it tries to inflect the singular from the plural name).
 
+### Namespaces
+If you plan on using DTOs a lot, it is advised to namespace them. Instead of a long flat collection of DTOs, you can nest them in subfolders.
+This also prevents you from having to be more and more creative - as class names must be unique per namespace.
+
+The namespace is defined as prefix, ending with a slash (and could contain multiple levels even):
+```xml
+<dto name="MyForest/MyTree">
+```
+This will generate a DTO `MyTreeDto` inside `src/Dto/MyForest/` then.
+
 ### Extending DTOs
 
 You can extend an existing DTO to add additional fields for custom use cases:

@@ -176,13 +176,13 @@ abstract class Dto implements Serializable, ArrayAccess {
 				$field = $this->field($field, $type);
 			}
 
-			if ($this->_metadata[$field]['isDto']) {
+			if ($this->_metadata[$field]['dto']) {
 				$value = $this->createDto($field, $value, $ignoreMissing, $type);
 			} elseif ($this->_metadata[$field]['collectionType'] && $this->_metadata[$field]['collectionType'] !== 'array') {
 				$collectionType = $this->_metadata[$field]['collectionType'];
-				$elementType = $this->_metadata[$field]['singularClass'];
+				$elementType = $this->_metadata[$field]['singularType'];
 				if (!$elementType) {
-					throw new RuntimeException('Missing singularClass for collection ' . $collectionType);
+					throw new RuntimeException('Missing singularType for collection ' . $collectionType);
 				}
 				if ($collectionType === '\Cake\\Collection\\Collection') {
 					$value = $this->createCakeCollection($elementType, $value, $ignoreMissing, $type);
@@ -246,7 +246,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	 */
 	protected function createDto($field, $value, $ignoreMissing, $type) {
 		/** @var \CakeDto\Dto\AbstractDto $dto */
-		$className = $this->_metadata[$field]['class'];
+		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
 			$value = new $className($value, $ignoreMissing, $type);
@@ -263,7 +263,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	 */
 	protected function createObject($field, $value) {
 		/** @var \CakeDto\Dto\FromArrayToArrayInterface $className */
-		$className = $this->_metadata[$field]['class'];
+		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
 			$value = $className::createFromArray($value);

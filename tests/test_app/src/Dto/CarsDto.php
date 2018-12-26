@@ -14,7 +14,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	const FIELD_CARS = 'cars';
 
 	/**
-	 * @var CarDto[]|\ArrayObject
+	 * @var \TestApp\Dto\CarDto[]|\ArrayObject
 	 */
 	protected $cars;
 
@@ -26,16 +26,15 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	protected $_metadata = [
 		'cars' => [
 			'name' => 'cars',
-			'type' => 'CarDto[]|\ArrayObject',
+			'type' => '\TestApp\Dto\CarDto[]|\ArrayObject',
 			'associative' => true,
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => '\TestApp\Dto\CarDto',
+			'dto' => null,
 			'collectionType' => '\ArrayObject',
 			'serializable' => false,
 			'toArray' => false,
+			'singularType' => '\TestApp\Dto\CarDto',
 		],
 	];
 
@@ -52,7 +51,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	];
 
 	/**
-	 * @param CarDto[]|\ArrayObject $cars
+	 * @param \TestApp\Dto\CarDto[]|\ArrayObject $cars
 	 *
 	 * @return $this
 	 */
@@ -64,7 +63,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @return CarDto[]|\ArrayObject
+	 * @return \TestApp\Dto\CarDto[]|\ArrayObject
 	 */
 	public function getCars() {
 		if ($this->cars === null) {
@@ -77,7 +76,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param string $key
 	 *
-	 * @return CarDto
+	 * @return \TestApp\Dto\CarDto
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
@@ -110,10 +109,10 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param string $key
-	 * @param CarDto $car
+	 * @param \TestApp\Dto\CarDto $car
 	 * @return $this
 	 */
-	public function addCar($key, CarDto $car) {
+	public function addCar($key, \TestApp\Dto\CarDto $car) {
 		if (!isset($this->cars)) {
 			$this->cars = new \ArrayObject([]);
 		}

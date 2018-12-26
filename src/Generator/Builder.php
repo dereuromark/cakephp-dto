@@ -48,14 +48,14 @@ class Builder {
 	protected $metaDataKeys = [
 		'name',
 		'type',
-		'class',
-		'singularClass',
+		'isClass',
 		'serializable',
 		'required',
 		'defaultValue',
-		'isDto',
+		'dto',
 		'toArray',
 		'collectionType',
+		'singularType',
 		'associative',
 	];
 
@@ -110,7 +110,7 @@ class Builder {
 		foreach ($config as $name => $dto) {
 			$this->_validateDto($dto);
 			$dto = $this->_complete($dto, $namespace);
-			$dto = $this->_completeMeta($dto);
+			$dto = $this->_completeMeta($dto, $namespace);
 
 			$dto += [
 				'immutable' => $this->_config['immutable'],
@@ -119,7 +119,7 @@ class Builder {
 				'extends' => '\\CakeDto\\Dto\\AbstractDto',
 			];
 
-			if (!empty($dto['immutable'])) {
+			if (!empty($dto['immutable']) && $dto['extends'] === '\\CakeDto\\Dto\\AbstractDto') {
 				$dto['extends'] = '\\CakeDto\\Dto\\AbstractImmutableDto';
 			}
 
@@ -146,6 +146,20 @@ class Builder {
 			}
 
 			$config[$name] += $this->_config;
+		}
+
+		foreach ($config as $name => $dto) {
+			if (strpos($dto['className'], '/') !== false) {
+				$pieces = explode('/', $dto['className']);
+				$dto['className'] = array_pop($pieces);
+				$dto['namespace'] .= '\\' . implode('\\', $pieces);
+			}
+			if (strpos($dto['extends'], '/') !== false) {
+				$pieces = explode('/', $dto['extends']);
+				$dto['extends'] = '\\' . $namespace . '\Dto\\' . implode('\\', $pieces);
+			}
+
+			$config[$name] = $dto;
 		}
 
 		return $config;
@@ -180,12 +194,11 @@ class Builder {
 			throw new InvalidArgumentException('DTO name missing, but required.');
 		}
 		$dtoName = $dto['name'];
-		$expected = Inflector::camelize(Inflector::underscore($dtoName));
-		if ($dtoName !== $expected) {
-			throw new InvalidArgumentException(sprintf('Invalid DTO name `%s`, expected `%s`', $dtoName, $expected));
+		if (!$this->isValidDto($dtoName)) {
+			throw new InvalidArgumentException(sprintf('Invalid DTO name `%s`.', $dtoName));
 		}
 
-		if (!empty($dto['extends']) && !preg_match('/^[A-Z][a-zA-Z]+$/', $dto['extends'])) {
+		if (!empty($dto['extends']) && !$this->isValidDto($dto['extends'])) {
 			throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Only DTOs are allowed.', $dtoName, $dto['extends']));
 		}
 
@@ -252,9 +265,7 @@ class Builder {
 				'defaultValue' => null,
 				'nullable' => empty($data['required']),
 				'isArray' => false,
-				'isDto' => false,
-				'class' => null,
-				'singularClass' => null,
+				'dto' => null,
 				'collection' => false,
 				'collectionType' => null,
 				'associative' => false,
@@ -274,8 +285,7 @@ class Builder {
 				continue;
 			}
 			if ($this->isValidDto($field['type'])) {
-				$fields[$key]['isDto'] = true;
-				$fields[$key]['class'] = '\\' . $namespace . '\\Dto\\' . $field['type'] . 'Dto';
+				$fields[$key]['dto'] = $field['type'];
 				continue;
 			}
 			if ($this->isCollection($field)) {
@@ -285,28 +295,28 @@ class Builder {
 
 				$fields[$key] = $this->_completeCollectionSingular($fields[$key], $dto['name'], $namespace);
 
-				if (preg_match('#^([A-Z]\w+)\[\]$#', $field['type'], $matches)) {
-					$fields[$key]['type'] = $matches[1] . 'Dto[]';
+				if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $field['type'], $matches)) {
+					$fields[$key]['type'] = $this->dtoTypeToClass($matches[1], $namespace) . '[]';
 				}
 
 				continue;
 			}
 			if ($this->isValidArray($field['type'])) {
 				$fields[$key]['isArray'] = true;
-				if (preg_match('#^([A-Z]\w+)\[\]$#', $field['type'], $matches)) {
-					$fields[$key]['type'] = $matches[1] . 'Dto[]';
+				if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $field['type'], $matches)) {
+					$fields[$key]['type'] = $this->dtoTypeToClass($matches[1], $namespace) . '[]';
 				}
 
 				continue;
 			}
 
 			if ($this->isValidInterfaceOrClass($field['type'])) {
-				$fields[$key]['class'] = $field['type'];
+				$fields[$key]['isClass'] = true;
 
-				$serializable = is_subclass_of($fields[$key]['class'], FromArrayToArrayInterface::class);
+				$serializable = is_subclass_of($fields[$key]['type'], FromArrayToArrayInterface::class);
 				$fields[$key]['serializable'] = $serializable;
 				if (!$serializable) {
-					$fields[$key]['toArray'] = method_exists($fields[$key]['class'], 'toArray');
+					$fields[$key]['toArray'] = method_exists($fields[$key]['type'], 'toArray');
 				}
 
 				continue;
@@ -348,16 +358,20 @@ class Builder {
 
 		$data['singularType'] = $this->singularType($data['type']);
 		if ($this->isValidDto($data['singularType'])) {
-			$data['singularType'] .= 'Dto';
-			$data['singularClass'] = '\\' . $namespace . '\\Dto\\' . $data['singularType'];
+			$data['singularType'] = $this->dtoTypeToClass($data['singularType'], $namespace);
+			$data['singularClass'] = $data['singularType'];
 		}
 
 		if (!empty($data['singular'])) {
 			return $data;
 		}
 
-		if (preg_match('#^([A-Z]\w+)\[\]$#', $data['type'], $matches)) {
+		if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $data['type'], $matches)) {
 			$singular = $matches[1];
+
+			if (strpos($singular, '/') !== false) {
+				$singular = substr($singular, strrpos($singular, '/') + 1);
+			}
 
 			$data['singular'] = lcfirst($singular);
 
@@ -376,25 +390,29 @@ class Builder {
 
 	/**
 	 * @param array $dto
+	 * @param string $namespace
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _completeMeta(array $dto) {
+	protected function _completeMeta(array $dto, $namespace) {
 		$fields = $dto['fields'];
 
 		foreach ($fields as $key => $field) {
-			$fields[$key]['typeHint'] = $this->typehint($field['type']);
-
-			if ($field['isDto']) {
-				$fields[$key]['typeHint'] = $field['type'] . 'Dto';
-				$fields[$key]['type'] = $field['type'] . 'Dto';
+			if ($field['dto']) {
+				$className = $this->dtoTypeToClass($field['type'], $namespace);
+				$fields[$key]['type'] = $className;
+				$fields[$key]['typeHint'] = $className;
+			} else {
+				$fields[$key]['typeHint'] = $field['type'];
 			}
+			$fields[$key]['typeHint'] = $this->typehint($fields[$key]['typeHint']);
 
 			if ($field['collection']) {
 				if ($field['collectionType'] === 'array') {
 					$fields[$key]['typeHint'] = 'array';
 				} else {
 					$fields[$key]['typeHint'] = $field['collectionType'];
+
 					$fields[$key]['type'] .= '|' . $fields[$key]['typeHint'];
 				}
 			}
@@ -418,6 +436,7 @@ class Builder {
 					'singularReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {
+
 					$fields[$key]['singularTypeHint'] = $this->typehint($fields[$key]['singularType']);
 				}
 
@@ -453,14 +472,31 @@ class Builder {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	protected function isValidDto($name) {
+		if (!preg_match('#^[A-Z][a-zA-Z/]+$#', $name)) {
+			return false;
+		}
+
+		$pieces = explode('/', $name);
+		foreach ($pieces as $piece) {
+			$expected = Inflector::camelize(Inflector::underscore($piece));
+			if ($piece !== $expected) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * @param string $type
 	 *
 	 * @return bool
 	 */
-	protected function isValidDto($type) {
-		return (bool)preg_match('#^[A-Z]\w+$#', $type);
-	}
-
 	protected function isValidArray($type) {
 		if ($type === 'array') {
 			return true;
@@ -652,6 +688,15 @@ class Builder {
 		$finderClass = $this->_config['finder'];
 
 		return new $finderClass();
+	}
+
+	/**
+	 * @param string $singularType
+	 * @param string $namespace
+	 * @return string
+	 */
+	protected function dtoTypeToClass($singularType, $namespace) {
+		return '\\' . $namespace . '\\Dto\\' . str_replace('/', '\\', $singularType) . 'Dto';
 	}
 
 }

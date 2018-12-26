@@ -50,7 +50,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	protected $manufactured;
 
 	/**
-	 * @var OwnerDto|null
+	 * @var \TestApp\Dto\OwnerDto|null
 	 */
 	protected $owner;
 
@@ -65,22 +65,19 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'type' => '\TestApp\ValueObject\Paint',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => '\TestApp\ValueObject\Paint',
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => true,
 			'toArray' => false,
+			'isClass' => true,
 		],
 		'isNew' => [
 			'name' => 'isNew',
 			'type' => 'bool',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -91,9 +88,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'type' => 'float',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -104,9 +99,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'type' => 'int',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -117,9 +110,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'type' => 'string[]',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -130,22 +121,19 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'type' => '\Cake\I18n\FrozenDate',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => '\Cake\I18n\FrozenDate',
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
+			'isClass' => true,
 		],
 		'owner' => [
 			'name' => 'owner',
-			'type' => 'OwnerDto',
+			'type' => '\TestApp\Dto\OwnerDto',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => true,
-			'class' => '\TestApp\Dto\OwnerDto',
-			'singularClass' => null,
+			'dto' => 'Owner',
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -412,11 +400,11 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param OwnerDto|null $owner
+	 * @param \TestApp\Dto\OwnerDto|null $owner
 	 *
 	 * @return $this
 	 */
-	public function setOwner(OwnerDto $owner = null) {
+	public function setOwner(\TestApp\Dto\OwnerDto $owner = null) {
 		$this->owner = $owner;
 		$this->_touchedFields[self::FIELD_OWNER] = true;
 
@@ -424,7 +412,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @return OwnerDto|null
+	 * @return \TestApp\Dto\OwnerDto|null
 	 */
 	public function getOwner() {
 		return $this->owner;
@@ -433,7 +421,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @throws \RuntimeException If value is not set.
 	 *
-	 * @return OwnerDto
+	 * @return \TestApp\Dto\OwnerDto
 	 */
 	public function getOwnerOrFail() {
 		if (!isset($this->owner)) {

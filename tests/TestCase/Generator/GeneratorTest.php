@@ -152,6 +152,34 @@ class GeneratorTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testNamespaced() {
+		$xml = ROOT . DS . 'tests/files/xml/namespaced.xml';
+		copy($xml, $this->configPath . 'dto.xml');
+
+		$options = [
+			'confirm' => true,
+			'force' => true,
+		];
+		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
+
+		$this->assertSame(2, $result);
+
+		$file = $this->srcPath . 'Dto' . DS . 'MyForest' . DS . 'MySpecialTreeDto.php';
+		$content = file_get_contents($file);
+		$expected = <<<TXT
+namespace App\Dto\MyForest;
+
+/**
+ * MyForest/MySpecialTree DTO
+ */
+class MySpecialTreeDto extends \App\Dto\MyForest\MyTreeDto {
+TXT;
+		$this->assertTextContains($expected, $content);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testScalarTypeHints() {
 		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
 

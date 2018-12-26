@@ -74,8 +74,8 @@ class BuilderTest extends TestCase {
 		];
 		$this->assertSame($expected, array_keys($result));
 
-		$this->assertTrue($result['Car']['fields']['owner']['isDto']);
-		$this->assertSame('OwnerDto', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('Owner', $result['Car']['fields']['owner']['dto']);
+		$this->assertSame('\App\Dto\OwnerDto', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('\Cake\I18n\FrozenDate', $result['Car']['fields']['manufactured']['type']);
 
 		$this->assertFalse($result['Car']['fields']['attributes']['collection']);
@@ -134,15 +134,14 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'isArray' => true,
-			'isDto' => false,
+			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
-			'class' => null,
+
 			'typeHint' => 'array',
 			'deprecated' => null,
 			'serializable' => false,
 			'toArray' => false,
-			'singularClass' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -154,15 +153,14 @@ class BuilderTest extends TestCase {
 			'defaultValue' => null,
 			'nullable' => true,
 			'isArray' => true,
-			'isDto' => false,
+			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
-			'class' => null,
+
 			'typeHint' => 'array',
 			'deprecated' => null,
 			'serializable' => false,
 			'toArray' => false,
-			'singularClass' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -174,9 +172,9 @@ class BuilderTest extends TestCase {
 			'defaultValue' => null,
 			'nullable' => false,
 			'isArray' => false,
-			'isDto' => false,
+			'dto' => null,
 			'collection' => true,
-			'class' => null,
+
 			'collectionType' => '\ArrayObject',
 			'singular' => 'collectionAttribute',
 			'singularType' => 'string',
@@ -186,7 +184,7 @@ class BuilderTest extends TestCase {
 			'deprecated' => null,
 			'serializable' => false,
 			'toArray' => false,
-			'singularClass' => null,
+
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
 
@@ -199,9 +197,9 @@ class BuilderTest extends TestCase {
 			'collectionType' => 'array',
 			'associative' => true,
 			'isArray' => false,
-			'isDto' => false,
+			'dto' => null,
 			'collection' => true,
-			'class' => null,
+
 			'singular' => 'arrayAttribute',
 			'singularType' => 'string',
 			'singularTypeHint' => null,
@@ -210,7 +208,7 @@ class BuilderTest extends TestCase {
 			'deprecated' => null,
 			'serializable' => false,
 			'toArray' => false,
-			'singularClass' => null,
+
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
 
@@ -222,11 +220,10 @@ class BuilderTest extends TestCase {
 			'nullable' => false,
 			'collectionType' => '\Cake\Collection\Collection',
 			'isArray' => false,
-			'isDto' => false,
+			'dto' => null,
 			'associative' => false,
 			'collection' => true,
-			'class' => null,
-			'singularClass' => null,
+
 			'singularType' => 'string',
 			'singularTypeHint' => null,
 			'singularReturnTypeHint' => null,
