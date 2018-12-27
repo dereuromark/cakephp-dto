@@ -24,7 +24,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $id;
 
 	/**
-	 * @var AuthorDto
+	 * @var \TestApp\Dto\AuthorDto
 	 */
 	protected $author;
 
@@ -39,7 +39,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $created;
 
 	/**
-	 * @var TagDto[]
+	 * @var \TestApp\Dto\TagDto[]
 	 */
 	protected $tags;
 
@@ -59,9 +59,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => 'int',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -69,12 +67,10 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		],
 		'author' => [
 			'name' => 'author',
-			'type' => 'AuthorDto',
+			'type' => '\TestApp\Dto\AuthorDto',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => true,
-			'class' => '\TestApp\Dto\AuthorDto',
-			'singularClass' => null,
+			'dto' => 'Author',
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -85,9 +81,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => 'string',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -98,26 +92,24 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => '\Cake\I18n\FrozenDate',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => '\Cake\I18n\FrozenDate',
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
+			'isClass' => true,
 		],
 		'tags' => [
 			'name' => 'tags',
-			'type' => 'TagDto[]',
+			'type' => '\TestApp\Dto\TagDto[]',
 			'collectionType' => 'array',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => '\TestApp\Dto\TagDto',
+			'dto' => null,
 			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
+			'singularType' => '\TestApp\Dto\TagDto',
 		],
 		'meta' => [
 			'name' => 'meta',
@@ -126,11 +118,10 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'collectionType' => 'array',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'serializable' => false,
 			'toArray' => false,
+			'singularType' => 'string',
 		],
 	];
 
@@ -184,11 +175,11 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param AuthorDto $author
+	 * @param \TestApp\Dto\AuthorDto $author
 	 *
 	 * @return static
 	 */
-	public function withAuthor(AuthorDto $author) {
+	public function withAuthor(\TestApp\Dto\AuthorDto $author) {
 		$new = clone $this;
 		$new->author = $author;
 		$new->_touchedFields[self::FIELD_AUTHOR] = true;
@@ -197,7 +188,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return AuthorDto
+	 * @return \TestApp\Dto\AuthorDto
 	 */
 	public function getAuthor() {
 		return $this->author;
@@ -265,7 +256,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param TagDto[] $tags
+	 * @param \TestApp\Dto\TagDto[] $tags
 	 *
 	 * @return static
 	 */
@@ -278,7 +269,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return TagDto[]
+	 * @return \TestApp\Dto\TagDto[]
 	 */
 	public function getTags() {
 		if ($this->tags === null) {
@@ -299,10 +290,10 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		return count($this->tags) > 0;
 	}
 	/**
-	 * @param TagDto $tag
+	 * @param \TestApp\Dto\TagDto $tag
 	 * @return static
 	 */
-	public function withAddedTag(TagDto $tag) {
+	public function withAddedTag(\TestApp\Dto\TagDto $tag) {
 		$new = clone $this;
 
 		if (!isset($new->tags)) {

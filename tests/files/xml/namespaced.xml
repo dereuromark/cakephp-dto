@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="MyForest/MyTree">
+		<field name="type" type="string" />
+		<field name="value" type="mixed"/>
+	</dto>
+
+	<dto name="MyForest/MySpecialTree" extends="MyForest/MyTree">
+		<field name="colors" type="string[]" collection="true"/>
+	</dto>
+
+	<dto name="MyForest/Animal">
+		<field name="home" type="MyForest/MyTree"/>
+	</dto>
+
+</dtos>

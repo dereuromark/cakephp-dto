@@ -5,8 +5,9 @@ namespace CakeDto\Generator;
 use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
 use Cake\Console\Shell;
-use DirectoryIterator;
 use Exception;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class Generator {
 
@@ -81,6 +82,10 @@ class Generator {
 			}
 
 			$target = $srcPath . 'Dto' . DS . $name . 'Dto.php';
+			$targetPath = dirname($target);
+			if (!is_dir($targetPath)) {
+				mkdir($targetPath, 0700, true);
+			}
 
 			if ($isModified) {
 				$this->io->out('Changes in ' . $name . ' DTO:', 1, Shell::VERBOSE);
@@ -125,14 +130,12 @@ class Generator {
 
 		$files = [];
 
-		$iterator = new DirectoryIterator($path);
+		$directory = new RecursiveDirectoryIterator($path);
+		$iterator = new RecursiveIteratorIterator($directory);
 		foreach ($iterator as $fileInfo) {
-			if ($fileInfo->isDot()) {
-				continue;
-			}
 
 			$file = $fileInfo->getPathname();
-			if (!preg_match('/^(\w+)Dto\.php$/', $fileInfo->getFilename(), $matches)) {
+			if (!preg_match('#src/Dto/(\w+/\w+|\w+)Dto\.php$#', $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];

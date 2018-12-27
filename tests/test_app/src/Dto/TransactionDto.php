@@ -17,7 +17,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	const FIELD_CREATED = 'created';
 
 	/**
-	 * @var CustomerAccountDto
+	 * @var \TestApp\Dto\CustomerAccountDto
 	 */
 	protected $customerAccount;
 
@@ -44,12 +44,10 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $_metadata = [
 		'customerAccount' => [
 			'name' => 'customerAccount',
-			'type' => 'CustomerAccountDto',
+			'type' => '\TestApp\Dto\CustomerAccountDto',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => true,
-			'class' => '\TestApp\Dto\CustomerAccountDto',
-			'singularClass' => null,
+			'dto' => 'CustomerAccount',
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -60,9 +58,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => 'float',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -73,9 +69,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => 'string',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
@@ -86,13 +80,12 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'type' => '\Cake\I18n\FrozenDate',
 			'required' => true,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => '\Cake\I18n\FrozenDate',
-			'singularClass' => null,
+			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
+			'isClass' => true,
 		],
 	];
 
@@ -115,11 +108,11 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	];
 
 	/**
-	 * @param CustomerAccountDto $customerAccount
+	 * @param \TestApp\Dto\CustomerAccountDto $customerAccount
 	 *
 	 * @return static
 	 */
-	public function withCustomerAccount(CustomerAccountDto $customerAccount) {
+	public function withCustomerAccount(\TestApp\Dto\CustomerAccountDto $customerAccount) {
 		$new = clone $this;
 		$new->customerAccount = $customerAccount;
 		$new->_touchedFields[self::FIELD_CUSTOMER_ACCOUNT] = true;
@@ -128,7 +121,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return CustomerAccountDto
+	 * @return \TestApp\Dto\CustomerAccountDto
 	 */
 	public function getCustomerAccount() {
 		return $this->customerAccount;

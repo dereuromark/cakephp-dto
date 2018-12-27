@@ -14,7 +14,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	const FIELD_PAGES = 'pages';
 
 	/**
-	 * @var PageDto[]|\Cake\Collection\Collection
+	 * @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
 	 */
 	protected $pages;
 
@@ -26,16 +26,15 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $_metadata = [
 		'pages' => [
 			'name' => 'pages',
-			'type' => 'PageDto[]|\Cake\Collection\Collection',
+			'type' => '\TestApp\Dto\PageDto[]|\Cake\Collection\Collection',
 			'collectionType' => '\Cake\Collection\Collection',
 			'required' => false,
 			'defaultValue' => null,
-			'isDto' => false,
-			'class' => null,
-			'singularClass' => '\TestApp\Dto\PageDto',
+			'dto' => null,
 			'associative' => false,
 			'serializable' => false,
 			'toArray' => false,
+			'singularType' => '\TestApp\Dto\PageDto',
 		],
 	];
 
@@ -52,7 +51,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	];
 
 	/**
-	 * @param PageDto[]|\Cake\Collection\Collection $pages
+	 * @param \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
 	 *
 	 * @return static
 	 */
@@ -65,7 +64,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return PageDto[]|\Cake\Collection\Collection
+	 * @return \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
 	 */
 	public function getPages() {
 		if ($this->pages === null) {
@@ -86,10 +85,10 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 		return $this->pages->count() > 0;
 	}
 	/**
-	 * @param PageDto $page
+	 * @param \TestApp\Dto\PageDto $page
 	 * @return static
 	 */
-	public function withAddedPage(PageDto $page) {
+	public function withAddedPage(\TestApp\Dto\PageDto $page) {
 		$new = clone $this;
 
 		if (!isset($new->pages)) {
