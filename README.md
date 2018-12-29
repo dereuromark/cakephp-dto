@@ -28,6 +28,8 @@ This plugin will provide you with a tool to quickly generate custom and optimize
 
 ## Examples
 
+Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
+
 See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
 The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/). 
 
