@@ -357,6 +357,32 @@ $fooDto->hasBar('a'); // returns true
 $fooDto->hasBar('c'); // returns false
 ```
 
+#### fromArray() and key option
+When importing from an array, sometimes these arrays are not yet associative. Instead of having to manually do that, you can use `key="myKey"` to do that when creating the DTO.
+The collection type must be array though, and the incoming data type, as well.
+It can then use the key on the data to set the key for the collection element:
+```json
+ "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "f29513"
+    }
+  ],
+```
+will transform into the DTO field as associative array collection:
+```php
+'labels' => [
+	'bug' => ... {
+		'data' => [
+			'name' => 'bug',
+			'color' => 'f29513'
+		],
+		...
+	}
+],
+```
+
 ### serialize() and unserialize()
 These methods should be used carefully, for security reasons.
 Make sure none of the values are dangerous objects. Best to use only for scalar values.

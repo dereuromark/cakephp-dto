@@ -137,7 +137,7 @@ class BuilderTest extends TestCase {
 			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
-
+			'key' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
 			'serializable' => false,
@@ -156,7 +156,7 @@ class BuilderTest extends TestCase {
 			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
-
+			'key' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
 			'serializable' => false,
@@ -174,7 +174,7 @@ class BuilderTest extends TestCase {
 			'isArray' => false,
 			'dto' => null,
 			'collection' => true,
-
+			'key' => null,
 			'collectionType' => '\ArrayObject',
 			'singular' => 'collectionAttribute',
 			'singularType' => 'string',
@@ -199,7 +199,7 @@ class BuilderTest extends TestCase {
 			'isArray' => false,
 			'dto' => null,
 			'collection' => true,
-
+			'key' => null,
 			'singular' => 'arrayAttribute',
 			'singularType' => 'string',
 			'singularTypeHint' => null,
@@ -223,7 +223,7 @@ class BuilderTest extends TestCase {
 			'dto' => null,
 			'associative' => false,
 			'collection' => true,
-
+			'key' => null,
 			'singularType' => 'string',
 			'singularTypeHint' => null,
 			'singularReturnTypeHint' => null,

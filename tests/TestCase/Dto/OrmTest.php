@@ -54,11 +54,11 @@ class OrmTest extends TestCase {
 			'tags' => [
 				[
 					'id' => 3,
-					'name' => 'Awesome'
+					'name' => 'Awesome',
 				],
 				[
 					'id' => 4,
-					'name' => 'Shiny'
+					'name' => 'Shiny',
 				]
 			]
 		];

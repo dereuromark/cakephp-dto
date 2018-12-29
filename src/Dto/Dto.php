@@ -108,7 +108,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 				if ($value instanceof self) {
 					$values[$key] = $touched ? $value->touchedToArray($type) : $value->toArray($type);
 				} elseif ($value instanceof Countable && $value->count()) {
-					$values = $this->addValuesToCollection($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
+					$values = $this->transformCollectiontoArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
 				} elseif ($this->_metadata[$field]['serializable']) {
 					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
 					$values[$key] = $value->toArray();
@@ -120,6 +120,10 @@ abstract class Dto implements Serializable, ArrayAccess {
 					$values[$key] = $value;
 				}
 				continue;
+			}
+
+			if ($value && $this->_metadata[$field]['collectionType'] === 'array') {
+				$value = $this->transformArrayCollectionToArray($value, $touched ? 'touchedToArray' : 'toArray', $type);
 			}
 
 			$values[$key] = $value;
@@ -137,7 +141,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	 *
 	 * @return array
 	 */
-	protected function addValuesToCollection($value, $values, $arrayKey, $childConvertMethodName, $type) {
+	protected function transformCollectiontoArray($value, $values, $arrayKey, $childConvertMethodName, $type) {
 		foreach ($value as $elementKey => $arrayElement) {
 			if (is_array($arrayElement) || is_scalar($arrayElement)) {
 				$values[$arrayKey][$elementKey] = $arrayElement;
@@ -149,6 +153,25 @@ abstract class Dto implements Serializable, ArrayAccess {
 		}
 
 		return $values;
+	}
+
+	/**
+	 * @param mixed $array
+	 * @param string $childConvertMethodName
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	protected function transformArrayCollectionToArray(array $array, $childConvertMethodName, $type) {
+		foreach ($array as $elementKey => $arrayElement) {
+			if (is_array($arrayElement) || is_scalar($arrayElement)) {
+				continue;
+			}
+
+			$array[$elementKey] = $arrayElement->$childConvertMethodName($type);
+		}
+
+		return $array;
 	}
 
 	/**
@@ -189,8 +212,14 @@ abstract class Dto implements Serializable, ArrayAccess {
 				} else {
 					$value = $this->createCollection($collectionType, $elementType, $value, $ignoreMissing, $type);
 				}
-			} elseif ($this->_metadata[$field]['collectionType'] === 'array') {
-				// Nothing needed
+			} elseif ($this->_metadata[$field]['collectionType'] && $this->_metadata[$field]['collectionType'] === 'array') {
+				$elementType = $this->_metadata[$field]['singularType'];
+				$key = $this->_metadata[$field]['associative'];
+				if ($this->_metadata[$field]['associative'] && $this->_metadata[$field]['key']) {
+					$key = $this->_metadata[$field]['key'];
+				}
+				$value = $this->createArrayCollection($elementType, $value, $ignoreMissing, $type, $key);
+
 			} elseif ($this->_metadata[$field]['serializable']) {
 				$value = $this->createObject($field, $value);
 			}
@@ -304,6 +333,71 @@ abstract class Dto implements Serializable, ArrayAccess {
 				$collection->append($dto);
 			}
 		}
+
+		return $collection;
+	}
+
+	/**
+	 * @param string $elementType
+	 * @param array|\ArrayObject $arrayObject
+	 * @param bool $ignoreMissing
+	 * @param string $type
+	 * @param string|bool $key
+	 *
+	 * @return \ArrayObject
+	 */
+	protected function createArrayCollection($elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT, $key = false) {
+		$collection = [];
+		foreach ($arrayObject as $index => $arrayElement) {
+			if (!is_array($arrayElement)) {
+				$collection = $this->addValueToArrayCollection($collection, new $elementType(), $arrayElement, $index, $key);
+				continue;
+			}
+
+			if (array_values($arrayElement) !== $arrayElement) {
+				/** @var \CakeDto\Dto\Dto $dto */
+				$dto = new $elementType($arrayElement, $ignoreMissing, $type);
+				$collection = $this->addValueToArrayCollection($collection, $dto, $arrayElement, $index, $key);
+
+				continue;
+			}
+
+			foreach ($arrayElement as $arrayElementItem) {
+				/** @var \CakeDto\Dto\Dto $dto */
+				$dto = new $elementType($arrayElementItem, $ignoreMissing, $type);
+				$collection = $this->addValueToArrayCollection($collection, $dto, $arrayElement, $index, $key);
+			}
+		}
+
+		return $collection;
+	}
+
+	/**
+	 * @param array $collection
+	 * @param mixed $element
+	 * @param mixed $arrayElement
+	 * @param string|int $index
+	 * @param string|bool $key
+	 *
+	 * @return array
+	 */
+	protected function addValueToArrayCollection(array $collection, $element, $arrayElement, $index, $key) {
+		if ($key === false) {
+			$collection[] = $element;
+
+			return $collection;
+		}
+		if ($key === true) {
+			$collection[(string)$index] = $element;
+
+			return $collection;
+		}
+
+		if (is_array($arrayElement) && isset($arrayElement[$key])) {
+			$index = $arrayElement[$key];
+		}
+
+		$collection[(string)$index] = $element;
 
 		return $collection;
 	}

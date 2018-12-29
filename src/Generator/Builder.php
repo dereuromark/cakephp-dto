@@ -64,6 +64,7 @@ class Builder {
 		'collectionType',
 		'singularType',
 		'associative',
+		'key',
 	];
 
 	/**
@@ -276,6 +277,7 @@ class Builder {
 				'collection' => false,
 				'collectionType' => null,
 				'associative' => false,
+				'key' => null,
 				'deprecated' => null,
 				'serializable' => false,
 				'toArray' => false,
