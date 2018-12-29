@@ -156,7 +156,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	}
 
 	/**
-	 * @param mixed $array
+	 * @param array $array
 	 * @param string $childConvertMethodName
 	 * @param string $type
 	 *
@@ -344,7 +344,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	 * @param string $type
 	 * @param string|bool $key
 	 *
-	 * @return \ArrayObject
+	 * @return array
 	 */
 	protected function createArrayCollection($elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT, $key = false) {
 		$collection = [];

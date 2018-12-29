@@ -34,6 +34,7 @@ class OldOneDto extends CarDto {
 			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
+			'key' => null,
 			'serializable' => false,
 			'toArray' => false,
 		],
