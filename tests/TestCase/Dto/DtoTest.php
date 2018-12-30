@@ -327,8 +327,19 @@ class DtoTest extends TestCase {
 	}
 
 	/**
-	 * isset() apparently is also true for empty (null value).
-	 *
+	 * @return void
+	 */
+	public function testField() {
+		$carDto = new CarDto();
+
+		$field = $carDto->field('distance_travelled', $carDto::TYPE_UNDERSCORED);
+		$this->assertSame('distanceTravelled', $field);
+
+		$field = $carDto->field('distance-travelled', $carDto::TYPE_DASHED);
+		$this->assertSame('distanceTravelled', $field);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function testPropertyAccess() {
