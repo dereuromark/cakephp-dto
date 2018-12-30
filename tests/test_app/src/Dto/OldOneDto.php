@@ -9,6 +9,8 @@ namespace TestApp\Dto;
 /**
  * OldOne DTO
  *
+ * @property string|null $name
+ *
  * @deprecated Yeah, sry
  */
 class OldOneDto extends CarDto {

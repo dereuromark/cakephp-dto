@@ -8,6 +8,8 @@ namespace TestApp\Dto;
 
 /**
  * Cars DTO
+ *
+ * @property \TestApp\Dto\CarDto[]|\ArrayObject $cars
  */
 class CarsDto extends \CakeDto\Dto\AbstractDto {
 

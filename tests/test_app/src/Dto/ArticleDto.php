@@ -8,6 +8,13 @@ namespace TestApp\Dto;
 
 /**
  * Article DTO
+ *
+ * @property int $id
+ * @property \TestApp\Dto\AuthorDto $author
+ * @property string $title
+ * @property \Cake\I18n\FrozenDate $created
+ * @property \TestApp\Dto\TagDto[] $tags
+ * @property string[] $meta
  */
 class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 

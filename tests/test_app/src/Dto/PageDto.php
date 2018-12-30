@@ -8,6 +8,9 @@ namespace TestApp\Dto;
 
 /**
  * Page DTO
+ *
+ * @property int $number
+ * @property string|null $content
  */
 class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 

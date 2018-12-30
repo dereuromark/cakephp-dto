@@ -8,6 +8,11 @@ namespace TestApp\Dto;
 
 /**
  * Transaction DTO
+ *
+ * @property \TestApp\Dto\CustomerAccountDto $customerAccount
+ * @property float $value
+ * @property string|null $comment
+ * @property \Cake\I18n\FrozenDate $created
  */
 class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 

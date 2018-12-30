@@ -8,6 +8,7 @@ namespace TestApp\Dto;
 
 /**
  * EmptyOne DTO
+ *
  */
 class EmptyOneDto extends \CakeDto\Dto\AbstractDto {
 

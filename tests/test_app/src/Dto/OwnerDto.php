@@ -8,6 +8,9 @@ namespace TestApp\Dto;
 
 /**
  * Owner DTO
+ *
+ * @property string|null $name
+ * @property int|null $birthYear
  */
 class OwnerDto extends \CakeDto\Dto\AbstractDto {
 

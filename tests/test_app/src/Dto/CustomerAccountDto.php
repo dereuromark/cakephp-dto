@@ -8,6 +8,9 @@ namespace TestApp\Dto;
 
 /**
  * CustomerAccount DTO
+ *
+ * @property string $customerName
+ * @property int|null $birthYear
  */
 class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 

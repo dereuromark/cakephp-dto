@@ -8,6 +8,14 @@ namespace TestApp\Dto;
 
 /**
  * Car DTO
+ *
+ * @property \TestApp\ValueObject\Paint|null $color
+ * @property bool|null $isNew
+ * @property float|null $value
+ * @property int|null $distanceTravelled
+ * @property string[]|null $attributes
+ * @property \Cake\I18n\FrozenDate|null $manufactured
+ * @property \TestApp\Dto\OwnerDto|null $owner
  */
 class CarDto extends \CakeDto\Dto\AbstractDto {
 
