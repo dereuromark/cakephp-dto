@@ -579,6 +579,10 @@ abstract class Dto implements Serializable {
 			$field = $this->field($field, $type);
 		}
 
+		if (!isset($this->_metadata[$field])) {
+			throw new RuntimeException('Field does not exist: ' . $field);
+		}
+
 		$method = 'has' . ucfirst($field);
 
 		return $this->$method();
@@ -593,6 +597,10 @@ abstract class Dto implements Serializable {
 	public function &get($field, $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
+		}
+
+		if (!isset($this->_metadata[$field])) {
+			throw new RuntimeException('Field does not exist: ' . $field);
 		}
 
 		$method = 'get' . ucfirst($field);
@@ -612,6 +620,10 @@ abstract class Dto implements Serializable {
 	public function set($field, $value, $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
+		}
+
+		if (!isset($this->_metadata[$field])) {
+			throw new RuntimeException('Field does not exist: ' . $field);
 		}
 
 		$method = 'set' . ucfirst($field);
