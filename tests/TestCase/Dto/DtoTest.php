@@ -5,7 +5,6 @@ namespace CakeDto\Test\TestCase\Dto;
 use ArrayObject;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
-use RuntimeException;
 use TestApp\Dto\CarDto;
 use TestApp\Dto\CarsDto;
 use TestApp\Dto\FlyingCarDto;
@@ -334,15 +333,15 @@ class DtoTest extends TestCase {
 	public function testArrayAccess() {
 		$dto = new CarDto();
 
-		$this->assertTrue(isset($dto['distanceTravelled']));
-		$this->assertTrue(empty($dto['distanceTravelled']));
+		$this->assertTrue(isset($dto->distanceTravelled));
+		$this->assertTrue(empty($dto->distanceTravelled));
 
 		$dto->setDistanceTravelled(111);
 
-		$this->assertTrue(isset($dto['distanceTravelled']));
-		$this->assertTrue(!empty($dto['distanceTravelled']));
+		$this->assertTrue(isset($dto->distanceTravelled));
+		$this->assertTrue(!empty($dto->distanceTravelled));
 
-		$result = $dto['distanceTravelled'];
+		$result = $dto->distanceTravelled;
 		$this->assertSame(111, $result);
 	}
 
@@ -350,11 +349,6 @@ class DtoTest extends TestCase {
 	 * @return void
 	 */
 	public function testArrayAccessInvalidWrite() {
-		$dto = new CarDto();
-
-		$this->expectException(RuntimeException::class);
-
-		$dto['distanceTravelled'] = 111;
 	}
 
 	/**

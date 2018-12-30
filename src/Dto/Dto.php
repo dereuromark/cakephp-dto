@@ -2,7 +2,6 @@
 
 namespace CakeDto\Dto;
 
-use ArrayAccess;
 use CakeDto\View\Json;
 use Cake\Collection\Collection;
 use Countable;
@@ -10,7 +9,7 @@ use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
 
-abstract class Dto implements Serializable, ArrayAccess {
+abstract class Dto implements Serializable {
 
 	/**
 	 * Convenience wrapper for easier chaining.
@@ -482,7 +481,7 @@ abstract class Dto implements Serializable, ArrayAccess {
 	 * @return string
 	 * @throws \InvalidArgumentException
 	 */
-	protected function field($name, $type) {
+	public function field($name, $type) {
 		if (!isset($this->_keyMap[$type][$name])) {
 			throw new InvalidArgumentException(sprintf('Invalid field lookup for type `%s`: `%s` does not exist.', $type, $name));
 		}
@@ -537,50 +536,88 @@ abstract class Dto implements Serializable, ArrayAccess {
 	}
 
 	/**
-	 * Whether a offset exists
+	 * Magic getter to access properties that have been set in this entity
 	 *
-	 * @link https://php.net/manual/en/arrayaccess.offsetexists.php
-	 * @param string $offset
+	 * @param string $property Name of the property to access
+	 * @return mixed
+	 */
+	public function &__get($property) {
+		return $this->get($property);
+	}
+
+	/**
+	 * Magic setter to add or edit a property in this entity
+	 *
+	 * @param string $property The name of the property to set
+	 * @param mixed $value The value to set to the property
+	 * @return void
+	 */
+	public function __set($property, $value) {
+		$this->set($property, $value);
+	}
+
+	/**
+	 * Returns whether this entity contains a property named $property
+	 * regardless of if it is empty.
+	 *
+	 * @param string $property The property to check.
 	 * @return bool
+	 * @see \Cake\ORM\Entity::has()
 	 */
-	public function offsetExists($offset) {
-		return isset($this->_metadata[$offset]);
+	public function __isset($property) {
+		return $this->has($property);
 	}
 
 	/**
-	 * Offset to retrieve
-	 *
-	 * @link https://php.net/manual/en/arrayaccess.offsetget.php
-	 * @param string $offset
-	 * @return mixed Can return all value types.
+	 * @param string $field
+	 * @param string $type
+	 * @return bool
+	 * @throws \RuntimeException
 	 */
-	public function offsetGet($offset) {
-		return $this->$offset;
+	public function has($field, $type = self::TYPE_DEFAULT) {
+		if ($type !== static::TYPE_DEFAULT) {
+			$field = $this->field($field, $type);
+		}
+
+		$method = 'has' . ucfirst($field);
+
+		return $this->$method();
 	}
 
 	/**
-	 * Offset to set
-	 *
-	 * @link https://php.net/manual/en/arrayaccess.offsetset.php
-	 * @param string $offset
+	 * @param string $field
+	 * @param string $type
+	 * @return mixed
+	 * @throws \RuntimeException
+	 */
+	public function &get($field, $type = self::TYPE_DEFAULT) {
+		if ($type !== static::TYPE_DEFAULT) {
+			$field = $this->field($field, $type);
+		}
+
+		$method = 'get' . ucfirst($field);
+
+		$result = $this->$method();
+
+		return $result;
+	}
+
+	/**
+	 * @param string $field
 	 * @param mixed $value
-	 * @return void
+	 * @param string $type
+	 * @return $this
 	 * @throws \RuntimeException
 	 */
-	public function offsetSet($offset, $value) {
-		throw new RuntimeException('DTO object as an array can only be read');
-	}
+	public function set($field, $value, $type = self::TYPE_DEFAULT) {
+		if ($type !== static::TYPE_DEFAULT) {
+			$field = $this->field($field, $type);
+		}
 
-	/**
-	 * Offset to unset
-	 *
-	 * @link https://php.net/manual/en/arrayaccess.offsetunset.php
-	 * @param string $offset
-	 * @return void
-	 * @throws \RuntimeException
-	 */
-	public function offsetUnset($offset) {
-		throw new RuntimeException('DTO object as an array can only be read');
+		$method = 'set' . ucfirst($field);
+		$this->$method($value);
+
+		return $this;
 	}
 
 }
