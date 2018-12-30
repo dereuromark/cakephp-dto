@@ -319,9 +319,9 @@ class DtoTest extends TestCase {
 	 * @return void
 	 */
 	public function testDebugInfo() {
-		$dto = new CarDto();
+		$carDto = new CarDto();
 
-		$result = $dto->__debugInfo();
+		$result = $carDto->__debugInfo();
 		$this->assertSame(['data', 'touched', 'extends', 'immutable'], array_keys($result));
 	}
 
@@ -330,25 +330,31 @@ class DtoTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testArrayAccess() {
-		$dto = new CarDto();
+	public function testPropertyAccess() {
+		$carDto = new CarDto();
 
-		$this->assertTrue(isset($dto->distanceTravelled));
-		$this->assertTrue(empty($dto->distanceTravelled));
+		$this->assertFalse(isset($carDto->distanceTravelled));
+		$this->assertFalse(!empty($carDto->distanceTravelled));
 
-		$dto->setDistanceTravelled(111);
+		$carDto->setDistanceTravelled(111);
 
-		$this->assertTrue(isset($dto->distanceTravelled));
-		$this->assertTrue(!empty($dto->distanceTravelled));
+		$this->assertTrue(isset($carDto->distanceTravelled));
+		$this->assertTrue(!empty($carDto->distanceTravelled));
 
-		$result = $dto->distanceTravelled;
+		$result = $carDto->distanceTravelled;
 		$this->assertSame(111, $result);
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testArrayAccessInvalidWrite() {
+	public function testPropertyAccessWrite() {
+		$carDto = new CarDto();
+
+		$carDto->distanceTravelled = 111;
+
+		$result = $carDto->distanceTravelled;
+		$this->assertSame(111, $result);
 	}
 
 	/**
