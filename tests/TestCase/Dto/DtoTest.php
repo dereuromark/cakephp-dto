@@ -320,41 +320,66 @@ class DtoTest extends TestCase {
 	 * @return void
 	 */
 	public function testDebugInfo() {
-		$dto = new CarDto();
+		$carDto = new CarDto();
 
-		$result = $dto->__debugInfo();
+		$result = $carDto->__debugInfo();
 		$this->assertSame(['data', 'touched', 'extends', 'immutable'], array_keys($result));
 	}
 
 	/**
-	 * isset() apparently is also true for empty (null value).
-	 *
 	 * @return void
 	 */
-	public function testArrayAccess() {
-		$dto = new CarDto();
+	public function testField() {
+		$carDto = new CarDto();
 
-		$this->assertTrue(isset($dto['distanceTravelled']));
-		$this->assertTrue(empty($dto['distanceTravelled']));
+		$field = $carDto->field('distance_travelled', $carDto::TYPE_UNDERSCORED);
+		$this->assertSame('distanceTravelled', $field);
 
-		$dto->setDistanceTravelled(111);
+		$field = $carDto->field('distance-travelled', $carDto::TYPE_DASHED);
+		$this->assertSame('distanceTravelled', $field);
+	}
 
-		$this->assertTrue(isset($dto['distanceTravelled']));
-		$this->assertTrue(!empty($dto['distanceTravelled']));
+	/**
+	 * @return void
+	 */
+	public function testPropertyAccess() {
+		$carDto = new CarDto();
 
-		$result = $dto['distanceTravelled'];
+		$this->assertNull($carDto->distanceTravelled);
+
+		$this->assertFalse(isset($carDto->distanceTravelled));
+		$this->assertFalse(!empty($carDto->distanceTravelled));
+
+		$carDto->setDistanceTravelled(111);
+
+		$this->assertTrue(isset($carDto->distanceTravelled));
+		$this->assertTrue(!empty($carDto->distanceTravelled));
+
+		$result = $carDto->distanceTravelled;
 		$this->assertSame(111, $result);
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testArrayAccessInvalidWrite() {
-		$dto = new CarDto();
+	public function testPropertyAccessWrite() {
+		$carDto = new CarDto();
+
+		$carDto->distanceTravelled = 111;
+
+		$result = $carDto->distanceTravelled;
+		$this->assertSame(111, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testPropertyAccessWriteInvalid() {
+		$carDto = new CarDto();
 
 		$this->expectException(RuntimeException::class);
 
-		$dto['distanceTravelled'] = 111;
+		$carDto->distance_travelled = 111;
 	}
 
 	/**

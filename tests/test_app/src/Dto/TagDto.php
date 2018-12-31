@@ -8,6 +8,10 @@ namespace TestApp\Dto;
 
 /**
  * Tag DTO
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $weight
  */
 class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 

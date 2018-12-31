@@ -9,6 +9,7 @@ namespace {{ namespace }};
 
 /**
  * {{ name }} DTO
+{% element 'doc' fields %}
  {% if deprecated is not null -%}
  *
  * @deprecated {{ deprecated }}

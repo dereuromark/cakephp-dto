@@ -8,6 +8,10 @@ namespace TestApp\Dto;
 
 /**
  * FlyingCar DTO
+ *
+ * @property int $maxAltitude
+ * @property int $maxSpeed
+ * @property array|null $complexAttributes
  */
 class FlyingCarDto extends CarDto {
 

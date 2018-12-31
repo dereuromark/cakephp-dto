@@ -174,6 +174,10 @@ namespace App\Dto\MyForest;
 
 /**
  * MyForest/MySpecialTree DTO
+TXT;
+		$this->assertTextContains($expected, $content);
+
+		$expected = <<<TXT
  */
 class MySpecialTreeDto extends \App\Dto\MyForest\MyTreeDto {
 TXT;

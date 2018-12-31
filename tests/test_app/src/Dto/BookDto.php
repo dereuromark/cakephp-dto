@@ -8,6 +8,8 @@ namespace TestApp\Dto;
 
 /**
  * Book DTO
+ *
+ * @property \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
  */
 class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 

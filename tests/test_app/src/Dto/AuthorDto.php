@@ -8,6 +8,10 @@ namespace TestApp\Dto;
 
 /**
  * Author DTO
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $email
  */
 class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 

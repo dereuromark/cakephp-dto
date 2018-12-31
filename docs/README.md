@@ -387,6 +387,20 @@ will transform into the DTO field as associative array collection:
 These methods should be used carefully, for security reasons.
 Make sure none of the values are dangerous objects. Best to use only for scalar values.
 
+### Property access
+In some cases it can be easier to use `->get('myField')` or `->myField` access.
+Especially with a programmatic access to the DTO you will find this easier than manually inflecting.
+```php
+$field = 'myField';
+$value = $dto->$field;
+```
+The advantage of the property access here is to retain full return-type-hinting.
+
+In case you only have the underscored or dashed version, you need to call `field()` first.
+```php
+$field = $dto->field('my_field'); // returns 'myField'
+$dto->set($field, $value);
+```
 
 ### PHP Template Usage
 Inside templates just annotate the variables passed down in the doc block at the top:

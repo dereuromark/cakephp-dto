@@ -8,6 +8,9 @@ namespace TestApp\Dto;
 
 /**
  * MutableMeta DTO
+ *
+ * @property string $title
+ * @property string[] $meta
  */
 class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 
