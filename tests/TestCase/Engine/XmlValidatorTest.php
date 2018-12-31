@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace CakeDto\Test\TestCase\Engine;
 
 use CakeDto\Engine\XmlValidator;
 use Cake\TestSuite\TestCase;

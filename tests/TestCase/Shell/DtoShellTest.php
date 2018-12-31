@@ -11,7 +11,7 @@ use TestApp\TestSuite\ConsoleOutput;
 class DtoShellTest extends TestCase {
 
 	/**
-	 * @var \CakeDto\Shell\DtoShell
+	 * @var \CakeDto\Shell\DtoShell|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	protected $shell;
 

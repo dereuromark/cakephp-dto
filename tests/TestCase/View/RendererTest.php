@@ -35,7 +35,7 @@ class RendererTest extends TestCase {
 	public function tearDown() {
 		parent::tearDown();
 
-		unset($this->builder);
+		unset($this->renderer);
 
 		Configure::delete('CakeDto.strictTypes');
 	}

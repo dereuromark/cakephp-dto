@@ -69,7 +69,7 @@ class GeneratorTest extends TestCase {
 	public function tearDown() {
 		parent::tearDown();
 
-		unset($this->builder);
+		unset($this->generator);
 
 		Configure::write('CakeDto.scalarTypeHints', false);
 	}

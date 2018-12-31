@@ -79,13 +79,12 @@ class DtoTest extends TestCase {
 			'color' => 'blue',
 			'distanceTravelled' => 66,
 		];
-		$dto = new CarDto($array, CarDto::TYPE_DEFAULT, true);
+		$dto = new CarDto($array, true, CarDto::TYPE_DEFAULT);
 		$this->assertInstanceOf(CarDto::class, $dto);
 
 		$this->expectException(InvalidArgumentException::class);
 
-		$dto = new CarDto($array);
-		$this->assertInstanceOf(CarDto::class, $dto);
+		new CarDto($array);
 	}
 
 	/**
