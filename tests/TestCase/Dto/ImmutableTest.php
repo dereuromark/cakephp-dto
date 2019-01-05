@@ -128,6 +128,8 @@ class ImmutableTest extends TestCase {
 	 * @return void
 	 */
 	public function testPropertyAccessFails() {
+		$this->skipIf(version_compare(PHP_VERSION, '7.0') < 0, 'Fatal error before PHP 7.');
+
 		$bookDto = new BookDto();
 		$pages = $bookDto->pages;
 		$this->assertSame(0, $pages->count());
