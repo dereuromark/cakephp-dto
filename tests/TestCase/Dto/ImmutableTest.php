@@ -108,4 +108,35 @@ class ImmutableTest extends TestCase {
 		$this->assertSame($expected, $pageArray);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testWithGetHas() {
+		$bookDto = new BookDto();
+
+		$this->assertFalse($bookDto->has($bookDto::FIELD_PAGES));
+
+		$pages = new Collection([new PageDto(['number' => 1])]);
+		$bookDto = $bookDto->with('pages', $pages);
+
+		$this->assertSame(1, $bookDto->get($bookDto::FIELD_PAGES)->count());
+
+		$this->assertTrue($bookDto->has($bookDto::FIELD_PAGES));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testPropertyAccessFails() {
+		$this->skipIf(version_compare(PHP_VERSION, '7.0') < 0, 'Fatal error before PHP 7.');
+
+		$bookDto = new BookDto();
+		$pages = $bookDto->pages;
+		$this->assertSame(0, $pages->count());
+
+		$this->expectException('Error');
+
+		$bookDto->pages = new Collection([]);
+	}
+
 }

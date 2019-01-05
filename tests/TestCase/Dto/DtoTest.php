@@ -341,6 +341,20 @@ class DtoTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testSetGetHas() {
+		$carDto = new CarDto();
+
+		$this->assertFalse($carDto->has($carDto::FIELD_DISTANCE_TRAVELLED));
+
+		$carDto->set($carDto::FIELD_DISTANCE_TRAVELLED, 11);
+		$this->assertSame(11, $carDto->get($carDto::FIELD_DISTANCE_TRAVELLED));
+
+		$this->assertTrue($carDto->has($carDto::FIELD_DISTANCE_TRAVELLED));
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testPropertyAccess() {
 		$carDto = new CarDto();
 
