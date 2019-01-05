@@ -3,6 +3,7 @@
 namespace CakeDto\Dto;
 
 use CakeDto\View\Json;
+use RuntimeException;
 
 abstract class AbstractImmutableDto extends Dto {
 
@@ -42,6 +43,27 @@ abstract class AbstractImmutableDto extends Dto {
 		$new->setFromArray($jsonUtil->decode($serialized, true), $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
 
 		return $new;
+	}
+
+	/**
+	 * @param string $field
+	 * @param mixed $value
+	 * @param string $type
+	 * @return static
+	 * @throws \RuntimeException
+	 */
+	public function with($field, $value, $type = self::TYPE_DEFAULT) {
+		if ($type !== static::TYPE_DEFAULT) {
+			$field = $this->field($field, $type);
+		}
+
+		if (!isset($this->_metadata[$field])) {
+			throw new RuntimeException('Field does not exist: ' . $field);
+		}
+
+		$method = 'with' . ucfirst($field);
+
+		return $this->$method($value);
 	}
 
 }

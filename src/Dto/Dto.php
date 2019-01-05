@@ -546,17 +546,6 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * Magic setter to add or edit a property in this entity
-	 *
-	 * @param string $property The name of the property to set
-	 * @param mixed $value The value to set to the property
-	 * @return void
-	 */
-	public function __set($property, $value) {
-		$this->set($property, $value);
-	}
-
-	/**
 	 * Returns whether this entity contains a property named $property
 	 * regardless of if it is empty.
 	 *
@@ -608,28 +597,6 @@ abstract class Dto implements Serializable {
 		$result = $this->$method();
 
 		return $result;
-	}
-
-	/**
-	 * @param string $field
-	 * @param mixed $value
-	 * @param string $type
-	 * @return $this
-	 * @throws \RuntimeException
-	 */
-	public function set($field, $value, $type = self::TYPE_DEFAULT) {
-		if ($type !== static::TYPE_DEFAULT) {
-			$field = $this->field($field, $type);
-		}
-
-		if (!isset($this->_metadata[$field])) {
-			throw new RuntimeException('Field does not exist: ' . $field);
-		}
-
-		$method = 'set' . ucfirst($field);
-		$this->$method($value);
-
-		return $this;
 	}
 
 }
