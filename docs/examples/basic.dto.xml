@@ -12,7 +12,6 @@
 		<field name="attributes" type="string[]" />
 		<field name="manufactured" type="\Cake\I18n\FrozenDate" />
 		<field name="owner" type="Owner"/>
-		<field name="service" type="string[]|int|float"/>
 	</dto>
 
 	<dto name="Cars">
