@@ -280,8 +280,10 @@ class BuilderTest extends TestCase {
 		$this->builder->build(TMP);
 	}
 
-	public function testUnionOfSimpleType()
-	{
+	/**
+	 * @return void
+	 */
+	public function testUnionOfSimpleType() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
