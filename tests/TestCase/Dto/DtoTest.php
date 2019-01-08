@@ -103,7 +103,6 @@ class DtoTest extends TestCase {
 			'value' => null,
 			'manufactured' => null,
 			'owner' => null,
-			'service' => null,
 		];
 		ksort($expected);
 		ksort($result);
@@ -126,7 +125,6 @@ class DtoTest extends TestCase {
 			'value' => null,
 			'manufactured' => null,
 			'owner' => null,
-			'service' => null,
 		];
 		ksort($expected);
 		ksort($result);
@@ -157,7 +155,6 @@ class DtoTest extends TestCase {
 				'name' => null,
 				'birth-year' => 1960,
 			],
-			'service' => null,
 		];
 		ksort($expected);
 		ksort($result);
@@ -186,7 +183,6 @@ class DtoTest extends TestCase {
 			'value' => null,
 			'owner' => null,
 			'manufactured' => null,
-			'service' => null,
 		];
 		ksort($expected);
 		$result = $array['cars'][0];
