@@ -16,7 +16,6 @@ namespace TestApp\Dto;
  * @property string[]|null $attributes
  * @property \Cake\I18n\FrozenDate|null $manufactured
  * @property \TestApp\Dto\OwnerDto|null $owner
- * @property string[]|int|float|null $service
  */
 class CarDto extends \CakeDto\Dto\AbstractDto {
 
@@ -27,7 +26,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	const FIELD_ATTRIBUTES = 'attributes';
 	const FIELD_MANUFACTURED = 'manufactured';
 	const FIELD_OWNER = 'owner';
-	const FIELD_SERVICE = 'service';
 
 	/**
 	 * @var \TestApp\ValueObject\Paint|null
@@ -63,11 +61,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @var \TestApp\Dto\OwnerDto|null
 	 */
 	protected $owner;
-
-	/**
-	 * @var string[]|int|float|null
-	 */
-	protected $service;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -161,18 +154,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'serializable' => false,
 			'toArray' => false,
 		],
-		'service' => [
-			'name' => 'service',
-			'type' => 'string[]|int|float',
-			'required' => false,
-			'defaultValue' => null,
-			'dto' => null,
-			'collectionType' => null,
-			'associative' => false,
-			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
-		],
 	];
 
 	/**
@@ -187,7 +168,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'attributes' => 'attributes',
 			'manufactured' => 'manufactured',
 			'owner' => 'owner',
-			'service' => 'service',
 		],
 		'dashed' => [
 			'color' => 'color',
@@ -197,7 +177,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'attributes' => 'attributes',
 			'manufactured' => 'manufactured',
 			'owner' => 'owner',
-			'service' => 'service',
 		],
 	];
 
@@ -472,45 +451,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function hasOwner() {
 		return $this->owner !== null;
-	}
-
-	/**
-	 * @param string[]|int|float|null $service
-	 *
-	 * @return $this
-	 */
-	public function setService($service) {
-		$this->service = $service;
-		$this->_touchedFields[self::FIELD_SERVICE] = true;
-
-		return $this;
-	}
-
-	/**
-	 * @return string[]|int|float|null
-	 */
-	public function getService() {
-		return $this->service;
-	}
-
-	/**
-	 * @throws \RuntimeException If value is not set.
-	 *
-	 * @return string[]|int|float
-	 */
-	public function getServiceOrFail() {
-		if (!isset($this->service)) {
-			throw new \RuntimeException('Value not set for field `service` (expected to be not null)');
-		}
-
-		return $this->service;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasService() {
-		return $this->service !== null;
 	}
 
 }
