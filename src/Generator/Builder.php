@@ -567,7 +567,7 @@ class Builder {
 		}
 
 		$types = array_map(function($value) {
-			return substr($value, -2) !== '[]'? $value : substr($value, 0, -2);
+			return substr($value, -2) !== '[]' ? $value : substr($value, 0, -2);
 		}, $types);
 
 		foreach ($types as $t) {
