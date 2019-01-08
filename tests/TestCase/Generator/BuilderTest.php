@@ -280,6 +280,45 @@ class BuilderTest extends TestCase {
 		$this->builder->build(TMP);
 	}
 
+	public function testUnionOfSimpleType()
+	{
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'Demo' => [
+				'name' => 'Demo',
+				'fields' => [
+					'unionField' => [
+						'name' => 'unionField',
+						'type' => 'string[]|float|int',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'unionField',
+			'type' => 'string[]|float|int',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => null,
+			'deprecated' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionField']);
+	}
+
 	/**
 	 * @return \CakeDto\Generator\Builder|\PHPUnit\Framework\MockObject\MockObject
 	 */
