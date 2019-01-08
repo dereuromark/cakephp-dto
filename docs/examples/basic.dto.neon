@@ -7,6 +7,7 @@ Car:
 		attributes: 'string[]'
 		manufactured: '\Cake\I18n\FrozenDate'
 		owner: Owner
+		service: 'string[]|int|float'
 
 Cars:
 	fields:
