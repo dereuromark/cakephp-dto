@@ -71,6 +71,10 @@ class NeonEngineTest extends TestCase {
 					'owner' => [
 						'name' => 'owner',
 						'type' => 'Owner'
+					],
+					'service' => [
+						'name' => 'service',
+						'type' => 'string[]|int|float'
 					]
 				],
 				'name' => 'Car',
