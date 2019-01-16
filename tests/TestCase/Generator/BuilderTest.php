@@ -290,9 +290,13 @@ class BuilderTest extends TestCase {
 			'Demo' => [
 				'name' => 'Demo',
 				'fields' => [
-					'unionField' => [
+					'unionScalarField' => [
 						'name' => 'unionField',
-						'type' => 'string[]|float|int',
+						'type' => 'string|float|int',
+					],
+					'unionArrayField' => [
+						'name' => 'unionField',
+						'type' => 'string[]|int[]',
 					],
 				],
 			],
@@ -304,7 +308,7 @@ class BuilderTest extends TestCase {
 		$expected = [
 			'associative' => false,
 			'name' => 'unionField',
-			'type' => 'string[]|float|int',
+			'type' => 'string|float|int',
 			'defaultValue' => null,
 			'required' => false,
 			'nullable' => true,
@@ -318,7 +322,26 @@ class BuilderTest extends TestCase {
 			'serializable' => false,
 			'toArray' => false,
 		];
-		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionField']);
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'unionField',
+			'type' => 'string[]|int[]',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => null,
+			'deprecated' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
 
 	/**
