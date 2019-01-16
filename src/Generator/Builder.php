@@ -660,7 +660,8 @@ class Builder {
 	protected function typehint($type) {
 		// Unset the typehint for simple type unions
 		if ($this->isValidSimpleType($type)) {
-			if (count(explode('|', $type)) > 1) {
+			$types = explode('|', $type);
+			if (count($types) > 1) {
 				return null;
 			}
 		}
