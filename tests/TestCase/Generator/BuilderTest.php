@@ -291,11 +291,11 @@ class BuilderTest extends TestCase {
 				'name' => 'Demo',
 				'fields' => [
 					'unionScalarField' => [
-						'name' => 'unionField',
+						'name' => 'unionScalarField',
 						'type' => 'string|float|int',
 					],
 					'unionArrayField' => [
-						'name' => 'unionField',
+						'name' => 'unionArrayField',
 						'type' => 'string[]|int[]',
 					],
 				],
@@ -307,7 +307,7 @@ class BuilderTest extends TestCase {
 
 		$expected = [
 			'associative' => false,
-			'name' => 'unionField',
+			'name' => 'unionScalarField',
 			'type' => 'string|float|int',
 			'defaultValue' => null,
 			'required' => false,
@@ -326,7 +326,7 @@ class BuilderTest extends TestCase {
 
 		$expected = [
 			'associative' => false,
-			'name' => 'unionField',
+			'name' => 'unionArrayField',
 			'type' => 'string[]|int[]',
 			'defaultValue' => null,
 			'required' => false,
