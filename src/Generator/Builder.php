@@ -559,11 +559,24 @@ class Builder {
 	 */
 	protected function isValidSimpleType($type, array $additional = []) {
 		$whitelist = array_merge($this->simpleTypeWhitelist, $additional);
-		if (in_array($type, $whitelist, true)) {
-			return true;
+		$types = explode('|', $type);
+
+		// Non-union simple types with brackets are arrays
+		if (count($types) === 1 && substr($types[0], -2) === '[]') {
+			return false;
 		}
 
-		return false;
+		$types = array_map(function($value) {
+			return substr($value, -2) !== '[]' ? $value : substr($value, 0, -2);
+		}, $types);
+
+		foreach ($types as $t) {
+			if (!in_array($t, $whitelist, true)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -645,6 +658,13 @@ class Builder {
 	 * @return string|null
 	 */
 	protected function typehint($type) {
+		// Unset the typehint for simple type unions
+		if ($this->isValidSimpleType($type)) {
+			$types = explode('|', $type);
+			if (count($types) > 1) {
+				return null;
+			}
+		}
 		if (in_array($type, $this->simpleTypeAdditionsForDocBlock, true)) {
 			return null;
 		}

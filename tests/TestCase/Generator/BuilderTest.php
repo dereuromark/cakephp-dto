@@ -281,6 +281,70 @@ class BuilderTest extends TestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testUnionOfSimpleType() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'Demo' => [
+				'name' => 'Demo',
+				'fields' => [
+					'unionScalarField' => [
+						'name' => 'unionScalarField',
+						'type' => 'string|float|int',
+					],
+					'unionArrayField' => [
+						'name' => 'unionArrayField',
+						'type' => 'string[]|int[]',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'unionScalarField',
+			'type' => 'string|float|int',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => null,
+			'deprecated' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'unionArrayField',
+			'type' => 'string[]|int[]',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => null,
+			'deprecated' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
+	}
+
+	/**
 	 * @return \CakeDto\Generator\Builder|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	protected function createBuilder() {
