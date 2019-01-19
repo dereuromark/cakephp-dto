@@ -191,6 +191,12 @@ With PHP 7.1+ it will be a clean API with non-optional first parameter as expect
 ```
 An argument is always required, even for setting it to null: `->setManufactured(null)`
 
+
+### Union types
+In same rare cases you need to declare union types, e.g. scalar `string|int|float` or array `string[]|int[]`.
+Note that this will usually prevent more strict typehinting to be possible.
+
+
 ### Deprecations
 You can add `deprecated="Reason why"` to any DTO or a specific field of it. It will mark the methods as strike-through in your IDE.
 
