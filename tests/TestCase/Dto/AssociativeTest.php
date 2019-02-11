@@ -26,7 +26,7 @@ class AssociativeTest extends TestCase {
 	 */
 	public function testNumericKey() {
 		$array = [
-			MutableMetaDto::FIELD_TITLE=> 'blue',
+			MutableMetaDto::FIELD_TITLE => 'blue',
 		];
 		$dto = new MutableMetaDto($array);
 		$dto->addMetaValue('abc', 'abcdef');
