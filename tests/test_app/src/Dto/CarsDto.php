@@ -77,7 +77,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 *
 	 * @return \TestApp\Dto\CarDto
 	 *
@@ -103,7 +103,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @return bool
 	 */
 	public function hasCar($key) {
@@ -111,7 +111,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @param \TestApp\Dto\CarDto $car
 	 * @return $this
 	 */
