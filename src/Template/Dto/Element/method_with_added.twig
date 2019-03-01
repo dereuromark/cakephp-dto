@@ -5,7 +5,7 @@
 	 *
 {% endif %}
 {% if associative %}
-	 * @param string $key
+	 * @param string|int $key
 {% endif %}
 	 * @param {% if returnTypeHint == 'array' %}mixed{% else %}{{ singularType }}{% endif %} ${{ singular }}
 	 * @return static
