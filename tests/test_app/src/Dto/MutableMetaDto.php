@@ -124,7 +124,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 *
 	 * @return string
 	 *
@@ -150,7 +150,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @return bool
 	 */
 	public function hasMetaValue($key) {
@@ -158,7 +158,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @param string $metaValue
 	 * @return $this
 	 */

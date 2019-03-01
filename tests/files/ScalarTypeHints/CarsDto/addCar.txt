@@ -1,0 +1,15 @@
+	/**
+	 * @param string|int $key
+	 * @param \App\Dto\CarDto $car
+	 * @return $this
+	 */
+	public function addCar($key, \App\Dto\CarDto $car) {
+		if (!isset($this->cars)) {
+			$this->cars = new \ArrayObject([]);
+		}
+
+		$this->cars[$key] = $car;
+		$this->_touchedFields[self::FIELD_CARS] = true;
+
+		return $this;
+	}

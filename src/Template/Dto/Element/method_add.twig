@@ -5,12 +5,12 @@
 	 *
 {% endif %}
 {% if associative %}
-	 * @param string $key
+	 * @param string|int $key
 {% endif %}
 	 * @param {% if singularType %}{{ singularType }}{% else %}mixed{% endif %} ${{ singular }}
 	 * @return $this
 	 */
-	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}{% if scalarTypeHints %}string {% endif %}$key, {% endif %}{% if singularTypeHint %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if (!isset($this->{{ name }})) {
 			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
 		}

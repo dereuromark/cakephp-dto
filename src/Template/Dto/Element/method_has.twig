@@ -27,10 +27,10 @@
 	 * @deprecated {{ deprecated }}
 	 *
 {% endif %}
-	 * @param string $key
+	 * @param string|int $key
 	 * @return bool
 	 */
-	public function has{{ singular[:1]|upper ~ singular[1:] }}({% if scalarTypeHints %}string {% endif %}$key){% if scalarTypeHints %}: bool{% endif %} {
+	public function has{{ singular[:1]|upper ~ singular[1:] }}($key){% if scalarTypeHints %}: bool{% endif %} {
 		return isset($this->{{ name }}[$key]);
 	}
 

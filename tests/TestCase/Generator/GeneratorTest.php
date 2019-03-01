@@ -217,6 +217,10 @@ TXT;
 		$this->assertNotContains(' hasMaxAltitude(', file_get_contents($file));
 		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
 		$this->assertContains(' hasComplexAttributes(', file_get_contents($file));
+
+		// Assoc
+		$file = $this->srcPath . 'Dto' . DS . 'CarsDto.php';
+		$this->assertTemplateContains('ScalarTypeHints/CarsDto.addCar', $file);
 	}
 
 	/**

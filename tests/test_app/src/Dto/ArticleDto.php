@@ -344,7 +344,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 *
 	 * @return string
 	 *
@@ -370,7 +370,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @return bool
 	 */
 	public function hasMetaValue($key) {
@@ -378,7 +378,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|int $key
 	 * @param string $metaValue
 	 * @return static
 	 */
