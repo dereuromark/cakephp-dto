@@ -43,8 +43,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"CakeDto\\": "src/",
-			"CakeDto\\Test\\Fixture\\": "tests/Fixture/"
+			"CakeDto\\": "src/"
 		}
 	},
 	"autoload-dev": {
