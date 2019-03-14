@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="Jira/Issue">
+		<field name="id" type="string" required="true"/>
+		<field name="key" type="string" required="true"/>
+		<field name="status" type="string" required="true"/>
+		<field name="priority" type="string" required="true"/>
+		<field name="summary" type="string" required="true"/>
+		<field name="version" type="string"/>
+	</dto>
+
+</dtos>
