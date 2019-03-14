@@ -70,6 +70,8 @@ Let's add some basic DTOs now:
 
 Thanks to the XSD file you can fully autocomplete it, so almost no typing here. It will also show you invalid attributes in red.
 
+If you want, you can also use a `config/dto/` folder and then separate config files within.
+Those have to have the pattern `*.dto.xml` then to be found.
 
 ## Generate your DTOs
 ```
@@ -380,10 +382,8 @@ will transform into the DTO field as associative array collection:
 ```php
 'labels' => [
 	'bug' => ... {
-		'data' => [
-			'name' => 'bug',
-			'color' => 'f29513'
-		],
+		'name' => 'bug',
+		'color' => 'f29513',
 		...
 	}
 ],
