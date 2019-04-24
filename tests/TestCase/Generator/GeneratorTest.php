@@ -208,6 +208,7 @@ TXT;
 		$this->assertTemplateContains('ScalarTypeHints/CarDto.setDistanceTravelled', $file);
 
 		$file = $this->srcPath . 'Dto' . DS . 'FlyingCarDto.php';
+		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.constant', $file);
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxAltitude', $file);
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxSpeed', $file);
 		$this->assertNotContains(' getMaxAltitudeOrFail(', file_get_contents($file));

@@ -1,0 +1,1 @@
+	public const FIELD_MAX_ALTITUDE = 'maxAltitude';
