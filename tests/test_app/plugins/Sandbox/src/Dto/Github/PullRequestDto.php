@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -22,16 +22,16 @@ namespace Sandbox\Dto\Github;
  */
 class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_URL = 'url';
-	const FIELD_NUMBER = 'number';
-	const FIELD_STATE = 'state';
-	const FIELD_TITLE = 'title';
-	const FIELD_BODY = 'body';
-	const FIELD_USER = 'user';
-	const FIELD_CREATED_AT = 'createdAt';
-	const FIELD_LABELS = 'labels';
-	const FIELD_HEAD = 'head';
-	const FIELD_BASE = 'base';
+	public const FIELD_URL = 'url';
+	public const FIELD_NUMBER = 'number';
+	public const FIELD_STATE = 'state';
+	public const FIELD_TITLE = 'title';
+	public const FIELD_BODY = 'body';
+	public const FIELD_USER = 'user';
+	public const FIELD_CREATED_AT = 'createdAt';
+	public const FIELD_LABELS = 'labels';
+	public const FIELD_HEAD = 'head';
+	public const FIELD_BASE = 'base';
 
 	/**
 	 * @var string
@@ -265,7 +265,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasUrl() {
+	public function hasUrl(): bool {
 		return $this->url !== null;
 	}
 
@@ -291,7 +291,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasNumber() {
+	public function hasNumber(): bool {
 		return $this->number !== null;
 	}
 
@@ -317,7 +317,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasState() {
+	public function hasState(): bool {
 		return $this->state !== null;
 	}
 
@@ -343,7 +343,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasTitle() {
+	public function hasTitle(): bool {
 		return $this->title !== null;
 	}
 
@@ -369,7 +369,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasBody() {
+	public function hasBody(): bool {
 		return $this->body !== null;
 	}
 
@@ -395,7 +395,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasUser() {
+	public function hasUser(): bool {
 		return $this->user !== null;
 	}
 
@@ -421,7 +421,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasCreatedAt() {
+	public function hasCreatedAt(): bool {
 		return $this->createdAt !== null;
 	}
 
@@ -466,7 +466,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasLabels() {
+	public function hasLabels(): bool {
 		if ($this->labels === null) {
 			return false;
 		}
@@ -478,7 +478,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	 * @param string|int $key
 	 * @return bool
 	 */
-	public function hasLabel($key) {
+	public function hasLabel($key): bool {
 		return isset($this->labels[$key]);
 	}
 
@@ -503,7 +503,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setHead(?\Sandbox\Dto\Github\HeadDto $head = null) {
+	public function setHead(?\Sandbox\Dto\Github\HeadDto $head) {
 		$this->head = $head;
 		$this->_touchedFields[self::FIELD_HEAD] = true;
 
@@ -533,7 +533,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasHead() {
+	public function hasHead(): bool {
 		return $this->head !== null;
 	}
 
@@ -542,7 +542,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBase(?\Sandbox\Dto\Github\BaseDto $base = null) {
+	public function setBase(?\Sandbox\Dto\Github\BaseDto $base) {
 		$this->base = $base;
 		$this->_touchedFields[self::FIELD_BASE] = true;
 
@@ -572,7 +572,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasBase() {
+	public function hasBase(): bool {
 		return $this->base !== null;
 	}
 

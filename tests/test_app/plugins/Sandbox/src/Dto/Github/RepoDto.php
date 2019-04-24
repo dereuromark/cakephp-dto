@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -16,10 +16,10 @@ namespace Sandbox\Dto\Github;
  */
 class RepoDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_NAME = 'name';
-	const FIELD_HTML_URL = 'html_url';
-	const FIELD_PRIVATE = 'private';
-	const FIELD_OWNER = 'owner';
+	public const FIELD_NAME = 'name';
+	public const FIELD_HTML_URL = 'html_url';
+	public const FIELD_PRIVATE = 'private';
+	public const FIELD_OWNER = 'owner';
 
 	/**
 	 * @var string
@@ -137,7 +137,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 
@@ -163,7 +163,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasHtml_url() {
+	public function hasHtml_url(): bool {
 		return $this->html_url !== null;
 	}
 
@@ -189,7 +189,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasPrivate() {
+	public function hasPrivate(): bool {
 		return $this->private !== null;
 	}
 
@@ -215,7 +215,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasOwner() {
+	public function hasOwner(): bool {
 		return $this->owner !== null;
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -15,9 +15,9 @@ namespace Sandbox\Dto\Github;
  */
 class UserDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_LOGIN = 'login';
-	const FIELD_HTML_URL = 'html_url';
-	const FIELD_TYPE = 'type';
+	public const FIELD_LOGIN = 'login';
+	public const FIELD_HTML_URL = 'html_url';
+	public const FIELD_TYPE = 'type';
 
 	/**
 	 * @var string
@@ -116,7 +116,7 @@ class UserDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasLogin() {
+	public function hasLogin(): bool {
 		return $this->login !== null;
 	}
 
@@ -142,7 +142,7 @@ class UserDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasHtml_url() {
+	public function hasHtml_url(): bool {
 		return $this->html_url !== null;
 	}
 
@@ -168,7 +168,7 @@ class UserDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasType() {
+	public function hasType(): bool {
 		return $this->type !== null;
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -14,8 +14,8 @@ namespace Sandbox\Dto\Github;
  */
 class LabelDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_NAME = 'name';
-	const FIELD_COLOR = 'color';
+	public const FIELD_NAME = 'name';
+	public const FIELD_COLOR = 'color';
 
 	/**
 	 * @var string|null
@@ -78,7 +78,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setName(?string $name = null) {
+	public function setName(?string $name) {
 		$this->name = $name;
 		$this->_touchedFields[self::FIELD_NAME] = true;
 
@@ -108,7 +108,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 
@@ -117,7 +117,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setColor(?string $color = null) {
+	public function setColor(?string $color) {
 		$this->color = $color;
 		$this->_touchedFields[self::FIELD_COLOR] = true;
 
@@ -147,7 +147,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasColor() {
+	public function hasColor(): bool {
 		return $this->color !== null;
 	}
 

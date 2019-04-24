@@ -61,6 +61,8 @@ class RendererTest extends TestCase {
 	 * @return void
 	 */
 	public function testStrictTypes() {
+		Configure::write('CakeDto.strictTypes', false);
+
 		$data = [
 			'name' => 'Foo',
 		];

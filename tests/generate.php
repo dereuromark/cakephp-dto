@@ -13,6 +13,7 @@ use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 
 Configure::write('CakeDto.scalarTypeHints', false);
+Configure::write('CakeDto.strictTypes', false);
 
 $engine = new XmlEngine();
 $builder = new Builder($engine);

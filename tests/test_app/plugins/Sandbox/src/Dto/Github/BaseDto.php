@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -16,10 +16,10 @@ namespace Sandbox\Dto\Github;
  */
 class BaseDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_REF = 'ref';
-	const FIELD_SHA = 'sha';
-	const FIELD_USER = 'user';
-	const FIELD_REPO = 'repo';
+	public const FIELD_REF = 'ref';
+	public const FIELD_SHA = 'sha';
+	public const FIELD_USER = 'user';
+	public const FIELD_REPO = 'repo';
 
 	/**
 	 * @var string
@@ -137,7 +137,7 @@ class BaseDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasRef() {
+	public function hasRef(): bool {
 		return $this->ref !== null;
 	}
 
@@ -163,7 +163,7 @@ class BaseDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasSha() {
+	public function hasSha(): bool {
 		return $this->sha !== null;
 	}
 
@@ -189,7 +189,7 @@ class BaseDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasUser() {
+	public function hasUser(): bool {
 		return $this->user !== null;
 	}
 
@@ -215,7 +215,7 @@ class BaseDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasRepo() {
+	public function hasRepo(): bool {
 		return $this->repo !== null;
 	}
 

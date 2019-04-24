@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -18,12 +18,12 @@ namespace Sandbox\Dto\Jira;
  */
 class IssueDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_ID = 'id';
-	const FIELD_KEY = 'key';
-	const FIELD_STATUS = 'status';
-	const FIELD_PRIORITY = 'priority';
-	const FIELD_SUMMARY = 'summary';
-	const FIELD_VERSION = 'version';
+	public const FIELD_ID = 'id';
+	public const FIELD_KEY = 'key';
+	public const FIELD_STATUS = 'status';
+	public const FIELD_PRIORITY = 'priority';
+	public const FIELD_SUMMARY = 'summary';
+	public const FIELD_VERSION = 'version';
 
 	/**
 	 * @var string
@@ -179,7 +179,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasId() {
+	public function hasId(): bool {
 		return $this->id !== null;
 	}
 
@@ -205,7 +205,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasKey() {
+	public function hasKey(): bool {
 		return $this->key !== null;
 	}
 
@@ -231,7 +231,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasStatus() {
+	public function hasStatus(): bool {
 		return $this->status !== null;
 	}
 
@@ -257,7 +257,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasPriority() {
+	public function hasPriority(): bool {
 		return $this->priority !== null;
 	}
 
@@ -283,7 +283,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasSummary() {
+	public function hasSummary(): bool {
 		return $this->summary !== null;
 	}
 
@@ -292,7 +292,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setVersion(?string $version = null) {
+	public function setVersion(?string $version) {
 		$this->version = $version;
 		$this->_touchedFields[self::FIELD_VERSION] = true;
 
@@ -322,7 +322,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasVersion() {
+	public function hasVersion(): bool {
 		return $this->version !== null;
 	}
 
