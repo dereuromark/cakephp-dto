@@ -1,0 +1,6 @@
+	/**
+	 * @return bool
+	 */
+	public function hasComplexAttributes(): bool {
+		return $this->complexAttributes !== null;
+	}

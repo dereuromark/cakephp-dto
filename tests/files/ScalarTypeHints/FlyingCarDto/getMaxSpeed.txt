@@ -1,0 +1,6 @@
+	/**
+	 * @return int
+	 */
+	public function getMaxSpeed(): int {
+		return $this->maxSpeed;
+	}
