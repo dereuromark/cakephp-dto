@@ -25,6 +25,9 @@ class OrmTest extends TestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function testEmptyCollection() {
 		$articleEntity = new Article();
 		$articleEntity->id = 2; // We simulate a persisted entity and its persisted relations
