@@ -25,6 +25,20 @@ class OrmTest extends TestCase {
 		parent::tearDown();
 	}
 
+	public function testEmptyCollection() {
+		$articleEntity = new Article();
+		$articleEntity->id = 2; // We simulate a persisted entity and its persisted relations
+		$articleEntity->author = new Author(['id' => 1, 'name' => 'me']);
+		$articleEntity->title = 'My title';
+		$articleEntity->created = new FrozenTime();
+
+		$articleDto = new ArticleDto($articleEntity->toArray());
+
+		$array = $articleDto->toArray();
+		$this->assertSame([], $array['tags']);
+		$this->assertSame([], $array['meta']);
+	}
+
 	/**
 	 * @return void
 	 */
