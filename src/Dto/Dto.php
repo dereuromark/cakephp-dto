@@ -121,7 +121,10 @@ abstract class Dto implements Serializable {
 				continue;
 			}
 
-			if ($value && $this->_metadata[$field]['collectionType'] === 'array') {
+			if ($this->_metadata[$field]['collectionType'] === 'array') {
+				if (!$value) {
+					$value = [];
+				}
 				$value = $this->transformArrayCollectionToArray($value, $touched ? 'touchedToArray' : 'toArray', $type);
 			}
 
