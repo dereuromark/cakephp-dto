@@ -1,4 +1,4 @@
-# CakePHP DTO plugin
+# DTO Generator for PHP
 
 [![Build Status](https://travis-ci.org/dereuromark/cakephp-dto.svg?branch=master)](https://travis-ci.org/dereuromark/cakephp-dto)
 [![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
@@ -26,7 +26,7 @@ For more see [Motivation and Background](/docs/Motivation.md).
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
-This branch is for use with **CakePHP 4.0+**.
+This branch is for use with **PHP 7.2+**.
 
 ## Examples
 
@@ -44,14 +44,8 @@ You can install this plugin into your CakePHP application using [Composer](https
 The recommended way to install is:
 
 ```
-composer require dereuromark/cakephp-dto
+composer require dereuromark/dto
 ```
-
-Then load the plugin with the following command:
-```
-bin/cake plugin load CakeDto -b
-```
-The bootstrap is needed for the TwigView events to be set up. If you already included TwigView, you might not need the bootstrap.
 
 
 ## Usage
