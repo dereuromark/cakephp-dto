@@ -21,7 +21,7 @@ You can chose between the following formats for the definitions:
 
 In Configure (via app.php), just set your desired engine:
 ```php
-	'engine' => YamlEngine::class,
+    'engine' => YamlEngine::class,
 ```
 
 YAML or alike might have the advantage of less typing, but the power of XML comes with its XSD validation and full auto-complete/typehinting.
@@ -44,28 +44,28 @@ Tip: With `--plugin PluginName` (`-p`) you can initialize it for your plugins.
 Let's add some basic DTOs now:
 
 ```xml
-	<dto name="Car">
-		<field name="color" type="string" />
-		<field name="attributes" type="string[]" />
-		<field name="isNew" type="bool" />
-		<field name="distanceTravelled" type="int" />
-		<field name="value" type="float" />
-		<field name="manufactured" type="\Cake\I18n\FrozenDate" />
-		<field name="owner" type="Owner"/>
-	</dto>
+    <dto name="Car">
+        <field name="color" type="string" />
+        <field name="attributes" type="string[]" />
+        <field name="isNew" type="bool" />
+        <field name="distanceTravelled" type="int" />
+        <field name="value" type="float" />
+        <field name="manufactured" type="\Cake\I18n\FrozenDate" />
+        <field name="owner" type="Owner"/>
+    </dto>
 
-	<dto name="Cars">
-		<field name="cars" type="Car[]" collection="true" singular="car" />
-	</dto>
-	
-	<dto name="Owner">
-		<field name="name" type="string"/>
-		<field name="birthYear" type="int"/>
-	</dto>
-	
-	<dto name="FlyingCar" extends="Car">
-		<field name="maxAltitude" type="int"/>
-	</dto>
+    <dto name="Cars">
+        <field name="cars" type="Car[]" collection="true" singular="car" />
+    </dto>
+    
+    <dto name="Owner">
+        <field name="name" type="string"/>
+        <field name="birthYear" type="int"/>
+    </dto>
+    
+    <dto name="FlyingCar" extends="Car">
+        <field name="maxAltitude" type="int"/>
+    </dto>
 ```
 
 Thanks to the XSD file you can fully autocomplete it, so almost no typing here. It will also show you invalid attributes in red.
@@ -174,22 +174,22 @@ In PHP7.1+ this will have not an effect on default value behavior,
 whereas in versions before it would actually (due to the language restriction) set a default value` as `null` here 
 if a typehint is used and no default value is provided:
 ```php
-	/**
-	 * @param \Cake\I18n\FrozenDate|null $manufactured
-	 *
-	 * @return $this
-	 */
-	public function setManufactured(\Cake\I18n\FrozenDate $manufactured = null) {}
+    /**
+     * @param \Cake\I18n\FrozenDate|null $manufactured
+     *
+     * @return $this
+     */
+    public function setManufactured(\Cake\I18n\FrozenDate $manufactured = null) {}
 ```
 This technically means that yu could just call the method as `->setManufactured()` and it would set it to `null` - the only way to allow nullable here.
 With PHP 7.1+ it will be a clean API with non-optional first parameter as expected then:
 ```php
-	/**
-	 * @param \Cake\I18n\FrozenDate|null $manufactured
-	 *
-	 * @return $this
-	 */
-	public function setManufactured(?\Cake\I18n\FrozenDate $manufactured) {}
+    /**
+     * @param \Cake\I18n\FrozenDate|null $manufactured
+     *
+     * @return $this
+     */
+    public function setManufactured(?\Cake\I18n\FrozenDate $manufactured) {}
 ```
 An argument is always required, even for setting it to null: `->setManufactured(null)`
 
@@ -275,8 +275,8 @@ $this->MyComponent->doSomething($myDto);
 
 // inside the component I now know exactly what fields I can use
 public function doSomething(MyDto $myDto) {
-	$myField = $myDto->getMyField();
-	...
+    $myField = $myDto->getMyField();
+    ...
 }
 ```
 
@@ -288,7 +288,7 @@ $article->fromArray($this->request->getData(), false, $article::TYPE_UNDERSCORED
 // Now we can work with it nicely
 $title = $article->getTitle();
 if ($article->getAbbreviation()) {
-	$title .= ' (' . $article->getAbbreviation() . ')';
+    $title .= ' (' . $article->getAbbreviation() . ')';
 }
 ```
 
@@ -325,12 +325,12 @@ Other collections most likely will not work.
 
 ```xml
 <dto name="Foo">
-	<field name="bars" type="Bar[]" singular="bar" collection="true" associative="true" />
-	<field name="bazs" type="array" singular="baz" associative="true" />
+    <field name="bars" type="Bar[]" singular="bar" collection="true" associative="true" />
+    <field name="bazs" type="array" singular="baz" associative="true" />
 </dto>
 
 <dto name="Bar">
-	<!-- anything -->
+    <!-- anything -->
 </dto>
 ```
 
@@ -341,8 +341,8 @@ $fooDto->addBar('b', new Bar());
   
 // Example for setting DTO with associated keys
 $bars = new \ArrayObject([
-	'a' => new Bar(),
-	'b' => new Bar(),
+    'a' => new Bar(),
+    'b' => new Bar(),
 ]);
 $fooDto->setBars($bars);
   
@@ -352,8 +352,8 @@ $fooDto->addBaz('y', 'Y');
   
 // Example for setting associated array
 $fooDto->setBazs([
-	'x' => 'X',
-	'y' => 'Y', 
+    'x' => 'X',
+    'y' => 'Y', 
 ]);
   
 // Example for getting associated items
@@ -381,11 +381,11 @@ It can then use the key on the data to set the key for the collection element:
 will transform into the DTO field as associative array collection:
 ```php
 'labels' => [
-	'bug' => ... {
-		'name' => 'bug',
-		'color' => 'f29513',
-		...
-	}
+    'bug' => ... {
+        'name' => 'bug',
+        'color' => 'f29513',
+        ...
+    }
 ],
 ```
 
@@ -435,8 +435,8 @@ The original DTO will not be changed, but a cloned copy is returned instead.
 
 ```php
 $carDto = new CarDto([
-	'color' => 'black',
-	'isNew' => false,
+    'color' => 'black',
+    'isNew' => false,
 ]);
 $carDto = $carDto->withDistanceTravelled(10000);
 ```
@@ -453,7 +453,7 @@ In this case there are also no `getOrFail()` methods and `get...()` is directly 
 use App\Dto\CarDto;
 
 $carDto = new CarDto([
-	'isNew' => false, // required field
+    'isNew' => false, // required field
 ]);
 $carDto = $carDto->withDistanceTravelled(10000); // optional field
 
@@ -482,12 +482,12 @@ You can set some defaults via `app.php` and global Configure settings:
 
 ```php
 return [
-	'Dto' => [
-		'strictTypes' => false, // Requires PHP 7.1+
-		'scalarTypeHints' => false, // null => Auto-detect, requires PHP 7.1+
-		'immutable' => false, // This can have a negative performance impact
-		'defaultCollectionType' => null, // Defaults to \ArrayObject
-	],
+    'Dto' => [
+        'strictTypes' => false, // Requires PHP 7.1+
+        'scalarTypeHints' => false, // null => Auto-detect, requires PHP 7.1+
+        'immutable' => false, // This can have a negative performance impact
+        'defaultCollectionType' => null, // Defaults to \ArrayObject
+    ],
 ];
 ```
 
@@ -551,14 +551,14 @@ You can use `debug($dto)` to introspect your DTO. You will get an array like so:
 
 ```php
 object(TestApp\Dto\ArticleDto) {
-	'data' => [
-		...
-	],
-	'touched' => [
-		...
-	],
-	'extends' => 'CakeDto\Dto\AbstractImmutableDto',
-	'immutable' => true
+    'data' => [
+        ...
+    ],
+    'touched' => [
+        ...
+    ],
+    'extends' => 'CakeDto\Dto\AbstractImmutableDto',
+    'immutable' => true
 }
 ```
 

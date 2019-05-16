@@ -68,7 +68,7 @@ So `PostDto` etc will be easy enough to avoid the issues while not being much lo
 Inside code it can be also helpful to keep the prefixes in variables to avoid confusing or artificially creative variable names:
 ```php
 $postArray = [
-	'title' => 'My cool Post',
+    'title' => 'My cool Post',
 ];
 $postEntity = $this->Posts->newEntity($postArray);
 

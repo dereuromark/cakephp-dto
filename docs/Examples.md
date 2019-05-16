@@ -34,13 +34,13 @@ Required values are for sure set. Modifications create a new object, keeping the
 
 ```php
 $array = [
-	'id' => 2,
-	'author' => [
-		'id' => 1,
-		'name' => 'me'
-	],
-	'title' => 'My title',
-	'created' => new FrozenTime(time() - DAY),
+    'id' => 2,
+    'author' => [
+        'id' => 1,
+        'name' => 'me'
+    ],
+    'title' => 'My title',
+    'created' => new FrozenTime(time() - DAY),
 ];
 
 $articleDto = new ArticleDto($array);
@@ -70,37 +70,37 @@ This would be much more valuable (and necessary) for active record pattern ORMs 
 Let's first get a record from the DB, including its relations:
 ```php
 $articleEntity = $this->Articles->find()->contain(['Author', 'Tags')
-	->all()->toArray();
+    ->all()->toArray();
 ```
 
 The data will most likely look like (this is from the OrmTest.php test case run):
 ```php
 object(TestApp\Model\Entity\Article) {
-	'id' => (int) 2,
-	'author' => object(TestApp\Model\Entity\Author) {
-		'id' => (int) 1,
-		'name' => 'me',
-		...
-	
-	},
-	'title' => 'My title',
-	'created' => object(Cake\I18n\FrozenTime) {
-		...
-	},
-	'tags' => [
-		object(TestApp\Model\Entity\Tag) {
+    'id' => (int) 2,
+    'author' => object(TestApp\Model\Entity\Author) {
+        'id' => (int) 1,
+        'name' => 'me',
+        ...
+    
+    },
+    'title' => 'My title',
+    'created' => object(Cake\I18n\FrozenTime) {
+        ...
+    },
+    'tags' => [
+        object(TestApp\Model\Entity\Tag) {
 
-			'id' => (int) 3,
-			'name' => 'Awesome',
-			...
-		},
-		object(TestApp\Model\Entity\Tag) {
-			'id' => (int) 4,
-			'name' => 'Shiny',
-			...
-		}
-	],
-	...
+            'id' => (int) 3,
+            'name' => 'Awesome',
+            ...
+        },
+        object(TestApp\Model\Entity\Tag) {
+            'id' => (int) 4,
+            'name' => 'Shiny',
+            ...
+        }
+    ],
+    ...
 }
 ```
 
@@ -119,22 +119,22 @@ $result = $articleDto->touchedToArray();
 And this is the result (you can verify it in the test case):
 ```php
 [
-	'id' => 2,
-	'author' => [
-		'id' => 1,
-		'name' => 'me'
-	],
-	'title' => 'My title',
-	'tags' => [
-		[
-			'id' => 3,
-			'name' => 'Awesome'
-		],
-		[
-			'id' => 4,
-			'name' => 'Shiny'
-		]
-	]
+    'id' => 2,
+    'author' => [
+        'id' => 1,
+        'name' => 'me'
+    ],
+    'title' => 'My title',
+    'tags' => [
+        [
+            'id' => 3,
+            'name' => 'Awesome'
+        ],
+        [
+            'id' => 4,
+            'name' => 'Shiny'
+        ]
+    ]
 ];
 ```
 
