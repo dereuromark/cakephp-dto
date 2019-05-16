@@ -31,7 +31,7 @@ class DtoViewTest extends TestCase {
 
 		Configure::write(
 			'App.paths.templates.x',
-			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS . 'Twig' . DS
+			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'templates' . DS . 'Twig' . DS
 		);
 	}
 

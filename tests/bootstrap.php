@@ -34,8 +34,8 @@ Cake\Core\Configure::write('App', [
 	'encoding' => 'utf-8',
 	'paths' => [
 		'templates' => [
-			ROOT . DS . 'src' . DS . 'Template' . DS,
-			ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS
+			ROOT . DS . 'templates' . DS,
+			ROOT . DS . 'tests' . DS . 'test_app' . DS . 'templates' . DS
 		],
 	]
 ]);

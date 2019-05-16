@@ -34,10 +34,12 @@ class ConsoleOutput extends CakeConsoleOutput {
 	 * Overwrite _write to output the message to debug instead of CLI.
 	 *
 	 * @param string $message
-	 * @return void
+	 * @return int
 	 */
 	protected function _write(string $message): int {
 		$this->output[] = $message;
+
+		return 0;
 	}
 
 	/**
