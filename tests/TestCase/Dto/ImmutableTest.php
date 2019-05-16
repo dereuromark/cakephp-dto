@@ -2,6 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
+use Cake\Collection\CollectionInterface;
 use CakeDto\Dto\AbstractImmutableDto;
 use Cake\Collection\Collection;
 use Cake\I18n\FrozenTime;
@@ -66,7 +67,7 @@ class ImmutableTest extends TestCase {
 		$bookDto = $bookDto->withAddedPage(new PageDto(['number' => 1]));
 
 		$array = $bookDto->toArray();
-		$this->assertInstanceOf(Collection::class, $array['pages']);
+		$this->assertInstanceOf(CollectionInterface::class, $array['pages']);
 		$this->assertSame(1, $array['pages']->count());
 
 		$pages = $bookDto->getPages()->toArray();
@@ -85,7 +86,7 @@ class ImmutableTest extends TestCase {
 		];
 		$bookDto = BookDto::createFromArray($array);
 
-		$this->assertInstanceOf(Collection::class, $bookDto->getPages());
+		$this->assertInstanceOf(CollectionInterface::class, $bookDto->getPages());
 		$this->assertSame(2, $bookDto->getPages()->count());
 
 		$this->assertSame(1, $bookDto->getPages()->first()->getNumber());

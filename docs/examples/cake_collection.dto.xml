@@ -5,7 +5,7 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="Book" immutable="true">
-		<field name="pages" type="Page[]" collectionType="\Cake\Collection\Collection"/>
+		<field name="pages" type="Page[]" collectionType="\Cake\Collection\CollectionInterface"/>
 	</dto>
 
 	<dto name="Page" immutable="true">
