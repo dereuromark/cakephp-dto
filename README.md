@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/dereuromark/cakephp-dto.svg?branch=master)](https://travis-ci.org/dereuromark/cakephp-dto)
 [![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-dto/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
-[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-dto/license.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -15,7 +15,7 @@ concept to [Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_languag
 The goal of this package is to structure "unstructured data", replacing simple (associative) arrays with a more speaking solution.
 
 - By making all fields typeable, we can be sure that their values are never something we didn't expect. 
-Especially with PHP 7.1 and more strict typehinting moving forward this is rather important to detect and fail early.
+Especially with PHP 7.2+ now and more strict typehinting moving forward this is rather important to detect and fail early.
 - We can have full IDE autocomplete and typehinting.
 - We can use tools like PHPStan to statically analyze the code (more strictly).
 - We can simplify the logic where required fields will now just throw a meaningful exception.
@@ -26,6 +26,8 @@ For more see [Motivation and Background](/docs/Motivation.md).
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
+This branch is for use with **CakePHP 4.0+**.
+
 ## Examples
 
 Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
@@ -33,8 +35,7 @@ Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandb
 See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
 The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/). 
 
-Note: They are 5.6+ as per min requirement, but you can easily generate them as 7.1+ and strict types on as well :)
-In fact, that is the default if your PHP setup matches locally.
+Note: Typehinting is enabled and strict types disabled by default.
 
 ## Installation
 

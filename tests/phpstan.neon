@@ -1,3 +1,7 @@
 parameters:
 	autoload_files:
 		- %rootDir%/../../../tests/bootstrap.php
+	ignoreErrors:
+		- '#Property .+BookDto::\$pages \(Cake\\Collection\\Collection&iterable<TestApp\\Dto\\PageDto>\) does not accept .+CollectionInterface.#'
+
+	reportUnmatchedIgnoredErrors: false
