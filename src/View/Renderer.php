@@ -28,7 +28,7 @@ class Renderer {
 		}
 
 		$view = $this->getView();
-		$view->set($this->viewVars);
+		$view->set($this->viewBuilder()->getVars());
 
 		return $view->render($template);
 	}

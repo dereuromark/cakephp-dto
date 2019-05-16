@@ -18,7 +18,7 @@ trait PhpFileTemplateTestTrait {
 	 * @return void
 	 * @throws \RuntimeException
 	 */
-	protected function assertTemplateContains($template, $file) {
+	protected function assertTemplateContains(string $template, string $file): void {
 		$content = trim(file_get_contents($file));
 
 		list($folder, $template) = explode('.', $template);
@@ -81,7 +81,7 @@ trait PhpFileTemplateTestTrait {
 	 * @param string $file
 	 * @return void
 	 */
-	protected function assertTemplateContainsCount($needle, $count, $file) {
+	protected function assertTemplateContainsCount(string $needle, int $count, string $file): void {
 		$content = file_get_contents($file);
 
 		$actualCount = mb_substr_count($content, $needle);

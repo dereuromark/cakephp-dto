@@ -49,7 +49,7 @@ class GeneratorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Configure::write('CakeDto.scalarTypeHints', false);
@@ -66,7 +66,7 @@ class GeneratorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->generator);
@@ -212,13 +212,13 @@ TXT;
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxAltitude', $file);
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.getMaxSpeed', $file);
 		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.hasComplexAttributes', $file);
-		$this->assertNotContains(' getMaxAltitudeOrFail(', file_get_contents($file));
-		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
-		$this->assertContains(' getComplexAttributesOrFail(', file_get_contents($file));
+		$this->assertStringNotContainsString(' getMaxAltitudeOrFail(', file_get_contents($file));
+		$this->assertStringNotContainsString(' getMaxSpeedOrFail(', file_get_contents($file));
+		$this->assertStringContainsString(' getComplexAttributesOrFail(', file_get_contents($file));
 
-		$this->assertNotContains(' hasMaxAltitude(', file_get_contents($file));
-		$this->assertNotContains(' getMaxSpeedOrFail(', file_get_contents($file));
-		$this->assertContains(' hasComplexAttributes(', file_get_contents($file));
+		$this->assertStringNotContainsString(' hasMaxAltitude(', file_get_contents($file));
+		$this->assertStringNotContainsString(' getMaxSpeedOrFail(', file_get_contents($file));
+		$this->assertStringContainsString(' hasComplexAttributes(', file_get_contents($file));
 
 		// Assoc
 		$file = $this->srcPath . 'Dto' . DS . 'CarsDto.php';

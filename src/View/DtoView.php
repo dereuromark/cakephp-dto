@@ -4,6 +4,7 @@ namespace CakeDto\View;
 use Cake\Core\Configure;
 use Cake\Core\ConventionsTrait;
 use Cake\Core\InstanceConfigTrait;
+use Cake\Event\EventInterface;
 use WyriHaximus\TwigView\View\TwigView;
 
 class DtoView extends TwigView {
@@ -33,7 +34,7 @@ class DtoView extends TwigView {
 	 *
 	 * @return void
 	 */
-	public function initialize() {
+	public function initialize(): void {
 		$dtoTemplates = dirname(dirname(__FILE__)) . DS . 'Template' . DS;
 		$paths = (array)Configure::read('App.paths.templates');
 
@@ -61,11 +62,11 @@ class DtoView extends TwigView {
 	 * View can also be a template string, rather than the name of a view file
 	 *
 	 * @param string|null $view Name of view file to use, or a template string to render
-	 * @param string|null $layout Layout to use. Not used, for consistency with other views only
+	 * @param string|false|null $layout Layout to use. Not used, for consistency with other views only
 	 * @return string|null Rendered content.
 	 */
-	public function render($view = null, $layout = null) {
-		$viewFileName = $this->_getViewFileName($view);
+	public function render(?string $view = null, $layout = null): string {
+		$viewFileName = $this->_getTemplateFileName($view);
 
 		$this->_currentType = static::TYPE_TEMPLATE;
 		$this->dispatchEvent('View.beforeRender', [$viewFileName]);
@@ -96,7 +97,7 @@ class DtoView extends TwigView {
 	 *
 	 * @return \Cake\Event\Event
 	 */
-	public function dispatchEvent($name, $data = null, $subject = null) {
+	public function dispatchEvent(string $name, ?array $data = null, ?object $subject = null): EventInterface {
 		$name = preg_replace('/^View\./', 'Dto.', $name);
 
 		return parent::dispatchEvent($name, $data, $subject);
@@ -109,7 +110,7 @@ class DtoView extends TwigView {
 	 * @param bool $cached Set to false to force a refresh of view paths. Default true.
 	 * @return array paths
 	 */
-	protected function _paths($plugin = null, $cached = true) {
+	protected function _paths(?string $plugin = null, bool $cached = true): array {
 		$paths = parent::_paths($plugin, false);
 		foreach ($paths as &$path) {
 			$path .= 'Dto' . DS;

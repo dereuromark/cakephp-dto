@@ -16,7 +16,7 @@ class XmlValidatorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->validator = XmlValidator::class;
@@ -25,7 +25,7 @@ class XmlValidatorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->validator);
@@ -44,7 +44,7 @@ class XmlValidatorTest extends TestCase {
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
-			$this->assertContains('The attribute \'noname\' is not allowed', $e->getMessage());
+			$this->assertStringContainsString('The attribute \'noname\' is not allowed', $e->getMessage());
 
 			throw $e;
 		}
@@ -63,7 +63,7 @@ class XmlValidatorTest extends TestCase {
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
-			$this->assertContains('Start tag expected', $e->getMessage());
+			$this->assertStringContainsString('Start tag expected', $e->getMessage());
 
 			throw $e;
 		}

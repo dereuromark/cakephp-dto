@@ -5,5 +5,3 @@ parameters:
 	ignoreErrors:
 		- '#Call to an undefined method object::toArray\(\)\.#'
 		- '#Function yaml\_parse not found\.#'
-
-	reportUnmatchedIgnoredErrors: false

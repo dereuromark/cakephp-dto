@@ -10,7 +10,7 @@ use CakeDto\Dto\FromArrayToArrayInterface;
  * This class represent a category of paint, like 'blue' or 'red',
  * not a quantity.
  */
-final class Paint implements FromArrayToArrayInterface {
+class Paint implements FromArrayToArrayInterface {
 
 	/**
 	 * @var int
@@ -34,7 +34,7 @@ final class Paint implements FromArrayToArrayInterface {
 	 * @param int $green RGB value 0-255
 	 * @param int $blue RGB value 0-255
 	 */
-	public function __construct($red, $green, $blue) {
+	public function __construct(int $red, int $green, int $blue) {
 		$this->red = $red;
 		$this->green = $green;
 		$this->blue = $blue;
@@ -47,29 +47,29 @@ final class Paint implements FromArrayToArrayInterface {
 	 *
 	 * @return int
 	 */
-	public function getRed() {
+	public function getRed(): int {
 		return $this->red;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getGreen() {
+	public function getGreen(): int {
 		return $this->green;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getBlue() {
+	public function getBlue(): int {
 		return $this->blue;
 	}
 
 	/**
-	 * @param \TestApp\ValueObject\Paint $object
+	 * @param static $object
 	 * @return bool True if the two Paints are equal
 	 */
-	public function equals(Paint $object) {
+	public function equals(self $object): bool {
 		return
 			$this->red === $object->red
 			&& $this->green === $object->green
@@ -81,10 +81,10 @@ final class Paint implements FromArrayToArrayInterface {
 	 * Since the objects are immutable, the resulting Paint is a brand
 	 * new object, which is returned.
 	 *
-	 * @param \TestApp\ValueObject\Paint $another
-	 * @return \TestApp\ValueObject\Paint
+	 * @param static $another
+	 * @return static
 	 */
-	public function mix(Paint $another) {
+	public function mix(self $another): self {
 		return new self($this->integerAverage($this->red, $another->red),
 			$this->integerAverage($this->green, $another->green),
 			$this->integerAverage($this->blue, $another->blue));
@@ -96,7 +96,7 @@ final class Paint implements FromArrayToArrayInterface {
 	 *
 	 * @return int
 	 */
-	protected function integerAverage($a, $b) {
+	protected function integerAverage(int $a, int $b): int {
 		return (int)(($a + $b) / 2);
 	}
 
@@ -104,14 +104,14 @@ final class Paint implements FromArrayToArrayInterface {
 	 * @param array $array
 	 * @return static
 	 */
-	public static function createFromArray(array $array) {
+	public static function createFromArray(array $array): self {
 		return new static($array['red'], $array['green'], $array['blue']);
 	}
 
 	/**
 	 * @return array
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		return [
 			'red' => $this->red,
 			'green' => $this->green,
@@ -122,7 +122,7 @@ final class Paint implements FromArrayToArrayInterface {
 	/**
 	 * @return string
 	 */
-	public function serialize() {
+	public function serialize(): string {
 		return json_encode($this->toArray());
 	}
 
@@ -131,7 +131,7 @@ final class Paint implements FromArrayToArrayInterface {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return sprintf('%s, %s, %s', $this->red, $this->green, $this->blue);
 	}
 
@@ -139,7 +139,7 @@ final class Paint implements FromArrayToArrayInterface {
 	 * @param string $serialized
 	 * @return static
 	 */
-	public function unserialize($serialized) {
+	public function unserialize(string $serialized): self {
 		$array = json_decode($serialized, true);
 
 		return static::createFromArray($array);

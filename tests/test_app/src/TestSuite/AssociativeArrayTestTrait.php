@@ -12,7 +12,7 @@ trait AssociativeArrayTestTrait {
 	 * @param array $result
 	 * @return void
 	 */
-	protected function assertAssociativeArray(array $expected, array $result) {
+	protected function assertAssociativeArray(array $expected, array $result): void {
 		foreach ($expected as $key => $value) {
 			$this->assertTrue(isset($result[$key]), $key . ' missing in ' . print_r($result, true));
 
@@ -30,7 +30,7 @@ trait AssociativeArrayTestTrait {
 	 * @param array $is
 	 * @return void
 	 */
-	protected function assertAssociativeArrayEquals(array $expected, array $is) {
+	protected function assertAssociativeArrayEquals(array $expected, array $is): void {
 		ksort($expected);
 		ksort($is);
 
@@ -42,7 +42,7 @@ trait AssociativeArrayTestTrait {
 	 * @param array $is
 	 * @return void
 	 */
-	protected function assertAssociativeArraySame(array $expected, array $is) {
+	protected function assertAssociativeArraySame(array $expected, array $is): void {
 		ksort($expected);
 		ksort($is);
 
