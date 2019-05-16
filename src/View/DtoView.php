@@ -63,7 +63,7 @@ class DtoView extends TwigView {
 	 *
 	 * @param string|null $view Name of view file to use, or a template string to render
 	 * @param string|false|null $layout Layout to use. Not used, for consistency with other views only
-	 * @return string|null Rendered content.
+	 * @return string Rendered content.
 	 */
 	public function render(?string $view = null, $layout = null): string {
 		$viewFileName = $this->_getTemplateFileName($view);
@@ -95,7 +95,7 @@ class DtoView extends TwigView {
 	 * @param object|null $subject The object that this event applies to
 	 * ($this by default).
 	 *
-	 * @return \Cake\Event\Event
+	 * @return \Cake\Event\EventInterface
 	 */
 	public function dispatchEvent(string $name, ?array $data = null, ?object $subject = null): EventInterface {
 		$name = preg_replace('/^View\./', 'Dto.', $name);

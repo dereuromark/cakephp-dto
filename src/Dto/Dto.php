@@ -239,7 +239,7 @@ abstract class Dto implements Serializable {
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
-	 * @return \Cake\Collection\Collection
+	 * @return \Cake\Collection\CollectionInterface
 	 */
 	protected function createCakeCollection($elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT) {
 		$collection = new Collection([]);

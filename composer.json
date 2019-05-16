@@ -36,7 +36,8 @@
 		"ext-dom": "*",
 		"ext-libxml": "*",
 		"nette/neon": "^2.4",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "dev-master",
+		"phpstan/phpstan": "^0.11.6"
 	},
 	"suggest": {
 		"nette/neon": "^2.4 if you want to add a NEON file engine instead of XML."
@@ -59,7 +60,7 @@
 		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-8.1.4.phar && mv phpunit-8.1.4.phar phpunit.phar || true",
 		"test-coverage": "php phpunit.phar --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
 		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/ && phpstan analyse -c tests/phpstan.neon -l 7 tests/test_app/src/Dto/ tests/test_app/plugins/Sandbox/src/Dto/",
-		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
+		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan-shim:^0.11 && mv composer.backup composer.json",
 		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/src/Dto/ --extensions=php src/ tests/",
 		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/src/Dto/ --extensions=php src/ tests/",
 		"generate": "php tests/generate.php",
