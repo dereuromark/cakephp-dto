@@ -26,6 +26,8 @@ For more see [Motivation and Background](/docs/Motivation.md).
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
+This branch is for use with **CakePHP 3.7+**.
+
 ## Examples
 
 Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
