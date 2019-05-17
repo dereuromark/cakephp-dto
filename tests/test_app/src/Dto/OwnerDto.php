@@ -12,7 +12,7 @@ namespace TestApp\Dto;
  * @property string|null $name
  * @property int|null $birthYear
  */
-class OwnerDto extends \CakeDto\Dto\AbstractDto {
+class OwnerDto extends \Dto\Dto\AbstractDto {
 
 	const FIELD_NAME = 'name';
 	const FIELD_BIRTH_YEAR = 'birthYear';

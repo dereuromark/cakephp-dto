@@ -12,7 +12,7 @@ namespace TestApp\Dto;
  * @property string $title
  * @property string[] $meta
  */
-class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
+class MutableMetaDto extends \Dto\Dto\AbstractDto {
 
 	const FIELD_TITLE = 'title';
 	const FIELD_META = 'meta';

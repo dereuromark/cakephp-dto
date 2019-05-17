@@ -1,5 +1,5 @@
 <?php
-namespace CakeDto\Engine;
+namespace Dto\Engine;
 
 use InvalidArgumentException;
 use Nette\Neon\Exception;

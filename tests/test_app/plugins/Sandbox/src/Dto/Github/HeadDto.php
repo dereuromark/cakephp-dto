@@ -14,7 +14,7 @@ namespace Sandbox\Dto\Github;
  * @property \Sandbox\Dto\Github\UserDto $user
  * @property \Sandbox\Dto\Github\RepoDto $repo
  */
-class HeadDto extends \CakeDto\Dto\AbstractDto {
+class HeadDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_REF = 'ref';
 	public const FIELD_SHA = 'sha';

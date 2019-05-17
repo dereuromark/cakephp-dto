@@ -16,7 +16,7 @@ namespace TestApp\Dto;
  * @property \TestApp\Dto\TagDto[] $tags
  * @property string[] $meta
  */
-class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
+class ArticleDto extends \Dto\Dto\AbstractImmutableDto {
 
 	const FIELD_ID = 'id';
 	const FIELD_AUTHOR = 'author';

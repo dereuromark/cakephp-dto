@@ -12,7 +12,7 @@ namespace TestApp\Dto;
  * @property int $number
  * @property string|null $content
  */
-class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
+class PageDto extends \Dto\Dto\AbstractImmutableDto {
 
 	const FIELD_NUMBER = 'number';
 	const FIELD_CONTENT = 'content';

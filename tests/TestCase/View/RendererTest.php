@@ -1,11 +1,11 @@
 <?php
 
-namespace CakeDto\Test\TestCase\View;
+namespace Dto\Test\TestCase\View;
 
-use CakeDto\View\Renderer;
+use Dto\View\Renderer;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class RendererTest extends TestCase {
 

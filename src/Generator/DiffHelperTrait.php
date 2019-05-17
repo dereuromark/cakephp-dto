@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\Generator;
+namespace Dto\Generator;
 
 use Cake\Console\Shell;
 use SebastianBergmann\Diff\Differ;

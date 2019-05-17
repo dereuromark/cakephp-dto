@@ -27,6 +27,7 @@
 		"source": "https://github.com/dereuromark/dto/"
 	},
 	"require": {
+		"ext-json": "*",
 		"php": ">=7.2",
 		"twig/twig": "^2.10",
 		"sebastian/diff": "^3.0"
@@ -35,6 +36,7 @@
 		"ext-dom": "*",
 		"ext-libxml": "*",
 		"nette/neon": "^2.4",
+		"cakephp/collection": "4.x-dev as 4.0.0",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
 	"suggest": {

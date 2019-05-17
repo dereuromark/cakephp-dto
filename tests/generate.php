@@ -2,11 +2,11 @@
 
 require 'bootstrap.php';
 
-use CakeDto\Console\Io;
-use CakeDto\Engine\XmlEngine;
-use CakeDto\Generator\Builder;
-use CakeDto\Generator\Generator;
-use CakeDto\View\Renderer;
+use Dto\Console\Io;
+use Dto\Engine\XmlEngine;
+use Dto\Generator\Builder;
+use Dto\Generator\Generator;
+use Dto\View\Renderer;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOutput;
 use Cake\Core\Configure;

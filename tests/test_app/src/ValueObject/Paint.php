@@ -2,7 +2,7 @@
 
 namespace TestApp\ValueObject;
 
-use CakeDto\Dto\FromArrayToArrayInterface;
+use Dto\Dto\FromArrayToArrayInterface;
 
 /**
  * Subclassing a Value Object is rare, so we cut out this scenario

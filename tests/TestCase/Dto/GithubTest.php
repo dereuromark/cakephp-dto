@@ -1,11 +1,11 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace Dto\Test\TestCase\Dto;
 
-use CakeDto\Shell\DtoShell;
+use Dto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
 use Cake\Event\EventManager;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 use WyriHaximus\TwigView\Event\ExtensionsListener;

@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Generator;
+namespace Dto\Generator;
 
-use CakeDto\Console\Io;
-use CakeDto\View\Renderer;
+use Dto\Console\Io;
+use Dto\View\Renderer;
 use Cake\Console\Shell;
 use Exception;
 use RecursiveDirectoryIterator;

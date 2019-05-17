@@ -1,11 +1,11 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Shell;
+namespace Dto\Test\TestCase\Shell;
 
-use CakeDto\Shell\DtoShell;
+use Dto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
 use Cake\Filesystem\Folder;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use TestApp\TestSuite\ConsoleOutput;
 
 class DtoShellTest extends TestCase {

@@ -11,7 +11,7 @@ namespace TestApp\Dto;
  *
  * @property \TestApp\Dto\CarDto[]|\ArrayObject $cars
  */
-class CarsDto extends \CakeDto\Dto\AbstractDto {
+class CarsDto extends \Dto\Dto\AbstractDto {
 
 	const FIELD_CARS = 'cars';
 

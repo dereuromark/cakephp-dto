@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Dto;
+namespace Dto\Dto;
 
 use ArrayAccess;
-use CakeDto\View\Json;
+use Dto\View\Json;
 use Cake\Collection\Collection;
 use Countable;
 use InvalidArgumentException;
@@ -137,11 +137,11 @@ abstract class Dto implements Serializable {
 				} elseif ($value instanceof Countable && $value->count()) {
 					$values = $this->transformCollectiontoArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
 				} elseif ($this->_metadata[$field]['serializable']) {
-					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
+					/** @var \Dto\Dto\FromArrayToArrayInterface $value */
 					$values[$key] = $value->toArray();
 				} elseif ($this->_metadata[$field]['toArray']) {
 					// This will not be transformable in the other direction
-					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
+					/** @var \Dto\Dto\FromArrayToArrayInterface $value */
 					$values[$key] = $value->toArray();
 				} else {
 					$values[$key] = $value;
@@ -278,7 +278,7 @@ abstract class Dto implements Serializable {
 			}
 
 			if (array_values($arrayElement) !== $arrayElement) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElement, $ignoreMissing, $type);
 				$collection = $collection->appendItem($dto);
 
@@ -286,7 +286,7 @@ abstract class Dto implements Serializable {
 			}
 
 			foreach ($arrayElement as $arrayElementItem) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElementItem, $ignoreMissing, $type);
 				$collection = $collection->appendItem($dto);
 			}
@@ -301,10 +301,10 @@ abstract class Dto implements Serializable {
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
-	 * @return \CakeDto\Dto\Dto
+	 * @return \Dto\Dto\Dto
 	 */
 	protected function createDto($field, $value, $ignoreMissing, $type) {
-		/** @var \CakeDto\Dto\AbstractDto $dto */
+		/** @var \Dto\Dto\AbstractDto $dto */
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
@@ -318,10 +318,10 @@ abstract class Dto implements Serializable {
 	 * @param string $field
 	 * @param mixed $value
 	 *
-	 * @return \CakeDto\Dto\Dto
+	 * @return \Dto\Dto\Dto
 	 */
 	protected function createObject($field, $value) {
-		/** @var \CakeDto\Dto\FromArrayToArrayInterface $className */
+		/** @var \Dto\Dto\FromArrayToArrayInterface $className */
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
@@ -350,7 +350,7 @@ abstract class Dto implements Serializable {
 			}
 
 			if (array_values($arrayElement) !== $arrayElement) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElement, $ignoreMissing, $type);
 				$collection->append($dto);
 
@@ -358,7 +358,7 @@ abstract class Dto implements Serializable {
 			}
 
 			foreach ($arrayElement as $arrayElementItem) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElementItem, $ignoreMissing, $type);
 				$collection->append($dto);
 			}
@@ -385,7 +385,7 @@ abstract class Dto implements Serializable {
 			}
 
 			if (array_values($arrayElement) !== $arrayElement) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElement, $ignoreMissing, $type);
 				$collection = $this->addValueToArrayCollection($collection, $dto, $arrayElement, $index, $key);
 
@@ -393,7 +393,7 @@ abstract class Dto implements Serializable {
 			}
 
 			foreach ($arrayElement as $arrayElementItem) {
-				/** @var \CakeDto\Dto\Dto $dto */
+				/** @var \Dto\Dto\Dto $dto */
 				$dto = new $elementType($arrayElementItem, $ignoreMissing, $type);
 				$collection = $this->addValueToArrayCollection($collection, $dto, $arrayElement, $index, $key);
 			}

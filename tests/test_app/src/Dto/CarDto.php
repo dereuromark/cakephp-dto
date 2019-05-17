@@ -17,7 +17,7 @@ namespace TestApp\Dto;
  * @property \Cake\I18n\FrozenDate|null $manufactured
  * @property \TestApp\Dto\OwnerDto|null $owner
  */
-class CarDto extends \CakeDto\Dto\AbstractDto {
+class CarDto extends \Dto\Dto\AbstractDto {
 
 	const FIELD_COLOR = 'color';
 	const FIELD_IS_NEW = 'isNew';

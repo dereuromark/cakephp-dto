@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\Dto;
+namespace Dto\Dto;
 
 /**
  * Implement this interface for your VOs that should be fromArray()/toArray() safe.

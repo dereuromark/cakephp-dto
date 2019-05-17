@@ -1,13 +1,13 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Generator;
+namespace Dto\Test\TestCase\Generator;
 
-use CakeDto\Engine\EngineInterface;
-use CakeDto\Engine\XmlEngine;
-use CakeDto\Generator\Builder;
+use Dto\Engine\EngineInterface;
+use Dto\Engine\XmlEngine;
+use Dto\Generator\Builder;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 

@@ -1,5 +1,5 @@
 <?php
-namespace CakeDto\Console;
+namespace Dto\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;

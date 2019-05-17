@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\Engine;
+namespace Dto\Engine;
 
 use Cake\Core\Plugin;
 use DOMDocument;

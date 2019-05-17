@@ -1,8 +1,8 @@
 <?php
 
-namespace CakeDto\Dto;
+namespace Dto\Dto;
 
-use CakeDto\View\Json;
+use Dto\View\Json;
 use RuntimeException;
 
 abstract class AbstractDto extends Dto {

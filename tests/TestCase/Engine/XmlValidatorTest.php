@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Engine;
+namespace Dto\Test\TestCase\Engine;
 
-use CakeDto\Engine\XmlValidator;
-use Cake\TestSuite\TestCase;
+use Dto\Engine\XmlValidator;
+use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
 class XmlValidatorTest extends TestCase {

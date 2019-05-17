@@ -1,5 +1,5 @@
 <?php
-namespace CakeDto\View;
+namespace Dto\View;
 
 use RuntimeException;
 

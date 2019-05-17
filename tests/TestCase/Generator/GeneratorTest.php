@@ -1,17 +1,17 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Generator;
+namespace Dto\Test\TestCase\Generator;
 
-use CakeDto\Console\Io;
-use CakeDto\Engine\XmlEngine;
-use CakeDto\Generator\Builder;
-use CakeDto\Generator\Generator;
-use CakeDto\View\Renderer;
+use Dto\Console\Io;
+use Dto\Engine\XmlEngine;
+use Dto\Generator\Builder;
+use Dto\Generator\Generator;
+use Dto\View\Renderer;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
 use Cake\Filesystem\Folder;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use TestApp\TestSuite\ConsoleOutput;
 use TestApp\TestSuite\PhpFileTemplateTestTrait;
 use WyriHaximus\TwigView\Event\ExtensionsListener;

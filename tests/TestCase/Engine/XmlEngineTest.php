@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Engine;
+namespace Dto\Test\TestCase\Engine;
 
-use CakeDto\Engine\XmlEngine;
-use Cake\TestSuite\TestCase;
+use Dto\Engine\XmlEngine;
+use PHPUnit\Framework\TestCase;
 
 class XmlEngineTest extends TestCase {
 

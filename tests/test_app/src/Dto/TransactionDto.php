@@ -14,7 +14,7 @@ namespace TestApp\Dto;
  * @property string|null $comment
  * @property \Cake\I18n\FrozenDate $created
  */
-class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
+class TransactionDto extends \Dto\Dto\AbstractImmutableDto {
 
 	const FIELD_CUSTOMER_ACCOUNT = 'customerAccount';
 	const FIELD_VALUE = 'value';

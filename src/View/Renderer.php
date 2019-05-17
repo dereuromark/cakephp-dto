@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\View;
+namespace Dto\View;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;

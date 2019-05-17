@@ -16,7 +16,7 @@ namespace Sandbox\Dto\Jira;
  * @property string $summary
  * @property string|null $version
  */
-class IssueDto extends \CakeDto\Dto\AbstractDto {
+class IssueDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_ID = 'id';
 	public const FIELD_KEY = 'key';

@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Engine;
+namespace Dto\Test\TestCase\Engine;
 
-use CakeDto\Engine\NeonEngine;
-use Cake\TestSuite\TestCase;
+use Dto\Engine\NeonEngine;
+use PHPUnit\Framework\TestCase;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class NeonEngineTest extends TestCase {

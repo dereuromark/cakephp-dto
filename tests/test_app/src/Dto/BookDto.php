@@ -11,7 +11,7 @@ namespace TestApp\Dto;
  *
  * @property \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
  */
-class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
+class BookDto extends \Dto\Dto\AbstractImmutableDto {
 
 	const FIELD_PAGES = 'pages';
 

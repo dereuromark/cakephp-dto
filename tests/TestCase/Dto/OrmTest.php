@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace Dto\Test\TestCase\Dto;
 
 use Cake\I18n\FrozenTime;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use TestApp\Dto\ArticleDto;
 use TestApp\Model\Entity\Article;
 use TestApp\Model\Entity\Author;

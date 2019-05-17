@@ -1,13 +1,12 @@
 <?php
-namespace CakeDto\Test\TestCase\View;
+namespace Dto\Test\TestCase\View;
 
-use CakeDto\View\DtoView;
+use Dto\View\DtoView;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Http\Response;
-use Cake\Http\ServerRequest as Request;
-use Cake\TestSuite\StringCompareTrait;
-use Cake\TestSuite\TestCase;
+use Dto\TestSuite\StringCompareTrait;
+use PHPUnit\Framework\TestCase;
 
 class DtoViewTest extends TestCase {
 	use StringCompareTrait;

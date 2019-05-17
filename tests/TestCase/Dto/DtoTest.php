@@ -1,10 +1,10 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace Dto\Test\TestCase\Dto;
 
 use ArrayObject;
 use Cake\I18n\FrozenTime;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 use RuntimeException;
 use TestApp\Dto\ArticleDto;

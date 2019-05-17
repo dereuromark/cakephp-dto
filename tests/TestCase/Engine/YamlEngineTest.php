@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Engine;
+namespace Dto\Test\TestCase\Engine;
 
-use CakeDto\Engine\YamlEngine;
-use Cake\TestSuite\TestCase;
+use Dto\Engine\YamlEngine;
+use PHPUnit\Framework\TestCase;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class YamlEngineTest extends TestCase {

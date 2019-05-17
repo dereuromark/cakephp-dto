@@ -1,6 +1,6 @@
 <?php
 
-namespace CakeDto\Generator;
+namespace Dto\Generator;
 
 use DirectoryIterator;
 use InvalidArgumentException;

@@ -276,7 +276,7 @@ Objects, which are not DTOs or Collections, can get lost here.
 If you have value objects (especially immutable ones), implement the `FromArrayToArrayInterface` here:
 
 ```php
-use CakeDto\Dto\FromArrayToArrayInterface;
+use Dto\Dto\FromArrayToArrayInterface;
 
 final class Paint implements FromArrayToArrayInterface {}
 ```

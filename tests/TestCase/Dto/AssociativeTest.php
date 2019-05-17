@@ -1,8 +1,8 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace Dto\Test\TestCase\Dto;
 
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use TestApp\Dto\MutableMetaDto;
 
 class AssociativeTest extends TestCase {

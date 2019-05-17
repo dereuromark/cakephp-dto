@@ -14,7 +14,7 @@ namespace Sandbox\Dto\Github;
  * @property bool $private
  * @property \Sandbox\Dto\Github\UserDto $owner
  */
-class RepoDto extends \CakeDto\Dto\AbstractDto {
+class RepoDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_NAME = 'name';
 	public const FIELD_HTML_URL = 'html_url';

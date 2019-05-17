@@ -1,9 +1,9 @@
 <?php
 
-namespace CakeDto\Generator;
+namespace Dto\Generator;
 
-use CakeDto\Dto\FromArrayToArrayInterface;
-use CakeDto\Engine\EngineInterface;
+use Dto\Dto\FromArrayToArrayInterface;
+use Dto\Engine\EngineInterface;
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Utility\Inflector;

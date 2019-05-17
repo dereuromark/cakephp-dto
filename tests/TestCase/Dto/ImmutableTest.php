@@ -1,12 +1,12 @@
 <?php
 
-namespace CakeDto\Test\TestCase\Dto;
+namespace Dto\Test\TestCase\Dto;
 
-use CakeDto\Dto\AbstractImmutableDto;
+use Dto\Dto\AbstractImmutableDto;
 use Cake\Collection\Collection;
 use Cake\Collection\CollectionInterface;
 use Cake\I18n\FrozenTime;
-use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\TestCase;
 use TestApp\Dto\ArticleDto;
 use TestApp\Dto\BookDto;
 use TestApp\Dto\PageDto;

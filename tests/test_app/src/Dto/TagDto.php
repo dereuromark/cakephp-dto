@@ -13,7 +13,7 @@ namespace TestApp\Dto;
  * @property string $name
  * @property int $weight
  */
-class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
+class TagDto extends \Dto\Dto\AbstractImmutableDto {
 
 	const FIELD_ID = 'id';
 	const FIELD_NAME = 'name';

@@ -13,7 +13,7 @@ namespace Sandbox\Dto\Github;
  * @property string $html_url
  * @property string $type
  */
-class UserDto extends \CakeDto\Dto\AbstractDto {
+class UserDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_LOGIN = 'login';
 	public const FIELD_HTML_URL = 'html_url';

@@ -20,7 +20,7 @@ namespace Sandbox\Dto\Github;
  * @property \Sandbox\Dto\Github\HeadDto|null $head
  * @property \Sandbox\Dto\Github\BaseDto|null $base
  */
-class PullRequestDto extends \CakeDto\Dto\AbstractDto {
+class PullRequestDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_URL = 'url';
 	public const FIELD_NUMBER = 'number';

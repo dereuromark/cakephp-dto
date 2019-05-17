@@ -12,7 +12,7 @@ namespace Sandbox\Dto\Github;
  * @property string|null $name
  * @property string|null $color
  */
-class LabelDto extends \CakeDto\Dto\AbstractDto {
+class LabelDto extends \Dto\Dto\AbstractDto {
 
 	public const FIELD_NAME = 'name';
 	public const FIELD_COLOR = 'color';
