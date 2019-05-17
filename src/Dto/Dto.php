@@ -85,8 +85,8 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * @param string $path
-	 * @param mixed|null $default The return value when the path does not exist
+	 * @param string[] $path Path as array of strings.
+	 * @param mixed|null $default The return value when the path does not exist.
 	 * @return mixed|null The value fetched from the DTO, or null.
 	 */
 	public function read(array $path, $default = null) {
