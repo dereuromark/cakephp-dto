@@ -2,6 +2,7 @@
 
 namespace CakeDto\Dto;
 
+use ArrayAccess;
 use CakeDto\View\Json;
 use Cake\Collection\Collection;
 use Countable;
@@ -81,6 +82,33 @@ abstract class Dto implements Serializable {
 
 		$this->setDefaults();
 		$this->validate();
+	}
+
+	/**
+	 * @param string $path
+	 * @param mixed|null $default The return value when the path does not exist
+	 * @return mixed|null The value fetched from the DTO, or null.
+	 */
+	public function read(array $path, $default = null) {
+		$data = null;
+		foreach ($path as $key) {
+			if ($data === null && !$this->has($key)) {
+				return $default;
+			}
+			if ($data === null) {
+				$data = $this->get($key);
+				continue;
+			}
+			if ($data instanceof self || $data instanceof FromArrayToArrayInterface) {
+				$data = $data->toArray();
+			}
+			if ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
+				$data = $data[$key];
+			} else {
+				return $default;
+			}
+		}
+		return $data;
 	}
 
 	/**
