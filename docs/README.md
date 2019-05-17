@@ -220,6 +220,36 @@ Tools like PHPStan understand the important difference here and warn you if you 
 Using `has{Field}()` you can check on the existence of a value, basically `!== null` for fields.
 Collections, however, cannot be null, they always return something. This means that for those the method returns true for `count > 0`.
 
+### Read
+Using `read()` you can use a path array to quickly access deeply nested values.
+This is especially useful if any of the elements in the chain can be null. Usually you have to check for each level separately:
+```php
+// Nothing can be null in between, typehinted as int
+$green = $carsDto->getCarOrFail('one')->getColorOrFail()->getGreenOrFail();
+
+// Something can be null in between, typehinted as int|null
+$greenOrNull = null;
+if ($carDto->hasCar('one')) {
+    $carDto = $carsDto->getCar('one');
+    if ($carDto->hasColor()) {
+        $color = $carDto->getColor();
+        $greenOrNull = $color->getGreen();
+    }
+}
+
+// Typehinted as mixed|null
+$greenOrNull = $carsDto->read(['cars', 'one', 'color', 'green']);
+```
+ 
+The downside is that you lose the return type-hinting which is usually useful for static analysis.
+It should also be avoided where not needed - as you lose the auto-complete/type-hinting aspect.
+Using the class constants as field names can however compensite a bit:
+```php
+$path = [$carsDto::FIELD_CARS, 'one', CarDto::FIELD_COLOR, 'green'];
+$greenOrNull = $carsDto->read($path);
+```
+The associative key doesn't have a class constant, neither does the key of the value object.
+
 ### FromArray/ToArray
 These methods allow to transport data from array to DTO, the other way around or between DTOs.
 Using `touchedToArray()` you can also just shift over the fields that have been set.
