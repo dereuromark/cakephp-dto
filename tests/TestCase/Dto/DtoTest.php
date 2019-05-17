@@ -3,13 +3,18 @@
 namespace CakeDto\Test\TestCase\Dto;
 
 use ArrayObject;
+use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use RuntimeException;
+use TestApp\Dto\ArticleDto;
+use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\Dto\CarsDto;
 use TestApp\Dto\FlyingCarDto;
 use TestApp\Dto\OwnerDto;
+use TestApp\Model\Entity\Article;
+use TestApp\Model\Entity\Author;
 use TestApp\ValueObject\Paint;
 
 class DtoTest extends TestCase {
@@ -416,6 +421,60 @@ class DtoTest extends TestCase {
 
 		$result = $flyingCarDto->getMaxSpeed();
 		$this->assertSame(111, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRead() {
+		$articleEntity = new Article();
+		$articleEntity->id = 2; // We simulate a persisted entity and its persisted relations
+		$articleEntity->author = new Author(['id' => 1, 'name' => 'me']);
+		$articleEntity->title = 'My title';
+		$articleEntity->created = new FrozenTime();
+
+		$articleDto = new ArticleDto($articleEntity->toArray());
+
+		// Typehinted as string
+		$author = $articleDto->getAuthor()->getName();
+		$this->assertSame('me', $author);
+
+		$path = [$articleDto::FIELD_AUTHOR, AuthorDto::FIELD_NAME];
+
+		$authorOrNull = $articleDto->read($path);
+		$this->assertSame('me', $authorOrNull);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReadAssoc() {
+		$carsDto = new CarsDto();
+		$carOneDto = new CarDto();
+		$carOneDto->setColor(new Paint(1, 2, 3));
+
+		$carsDto->addCar('one', $carOneDto);
+
+		// Typehinted as int
+		$green = $carsDto->getCar('one')->getColor()->getGreen();
+		$this->assertSame(2, $green);
+
+		$greenOrNull = $carsDto->read(['cars', 'one', 'color', 'green']);
+
+		$this->assertSame(2, $greenOrNull);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReadAssocPartialMissing() {
+		$carsDto = new CarsDto();
+		$carOneDto = new CarDto();
+		// No color attached
+		$carsDto->addCar('one', $carOneDto);
+
+		$greenOrNull = $carsDto->read(['cars', 'one', 'color', 'green']);
+		$this->assertNull($greenOrNull);
 	}
 
 }
