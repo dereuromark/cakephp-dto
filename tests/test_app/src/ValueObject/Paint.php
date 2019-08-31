@@ -64,10 +64,10 @@ class Paint implements FromArrayToArrayInterface {
 	}
 
 	/**
-	 * @param \TestApp\ValueObject\Paint $object
+	 * @param static $object
 	 * @return bool True if the two Paints are equal
 	 */
-	public function equals(Paint $object) {
+	public function equals(self $object) {
 		return $this->red === $object->red
 			&& $this->green === $object->green
 			&& $this->blue === $object->blue;
@@ -78,10 +78,10 @@ class Paint implements FromArrayToArrayInterface {
 	 * Since the objects are immutable, the resulting Paint is a brand
 	 * new object, which is returned.
 	 *
-	 * @param \TestApp\ValueObject\Paint $another
-	 * @return \TestApp\ValueObject\Paint
+	 * @param static $another
+	 * @return static
 	 */
-	public function mix(Paint $another) {
+	public function mix(self $another) {
 		return new self($this->integerAverage($this->red, $another->red),
 			$this->integerAverage($this->green, $another->green),
 			$this->integerAverage($this->blue, $another->blue));
