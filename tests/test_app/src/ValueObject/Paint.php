@@ -5,8 +5,6 @@ namespace TestApp\ValueObject;
 use CakeDto\Dto\FromArrayToArrayInterface;
 
 /**
- * Subclassing a Value Object is rare, so we cut out this scenario
- * immediately.
  * This class represent a category of paint, like 'blue' or 'red',
  * not a quantity.
  */
@@ -70,8 +68,7 @@ class Paint implements FromArrayToArrayInterface {
 	 * @return bool True if the two Paints are equal
 	 */
 	public function equals(self $object): bool {
-		return
-			$this->red === $object->red
+		return $this->red === $object->red
 			&& $this->green === $object->green
 			&& $this->blue === $object->blue;
 	}
