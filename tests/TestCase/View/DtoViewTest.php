@@ -10,6 +10,7 @@ use Cake\TestSuite\StringCompareTrait;
 use Cake\TestSuite\TestCase;
 
 class DtoViewTest extends TestCase {
+
 	use StringCompareTrait;
 
 	/**
