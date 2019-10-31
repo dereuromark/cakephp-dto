@@ -237,7 +237,7 @@ abstract class Dto implements Serializable {
 				if (!$elementType) {
 					throw new RuntimeException('Missing singularType for collection ' . $collectionType);
 				}
-				if ($collectionType === '\Cake\\Collection\\Collection') {
+				if ($collectionType === '\\Cake\\Collection\\Collection') {
 					$value = $this->createCakeCollection($elementType, $value, $ignoreMissing, $type);
 				} else {
 					$value = $this->createCollection($collectionType, $elementType, $value, $ignoreMissing, $type);
