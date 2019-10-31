@@ -235,6 +235,10 @@ class Builder {
 				if ($array['singular'] !== $expected) {
 					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:singular` in %s DTO, expected `%s`', $name, $dtoName, $expected));
 				}
+
+				if (isset($array['collection']) && $array['collection'] === false) {
+					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:singular` in %s DTO, only collections can define this.', $name, $dtoName));
+				}
 			}
 		}
 	}
@@ -274,9 +278,9 @@ class Builder {
 				'nullable' => empty($data['required']),
 				'isArray' => false,
 				'dto' => null,
-				'collection' => false,
+				'collection' => !empty($data['singular']),
 				'collectionType' => null,
-				'associative' => !empty($data['singular']),
+				'associative' => false,
 				'key' => null,
 				'deprecated' => null,
 				'serializable' => false,
