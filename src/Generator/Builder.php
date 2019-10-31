@@ -229,12 +229,12 @@ class Builder {
 			if (!$this->isValidType($array['type'])) {
 				throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:type` in %s DTO: `%s`.', $name, $dtoName, $array['type']));
 			}
-		}
 
-		if (!empty($fields['singular'])) {
-			$expected = Inflector::variable(Inflector::underscore($fields['singular']));
-			if ($fields['singular'] !== $expected) {
-				throw new InvalidArgumentException(sprintf('Invalid DTO attribute `%s:singular`, expected `%s`', $dtoName, $expected));
+			if (!empty($array['singular'])) {
+				$expected = Inflector::variable(Inflector::underscore($array['singular']));
+				if ($array['singular'] !== $expected) {
+					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:singular` in %s DTO, expected `%s`', $name, $dtoName, $expected));
+				}
 			}
 		}
 	}
@@ -276,7 +276,7 @@ class Builder {
 				'dto' => null,
 				'collection' => false,
 				'collectionType' => null,
-				'associative' => false,
+				'associative' => !empty($data['singular']),
 				'key' => null,
 				'deprecated' => null,
 				'serializable' => false,
