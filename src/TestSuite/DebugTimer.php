@@ -65,7 +65,7 @@ class DebugTimer {
 		static::$_timers[$name] = [
 			'start' => $start,
 			'message' => $message,
-			'named' => $named
+			'named' => $named,
 		];
 
 		return true;
@@ -133,7 +133,7 @@ class DebugTimer {
 			'start' => 0,
 			'end' => $_end - $start,
 			'time' => round($_end - $start, 6),
-			'named' => null
+			'named' => null,
 		];
 		foreach (static::$_timers as $name => $timer) {
 			if (!isset($timer['end'])) {
@@ -142,7 +142,7 @@ class DebugTimer {
 			$times[$name] = array_merge($timer, [
 				'start' => $timer['start'] - $start,
 				'end' => $timer['end'] - $start,
-				'time' => static::elapsedTime($name)
+				'time' => static::elapsedTime($name),
 			]);
 		}
 		if ($clear) {

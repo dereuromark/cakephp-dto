@@ -34,7 +34,7 @@ class ImmutableTest extends TestCase {
 			'id' => 2,
 			'author' => [
 				'id' => 1,
-				'name' => 'me'
+				'name' => 'me',
 			],
 			'title' => 'My title',
 			'created' => new FrozenTime(time() - DAY),
@@ -81,7 +81,7 @@ class ImmutableTest extends TestCase {
 				[
 					'number' => 2,
 				],
-			]
+			],
 		];
 		$bookDto = BookDto::createFromArray($array);
 

@@ -46,7 +46,7 @@ $xmls = [
 	'basic.dto.xml',
 	'immutable.dto.xml',
 	'orm.dto.xml',
-	'cake_collection.dto.xml'
+	'cake_collection.dto.xml',
 ];
 foreach ($xmls as $xml) {
 	$xmlPath = ROOT . DS . 'docs/examples/' . $xml;
