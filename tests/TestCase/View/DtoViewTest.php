@@ -1,4 +1,5 @@
 <?php
+
 namespace CakeDto\Test\TestCase\View;
 
 use CakeDto\View\DtoView;

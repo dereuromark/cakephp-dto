@@ -11,6 +11,7 @@
  * @since         DebugKit 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace CakeDto\TestSuite;
 
 use Cake\Error\Debugger;

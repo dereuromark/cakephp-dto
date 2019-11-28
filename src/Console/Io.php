@@ -1,4 +1,5 @@
 <?php
+
 namespace CakeDto\Console;
 
 use Cake\Console\ConsoleIo;

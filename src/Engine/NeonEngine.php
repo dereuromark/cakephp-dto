@@ -1,4 +1,5 @@
 <?php
+
 namespace CakeDto\Engine;
 
 use InvalidArgumentException;

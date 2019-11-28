@@ -1,4 +1,5 @@
 <?php
+
 namespace CakeDto\View;
 
 use Cake\Core\Configure;
