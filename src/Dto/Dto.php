@@ -297,17 +297,17 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string $field
-	 * @param mixed $value
+	 * @param \CakeDto\Dto\Dto|array $value
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
 	 * @return \CakeDto\Dto\Dto
 	 */
 	protected function createDto($field, $value, $ignoreMissing, $type) {
-		/** @var \CakeDto\Dto\AbstractDto $dto */
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
+			/** @var \CakeDto\Dto\Dto $dto */
 			$value = new $className($value, $ignoreMissing, $type);
 		}
 
