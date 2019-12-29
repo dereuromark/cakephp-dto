@@ -22,7 +22,7 @@ matrix:
   fast_finish: true
 
 before_install:
-  - if [[ $CODECOVERAGE != 1 ]]; phpenv config-rm xdebug.ini ; fi
+  - if [[ $CODECOVERAGE != 1 ]]; then phpenv config-rm xdebug.ini ; fi
 
 before_script:
   - if [[ $CHECKS != 1 ]]; then composer require --dev phpunit/phpunit:"^8.0"; fi
