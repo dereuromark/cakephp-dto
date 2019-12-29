@@ -119,6 +119,11 @@ class BuilderTest extends TestCase {
 						'type' => 'string[]',
 						'collectionType' => '\Cake\Collection\Collection',
 					],
+					'autoCollectionBySingular' => [
+						'name' => 'myPlural',
+						'type' => 'string[]',
+						'singular' => 'mySingular',
+					],
 				],
 			],
 		];
@@ -234,6 +239,29 @@ class BuilderTest extends TestCase {
 			'toArray' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
+
+		$expected = [
+			'name' => 'myPlural',
+			'type' => 'string[]|\ArrayObject',
+			'required' => false,
+			'defaultValue' => null,
+			'nullable' => false,
+			'collectionType' => '\ArrayObject',
+			'isArray' => false,
+			'dto' => null,
+			'associative' => false,
+			'collection' => true,
+			'key' => null,
+			'singularType' => 'string',
+			'singularTypeHint' => null,
+			'singularReturnTypeHint' => null,
+			'singular' => 'mySingular',
+			'typeHint' => '\ArrayObject',
+			'deprecated' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 	}
 
 	/**

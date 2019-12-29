@@ -1,4 +1,5 @@
 <?php
+
 namespace CakeDto\Test\TestCase\View;
 
 use CakeDto\View\DtoView;
@@ -10,6 +11,7 @@ use Cake\TestSuite\StringCompareTrait;
 use Cake\TestSuite\TestCase;
 
 class DtoViewTest extends TestCase {
+
 	use StringCompareTrait;
 
 	/**

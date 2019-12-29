@@ -237,7 +237,7 @@ abstract class Dto implements Serializable {
 				if (!$elementType) {
 					throw new RuntimeException('Missing singularType for collection ' . $collectionType);
 				}
-				if ($collectionType === '\Cake\\Collection\\Collection') {
+				if ($collectionType === '\\Cake\\Collection\\Collection') {
 					$value = $this->createCakeCollection($elementType, $value, $ignoreMissing, $type);
 				} else {
 					$value = $this->createCollection($collectionType, $elementType, $value, $ignoreMissing, $type);
@@ -297,17 +297,17 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string $field
-	 * @param mixed $value
+	 * @param \CakeDto\Dto\Dto|array $value
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
 	 * @return \CakeDto\Dto\Dto
 	 */
 	protected function createDto($field, $value, $ignoreMissing, $type) {
-		/** @var \CakeDto\Dto\AbstractDto $dto */
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
+			/** @var \CakeDto\Dto\Dto $dto */
 			$value = new $className($value, $ignoreMissing, $type);
 		}
 

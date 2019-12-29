@@ -48,15 +48,15 @@ class XmlEngineTest extends TestCase {
 					],
 					'isNew' => [
 						'name' => 'isNew',
-						'type' => 'bool'
+						'type' => 'bool',
 					],
 					'value' => [
 						'name' => 'value',
-						'type' => 'float'
+						'type' => 'float',
 					],
 					'distanceTravelled' => [
 						'name' => 'distanceTravelled',
-						'type' => 'int'
+						'type' => 'int',
 					],
 					'attributes' => [
 						'name' => 'attributes',
@@ -64,13 +64,13 @@ class XmlEngineTest extends TestCase {
 					],
 					'manufactured' => [
 						'name' => 'manufactured',
-						'type' => '\Cake\I18n\FrozenDate'
+						'type' => '\Cake\I18n\FrozenDate',
 					],
 					'owner' => [
 						'name' => 'owner',
-						'type' => 'Owner'
-					]
-				]
+						'type' => 'Owner',
+					],
+				],
 			],
 			'Cars' => [
 				'name' => 'Cars',
@@ -79,22 +79,22 @@ class XmlEngineTest extends TestCase {
 						'name' => 'cars',
 						'type' => 'Car[]',
 						'collection' => true,
-						'associative' => true
-					]
-				]
+						'associative' => true,
+					],
+				],
 			],
 			'Owner' => [
 				'name' => 'Owner',
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
+						'type' => 'string',
 					],
 					'birthYear' => [
 						'name' => 'birthYear',
-						'type' => 'int'
-					]
-				]
+						'type' => 'int',
+					],
+				],
 			],
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
@@ -113,9 +113,9 @@ class XmlEngineTest extends TestCase {
 					],
 					'complexAttributes' => [
 						'name' => 'complexAttributes',
-						'type' => 'array'
+						'type' => 'array',
 					],
-				]
+				],
 			],
 			'OldOne' => [
 				'name' => 'OldOne',
@@ -124,9 +124,9 @@ class XmlEngineTest extends TestCase {
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
-					]
-				]
+						'type' => 'string',
+					],
+				],
 			],
 			'EmptyOne' => [
 				'name' => 'EmptyOne',
@@ -155,23 +155,23 @@ class XmlEngineTest extends TestCase {
 					'customerAccount' => [
 						'name' => 'customerAccount',
 						'type' => 'CustomerAccount',
-						'required' => true
+						'required' => true,
 					],
 					'value' => [
 						'name' => 'value',
 						'type' => 'float',
-						'required' => true
+						'required' => true,
 					],
 					'comment' => [
 						'name' => 'comment',
-						'type' => 'string'
+						'type' => 'string',
 					],
 					'created' => [
 						'name' => 'created',
 						'type' => '\Cake\I18n\FrozenDate',
-						'required' => true
-					]
-				]
+						'required' => true,
+					],
+				],
 			],
 			'CustomerAccount' => [
 				'name' => 'CustomerAccount',
@@ -179,14 +179,14 @@ class XmlEngineTest extends TestCase {
 					'customerName' => [
 						'name' => 'customerName',
 						'type' => 'string',
-						'required' => true
+						'required' => true,
 					],
 					'birthYear' => [
 						'name' => 'birthYear',
-						'type' => 'int'
-					]
-				]
-			]
+						'type' => 'int',
+					],
+				],
+			],
 		];
 		$this->assertSame($expected, $result, print_r($result, true));
 	}
@@ -207,20 +207,20 @@ class XmlEngineTest extends TestCase {
 						'name' => 'defaultedOptionalField',
 						'type' => 'int',
 						'defaultValue' => 0,
-						'required' => false
+						'required' => false,
 					],
 					'defaultedBoolField' => [
 						'name' => 'defaultedBoolField',
 						'type' => 'bool',
-						'defaultValue' => true
+						'defaultValue' => true,
 					],
 					'defaultedStringField' => [
 						'name' => 'defaultedStringField',
 						'type' => 'string',
-						'defaultValue' => ''
-					]
-				]
-			]
+						'defaultValue' => '',
+					],
+				],
+			],
 		];
 		$this->assertSame($expected, $result, print_r($result, true));
 	}

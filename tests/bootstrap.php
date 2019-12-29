@@ -35,9 +35,9 @@ Cake\Core\Configure::write('App', [
 	'paths' => [
 		'templates' => [
 			ROOT . DS . 'templates' . DS,
-			ROOT . DS . 'tests' . DS . 'test_app' . DS . 'templates' . DS
+			ROOT . DS . 'tests' . DS . 'test_app' . DS . 'templates' . DS,
 		],
-	]
+	],
 ]);
 
 Cake\Core\Configure::write('CakeDto', [

@@ -50,15 +50,15 @@ class NeonEngineTest extends TestCase {
 					],
 					'isNew' => [
 						'name' => 'isNew',
-						'type' => 'bool'
+						'type' => 'bool',
 					],
 					'value' => [
 						'name' => 'value',
-						'type' => 'float'
+						'type' => 'float',
 					],
 					'distanceTravelled' => [
 						'name' => 'distanceTravelled',
-						'type' => 'int'
+						'type' => 'int',
 					],
 					'attributes' => [
 						'name' => 'attributes',
@@ -66,12 +66,12 @@ class NeonEngineTest extends TestCase {
 					],
 					'manufactured' => [
 						'name' => 'manufactured',
-						'type' => '\Cake\I18n\FrozenDate'
+						'type' => '\Cake\I18n\FrozenDate',
 					],
 					'owner' => [
 						'name' => 'owner',
-						'type' => 'Owner'
-					]
+						'type' => 'Owner',
+					],
 				],
 				'name' => 'Car',
 			],
@@ -82,7 +82,7 @@ class NeonEngineTest extends TestCase {
 						'name' => 'cars',
 						'type' => 'Car[]',
 						'collection' => true,
-					]
+					],
 				],
 				'name' => 'Cars',
 			],
@@ -90,12 +90,12 @@ class NeonEngineTest extends TestCase {
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
+						'type' => 'string',
 					],
 					'birthYear' => [
 						'name' => 'birthYear',
-						'type' => 'int'
-					]
+						'type' => 'int',
+					],
 				],
 				'name' => 'Owner',
 			],
@@ -116,9 +116,9 @@ class NeonEngineTest extends TestCase {
 					],
 					'complexAttributes' => [
 						'name' => 'complexAttributes',
-						'type' => 'array'
+						'type' => 'array',
 					],
-				]
+				],
 			],
 			'OldOne' => [
 				'name' => 'OldOne',
@@ -126,10 +126,10 @@ class NeonEngineTest extends TestCase {
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
-					]
-				]
-			]
+						'type' => 'string',
+					],
+				],
+			],
 		];
 
 		$this->assertAssociativeArray($expected, $result);

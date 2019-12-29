@@ -65,7 +65,7 @@ class OrmTest extends TestCase {
 			'author_id' => 1,
 			'author' => [
 				'id' => 1,
-				'name' => 'me'
+				'name' => 'me',
 			],
 			'title' => 'My title',
 			'tags' => [
@@ -76,8 +76,8 @@ class OrmTest extends TestCase {
 				[
 					'id' => 4,
 					'name' => 'Shiny',
-				]
-			]
+				],
+			],
 		];
 		$this->assertSame($expected, $array);
 

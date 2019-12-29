@@ -213,15 +213,15 @@ class DtoTest extends TestCase {
 		$expected = [
 			'cars' => [
 				'one' => [
-					'distanceTravelled' => 123
+					'distanceTravelled' => 123,
 				],
 				'two' => [
-					'distanceTravelled' => 234
+					'distanceTravelled' => 234,
 				],
 				'three' => [
-					'distanceTravelled' => 345
-				]
-			]
+					'distanceTravelled' => 345,
+				],
+			],
 		];
 		$this->assertSame($expected, $result);
 		$this->assertSame($carOne, $carsDto->getCar('one'));

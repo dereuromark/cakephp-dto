@@ -52,15 +52,15 @@ class YamlEngineTest extends TestCase {
 					],
 					'isNew' => [
 						'name' => 'isNew',
-						'type' => 'bool'
+						'type' => 'bool',
 					],
 					'value' => [
 						'name' => 'value',
-						'type' => 'float'
+						'type' => 'float',
 					],
 					'distanceTravelled' => [
 						'name' => 'distanceTravelled',
-						'type' => 'int'
+						'type' => 'int',
 					],
 					'attributes' => [
 						'name' => 'attributes',
@@ -68,12 +68,12 @@ class YamlEngineTest extends TestCase {
 					],
 					'manufactured' => [
 						'name' => 'manufactured',
-						'type' => '\Cake\I18n\FrozenDate'
+						'type' => '\Cake\I18n\FrozenDate',
 					],
 					'owner' => [
 						'name' => 'owner',
-						'type' => 'Owner'
-					]
+						'type' => 'Owner',
+					],
 				],
 				'name' => 'Car',
 			],
@@ -84,7 +84,7 @@ class YamlEngineTest extends TestCase {
 						'name' => 'cars',
 						'type' => 'Car[]',
 						'collection' => true,
-					]
+					],
 				],
 				'name' => 'Cars',
 			],
@@ -92,12 +92,12 @@ class YamlEngineTest extends TestCase {
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
+						'type' => 'string',
 					],
 					'birthYear' => [
 						'name' => 'birthYear',
-						'type' => 'int'
-					]
+						'type' => 'int',
+					],
 				],
 				'name' => 'Owner',
 			],
@@ -118,9 +118,9 @@ class YamlEngineTest extends TestCase {
 					],
 					'complexAttributes' => [
 						'name' => 'complexAttributes',
-						'type' => 'array'
+						'type' => 'array',
 					],
-				]
+				],
 			],
 			'OldOne' => [
 				'name' => 'OldOne',
@@ -128,10 +128,10 @@ class YamlEngineTest extends TestCase {
 				'fields' => [
 					'name' => [
 						'name' => 'name',
-						'type' => 'string'
-					]
-				]
-			]
+						'type' => 'string',
+					],
+				],
+			],
 		];
 
 		$this->assertAssociativeArray($expected, $result);
