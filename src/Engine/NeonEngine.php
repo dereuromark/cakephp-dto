@@ -13,7 +13,7 @@ class NeonEngine implements EngineInterface {
 	/**
 	 * @return string
 	 */
-	public function extension() {
+	public function extension(): string {
 		return static::EXT;
 	}
 
@@ -21,7 +21,7 @@ class NeonEngine implements EngineInterface {
 	 * @param array $files
 	 * @return void
 	 */
-	public function validate(array $files) {
+	public function validate(array $files): void {
 	}
 
 	/**
@@ -33,7 +33,7 @@ class NeonEngine implements EngineInterface {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	public function parse($content) {
+	public function parse(string $content): array {
 		$result = [];
 
 		try {

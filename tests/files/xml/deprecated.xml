@@ -5,13 +5,13 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="Tree">
-		<field name="type" type="string" />
-		<field name="size" type="int" deprecated="Deprecated for no reason" />
+		<field name="type" type="string"/>
+		<field name="size" type="int" deprecated="Deprecated for no reason"/>
 	</dto>
 
 	<dto name="Flower">
-		<field name="type" type="string" />
-		<field name="colors" type="string[]" collection="true" deprecated="Deprecated for sure" />
+		<field name="type" type="string"/>
+		<field name="colors" type="string[]" collection="true" deprecated="Deprecated for sure"/>
 	</dto>
 
 	<dto name="Animal" deprecated="Deprecated now">

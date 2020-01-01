@@ -7,6 +7,7 @@ use Cake\Event\Event;
 use Cake\Event\EventManager;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
+use Cake\View\View;
 use Cake\View\ViewVarsTrait;
 
 class Renderer {
@@ -20,7 +21,7 @@ class Renderer {
 	 * @param array|null $vars Additional vars to set to template scope.
 	 * @return string contents of generated code template
 	 */
-	public function generate($template, $vars = null) {
+	public function generate(string $template, ?array $vars = null): string {
 		$this->setGlobalConfiguration();
 
 		if ($vars !== null) {
@@ -41,7 +42,7 @@ class Renderer {
 	 * @return \Cake\View\View
 	 * @triggers Bake.initialize $view
 	 */
-	public function getView() {
+	public function getView(): View {
 		$viewOptions = [
 			'helpers' => [
 				'CakeDto.Template',
@@ -60,7 +61,7 @@ class Renderer {
 	/**
 	 * @return void
 	 */
-	protected function setGlobalConfiguration() {
+	protected function setGlobalConfiguration(): void {
 		$strictTypes = (bool)Configure::read('CakeDto.strictTypes', version_compare(PHP_VERSION, '7.1') >= 0);
 		$scalarTypeHints = (bool)Configure::read('CakeDto.scalarTypeHints', version_compare(PHP_VERSION, '7.1') >= 0);
 

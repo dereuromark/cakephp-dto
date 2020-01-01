@@ -24,7 +24,7 @@ abstract class Dto implements Serializable {
 	 * @param string $type
 	 * @return static
 	 */
-	public static function create(array $data = null, $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
+	public static function create(array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
 		return new static($data, $ignoreMissing, $type);
 	}
 
@@ -75,7 +75,7 @@ abstract class Dto implements Serializable {
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 */
-	public function __construct(array $data = null, $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
+	public function __construct(array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
 		if ($data) {
 			$this->setFromArray($data, $ignoreMissing, $type);
 		}
@@ -117,7 +117,7 @@ abstract class Dto implements Serializable {
 	 * @param bool $touched
 	 * @return array
 	 */
-	public function toArray($type = self::TYPE_DEFAULT, array $fields = null, $touched = false) {
+	public function toArray(?string $type = self::TYPE_DEFAULT, array $fields = null, bool $touched = false): array {
 		if ($fields === null) {
 			$fields = $this->fields();
 		}
@@ -171,7 +171,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	protected function transformCollectiontoArray($value, $values, $arrayKey, $childConvertMethodName, $type) {
+	protected function transformCollectiontoArray($value, array $values, string $arrayKey, string $childConvertMethodName, string $type): array {
 		foreach ($value as $elementKey => $arrayElement) {
 			if (is_array($arrayElement) || is_scalar($arrayElement)) {
 				$values[$arrayKey][$elementKey] = $arrayElement;
@@ -192,7 +192,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	protected function transformArrayCollectionToArray(array $array, $childConvertMethodName, $type) {
+	protected function transformArrayCollectionToArray(array $array, string $childConvertMethodName, string $type): array {
 		foreach ($array as $elementKey => $arrayElement) {
 			if (is_array($arrayElement) || is_scalar($arrayElement)) {
 				continue;
@@ -208,7 +208,7 @@ abstract class Dto implements Serializable {
 	 * @param string $type
 	 * @return array
 	 */
-	public function touchedToArray($type = self::TYPE_DEFAULT) {
+	public function touchedToArray(string $type = self::TYPE_DEFAULT): array {
 		return $this->toArray($type, $this->touchedFields(), true);
 	}
 
@@ -219,7 +219,7 @@ abstract class Dto implements Serializable {
 	 * @return $this
 	 * @throws \RuntimeException
 	 */
-	protected function setFromArray(array $data, $ignoreMissing, $type = self::TYPE_DEFAULT) {
+	protected function setFromArray(array $data, bool $ignoreMissing, string $type = self::TYPE_DEFAULT) {
 		foreach ($data as $field => $value) {
 			if (!$this->hasField($field, $ignoreMissing, $type)) {
 				continue;
@@ -269,7 +269,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \Cake\Collection\CollectionInterface
 	 */
-	protected function createCakeCollection($elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT) {
+	protected function createCakeCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \Cake\Collection\CollectionInterface {
 		$collection = new Collection([]);
 		foreach ($arrayObject as $arrayElement) {
 			if (!is_array($arrayElement)) {
@@ -303,7 +303,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \CakeDto\Dto\Dto
 	 */
-	protected function createDto($field, $value, $ignoreMissing, $type) {
+	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): \CakeDto\Dto\Dto {
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
@@ -318,9 +318,9 @@ abstract class Dto implements Serializable {
 	 * @param string $field
 	 * @param mixed $value
 	 *
-	 * @return \CakeDto\Dto\Dto
+	 * @return object|string
 	 */
-	protected function createObject($field, $value) {
+	protected function createObject(string $field, $value) {
 		/** @var \CakeDto\Dto\FromArrayToArrayInterface $className */
 		$className = $this->_metadata[$field]['type'];
 
@@ -340,7 +340,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \ArrayObject
 	 */
-	protected function createCollection($collectionType, $elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT) {
+	protected function createCollection(string $collectionType, string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \ArrayObject {
 		/** @var \ArrayObject $collection */
 		$collection = new $collectionType();
 		foreach ($arrayObject as $arrayElement) {
@@ -376,7 +376,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	protected function createArrayCollection($elementType, $arrayObject, $ignoreMissing, $type = self::TYPE_DEFAULT, $key = false) {
+	protected function createArrayCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT, $key = false): array {
 		$collection = [];
 		foreach ($arrayObject as $index => $arrayElement) {
 			if (!is_array($arrayElement)) {
@@ -411,7 +411,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	protected function addValueToArrayCollection(array $collection, $element, $arrayElement, $index, $key) {
+	protected function addValueToArrayCollection(array $collection, $element, $arrayElement, $index, $key): array {
 		if ($key === false) {
 			$collection[] = $element;
 
@@ -439,7 +439,7 @@ abstract class Dto implements Serializable {
 	 * @return bool
 	 * @throws \InvalidArgumentException
 	 */
-	protected function hasField($field, $ignoreMissing, $type) {
+	protected function hasField(string $field, bool $ignoreMissing, string $type): bool {
 		if ($type === static::TYPE_DEFAULT && isset($this->_metadata[$field])) {
 			return true;
 		}
@@ -459,7 +459,7 @@ abstract class Dto implements Serializable {
 	/**
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->serialize();
 	}
 
@@ -469,7 +469,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	public function __debugInfo() {
+	public function __debugInfo(): array {
 		return [
 			'data' => $this->toArray(),
 			'touched' => $this->touchedFields(),
@@ -484,7 +484,7 @@ abstract class Dto implements Serializable {
 	 * @link https://php.net/manual/en/serializable.serialize.php
 	 * @return string the string representation of the object or null
 	 */
-	public function serialize() {
+	public function serialize(): string {
 		$jsonUtil = new Json();
 
 		return $jsonUtil->encode($this->touchedToArray());
@@ -493,14 +493,14 @@ abstract class Dto implements Serializable {
 	/**
 	 * @return string[]
 	 */
-	public function fields() {
+	public function fields(): array {
 		return array_keys($this->_metadata);
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function touchedFields() {
+	public function touchedFields(): array {
 		return array_keys($this->_touchedFields);
 	}
 
@@ -512,7 +512,7 @@ abstract class Dto implements Serializable {
 	 * @return string
 	 * @throws \InvalidArgumentException
 	 */
-	public function field($name, $type) {
+	public function field(string $name, string $type): string {
 		if (!isset($this->_keyMap[$type][$name])) {
 			throw new InvalidArgumentException(sprintf('Invalid field lookup for type `%s`: `%s` does not exist.', $type, $name));
 		}
@@ -526,7 +526,7 @@ abstract class Dto implements Serializable {
 	 * @return string
 	 * @throws \InvalidArgumentException
 	 */
-	protected function key($key, $type) {
+	protected function key(string $key, string $type): string {
 		$map = array_flip($this->_keyMap[$type]);
 		if (!isset($map[$key])) {
 			throw new InvalidArgumentException(sprintf('Invalid field lookup for type `%s`: `%s` does not exist.', $type, $key));
@@ -554,7 +554,7 @@ abstract class Dto implements Serializable {
 	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
-	protected function validate() {
+	protected function validate(): void {
 		$errors = [];
 		foreach ($this->_metadata as $name => $field) {
 			if ($field['required'] && $this->$name === null) {
@@ -572,7 +572,7 @@ abstract class Dto implements Serializable {
 	 * @param string $property Name of the property to access
 	 * @return mixed
 	 */
-	public function &__get($property) {
+	public function &__get(string $property) {
 		return $this->get($property);
 	}
 
@@ -584,7 +584,7 @@ abstract class Dto implements Serializable {
 	 * @return bool
 	 * @see \Cake\ORM\Entity::has()
 	 */
-	public function __isset($property) {
+	public function __isset(string $property): bool {
 		return $this->has($property);
 	}
 
@@ -594,7 +594,7 @@ abstract class Dto implements Serializable {
 	 * @return bool
 	 * @throws \RuntimeException
 	 */
-	public function has($field, $type = self::TYPE_DEFAULT) {
+	public function has(string $field, string $type = self::TYPE_DEFAULT): bool {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}
@@ -614,7 +614,7 @@ abstract class Dto implements Serializable {
 	 * @return mixed
 	 * @throws \RuntimeException
 	 */
-	public function &get($field, $type = self::TYPE_DEFAULT) {
+	public function &get(string $field, string $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}

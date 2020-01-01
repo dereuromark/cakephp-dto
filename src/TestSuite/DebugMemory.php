@@ -35,7 +35,7 @@ class DebugMemory {
 	 *
 	 * @return int number of bytes ram currently in use. 0 if memory_get_usage() is not available.
 	 */
-	public static function getCurrent() {
+	public static function getCurrent(): int {
 		return memory_get_usage();
 	}
 
@@ -44,7 +44,7 @@ class DebugMemory {
 	 *
 	 * @return int peak memory use (in bytes). Returns 0 if memory_get_peak_usage() is not available
 	 */
-	public static function getPeak() {
+	public static function getPeak(): int {
 		return memory_get_peak_usage();
 	}
 
@@ -56,7 +56,7 @@ class DebugMemory {
 	 * @param string|null $message Message to identify this memory point.
 	 * @return bool
 	 */
-	public static function record($message = null) {
+	public static function record(?string $message = null): bool {
 		$memoryUse = static::getCurrent();
 		if (!$message) {
 			$trace = debug_backtrace();
@@ -81,7 +81,7 @@ class DebugMemory {
 	 * @param bool $clear Whether you want to clear the memory points as well. Defaults to false.
 	 * @return array Array of memory marks stored so far.
 	 */
-	public static function getAll($clear = false) {
+	public static function getAll(bool $clear = false): array {
 		$marks = static::$_points;
 		if ($clear) {
 			static::$_points = [];
@@ -95,7 +95,7 @@ class DebugMemory {
 	 *
 	 * @return void
 	 */
-	public static function clear() {
+	public static function clear(): void {
 		static::$_points = [];
 	}
 

@@ -42,7 +42,7 @@ class GithubTest extends TestCase {
 		$this->shell->expects($this->any())->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
 
 		$result = $this->shell->runCommand(['generate', '-v', '-p', 'Sandbox', '-d']);
-		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run.');
+		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run. ' . $this->out->output());
 
 		$pullRequestDto = PullRequestDto::create($simulatedDataFromGitHubApi, true, PullRequestDto::TYPE_UNDERSCORED);
 

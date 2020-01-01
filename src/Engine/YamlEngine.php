@@ -11,7 +11,7 @@ class YamlEngine implements EngineInterface {
 	/**
 	 * @return string
 	 */
-	public function extension() {
+	public function extension(): string {
 		return static::EXT;
 	}
 
@@ -21,7 +21,7 @@ class YamlEngine implements EngineInterface {
 	 * @param array $files
 	 * @return void
 	 */
-	public function validate(array $files) {
+	public function validate(array $files): void {
 	}
 
 	/**
@@ -33,7 +33,7 @@ class YamlEngine implements EngineInterface {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	public function parse($content) {
+	public function parse(string $content): array {
 		$result = yaml_parse($content);
 		if (!$result) {
 			throw new InvalidArgumentException('Invalid YAML file');

@@ -49,7 +49,7 @@ class Generator {
 	 * @param array $options
 	 * @return int Code
 	 */
-	public function generate($configPath, $srcPath, array $options = []) {
+	public function generate(string $configPath, string $srcPath, array $options = []): int {
 		$options += [
 			'force' => false,
 			'dryRun' => false,
@@ -123,7 +123,7 @@ class Generator {
 	 *
 	 * @return string[]
 	 */
-	protected function findExistingDtos($path) {
+	protected function findExistingDtos(string $path): array {
 		if (!is_dir($path)) {
 			mkdir($path, 0700, true);
 		}
@@ -151,7 +151,7 @@ class Generator {
 	 *
 	 * @return bool
 	 */
-	protected function isModified($file, $newContent) {
+	protected function isModified(string $file, string $newContent): bool {
 		return file_get_contents($file) !== $newContent;
 	}
 
@@ -160,7 +160,7 @@ class Generator {
 	 *
 	 * @return string[]
 	 */
-	protected function generateDtos(array $definitions) {
+	protected function generateDtos(array $definitions): array {
 		$dtos = [];
 		foreach ($definitions as $name => $dto) {
 			$this->renderer->set($dto);
@@ -176,7 +176,7 @@ class Generator {
 	 * @param string $file
 	 * @return bool
 	 */
-	protected function checkPhpFileSyntax($file) {
+	protected function checkPhpFileSyntax(string $file): bool {
 		exec('php -l "' . $file . '"', $output, $returnValue);
 
 		if ($returnValue !== static::CODE_SUCCESS) {

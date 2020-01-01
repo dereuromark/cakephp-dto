@@ -88,7 +88,7 @@ class Builder {
 	 * @param array $options
 	 * @return array
 	 */
-	public function build($configPath, array $options = []) {
+	public function build(string $configPath, array $options = []): array {
 		$options += [
 			'plugin' => null,
 			'namespace' => null,
@@ -114,7 +114,7 @@ class Builder {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _createDtos(array $config, $namespace) {
+	protected function _createDtos(array $config, string $namespace): array {
 		foreach ($config as $name => $dto) {
 			$this->_validateDto($dto);
 			$dto = $this->_complete($dto, $namespace);
@@ -135,7 +135,7 @@ class Builder {
 		}
 
 		foreach ($config as $name => $dto) {
-			if (in_array($dto['extends'], ['\\CakeDto\\Dto\\AbstractDto', '\\CakeDto\\Dto\\AbstractImmutableDto'])) {
+			if (in_array($dto['extends'], ['\\CakeDto\\Dto\\AbstractDto', '\\CakeDto\\Dto\\AbstractImmutableDto'], true)) {
 				continue;
 			}
 
@@ -177,7 +177,7 @@ class Builder {
 	 * @param string $type
 	 * @return bool
 	 */
-	protected function isValidType($type) {
+	protected function isValidType(string $type): bool {
 		if ($this->isValidSimpleType($type, $this->simpleTypeAdditionsForDocBlock)) {
 			return true;
 		}
@@ -197,7 +197,7 @@ class Builder {
 	 * @return void
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _validateDto(array $dto) {
+	protected function _validateDto(array $dto): void {
 		if (empty($dto['name'])) {
 			throw new InvalidArgumentException('DTO name missing, but required.');
 		}
@@ -248,7 +248,7 @@ class Builder {
 	 *
 	 * @return array
 	 */
-	protected function _merge(array $configs) {
+	protected function _merge(array $configs): array {
 		$result = [];
 		foreach ($configs as $config) {
 			$result += $config;
@@ -269,7 +269,7 @@ class Builder {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _complete(array $dto, $namespace) {
+	protected function _complete(array $dto, string $namespace): array {
 		$fields = $dto['fields'];
 		foreach ($fields as $field => $data) {
 			$data += [
@@ -348,7 +348,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isCollection(array $field) {
+	protected function isCollection(array $field): bool {
 		if (!$field['collection'] && !$field['collectionType'] && !$field['associative']) {
 			return false;
 		}
@@ -363,7 +363,7 @@ class Builder {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _completeCollectionSingular(array $data, $dtoName, $namespace) {
+	protected function _completeCollectionSingular(array $data, string $dtoName, string $namespace): array {
 		$fieldName = $data['name'];
 		if (!$data['collection'] && empty($data['collectionType'])) {
 			return $data;
@@ -407,7 +407,7 @@ class Builder {
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function _completeMeta(array $dto, $namespace) {
+	protected function _completeMeta(array $dto, string $namespace): array {
 		$fields = $dto['fields'];
 
 		foreach ($fields as $key => $field) {
@@ -473,7 +473,7 @@ class Builder {
 	 * @param array $field
 	 * @return string
 	 */
-	protected function collectionType(array $field) {
+	protected function collectionType(array $field): string {
 		if ($field['collectionType']) {
 			return $field['collectionType'];
 		}
@@ -489,7 +489,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isValidDto($name) {
+	protected function isValidDto(string $name): bool {
 		if (!preg_match('#^[A-Z][a-zA-Z/]+$#', $name)) {
 			return false;
 		}
@@ -510,7 +510,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isValidArray($type) {
+	protected function isValidArray(string $type): bool {
 		if ($type === 'array') {
 			return true;
 		}
@@ -529,7 +529,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isValidCollection($type) {
+	protected function isValidCollection(string $type): bool {
 		if ($type === 'array') {
 			return true;
 		}
@@ -548,7 +548,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isValidInterfaceOrClass($type) {
+	protected function isValidInterfaceOrClass(string $type): bool {
 		if (substr($type, 0, 1) !== '\\') {
 			return false;
 		}
@@ -561,7 +561,7 @@ class Builder {
 	 * @param array $additional
 	 * @return bool
 	 */
-	protected function isValidSimpleType($type, array $additional = []) {
+	protected function isValidSimpleType(string $type, array $additional = []): bool {
 		$whitelist = array_merge($this->simpleTypeWhitelist, $additional);
 		$types = explode('|', $type);
 
@@ -589,7 +589,7 @@ class Builder {
 	 * @return void
 	 * @throws \RuntimeException
 	 */
-	protected function validateMerge($existing, $new) {
+	protected function validateMerge(?array $existing, ?array $new): void {
 		if (!$existing || !$new) {
 			return;
 		}
@@ -615,7 +615,7 @@ class Builder {
 	 * @param string $configPath
 	 * @return string[]
 	 */
-	protected function _getFiles($configPath) {
+	protected function _getFiles(string $configPath): array {
 		$extension = $this->engine->extension();
 
 		$files = $this->_finder()->collect($configPath, $extension);
@@ -630,7 +630,7 @@ class Builder {
 	 * @param string|null $plugin
 	 * @return string
 	 */
-	protected function _getNamespace($namespace, $plugin) {
+	protected function _getNamespace(?string $namespace, ?string $plugin): string {
 		if ($namespace) {
 			return $namespace;
 		}
@@ -646,7 +646,7 @@ class Builder {
 	 *
 	 * @return array
 	 */
-	protected function simpleTypeWhitelist(array $types) {
+	protected function simpleTypeWhitelist(array $types): array {
 		if (version_compare(PHP_VERSION, '7.1') >= 0) {
 			$types[] = 'iterable';
 		}
@@ -661,7 +661,7 @@ class Builder {
 	 * @param string $type
 	 * @return string|null
 	 */
-	protected function typehint($type) {
+	protected function typehint(string $type): ?string {
 		// Unset the typehint for simple type unions
 		if ($this->isValidSimpleType($type)) {
 			$types = explode('|', $type);
@@ -684,7 +684,7 @@ class Builder {
 	 *
 	 * @return string|null
 	 */
-	protected function singularType($type) {
+	protected function singularType(string $type): ?string {
 		if (substr($type, -2) !== '[]') {
 			return null;
 		}
@@ -701,7 +701,7 @@ class Builder {
 	 * @param array $fields
 	 * @return array
 	 */
-	protected function metaData($fields) {
+	protected function metaData(array $fields): array {
 		$meta = [];
 
 		if ($this->_config['debug']) {
@@ -720,7 +720,7 @@ class Builder {
 	/**
 	 * @return \CakeDto\Generator\Finder
 	 */
-	protected function _finder() {
+	protected function _finder(): Finder {
 		$finderClass = $this->_config['finder'];
 
 		return new $finderClass();
@@ -731,7 +731,7 @@ class Builder {
 	 * @param string $namespace
 	 * @return string
 	 */
-	protected function dtoTypeToClass($singularType, $namespace) {
+	protected function dtoTypeToClass(string $singularType, string $namespace): string {
 		return '\\' . $namespace . '\\Dto\\' . str_replace('/', '\\', $singularType) . 'Dto';
 	}
 

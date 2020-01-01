@@ -22,7 +22,7 @@ class DtoShell extends Shell {
 	 * @param string|null $name
 	 * @return void
 	 */
-	public function init($name = null) {
+	public function init(?string $name = null): void {
 		$path = $this->_getConfigPath();
 		$this->out('Creating file in ' . $path, 1, static::VERBOSE);
 
@@ -48,7 +48,7 @@ class DtoShell extends Shell {
 	/**
 	 * @return int|null
 	 */
-	public function generate() {
+	public function generate(): ?int {
 		$options = [
 			'dryRun' => $this->param('dry-run'),
 			'confirm' => $this->param('confirm'),
@@ -63,7 +63,7 @@ class DtoShell extends Shell {
 	/**
 	 * @return string
 	 */
-	protected function _getSrcPath() {
+	protected function _getSrcPath(): string {
 		if ($this->param('plugin')) {
 			$path = Plugin::path($this->param('plugin'));
 
@@ -76,7 +76,7 @@ class DtoShell extends Shell {
 	/**
 	 * @return string
 	 */
-	protected function _getConfigPath() {
+	protected function _getConfigPath(): string {
 		if ($this->param('plugin')) {
 			$path = Plugin::path($this->param('plugin'));
 			return $path . 'config' . DS;
@@ -92,7 +92,7 @@ class DtoShell extends Shell {
 	/**
 	 * @return \CakeDto\Generator\Builder
 	 */
-	protected function _builder() {
+	protected function _builder(): Builder {
 		$builderClass = Configure::read('CakeDto.builder') ?: Builder::class;
 
 		return new $builderClass($this->_engine());
@@ -101,7 +101,7 @@ class DtoShell extends Shell {
 	/**
 	 * @return \CakeDto\Generator\Generator
 	 */
-	protected function _generator() {
+	protected function _generator(): Generator {
 		$generatorClass = Configure::read('CakeDto.generator') ?: Generator::class;
 
 		return new $generatorClass($this->_builder(), $this->_renderer(), $this->_io());
@@ -111,7 +111,7 @@ class DtoShell extends Shell {
 	 * @return \CakeDto\Engine\EngineInterface
 	 * @throws \RuntimeException
 	 */
-	protected function _engine() {
+	protected function _engine(): EngineInterface {
 		$engineClass = Configure::read('CakeDto.engine') ?: XmlEngine::class;
 		$engine = new $engineClass();
 		if (!$engine instanceof EngineInterface) {
@@ -124,14 +124,14 @@ class DtoShell extends Shell {
 	/**
 	 * @return \CakeDto\Console\Io
 	 */
-	protected function _io() {
+	protected function _io(): Io {
 		return new Io($this->getIo());
 	}
 
 	/**
 	 * @return \CakeDto\View\Renderer
 	 */
-	protected function _renderer() {
+	protected function _renderer(): Renderer {
 		$rendererClass = Configure::read('CakeDto.renderer') ?: Renderer::class;
 
 		return new $rendererClass();

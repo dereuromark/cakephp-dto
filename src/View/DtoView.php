@@ -39,7 +39,7 @@ class DtoView extends TwigView {
 		$dtoTemplates = dirname(dirname(__DIR__)) . DS . 'templates' . DS;
 		$paths = (array)Configure::read('App.paths.templates');
 
-		if (!in_array($dtoTemplates, $paths)) {
+		if (!in_array($dtoTemplates, $paths, true)) {
 			$paths[] = $dtoTemplates;
 			Configure::write('App.paths.templates', $paths);
 		}

@@ -13,7 +13,7 @@ abstract class AbstractDto extends Dto {
 	 * @param string|bool $type
 	 * @return $this
 	 */
-	public function fromArray(array $data, $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
+	public function fromArray(array $data, bool $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
 		return $this->setFromArray($data, $ignoreMissing, $type);
 	}
 
@@ -39,7 +39,7 @@ abstract class AbstractDto extends Dto {
 	 * @param mixed $value The value to set to the property
 	 * @return void
 	 */
-	public function __set($property, $value) {
+	public function __set(string $property, $value): void {
 		$this->set($property, $value);
 	}
 
@@ -50,7 +50,7 @@ abstract class AbstractDto extends Dto {
 	 * @return $this
 	 * @throws \RuntimeException
 	 */
-	public function set($field, $value, $type = self::TYPE_DEFAULT) {
+	public function set(string $field, $value, string $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}

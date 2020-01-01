@@ -30,7 +30,7 @@ class Io {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 */
-	public function verbose($message, $newlines = 1) {
+	public function verbose($message, int $newlines = 1) {
 		return $this->_io->verbose($message, $newlines);
 	}
 
@@ -41,7 +41,7 @@ class Io {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 */
-	public function quiet($message, $newlines = 1) {
+	public function quiet($message, int $newlines = 1) {
 		return $this->_io->quiet($message, $newlines);
 	}
 
@@ -62,7 +62,7 @@ class Io {
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
 	 */
-	public function out($message = null, $newlines = 1, $level = Shell::NORMAL) {
+	public function out($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
 		return $this->_io->out($message, $newlines, $level);
 	}
 
@@ -74,7 +74,7 @@ class Io {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|bool The number of bytes returned from writing to stderr.
 	 */
-	public function err($message = null, $newlines = 1) {
+	public function err($message = null, int $newlines = 1) {
 		return $this->_io->err('<error>' . $message . '</error>', $newlines);
 	}
 
@@ -87,7 +87,7 @@ class Io {
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
 	 */
-	public function info($message = null, $newlines = 1, $level = Shell::NORMAL) {
+	public function info($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
 		return $this->out('<info>' . $message . '</info>', $newlines, $level);
 	}
 
@@ -100,7 +100,7 @@ class Io {
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
 	 */
-	public function comment($message = null, $newlines = 1, $level = Shell::NORMAL) {
+	public function comment($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
 		return $this->out('<comment>' . $message . '</comment>', $newlines, $level);
 	}
 
@@ -112,7 +112,7 @@ class Io {
 	 * @return int|bool The number of bytes returned from writing to stderr.
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::err
 	 */
-	public function warn($message = null, $newlines = 1) {
+	public function warn($message = null, int $newlines = 1) {
 		return $this->_io->err('<warning>' . $message . '</warning>', $newlines);
 	}
 
@@ -125,7 +125,7 @@ class Io {
 	 * @return int|bool The number of bytes returned from writing to stdout.
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
 	 */
-	public function success($message = null, $newlines = 1, $level = Shell::NORMAL) {
+	public function success($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
 		return $this->out('<success>' . $message . '</success>', $newlines, $level);
 	}
 
@@ -136,7 +136,7 @@ class Io {
 	 * @return string
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::nl
 	 */
-	public function nl($multiplier = 1) {
+	public function nl(int $multiplier = 1): string {
 		return $this->_io->nl($multiplier);
 	}
 
@@ -148,7 +148,7 @@ class Io {
 	 * @return void
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::hr
 	 */
-	public function hr($newlines = 0, $width = 63) {
+	public function hr(int $newlines = 0, int $width = 63): void {
 		$this->_io->hr($newlines, $width);
 	}
 
@@ -162,7 +162,7 @@ class Io {
 	 * @return void
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#styling-output
 	 */
-	public function abort($message, $exitCode = Shell::CODE_ERROR) {
+	public function abort(string $message, int $exitCode = Shell::CODE_ERROR): void {
 		$this->_io->err('<error>' . $message . '</error>');
 		throw new StopException($message, $exitCode);
 	}

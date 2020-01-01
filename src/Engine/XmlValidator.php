@@ -5,6 +5,7 @@ namespace CakeDto\Engine;
 use Cake\Core\Plugin;
 use DOMDocument;
 use InvalidArgumentException;
+use LibXMLError;
 
 class XmlValidator {
 
@@ -13,7 +14,7 @@ class XmlValidator {
 	 * @return void
 	 * @throws \InvalidArgumentException
 	 */
-	public static function validate($file) {
+	public static function validate(string $file): void {
 		// Enable user error handling
 		libxml_use_internal_errors(true);
 
@@ -32,7 +33,7 @@ class XmlValidator {
 	 *
 	 * @return string|null
 	 */
-	public static function formatError($error) {
+	public static function formatError(LibXMLError $error): ?string {
 		$header = null;
 		switch ($error->level) {
 			case LIBXML_ERR_WARNING:
@@ -63,7 +64,7 @@ class XmlValidator {
 	/**
 	 * @return string[]
 	 */
-	public static function getErrors() {
+	public static function getErrors(): array {
 		$errors = libxml_get_errors();
 
 		$result = [];

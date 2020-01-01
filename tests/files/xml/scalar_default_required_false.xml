@@ -5,7 +5,7 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="DefaultValue">
-		<field name="defaultedOptionalField" type="int" defaultValue="0" required="false" />
+		<field name="defaultedOptionalField" type="int" defaultValue="0" required="false"/>
 		<field name="defaultedBoolField" type="bool" defaultValue="true"/>
 		<field name="defaultedStringField" type="string" defaultValue=""/>
 	</dto>

@@ -13,7 +13,7 @@ abstract class AbstractImmutableDto extends Dto {
 	 * @param string $type
 	 * @return static
 	 */
-	public static function createFromArray(array $data, $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
+	public static function createFromArray(array $data, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
 		return new static($data, $ignoreMissing, $type);
 	}
 
@@ -22,7 +22,7 @@ abstract class AbstractImmutableDto extends Dto {
 	 * @param bool $ignoreMissing
 	 * @return static
 	 */
-	public static function fromUnserialized($data, $ignoreMissing = false) {
+	public static function fromUnserialized(string $data, bool $ignoreMissing = false) {
 		$jsonUtil = new Json();
 
 		return new static($jsonUtil->decode($data, true), $ignoreMissing, static::TYPE_DEFAULT);
@@ -52,7 +52,7 @@ abstract class AbstractImmutableDto extends Dto {
 	 * @return static
 	 * @throws \RuntimeException
 	 */
-	public function with($field, $value, $type = self::TYPE_DEFAULT) {
+	public function with(string $field, $value, string $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}

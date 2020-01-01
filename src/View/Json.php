@@ -17,7 +17,7 @@ class Json {
 	 * @return string
 	 * @throws \RuntimeException
 	 */
-	public function encode($value, $options = null, $depth = null) {
+	public function encode(array $value, ?int $options = null, ?int $depth = null): string {
 		if ($options === null) {
 			$options = static::DEFAULT_OPTIONS;
 		}
@@ -44,7 +44,7 @@ class Json {
 	 * @return array|null
 	 * @throws \RuntimeException
 	 */
-	public function decode($jsonString, $assoc = false, $depth = null, $options = null) {
+	public function decode(string $jsonString, bool $assoc = false, ?int $depth = null, ?int $options = null): ?array {
 		if ($options === null) {
 			$options = static::DEFAULT_OPTIONS;
 		}

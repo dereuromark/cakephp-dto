@@ -16,7 +16,7 @@ class TemplateHelper extends Helper {
 	 * @param array $options options to use
 	 * @return string
 	 */
-	public function stringifyList(array $list, array $options = []) {
+	public function stringifyList(array $list, array $options = []): string {
 		$options += [
 			'indent' => 3,
 			'tab' => "\t",

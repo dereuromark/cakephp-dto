@@ -5,7 +5,7 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="MyForest/MyTree">
-		<field name="type" type="string" />
+		<field name="type" type="string"/>
 		<field name="value" type="mixed"/>
 	</dto>
 

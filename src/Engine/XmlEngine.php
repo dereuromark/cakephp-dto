@@ -11,7 +11,7 @@ class XmlEngine implements EngineInterface {
 	/**
 	 * @return string
 	 */
-	public function extension() {
+	public function extension(): string {
 		return static::EXT;
 	}
 
@@ -21,7 +21,7 @@ class XmlEngine implements EngineInterface {
 	 * @param array $files
 	 * @return void
 	 */
-	public function validate(array $files) {
+	public function validate(array $files): void {
 		/** @var \CakeDto\Engine\XmlValidator $class */
 		$class = XmlValidator::class;
 
@@ -38,7 +38,7 @@ class XmlEngine implements EngineInterface {
 	 *
 	 * @return array
 	 */
-	public function parse($content) {
+	public function parse(string $content): array {
 		$xml = Xml::build($content);
 
 		$array = Xml::toArray($xml);
@@ -48,7 +48,6 @@ class XmlEngine implements EngineInterface {
 		}
 
 		$dtos = !isset($array['dtos']['dto'][0]) ? [$array['dtos']['dto']] : $array['dtos']['dto'];
-
 		$result = [];
 		foreach ($dtos as $dto) {
 			$name = $dto['@name'];
@@ -57,6 +56,7 @@ class XmlEngine implements EngineInterface {
 				if (mb_substr($key, 0, 1) !== '@') {
 					continue;
 				}
+
 				$key = mb_substr($key, 1);
 				$value = $this->castBoolValue($value, $key);
 
@@ -90,19 +90,19 @@ class XmlEngine implements EngineInterface {
 	}
 
 	/**
-	 * @param string $value
+	 * @param string|bool $value
 	 * @param string|null $key
 	 * @return string|bool
 	 */
-	protected function castBoolValue($value, $key = null) {
-		if ($key && !in_array($key, ['required', 'immutable', 'collection', 'associative'])) {
+	protected function castBoolValue($value, ?string $key = null) {
+		if ($key && !in_array($key, ['required', 'immutable', 'collection', 'associative'], true)) {
 			return $value;
 		}
 
-		if ($value === 'true') {
+		if ($value === 'true' || $value === '1') {
 			return true;
 		}
-		if ($value === 'false') {
+		if ($value === 'false' || $value === '0' || $value === '') {
 			return false;
 		}
 
@@ -110,14 +110,14 @@ class XmlEngine implements EngineInterface {
 	}
 
 	/**
-	 * @param string $value
+	 * @param string|int|float|bool $value
 	 * @param string $key
 	 * @param array $fieldDefinition
 	 *
 	 * @return string|int|float|bool
 	 */
-	protected function castDefaultValue($value, $key, $fieldDefinition) {
-		if (!in_array($key, ['defaultValue']) || empty($fieldDefinition['@type'])) {
+	protected function castDefaultValue($value, string $key, array $fieldDefinition) {
+		if (!in_array($key, ['defaultValue'], true) || empty($fieldDefinition['@type'])) {
 			return $value;
 		}
 

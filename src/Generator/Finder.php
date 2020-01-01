@@ -13,7 +13,7 @@ class Finder {
 	 * @throws \InvalidArgumentException
 	 * @return string[]
 	 */
-	public function collect($configPath, $extension) {
+	public function collect(string $configPath, string $extension): array {
 		$files = [];
 		if (is_dir($configPath . 'dto')) {
 			$iterator = new DirectoryIterator($configPath . 'dto');

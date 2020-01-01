@@ -9,7 +9,7 @@ interface EngineInterface {
 	 *
 	 * @return string
 	 */
-	public function extension();
+	public function extension(): string;
 
 	/**
 	 * This can hold basic file validation for each file.
@@ -17,7 +17,7 @@ interface EngineInterface {
 	 * @param array $files
 	 * @return void
 	 */
-	public function validate(array $files);
+	public function validate(array $files): void;
 
 	/**
 	 * Transforms string into an array form.
@@ -27,6 +27,6 @@ interface EngineInterface {
 	 * @param string $content
 	 * @return array
 	 */
-	public function parse($content);
+	public function parse(string $content): array;
 
 }

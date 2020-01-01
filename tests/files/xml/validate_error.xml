@@ -5,7 +5,7 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="Foo">
-		<field noname="bar" type="string" />
+		<field noname="bar" type="string"/>
 	</dto>
 
 </dtos>

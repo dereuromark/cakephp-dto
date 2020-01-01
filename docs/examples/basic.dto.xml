@@ -5,17 +5,17 @@
 	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
 
 	<dto name="Car">
-		<field name="color" type="\TestApp\ValueObject\Paint" />
-		<field name="isNew" type="bool" />
-		<field name="value" type="float" />
-		<field name="distanceTravelled" type="int" />
-		<field name="attributes" type="string[]" />
-		<field name="manufactured" type="\Cake\I18n\FrozenDate" />
+		<field name="color" type="\TestApp\ValueObject\Paint"/>
+		<field name="isNew" type="bool"/>
+		<field name="value" type="float"/>
+		<field name="distanceTravelled" type="int"/>
+		<field name="attributes" type="string[]"/>
+		<field name="manufactured" type="\Cake\I18n\FrozenDate"/>
 		<field name="owner" type="Owner"/>
 	</dto>
 
 	<dto name="Cars">
-		<field name="cars" type="Car[]" collection="true" associative="true" />
+		<field name="cars" type="Car[]" collection="true" associative="true"/>
 	</dto>
 
 	<dto name="Owner">
@@ -26,11 +26,11 @@
 	<dto name="FlyingCar" extends="Car">
 		<field name="maxAltitude" type="int" defaultValue="0"/>
 		<field name="maxSpeed" type="int" defaultValue="0" required="true"/>
-		<field name="complexAttributes" type="array" />
+		<field name="complexAttributes" type="array"/>
 	</dto>
 
 	<dto name="OldOne" extends="Car" deprecated="Yeah, sry">
-		<field name="name" type="string" />
+		<field name="name" type="string"/>
 	</dto>
 
 	<dto name="EmptyOne">
