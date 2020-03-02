@@ -5,5 +5,8 @@ parameters:
 	ignoreErrors:
 		- '#Call to an undefined method object::toArray\(\)\.#'
 		- '#Function yaml\_parse not found\.#'
+		- '#Unsafe usage of new static().#'
 
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
 	reportUnmatchedIgnoredErrors: false
