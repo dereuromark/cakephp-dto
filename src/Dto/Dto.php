@@ -307,7 +307,7 @@ abstract class Dto implements Serializable {
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
-			/** @var \CakeDto\Dto\AbstractDto $value */
+			/** @var \CakeDto\Dto\Dto $value */
 			$value = new $className($value, $ignoreMissing, $type);
 		}
 
