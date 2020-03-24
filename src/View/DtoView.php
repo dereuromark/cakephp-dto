@@ -6,7 +6,7 @@ use Cake\Core\Configure;
 use Cake\Core\ConventionsTrait;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Event\EventInterface;
-use WyriHaximus\TwigView\View\TwigView;
+use Cake\TwigView\View\TwigView;
 
 class DtoView extends TwigView {
 

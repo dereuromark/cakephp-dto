@@ -6,10 +6,10 @@ use CakeDto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
 use Cake\Event\EventManager;
 use Cake\TestSuite\TestCase;
+use Cake\TwigView\Event\ExtensionsListener;
+use Cake\TwigView\Event\TokenParsersListener;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
-use WyriHaximus\TwigView\Event\ExtensionsListener;
-use WyriHaximus\TwigView\Event\TokenParsersListener;
 
 class GithubTest extends TestCase {
 

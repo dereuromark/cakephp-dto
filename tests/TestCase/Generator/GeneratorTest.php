@@ -12,10 +12,10 @@ use Cake\Core\Configure;
 use Cake\Event\EventManager;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
+use Cake\TwigView\Event\ExtensionsListener;
+use Cake\TwigView\Event\TokenParsersListener;
 use TestApp\TestSuite\ConsoleOutput;
 use TestApp\TestSuite\PhpFileTemplateTestTrait;
-use WyriHaximus\TwigView\Event\ExtensionsListener;
-use WyriHaximus\TwigView\Event\TokenParsersListener;
 
 class GeneratorTest extends TestCase {
 
