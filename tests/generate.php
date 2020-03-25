@@ -10,7 +10,10 @@ use CakeDto\View\Renderer;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOutput;
 use Cake\Core\Configure;
+use Cake\Event\EventManager;
 use Cake\Filesystem\Folder;
+use Cake\TwigView\Event\ExtensionsListener;
+use Cake\TwigView\Event\TokenParsersListener;
 
 Configure::write('CakeDto.scalarTypeHints', false);
 Configure::write('CakeDto.strictTypes', false);
@@ -41,6 +44,10 @@ if (!$dryRun) {
 		mkdir($srcPath . 'Dto', 0700, true);
 	}
 }
+
+// Required for manual use
+EventManager::instance()->on(new ExtensionsListener());
+EventManager::instance()->on(new TokenParsersListener());
 
 $xmls = [
 	'basic.dto.xml',
