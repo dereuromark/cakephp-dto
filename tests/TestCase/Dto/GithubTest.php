@@ -4,10 +4,7 @@ namespace CakeDto\Test\TestCase\Dto;
 
 use CakeDto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
-use Cake\Event\EventManager;
 use Cake\TestSuite\TestCase;
-use Cake\TwigView\Event\ExtensionsListener;
-use Cake\TwigView\Event\TokenParsersListener;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 
@@ -27,9 +24,6 @@ class GithubTest extends TestCase {
 		$file = TESTS . 'files' . DS . 'Github' . DS . 'demo_pr.json';
 
 		$simulatedDataFromGitHubApi = json_decode(file_get_contents($file), true);
-
-		EventManager::instance()->on(new ExtensionsListener());
-		EventManager::instance()->on(new TokenParsersListener());
 
 		$this->out = new ConsoleOutput();
 		$this->err = new ConsoleOutput();
