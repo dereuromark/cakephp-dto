@@ -14,17 +14,9 @@ class DtoView extends TwigView {
 	use InstanceConfigTrait;
 
 	/**
-	 * This config is read when evaluating a template file.
-	 *
-	 * @var array
-	 */
-	protected $_defaultConfig = [
-	];
-
-	/**
 	 * Templates extensions to search for.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $extensions = [
 		'.twig',
