@@ -20,7 +20,8 @@
 		return $this->{{ name }} !== null;
 {% endif %}
 	}
-{% if associative %}
+{%- if associative %}
+
 
 	/**
 {% if deprecated is not null %}
@@ -33,5 +34,4 @@
 	public function has{{ singular[:1]|upper ~ singular[1:] }}($key){% if scalarTypeHints %}: bool{% endif %} {
 		return isset($this->{{ name }}[$key]);
 	}
-
-{% endif %}
+{% endif -%}

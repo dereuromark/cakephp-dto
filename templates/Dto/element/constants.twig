@@ -5,4 +5,4 @@
 	 */
 {% endif %}
 	{% if scalarTypeHints %}public {% endif %}const FIELD_{{ field.name | underscore | upper }} = '{{ field.name }}';
-{% endfor %}
+{% endfor -%}
