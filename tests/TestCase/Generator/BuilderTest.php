@@ -145,6 +145,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 		];
@@ -157,6 +158,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'defaultValue' => null,
 			'nullable' => true,
+			'returnTypeHint' => null,
 			'isArray' => true,
 			'dto' => null,
 			'collection' => false,
@@ -187,6 +189,7 @@ class BuilderTest extends TestCase {
 			'singularReturnTypeHint' => null,
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 
@@ -211,6 +214,7 @@ class BuilderTest extends TestCase {
 			'singularReturnTypeHint' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 
@@ -235,6 +239,7 @@ class BuilderTest extends TestCase {
 			'singular' => 'customCollectionAttribute',
 			'typeHint' => '\Cake\Collection\Collection',
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 		];
@@ -258,6 +263,7 @@ class BuilderTest extends TestCase {
 			'singular' => 'mySingular',
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 		];
@@ -347,6 +353,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'typeHint' => null,
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 		];
@@ -366,6 +373,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'typeHint' => null,
 			'deprecated' => null,
+			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
 		];

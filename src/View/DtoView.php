@@ -6,7 +6,7 @@ use Cake\Core\Configure;
 use Cake\Core\ConventionsTrait;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Event\EventInterface;
-use WyriHaximus\TwigView\View\TwigView;
+use Cake\TwigView\View\TwigView;
 
 class DtoView extends TwigView {
 
@@ -14,17 +14,9 @@ class DtoView extends TwigView {
 	use InstanceConfigTrait;
 
 	/**
-	 * This config is read when evaluating a template file.
-	 *
-	 * @var array
-	 */
-	protected $_defaultConfig = [
-	];
-
-	/**
 	 * Templates extensions to search for.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $extensions = [
 		'.twig',

@@ -276,6 +276,7 @@ class Builder {
 				'required' => isset($data['defaultValue']),
 				'defaultValue' => null,
 				'nullable' => empty($data['required']),
+				'returnTypeHint' => null,
 				'isArray' => false,
 				'dto' => null,
 				'collection' => !empty($data['singular']),

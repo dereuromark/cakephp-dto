@@ -9,13 +9,10 @@ use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use Cake\Event\EventManager;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use TestApp\TestSuite\ConsoleOutput;
 use TestApp\TestSuite\PhpFileTemplateTestTrait;
-use WyriHaximus\TwigView\Event\ExtensionsListener;
-use WyriHaximus\TwigView\Event\TokenParsersListener;
 
 class GeneratorTest extends TestCase {
 
@@ -53,10 +50,6 @@ class GeneratorTest extends TestCase {
 		parent::setUp();
 
 		Configure::write('CakeDto.scalarTypeHints', false);
-
-		// Why needed?
-		EventManager::instance()->on(new ExtensionsListener());
-		EventManager::instance()->on(new TokenParsersListener());
 
 		$this->generator = $this->createGenerator();
 
