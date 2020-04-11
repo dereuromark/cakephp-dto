@@ -1,30 +1,30 @@
 {% for field in fields %}
 {% if immutable %}
-{% element 'method_with' field %}
+{{ element('method_with', field) }}
 {% else %}
-{% element 'method_set' field %}
+{{ element('method_set', field) }}
 {% endif %}
 
-{% element 'method_get' field %}
+{{ element('method_get', field) }}
 
 {% if field.nullable %}
-{% element 'method_get_or_fail' field %}
+{{ element('method_get_or_fail', field) }}
 
 {% endif %}
 {% if field.nullable or field.defaultValue is null %}
-{% element 'method_has' field %}
+{{ element('method_has', field) }}
 {% endif %}
 {% if immutable %}
 {% if field.collectionType == '\\Cake\\Collection\\Collection' %}
-{% element 'method_with_added_cake_collection' field %}
+{{ element('method_with_added_cake_collection', field) }}
 {% else %}
-{% element 'method_with_added' field %}
+{{ element('method_with_added', field) }}
 {% endif %}
 {% else %}
 {% if field.collectionType == '\\Cake\\Collection\\Collection' %}
-{% element 'method_add_cake_collection' field %}
+{{ element('method_add_cake_collection', field) }}
 {% else %}
-{% element 'method_add' field %}
+{{ element('method_add', field) }}
 {% endif %}
 {% endif %}
 

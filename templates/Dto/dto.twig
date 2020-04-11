@@ -9,7 +9,7 @@ namespace {{ namespace }};
 
 /**
  * {{ name }} DTO
-{% element 'doc' fields %}
+{{ element('doc', fields) }}
  {% if deprecated is not null -%}
  *
  * @deprecated {{ deprecated }}
@@ -17,12 +17,12 @@ namespace {{ namespace }};
  */
 class {{ className }} extends {{ extends }} {
 
-{% element 'constants' fields %}
+{{ element('constants', fields) }}
 
-{% element 'properties' fields %}
-{% element 'metadata' metaData %}
+{{ element('properties', fields) }}
+{{ element('metadata', metaData) }}
 
-{% element 'map' fields %}
+{{ element('map', fields) }}
 
-{% element 'methods' fields  %}
+{{ element('methods', fields) }}
 }
