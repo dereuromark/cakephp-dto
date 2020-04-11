@@ -18,11 +18,8 @@ namespace {{ namespace }};
 class {{ className }} extends {{ extends }} {
 
 {{ element('constants', fields) }}
-
-{{ element('properties', fields) }}
+{{ element('properties', fields) -}}
 {{ element('metadata', metaData) }}
-
 {{ element('map', fields) }}
-
 {{ element('methods', fields) }}
 }
