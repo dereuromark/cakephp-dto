@@ -65,5 +65,5 @@
 		"generate-dry": "php tests/generate.php --dry-run"
 	},
 	"prefer-stable": true,
-	"minimum-stability": "rc"
+	"minimum-stability": "RC"
 }
