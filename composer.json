@@ -36,7 +36,7 @@
 		"ext-dom": "*",
 		"ext-libxml": "*",
 		"nette/neon": "^2.4",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "^0.6"
 	},
 	"suggest": {
 		"nette/neon": "^2.4 if you want to add a NEON file engine instead of XML."
