@@ -28,7 +28,7 @@
 	},
 	"require": {
 		"php": ">=7.2",
-		"cakephp/cakephp": "^4.0.0",
+		"cakephp/cakephp": "^4.0.1",
 		"cakephp/twig-view": "^1.0.0",
 		"sebastian/diff": "^3.0.2"
 	},
@@ -64,6 +64,5 @@
 		"generate": "php tests/generate.php",
 		"generate-dry": "php tests/generate.php --dry-run"
 	},
-	"prefer-stable": true,
-	"minimum-stability": "RC"
+	"prefer-stable": true
 }
