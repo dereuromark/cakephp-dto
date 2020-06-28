@@ -8,7 +8,7 @@ use Nette\Neon\Neon;
 
 class NeonEngine implements EngineInterface {
 
-	const EXT = 'neon';
+	public const EXT = 'neon';
 
 	/**
 	 * @return string
@@ -30,8 +30,8 @@ class NeonEngine implements EngineInterface {
 	 *
 	 * @param string $content
 	 *
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	public function parse(string $content): array {
 		$result = [];
@@ -43,7 +43,7 @@ class NeonEngine implements EngineInterface {
 		}
 
 		if ($result === null) {
-			throw new InvalidArgumentException(sprintf('%s: invalid neon content.', __CLASS__));
+			throw new InvalidArgumentException(sprintf('%s: invalid neon content.', static::class));
 		}
 
 		foreach ($result as $name => $dto) {

@@ -2,8 +2,8 @@
 
 namespace CakeDto\Test\TestCase\Engine;
 
-use CakeDto\Engine\XmlValidator;
 use Cake\TestSuite\TestCase;
+use CakeDto\Engine\XmlValidator;
 use InvalidArgumentException;
 
 class XmlValidatorTest extends TestCase {
@@ -32,8 +32,8 @@ class XmlValidatorTest extends TestCase {
 	}
 
 	/**
-	 * @return void
 	 * @throws \InvalidArgumentException
+	 * @return void
 	 */
 	public function testValidateError() {
 		$this->expectException(InvalidArgumentException::class);
@@ -51,8 +51,8 @@ class XmlValidatorTest extends TestCase {
 	}
 
 	/**
-	 * @return void
 	 * @throws \InvalidArgumentException
+	 * @return void
 	 */
 	public function testValidateFatalError() {
 		$this->expectException(InvalidArgumentException::class);

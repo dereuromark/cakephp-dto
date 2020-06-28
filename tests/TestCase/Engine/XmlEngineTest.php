@@ -2,8 +2,8 @@
 
 namespace CakeDto\Test\TestCase\Engine;
 
-use CakeDto\Engine\XmlEngine;
 use Cake\TestSuite\TestCase;
+use CakeDto\Engine\XmlEngine;
 
 class XmlEngineTest extends TestCase {
 

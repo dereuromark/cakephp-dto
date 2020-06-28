@@ -2,15 +2,15 @@
 
 require 'bootstrap.php';
 
+use Cake\Console\ConsoleIo;
+use Cake\Console\ConsoleOutput;
+use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
 use CakeDto\Console\Io;
 use CakeDto\Engine\XmlEngine;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
-use Cake\Console\ConsoleIo;
-use Cake\Console\ConsoleOutput;
-use Cake\Core\Configure;
-use Cake\Filesystem\Folder;
 
 Configure::write('CakeDto.scalarTypeHints', false);
 Configure::write('CakeDto.strictTypes', false);

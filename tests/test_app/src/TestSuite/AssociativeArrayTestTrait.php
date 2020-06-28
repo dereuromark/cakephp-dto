@@ -18,6 +18,7 @@ trait AssociativeArrayTestTrait {
 
 			if (is_array($value) && is_array($result[$key])) {
 				$this->assertAssociativeArray($value, $result[$key]);
+
 				continue;
 			}
 

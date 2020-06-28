@@ -6,7 +6,7 @@ use Cake\Utility\Xml;
 
 class XmlEngine implements EngineInterface {
 
-	const EXT = 'xml';
+	public const EXT = 'xml';
 
 	/**
 	 * @return string
@@ -65,6 +65,7 @@ class XmlEngine implements EngineInterface {
 
 			if (!isset($dto['field'])) {
 				$result[$name]['fields'] = [];
+
 				continue;
 			}
 

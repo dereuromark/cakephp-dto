@@ -2,11 +2,11 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
-use CakeDto\Dto\AbstractImmutableDto;
 use Cake\Collection\Collection;
 use Cake\Collection\CollectionInterface;
 use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
+use CakeDto\Dto\AbstractImmutableDto;
 use TestApp\Dto\ArticleDto;
 use TestApp\Dto\BookDto;
 use TestApp\Dto\PageDto;

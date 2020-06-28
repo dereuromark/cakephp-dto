@@ -39,8 +39,8 @@ class Renderer {
 	 *
 	 * Use `CakeDto.initialize` event if you need to attach additional helpers.
 	 *
-	 * @return \Cake\View\View
 	 * @triggers Bake.initialize $view
+	 * @return \Cake\View\View
 	 */
 	public function getView(): View {
 		$viewOptions = [

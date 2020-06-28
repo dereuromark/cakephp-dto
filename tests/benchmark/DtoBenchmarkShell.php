@@ -3,10 +3,10 @@
 namespace CakeDto\Shell;
 
 use App\Dto\CarDto;
-use CakeDto\TestSuite\DebugMemory;
-use CakeDto\TestSuite\DebugTimer;
 use Cake\Console\Shell;
 use Cake\I18n\Number;
+use CakeDto\TestSuite\DebugMemory;
+use CakeDto\TestSuite\DebugTimer;
 
 class DtoBenchmarkShell extends Shell {
 

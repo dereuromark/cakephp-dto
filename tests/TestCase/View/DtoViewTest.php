@@ -2,13 +2,13 @@
 
 namespace CakeDto\Test\TestCase\View;
 
-use CakeDto\View\DtoView;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest as Request;
 use Cake\TestSuite\StringCompareTrait;
 use Cake\TestSuite\TestCase;
+use CakeDto\View\DtoView;
 
 class DtoViewTest extends TestCase {
 

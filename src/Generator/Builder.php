@@ -2,11 +2,11 @@
 
 namespace CakeDto\Generator;
 
-use CakeDto\Dto\FromArrayToArrayInterface;
-use CakeDto\Engine\EngineInterface;
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Utility\Inflector;
+use CakeDto\Dto\FromArrayToArrayInterface;
+use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -111,8 +111,8 @@ class Builder {
 	/**
 	 * @param array $config
 	 * @param string $namespace
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	protected function _createDtos(array $config, string $namespace): array {
 		foreach ($config as $name => $dto) {
@@ -194,8 +194,8 @@ class Builder {
 
 	/**
 	 * @param array $dto
-	 * @return void
 	 * @throws \InvalidArgumentException
+	 * @return void
 	 */
 	protected function _validateDto(array $dto): void {
 		if (empty($dto['name'])) {
@@ -266,8 +266,8 @@ class Builder {
 	/**
 	 * @param array $dto
 	 * @param string $namespace
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	protected function _complete(array $dto, string $namespace): array {
 		$fields = $dto['fields'];
@@ -300,6 +300,7 @@ class Builder {
 			}
 			if ($this->isValidDto($field['type'])) {
 				$fields[$key]['dto'] = $field['type'];
+
 				continue;
 			}
 			if ($this->isCollection($field)) {
@@ -361,8 +362,8 @@ class Builder {
 	 * @param array $data
 	 * @param string $dtoName
 	 * @param string $namespace
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	protected function _completeCollectionSingular(array $data, string $dtoName, string $namespace): array {
 		$fieldName = $data['name'];
@@ -405,8 +406,8 @@ class Builder {
 	/**
 	 * @param array $dto
 	 * @param string $namespace
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	protected function _completeMeta(array $dto, string $namespace): array {
 		$fields = $dto['fields'];
@@ -587,8 +588,8 @@ class Builder {
 	/**
 	 * @param array|null $existing
 	 * @param array|null $new
-	 * @return void
 	 * @throws \RuntimeException
+	 * @return void
 	 */
 	protected function validateMerge(?array $existing, ?array $new): void {
 		if (!$existing || !$new) {

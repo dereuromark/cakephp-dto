@@ -6,7 +6,7 @@ use InvalidArgumentException;
 
 class YamlEngine implements EngineInterface {
 
-	const EXT = 'yml';
+	public const EXT = 'yml';
 
 	/**
 	 * @return string
@@ -30,8 +30,8 @@ class YamlEngine implements EngineInterface {
 	 *
 	 * @param string $content
 	 *
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	public function parse(string $content): array {
 		$result = yaml_parse($content);

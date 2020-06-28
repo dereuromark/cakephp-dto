@@ -2,21 +2,21 @@
 
 namespace CakeDto\Shell;
 
+use Cake\Console\ConsoleOptionParser;
+use Cake\Console\Shell;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use CakeDto\Console\Io;
 use CakeDto\Engine\EngineInterface;
 use CakeDto\Engine\XmlEngine;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
-use Cake\Console\ConsoleOptionParser;
-use Cake\Console\Shell;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use RuntimeException;
 
 class DtoShell extends Shell {
 
-	const CODE_CHANGES = 2;
+	public const CODE_CHANGES = 2;
 
 	/**
 	 * @param string|null $name
@@ -79,6 +79,7 @@ class DtoShell extends Shell {
 	protected function _getConfigPath(): string {
 		if ($this->param('plugin')) {
 			$path = Plugin::path($this->param('plugin'));
+
 			return $path . 'config' . DS;
 		}
 
@@ -108,8 +109,8 @@ class DtoShell extends Shell {
 	}
 
 	/**
-	 * @return \CakeDto\Engine\EngineInterface
 	 * @throws \RuntimeException
+	 * @return \CakeDto\Engine\EngineInterface
 	 */
 	protected function _engine(): EngineInterface {
 		$engineClass = Configure::read('CakeDto.engine') ?: XmlEngine::class;

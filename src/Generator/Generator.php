@@ -2,9 +2,9 @@
 
 namespace CakeDto\Generator;
 
+use Cake\Console\Shell;
 use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
-use Cake\Console\Shell;
 use Exception;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -13,9 +13,9 @@ class Generator {
 
 	use DiffHelperTrait;
 
-	const CODE_CHANGES = 2;
-	const CODE_SUCCESS = Shell::CODE_SUCCESS;
-	const CODE_ERROR = Shell::CODE_ERROR;
+	public const CODE_CHANGES = 2;
+	public const CODE_SUCCESS = Shell::CODE_SUCCESS;
+	public const CODE_ERROR = Shell::CODE_ERROR;
 
 	/**
 	 * @var \CakeDto\Generator\Builder
@@ -78,6 +78,7 @@ class Generator {
 			if (!$isNew && !$isModified) {
 				unset($foundDtos[$name]);
 				$this->io->out('Skipping: ' . $name . ' DTO', 1, Shell::VERBOSE);
+
 				continue;
 			}
 
@@ -181,6 +182,7 @@ class Generator {
 
 		if ($returnValue !== static::CODE_SUCCESS) {
 			$this->io->err('PHP file invalid: ' . implode("\n", $output));
+
 			return false;
 		}
 

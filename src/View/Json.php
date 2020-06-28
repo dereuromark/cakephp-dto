@@ -6,16 +6,16 @@ use RuntimeException;
 
 class Json {
 
-	const DEFAULT_OPTIONS = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
-	const DEFAULT_DEPTH = 512;
+	public const DEFAULT_OPTIONS = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
+	public const DEFAULT_DEPTH = 512;
 
 	/**
 	 * @param array $value
 	 * @param int|null $options
 	 * @param int|null $depth
 	 *
-	 * @return string
 	 * @throws \RuntimeException
+	 * @return string
 	 */
 	public function encode(array $value, ?int $options = null, ?int $depth = null): string {
 		if ($options === null) {
@@ -41,8 +41,8 @@ class Json {
 	 * @param int|null $depth
 	 * @param int|null $options
 	 *
-	 * @return array|null
 	 * @throws \RuntimeException
+	 * @return array|null
 	 */
 	public function decode(string $jsonString, bool $assoc = false, ?int $depth = null, ?int $options = null): ?array {
 		if ($options === null) {

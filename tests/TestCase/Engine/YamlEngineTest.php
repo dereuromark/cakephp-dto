@@ -2,8 +2,8 @@
 
 namespace CakeDto\Test\TestCase\Engine;
 
-use CakeDto\Engine\YamlEngine;
 use Cake\TestSuite\TestCase;
+use CakeDto\Engine\YamlEngine;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class YamlEngineTest extends TestCase {

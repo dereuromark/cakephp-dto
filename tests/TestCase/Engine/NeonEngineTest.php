@@ -2,8 +2,8 @@
 
 namespace CakeDto\Test\TestCase\Engine;
 
-use CakeDto\Engine\NeonEngine;
 use Cake\TestSuite\TestCase;
+use CakeDto\Engine\NeonEngine;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class NeonEngineTest extends TestCase {

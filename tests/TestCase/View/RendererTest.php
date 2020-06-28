@@ -2,10 +2,10 @@
 
 namespace CakeDto\Test\TestCase\View;
 
-use CakeDto\View\Renderer;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+use CakeDto\View\Renderer;
 
 class RendererTest extends TestCase {
 

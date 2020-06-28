@@ -2,9 +2,9 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
-use CakeDto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\TestCase;
+use CakeDto\Shell\DtoShell;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 

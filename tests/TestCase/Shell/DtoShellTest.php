@@ -2,10 +2,10 @@
 
 namespace CakeDto\Test\TestCase\Shell;
 
-use CakeDto\Shell\DtoShell;
 use Cake\Console\ConsoleIo;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
+use CakeDto\Shell\DtoShell;
 use TestApp\TestSuite\ConsoleOutput;
 
 class DtoShellTest extends TestCase {

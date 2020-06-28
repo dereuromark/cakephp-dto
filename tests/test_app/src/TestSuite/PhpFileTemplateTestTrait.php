@@ -15,13 +15,13 @@ trait PhpFileTemplateTestTrait {
 	/**
 	 * @param string $template
 	 * @param string $file
-	 * @return void
 	 * @throws \RuntimeException
+	 * @return void
 	 */
 	protected function assertTemplateContains(string $template, string $file): void {
 		$content = trim(file_get_contents($file));
 
-		list($folder, $template) = explode('.', $template);
+		[$folder, $template] = explode('.', $template);
 		$needle = ROOT . DS . 'tests' . DS . 'files' . DS . $folder . DS . $template . '.txt';
 		if (!file_exists($needle)) {
 			throw new RuntimeException('Invalid template `' . $folder . '.' . $template . '`: ' . $needle . ' not found.');
@@ -41,12 +41,14 @@ trait PhpFileTemplateTestTrait {
 			for ($i = 3; $i < $count; $i++) {
 				if (substr($lines[$i], 0, 1) !== '+') {
 					$begin = $i;
+
 					break;
 				}
 			}
 			for ($i = $count - 1; $i > $begin; $i--) {
 				if (substr($lines[$i], 0, 1) !== '+') {
 					$end = $i;
+
 					break;
 				}
 			}

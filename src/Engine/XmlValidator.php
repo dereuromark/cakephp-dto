@@ -11,8 +11,8 @@ class XmlValidator {
 
 	/**
 	 * @param string $file
-	 * @return void
 	 * @throws \InvalidArgumentException
+	 * @return void
 	 */
 	public static function validate(string $file): void {
 		// Enable user error handling
@@ -24,6 +24,7 @@ class XmlValidator {
 		$xsd = Plugin::path('CakeDto') . 'config' . DS . 'dto.xsd';
 		if (!$xml->schemaValidate($xsd)) {
 			$errors = static::getErrors();
+
 			throw new InvalidArgumentException(implode("\n", $errors));
 		}
 	}
@@ -42,9 +43,11 @@ class XmlValidator {
 				break;
 			case LIBXML_ERR_ERROR:
 				$header = "Error `$error->code`";
+
 				break;
 			case LIBXML_ERR_FATAL:
 				$header = "Fatal Error `$error->code`";
+
 				break;
 		}
 
