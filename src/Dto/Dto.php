@@ -113,13 +113,16 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string|null $type
-	 * @param array|null $fields
+	 * @param string[]|null $fields
 	 * @param bool $touched
 	 * @return array
 	 */
 	public function toArray(?string $type = self::TYPE_DEFAULT, array $fields = null, bool $touched = false): array {
 		if ($fields === null) {
 			$fields = $this->fields();
+		}
+		if ($type === null) {
+			$type = static::TYPE_DEFAULT;
 		}
 
 		$values = [];

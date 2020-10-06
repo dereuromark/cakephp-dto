@@ -65,7 +65,7 @@ class DtoShell extends Shell {
 	 */
 	protected function _getSrcPath(): string {
 		if ($this->param('plugin')) {
-			$path = Plugin::path($this->param('plugin'));
+			$path = Plugin::path((string)$this->param('plugin'));
 
 			return $path . 'src' . DS;
 		}
@@ -78,7 +78,7 @@ class DtoShell extends Shell {
 	 */
 	protected function _getConfigPath(): string {
 		if ($this->param('plugin')) {
-			$path = Plugin::path($this->param('plugin'));
+			$path = Plugin::path((string)$this->param('plugin'));
 
 			return $path . 'config' . DS;
 		}

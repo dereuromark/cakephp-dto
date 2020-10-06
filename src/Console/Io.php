@@ -26,9 +26,9 @@ class Io {
 	/**
 	 * Output at the verbose level.
 	 *
-	 * @param string|array $message A string or an array of strings to output
+	 * @param string|string[] $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function verbose($message, int $newlines = 1) {
 		return $this->_io->verbose($message, $newlines);
@@ -37,9 +37,9 @@ class Io {
 	/**
 	 * Output at all levels.
 	 *
-	 * @param string|array $message A string or an array of strings to output
+	 * @param string|string[] $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function quiet($message, int $newlines = 1) {
 		return $this->_io->quiet($message, $newlines);
@@ -57,76 +57,76 @@ class Io {
 	 * While using Shell::VERBOSE means it will only display when verbose output is toggled.
 	 *
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above.
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function out($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
-		return $this->_io->out($message, $newlines, $level);
+		return $this->_io->out((string)$message, $newlines, $level);
 	}
 
 	/**
 	 * Outputs a single or multiple error messages to stderr. If no parameters
 	 * are passed outputs just a newline.
 	 *
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
-	 * @return int|bool The number of bytes returned from writing to stderr.
+	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
 	public function err($message = null, int $newlines = 1) {
-		return $this->_io->err('<error>' . $message . '</error>', $newlines);
+		return $this->_io->err('<error>' . (string)$message . '</error>', $newlines);
 	}
 
 	/**
 	 * Convenience method for out() that wraps message between <info /> tag
 	 *
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above.
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function info($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
-		return $this->out('<info>' . $message . '</info>', $newlines, $level);
+		return $this->out('<info>' . (string)$message . '</info>', $newlines, $level);
 	}
 
 	/**
 	 * Convenience method for out() that wraps message between <comment /> tag
 	 *
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above.
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function comment($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
-		return $this->out('<comment>' . $message . '</comment>', $newlines, $level);
+		return $this->out('<comment>' . (string)$message . '</comment>', $newlines, $level);
 	}
 
 	/**
 	 * Convenience method for err() that wraps message between <warning /> tag
 	 *
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::err
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
-	 * @return int|bool The number of bytes returned from writing to stderr.
+	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
 	public function warn($message = null, int $newlines = 1) {
-		return $this->_io->err('<warning>' . $message . '</warning>', $newlines);
+		return $this->_io->err('<warning>' . (string)$message . '</warning>', $newlines);
 	}
 
 	/**
 	 * Convenience method for out() that wraps message between <success /> tag
 	 *
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
-	 * @param string|array|null $message A string or an array of strings to output
+	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above.
-	 * @return int|bool The number of bytes returned from writing to stdout.
+	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function success($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
-		return $this->out('<success>' . $message . '</success>', $newlines, $level);
+		return $this->out('<success>' . (string)$message . '</success>', $newlines, $level);
 	}
 
 	/**

@@ -26,6 +26,9 @@ trait DiffHelperTrait {
 
 		$begin = null;
 		$end = null;
+		/**
+		 * @var int $key
+		 */
 		foreach ($array as $key => $row) {
 			if ($row[1] === 0) {
 				continue;

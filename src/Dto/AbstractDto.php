@@ -10,7 +10,7 @@ abstract class AbstractDto extends Dto {
 	/**
 	 * @param array $data
 	 * @param bool $ignoreMissing
-	 * @param string|bool $type
+	 * @param string $type
 	 * @return $this
 	 */
 	public function fromArray(array $data, bool $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
@@ -27,7 +27,7 @@ abstract class AbstractDto extends Dto {
 	 */
 	public function unserialize($serialized, $ignoreMissing = false) {
 		$jsonUtil = new Json();
-		$this->fromArray($jsonUtil->decode($serialized, true), $ignoreMissing, static::TYPE_DEFAULT);
+		$this->fromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT);
 
 		return $this;
 	}

@@ -91,7 +91,7 @@ class DtoView extends TwigView {
 	 * @return \Cake\Event\EventInterface
 	 */
 	public function dispatchEvent(string $name, ?array $data = null, ?object $subject = null): EventInterface {
-		$name = preg_replace('/^View\./', 'Dto.', $name);
+		$name = preg_replace('/^View\./', 'Dto.', $name) ?? '';
 
 		return parent::dispatchEvent($name, $data, $subject);
 	}

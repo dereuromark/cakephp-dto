@@ -90,7 +90,7 @@ class Generator {
 
 			if ($isModified) {
 				$this->io->out('Changes in ' . $name . ' DTO:', 1, Shell::VERBOSE);
-				$oldContent = file_get_contents($foundDtos[$name]);
+				$oldContent = file_get_contents($foundDtos[$name]) ?: '';
 				$this->_displayDiff($oldContent, $content);
 			}
 			if (!$options['dryRun']) {

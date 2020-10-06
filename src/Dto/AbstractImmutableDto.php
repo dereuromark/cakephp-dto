@@ -40,7 +40,7 @@ abstract class AbstractImmutableDto extends Dto {
 		$jsonUtil = new Json();
 
 		$new = clone($this);
-		$new->setFromArray($jsonUtil->decode($serialized, true), $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
+		$new->setFromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
 
 		return $new;
 	}

@@ -99,7 +99,7 @@ class Builder {
 
 		$config = [];
 		foreach ($files as $file) {
-			$content = file_get_contents($file);
+			$content = file_get_contents($file) ?: '';
 			$config[$file] = $this->engine->parse($content);
 		}
 
@@ -710,7 +710,7 @@ class Builder {
 			return $fields;
 		}
 
-		$neededFields = array_combine($this->metaDataKeys, $this->metaDataKeys);
+		$neededFields = array_combine($this->metaDataKeys, $this->metaDataKeys) ?: [];
 
 		foreach ($fields as $name => $field) {
 			$meta[$name] = array_intersect_key($field, $neededFields);
