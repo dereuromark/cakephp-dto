@@ -307,7 +307,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		return count($this->tags) > 0;
 	}
 	/**
-	 * @param mixed $tag
+	 * @param \TestApp\Dto\TagDto $tag
 	 * @return static
 	 */
 	public function withAddedTag(\TestApp\Dto\TagDto $tag) {
@@ -383,7 +383,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 
 	/**
 	 * @param string|int $key
-	 * @param mixed $metaValue
+	 * @param string $metaValue
 	 * @return static
 	 */
 	public function withAddedMetaValue($key, string $metaValue) {

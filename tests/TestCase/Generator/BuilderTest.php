@@ -2,7 +2,6 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
-use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;

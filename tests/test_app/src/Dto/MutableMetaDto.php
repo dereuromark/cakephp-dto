@@ -129,8 +129,6 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	 * @param string|int $key
 	 *
 	 * @return string|null
-	 *
-	 * @throws \RuntimeException If value with this key is not set.
 	 */
 	public function getMetaValue($key): ?string {
 		if (!isset($this->meta[$key])) {

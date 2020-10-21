@@ -7,7 +7,7 @@
 {% if associative %}
 	 * @param string|int $key
 {% endif %}
-	 * @param {% if returnTypeHint == 'array' %}mixed{% else %}{{ singularType }}{% endif %}{% if singularNullable %}|null{% endif %} ${{ singular }}
+	 * @param {{ singularType }}{% if singularNullable %}|null{% endif %} ${{ singular }}
 	 * @return static
 	 */
 	public function withAdded{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
