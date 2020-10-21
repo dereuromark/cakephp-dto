@@ -19,13 +19,13 @@ namespace TestApp\Dto;
  */
 class CarDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_COLOR = 'color';
-	const FIELD_IS_NEW = 'isNew';
-	const FIELD_VALUE = 'value';
-	const FIELD_DISTANCE_TRAVELLED = 'distanceTravelled';
-	const FIELD_ATTRIBUTES = 'attributes';
-	const FIELD_MANUFACTURED = 'manufactured';
-	const FIELD_OWNER = 'owner';
+	public const FIELD_COLOR = 'color';
+	public const FIELD_IS_NEW = 'isNew';
+	public const FIELD_VALUE = 'value';
+	public const FIELD_DISTANCE_TRAVELLED = 'distanceTravelled';
+	public const FIELD_ATTRIBUTES = 'attributes';
+	public const FIELD_MANUFACTURED = 'manufactured';
+	public const FIELD_OWNER = 'owner';
 
 	/**
 	 * @var \TestApp\ValueObject\Paint|null
@@ -185,7 +185,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setColor(\TestApp\ValueObject\Paint $color = null) {
+	public function setColor(?\TestApp\ValueObject\Paint $color) {
 		$this->color = $color;
 		$this->_touchedFields[self::FIELD_COLOR] = true;
 
@@ -195,7 +195,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return \TestApp\ValueObject\Paint|null
 	 */
-	public function getColor() {
+	public function getColor(): ?\TestApp\ValueObject\Paint {
 		return $this->color;
 	}
 
@@ -204,7 +204,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return \TestApp\ValueObject\Paint
 	 */
-	public function getColorOrFail() {
+	public function getColorOrFail(): \TestApp\ValueObject\Paint {
 		if (!isset($this->color)) {
 			throw new \RuntimeException('Value not set for field `color` (expected to be not null)');
 		}
@@ -215,7 +215,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasColor() {
+	public function hasColor(): bool {
 		return $this->color !== null;
 	}
 
@@ -224,7 +224,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setIsNew($isNew) {
+	public function setIsNew(?bool $isNew) {
 		$this->isNew = $isNew;
 		$this->_touchedFields[self::FIELD_IS_NEW] = true;
 
@@ -234,7 +234,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool|null
 	 */
-	public function getIsNew() {
+	public function getIsNew(): ?bool {
 		return $this->isNew;
 	}
 
@@ -243,7 +243,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return bool
 	 */
-	public function getIsNewOrFail() {
+	public function getIsNewOrFail(): bool {
 		if (!isset($this->isNew)) {
 			throw new \RuntimeException('Value not set for field `isNew` (expected to be not null)');
 		}
@@ -254,7 +254,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasIsNew() {
+	public function hasIsNew(): bool {
 		return $this->isNew !== null;
 	}
 
@@ -263,7 +263,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setValue($value) {
+	public function setValue(?float $value) {
 		$this->value = $value;
 		$this->_touchedFields[self::FIELD_VALUE] = true;
 
@@ -273,7 +273,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return float|null
 	 */
-	public function getValue() {
+	public function getValue(): ?float {
 		return $this->value;
 	}
 
@@ -282,7 +282,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return float
 	 */
-	public function getValueOrFail() {
+	public function getValueOrFail(): float {
 		if (!isset($this->value)) {
 			throw new \RuntimeException('Value not set for field `value` (expected to be not null)');
 		}
@@ -293,7 +293,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasValue() {
+	public function hasValue(): bool {
 		return $this->value !== null;
 	}
 
@@ -302,7 +302,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setDistanceTravelled($distanceTravelled) {
+	public function setDistanceTravelled(?int $distanceTravelled) {
 		$this->distanceTravelled = $distanceTravelled;
 		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
 
@@ -312,7 +312,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return int|null
 	 */
-	public function getDistanceTravelled() {
+	public function getDistanceTravelled(): ?int {
 		return $this->distanceTravelled;
 	}
 
@@ -321,7 +321,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return int
 	 */
-	public function getDistanceTravelledOrFail() {
+	public function getDistanceTravelledOrFail(): int {
 		if (!isset($this->distanceTravelled)) {
 			throw new \RuntimeException('Value not set for field `distanceTravelled` (expected to be not null)');
 		}
@@ -332,7 +332,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasDistanceTravelled() {
+	public function hasDistanceTravelled(): bool {
 		return $this->distanceTravelled !== null;
 	}
 
@@ -341,7 +341,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setAttributes(array $attributes = null) {
+	public function setAttributes(?array $attributes) {
 		$this->attributes = $attributes;
 		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
 
@@ -351,7 +351,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return string[]|null
 	 */
-	public function getAttributes() {
+	public function getAttributes(): ?array {
 		return $this->attributes;
 	}
 
@@ -360,7 +360,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return string[]
 	 */
-	public function getAttributesOrFail() {
+	public function getAttributesOrFail(): array {
 		if (!isset($this->attributes)) {
 			throw new \RuntimeException('Value not set for field `attributes` (expected to be not null)');
 		}
@@ -371,7 +371,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasAttributes() {
+	public function hasAttributes(): bool {
 		return $this->attributes !== null;
 	}
 
@@ -380,7 +380,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setManufactured(\Cake\I18n\FrozenDate $manufactured = null) {
+	public function setManufactured(?\Cake\I18n\FrozenDate $manufactured) {
 		$this->manufactured = $manufactured;
 		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
 
@@ -390,7 +390,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return \Cake\I18n\FrozenDate|null
 	 */
-	public function getManufactured() {
+	public function getManufactured(): ?\Cake\I18n\FrozenDate {
 		return $this->manufactured;
 	}
 
@@ -399,7 +399,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return \Cake\I18n\FrozenDate
 	 */
-	public function getManufacturedOrFail() {
+	public function getManufacturedOrFail(): \Cake\I18n\FrozenDate {
 		if (!isset($this->manufactured)) {
 			throw new \RuntimeException('Value not set for field `manufactured` (expected to be not null)');
 		}
@@ -410,7 +410,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasManufactured() {
+	public function hasManufactured(): bool {
 		return $this->manufactured !== null;
 	}
 
@@ -419,7 +419,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setOwner(\TestApp\Dto\OwnerDto $owner = null) {
+	public function setOwner(?\TestApp\Dto\OwnerDto $owner) {
 		$this->owner = $owner;
 		$this->_touchedFields[self::FIELD_OWNER] = true;
 
@@ -429,7 +429,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return \TestApp\Dto\OwnerDto|null
 	 */
-	public function getOwner() {
+	public function getOwner(): ?\TestApp\Dto\OwnerDto {
 		return $this->owner;
 	}
 
@@ -438,7 +438,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return \TestApp\Dto\OwnerDto
 	 */
-	public function getOwnerOrFail() {
+	public function getOwnerOrFail(): \TestApp\Dto\OwnerDto {
 		if (!isset($this->owner)) {
 			throw new \RuntimeException('Value not set for field `owner` (expected to be not null)');
 		}
@@ -449,7 +449,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasOwner() {
+	public function hasOwner(): bool {
 		return $this->owner !== null;
 	}
 

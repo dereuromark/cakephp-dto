@@ -49,8 +49,6 @@ class GeneratorTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Configure::write('CakeDto.scalarTypeHints', false);
-
 		$this->generator = $this->createGenerator();
 
 		$this->prepareDirectories();
@@ -63,8 +61,6 @@ class GeneratorTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->generator);
-
-		Configure::write('CakeDto.scalarTypeHints', false);
 	}
 
 	/**
@@ -181,12 +177,9 @@ TXT;
 	 * @return void
 	 */
 	public function testScalarTypeHints() {
-		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
-
 		$xml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
-		Configure::write('CakeDto.scalarTypeHints', true);
 		$this->generator = $this->createGenerator();
 
 		$options = [
@@ -222,8 +215,6 @@ TXT;
 	 * @return void
 	 */
 	public function testScalarTypeHintsDefaultValueRequiredFalse() {
-		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
-
 		$xml = ROOT . DS . 'tests/files/xml/scalar_default_required_false.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 

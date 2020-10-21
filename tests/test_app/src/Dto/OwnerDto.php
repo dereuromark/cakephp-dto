@@ -14,8 +14,8 @@ namespace TestApp\Dto;
  */
 class OwnerDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_NAME = 'name';
-	const FIELD_BIRTH_YEAR = 'birthYear';
+	public const FIELD_NAME = 'name';
+	public const FIELD_BIRTH_YEAR = 'birthYear';
 
 	/**
 	 * @var string|null
@@ -78,7 +78,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setName($name) {
+	public function setName(?string $name) {
 		$this->name = $name;
 		$this->_touchedFields[self::FIELD_NAME] = true;
 
@@ -88,7 +88,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return string|null
 	 */
-	public function getName() {
+	public function getName(): ?string {
 		return $this->name;
 	}
 
@@ -97,7 +97,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return string
 	 */
-	public function getNameOrFail() {
+	public function getNameOrFail(): string {
 		if (!isset($this->name)) {
 			throw new \RuntimeException('Value not set for field `name` (expected to be not null)');
 		}
@@ -108,7 +108,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 
@@ -117,7 +117,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthYear($birthYear) {
+	public function setBirthYear(?int $birthYear) {
 		$this->birthYear = $birthYear;
 		$this->_touchedFields[self::FIELD_BIRTH_YEAR] = true;
 
@@ -127,7 +127,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return int|null
 	 */
-	public function getBirthYear() {
+	public function getBirthYear(): ?int {
 		return $this->birthYear;
 	}
 
@@ -136,7 +136,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return int
 	 */
-	public function getBirthYearOrFail() {
+	public function getBirthYearOrFail(): int {
 		if (!isset($this->birthYear)) {
 			throw new \RuntimeException('Value not set for field `birthYear` (expected to be not null)');
 		}
@@ -147,7 +147,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasBirthYear() {
+	public function hasBirthYear(): bool {
 		return $this->birthYear !== null;
 	}
 

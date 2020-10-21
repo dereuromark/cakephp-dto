@@ -3,6 +3,7 @@
 namespace CakeDto\Test\TestCase\Dto;
 
 use Cake\Console\ConsoleIo;
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Shell\DtoShell;
 use Sandbox\Dto\Github\PullRequestDto;
@@ -19,11 +20,11 @@ class GithubTest extends TestCase {
 	 * @return void
 	 */
 	public function testMapping() {
-		$this->skipIf(version_compare(PHP_VERSION, '7.1') < 0, 'Requires PHP 7.1+');
-
 		$file = TESTS . 'files' . DS . 'Github' . DS . 'demo_pr.json';
 
 		$simulatedDataFromGitHubApi = json_decode(file_get_contents($file), true);
+
+		Configure::write('CakeDto.strictTypes', true);
 
 		$this->out = new ConsoleOutput();
 		$this->err = new ConsoleOutput();
@@ -112,6 +113,8 @@ class GithubTest extends TestCase {
 		];
 
 		$this->assertSame($expected, $pullRequestDtoArray);
+
+		Configure::write('CakeDto.strictTypes', false);
 	}
 
 }

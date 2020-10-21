@@ -14,8 +14,8 @@ namespace TestApp\Dto;
  */
 class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_NUMBER = 'number';
-	const FIELD_CONTENT = 'content';
+	public const FIELD_NUMBER = 'number';
+	public const FIELD_CONTENT = 'content';
 
 	/**
 	 * @var int
@@ -78,7 +78,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withNumber($number) {
+	public function withNumber(int $number) {
 		$new = clone $this;
 		$new->number = $number;
 		$new->_touchedFields[self::FIELD_NUMBER] = true;
@@ -89,14 +89,14 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return int
 	 */
-	public function getNumber() {
+	public function getNumber(): int {
 		return $this->number;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasNumber() {
+	public function hasNumber(): bool {
 		return $this->number !== null;
 	}
 
@@ -105,7 +105,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withContent($content) {
+	public function withContent(?string $content = null) {
 		$new = clone $this;
 		$new->content = $content;
 		$new->_touchedFields[self::FIELD_CONTENT] = true;
@@ -116,7 +116,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string|null
 	 */
-	public function getContent() {
+	public function getContent(): ?string {
 		return $this->content;
 	}
 
@@ -125,7 +125,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return string
 	 */
-	public function getContentOrFail() {
+	public function getContentOrFail(): string {
 		if (!isset($this->content)) {
 			throw new \RuntimeException('Value not set for field `content` (expected to be not null)');
 		}
@@ -136,7 +136,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasContent() {
+	public function hasContent(): bool {
 		return $this->content !== null;
 	}
 

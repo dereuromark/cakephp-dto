@@ -18,12 +18,12 @@ namespace TestApp\Dto;
  */
 class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_ID = 'id';
-	const FIELD_AUTHOR = 'author';
-	const FIELD_TITLE = 'title';
-	const FIELD_CREATED = 'created';
-	const FIELD_TAGS = 'tags';
-	const FIELD_META = 'meta';
+	public const FIELD_ID = 'id';
+	public const FIELD_AUTHOR = 'author';
+	public const FIELD_TITLE = 'title';
+	public const FIELD_CREATED = 'created';
+	public const FIELD_TAGS = 'tags';
+	public const FIELD_META = 'meta';
 
 	/**
 	 * @var int
@@ -122,6 +122,8 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\TagDto',
+			'singularNullable' => false,
+			'singularTypeHint' => '\TestApp\Dto\TagDto',
 		],
 		'meta' => [
 			'name' => 'meta',
@@ -135,6 +137,8 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => 'string',
+			'singularNullable' => false,
+			'singularTypeHint' => 'string',
 		],
 	];
 
@@ -165,7 +169,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId($id) {
+	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[self::FIELD_ID] = true;
@@ -176,14 +180,14 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return $this->id;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasId() {
+	public function hasId(): bool {
 		return $this->id !== null;
 	}
 
@@ -203,14 +207,14 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \TestApp\Dto\AuthorDto
 	 */
-	public function getAuthor() {
+	public function getAuthor(): \TestApp\Dto\AuthorDto {
 		return $this->author;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasAuthor() {
+	public function hasAuthor(): bool {
 		return $this->author !== null;
 	}
 
@@ -219,7 +223,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withTitle($title) {
+	public function withTitle(string $title) {
 		$new = clone $this;
 		$new->title = $title;
 		$new->_touchedFields[self::FIELD_TITLE] = true;
@@ -230,14 +234,14 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasTitle() {
+	public function hasTitle(): bool {
 		return $this->title !== null;
 	}
 
@@ -257,14 +261,14 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \Cake\I18n\FrozenDate
 	 */
-	public function getCreated() {
+	public function getCreated(): \Cake\I18n\FrozenDate {
 		return $this->created;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasCreated() {
+	public function hasCreated(): bool {
 		return $this->created !== null;
 	}
 
@@ -284,7 +288,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \TestApp\Dto\TagDto[]
 	 */
-	public function getTags() {
+	public function getTags(): array {
 		if ($this->tags === null) {
 			return [];
 		}
@@ -295,7 +299,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasTags() {
+	public function hasTags(): bool {
 		if ($this->tags === null) {
 			return false;
 		}
@@ -303,7 +307,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		return count($this->tags) > 0;
 	}
 	/**
-	 * @param \TestApp\Dto\TagDto $tag
+	 * @param mixed $tag
 	 * @return static
 	 */
 	public function withAddedTag(\TestApp\Dto\TagDto $tag) {
@@ -335,7 +339,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string[]
 	 */
-	public function getMeta() {
+	public function getMeta(): array {
 		if ($this->meta === null) {
 			return [];
 		}
@@ -350,7 +354,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getMetaValue($key) {
+	public function getMetaValue($key): string {
 		if (!isset($this->meta[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `meta` and key `%s` (expected to be not null)', $key));
 		}
@@ -361,7 +365,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasMeta() {
+	public function hasMeta(): bool {
 		if ($this->meta === null) {
 			return false;
 		}
@@ -373,16 +377,16 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 * @param string|int $key
 	 * @return bool
 	 */
-	public function hasMetaValue($key) {
+	public function hasMetaValue($key): bool {
 		return isset($this->meta[$key]);
 	}
 
 	/**
 	 * @param string|int $key
-	 * @param string $metaValue
+	 * @param mixed $metaValue
 	 * @return static
 	 */
-	public function withAddedMetaValue($key, $metaValue) {
+	public function withAddedMetaValue($key, string $metaValue) {
 		$new = clone $this;
 
 		if (!isset($new->meta)) {

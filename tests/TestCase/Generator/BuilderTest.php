@@ -26,8 +26,6 @@ class BuilderTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Configure::write('CakeDto.scalarTypeHints', false);
-
 		$engine = new XmlEngine();
 		$this->builder = new Builder($engine);
 	}
@@ -39,8 +37,6 @@ class BuilderTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->builder);
-
-		Configure::write('CakeDto.scalarTypeHints', false);
 	}
 
 	/**
@@ -145,7 +141,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
-			'returnTypeHint' => null,
+			'returnTypeHint' => 'array',
 			'serializable' => false,
 			'toArray' => false,
 		];
@@ -186,6 +182,7 @@ class BuilderTest extends TestCase {
 			'singular' => 'collectionAttribute',
 			'singularType' => 'string',
 			'singularTypeHint' => null,
+			'singularNullable' => false,
 			'singularReturnTypeHint' => null,
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
@@ -211,6 +208,7 @@ class BuilderTest extends TestCase {
 			'singular' => 'arrayAttribute',
 			'singularType' => 'string',
 			'singularTypeHint' => null,
+			'singularNullable' => false,
 			'singularReturnTypeHint' => null,
 			'typeHint' => 'array',
 			'deprecated' => null,
@@ -235,6 +233,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'singularType' => 'string',
 			'singularTypeHint' => null,
+			'singularNullable' => false,
 			'singularReturnTypeHint' => null,
 			'singular' => 'customCollectionAttribute',
 			'typeHint' => '\Cake\Collection\Collection',
@@ -259,6 +258,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'singularType' => 'string',
 			'singularTypeHint' => null,
+			'singularNullable' => false,
 			'singularReturnTypeHint' => null,
 			'singular' => 'mySingular',
 			'typeHint' => '\ArrayObject',

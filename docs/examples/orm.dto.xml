@@ -27,7 +27,7 @@
 
 	<dto name="MutableMeta">
 		<field name="title" type="string" required="true"/>
-		<field name="meta" type="string[]" singular="metaValue" associative="true" collectionType="array"/>
+		<field name="meta" type="?string[]" singular="metaValue" associative="true" collectionType="array"/>
 	</dto>
 
 </dtos>

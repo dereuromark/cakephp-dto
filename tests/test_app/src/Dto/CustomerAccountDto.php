@@ -14,8 +14,8 @@ namespace TestApp\Dto;
  */
 class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_CUSTOMER_NAME = 'customerName';
-	const FIELD_BIRTH_YEAR = 'birthYear';
+	public const FIELD_CUSTOMER_NAME = 'customerName';
+	public const FIELD_BIRTH_YEAR = 'birthYear';
 
 	/**
 	 * @var string
@@ -78,7 +78,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setCustomerName($customerName) {
+	public function setCustomerName(string $customerName) {
 		$this->customerName = $customerName;
 		$this->_touchedFields[self::FIELD_CUSTOMER_NAME] = true;
 
@@ -88,14 +88,14 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return string
 	 */
-	public function getCustomerName() {
+	public function getCustomerName(): string {
 		return $this->customerName;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasCustomerName() {
+	public function hasCustomerName(): bool {
 		return $this->customerName !== null;
 	}
 
@@ -104,7 +104,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthYear($birthYear) {
+	public function setBirthYear(?int $birthYear) {
 		$this->birthYear = $birthYear;
 		$this->_touchedFields[self::FIELD_BIRTH_YEAR] = true;
 
@@ -114,7 +114,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return int|null
 	 */
-	public function getBirthYear() {
+	public function getBirthYear(): ?int {
 		return $this->birthYear;
 	}
 
@@ -123,7 +123,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return int
 	 */
-	public function getBirthYearOrFail() {
+	public function getBirthYearOrFail(): int {
 		if (!isset($this->birthYear)) {
 			throw new \RuntimeException('Value not set for field `birthYear` (expected to be not null)');
 		}
@@ -134,7 +134,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasBirthYear() {
+	public function hasBirthYear(): bool {
 		return $this->birthYear !== null;
 	}
 

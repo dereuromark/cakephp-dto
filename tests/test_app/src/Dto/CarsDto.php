@@ -13,7 +13,7 @@ namespace TestApp\Dto;
  */
 class CarsDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_CARS = 'cars';
+	public const FIELD_CARS = 'cars';
 
 	/**
 	 * @var \TestApp\Dto\CarDto[]|\ArrayObject
@@ -38,6 +38,8 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\CarDto',
+			'singularNullable' => false,
+			'singularTypeHint' => '\TestApp\Dto\CarDto',
 		],
 	];
 
@@ -68,7 +70,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return \TestApp\Dto\CarDto[]|\ArrayObject
 	 */
-	public function getCars() {
+	public function getCars(): \ArrayObject {
 		if ($this->cars === null) {
 			return new \ArrayObject([]);
 		}
@@ -83,7 +85,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getCar($key) {
+	public function getCar($key): \TestApp\Dto\CarDto {
 		if (!isset($this->cars[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `cars` and key `%s` (expected to be not null)', $key));
 		}
@@ -94,7 +96,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasCars() {
+	public function hasCars(): bool {
 		if ($this->cars === null) {
 			return false;
 		}
@@ -106,7 +108,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	 * @param string|int $key
 	 * @return bool
 	 */
-	public function hasCar($key) {
+	public function hasCar($key): bool {
 		return isset($this->cars[$key]);
 	}
 

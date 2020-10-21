@@ -10,12 +10,12 @@ namespace TestApp\Dto;
  * MutableMeta DTO
  *
  * @property string $title
- * @property string[] $meta
+ * @property (string|null)[] $meta
  */
 class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 
-	const FIELD_TITLE = 'title';
-	const FIELD_META = 'meta';
+	public const FIELD_TITLE = 'title';
+	public const FIELD_META = 'meta';
 
 	/**
 	 * @var string
@@ -23,7 +23,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	protected $title;
 
 	/**
-	 * @var string[]
+	 * @var (string|null)[]
 	 */
 	protected $meta;
 
@@ -47,7 +47,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 		],
 		'meta' => [
 			'name' => 'meta',
-			'type' => 'string[]',
+			'type' => '(string|null)[]',
 			'associative' => true,
 			'collectionType' => 'array',
 			'required' => false,
@@ -57,6 +57,8 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => 'string',
+			'singularNullable' => true,
+			'singularTypeHint' => 'string',
 		],
 	];
 
@@ -79,7 +81,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title) {
 		$this->title = $title;
 		$this->_touchedFields[self::FIELD_TITLE] = true;
 
@@ -89,19 +91,19 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasTitle() {
+	public function hasTitle(): bool {
 		return $this->title !== null;
 	}
 
 	/**
-	 * @param string[] $meta
+	 * @param (string|null)[] $meta
 	 *
 	 * @return $this
 	 */
@@ -113,9 +115,9 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @return string[]
+	 * @return (string|null)[]
 	 */
-	public function getMeta() {
+	public function getMeta(): array {
 		if ($this->meta === null) {
 			return [];
 		}
@@ -126,13 +128,13 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param string|int $key
 	 *
-	 * @return string
+	 * @return string|null
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getMetaValue($key) {
+	public function getMetaValue($key): ?string {
 		if (!isset($this->meta[$key])) {
-			throw new \RuntimeException(sprintf('Value not set for field `meta` and key `%s` (expected to be not null)', $key));
+			return null;
 		}
 
 		return $this->meta[$key];
@@ -141,28 +143,19 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @return bool
 	 */
-	public function hasMeta() {
+	public function hasMeta(): bool {
 		if ($this->meta === null) {
 			return false;
 		}
 
 		return count($this->meta) > 0;
 	}
-
 	/**
 	 * @param string|int $key
-	 * @return bool
-	 */
-	public function hasMetaValue($key) {
-		return isset($this->meta[$key]);
-	}
-
-	/**
-	 * @param string|int $key
-	 * @param string $metaValue
+	 * @param string|null $metaValue
 	 * @return $this
 	 */
-	public function addMetaValue($key, $metaValue) {
+	public function addMetaValue($key, ?string $metaValue) {
 		if (!isset($this->meta)) {
 			$this->meta = [];
 		}
