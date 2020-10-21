@@ -4,7 +4,7 @@ namespace CakeDto\Test\TestCase\Dto;
 
 use Cake\Collection\Collection;
 use Cake\Collection\CollectionInterface;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 use Cake\TestSuite\TestCase;
 use CakeDto\Dto\AbstractImmutableDto;
 use TestApp\Dto\ArticleDto;
@@ -38,7 +38,7 @@ class ImmutableTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => new FrozenTime(time() - DAY),
+			'created' => new FrozenDate(time() - DAY),
 		];
 
 		$articleDto = new ArticleDto($array);
@@ -129,8 +129,6 @@ class ImmutableTest extends TestCase {
 	 * @return void
 	 */
 	public function testPropertyAccessFails() {
-		$this->skipIf(version_compare(PHP_VERSION, '7.0') < 0, 'Fatal error before PHP 7.');
-
 		$bookDto = new BookDto();
 		$pages = $bookDto->pages;
 		$this->assertSame(0, $pages->count());

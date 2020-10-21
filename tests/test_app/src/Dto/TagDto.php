@@ -15,9 +15,9 @@ namespace TestApp\Dto;
  */
 class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_ID = 'id';
-	const FIELD_NAME = 'name';
-	const FIELD_WEIGHT = 'weight';
+	public const FIELD_ID = 'id';
+	public const FIELD_NAME = 'name';
+	public const FIELD_WEIGHT = 'weight';
 
 	/**
 	 * @var int
@@ -99,7 +99,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId($id) {
+	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[self::FIELD_ID] = true;
@@ -110,14 +110,14 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return $this->id;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasId() {
+	public function hasId(): bool {
 		return $this->id !== null;
 	}
 
@@ -126,7 +126,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withName($name) {
+	public function withName(string $name) {
 		$new = clone $this;
 		$new->name = $name;
 		$new->_touchedFields[self::FIELD_NAME] = true;
@@ -137,14 +137,14 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 
@@ -153,7 +153,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withWeight($weight) {
+	public function withWeight(int $weight) {
 		$new = clone $this;
 		$new->weight = $weight;
 		$new->_touchedFields[self::FIELD_WEIGHT] = true;
@@ -164,7 +164,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return int
 	 */
-	public function getWeight() {
+	public function getWeight(): int {
 		return $this->weight;
 	}
 

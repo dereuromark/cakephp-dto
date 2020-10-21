@@ -15,9 +15,9 @@ namespace TestApp\Dto;
  */
 class FlyingCarDto extends CarDto {
 
-	const FIELD_MAX_ALTITUDE = 'maxAltitude';
-	const FIELD_MAX_SPEED = 'maxSpeed';
-	const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
+	public const FIELD_MAX_ALTITUDE = 'maxAltitude';
+	public const FIELD_MAX_SPEED = 'maxSpeed';
+	public const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
 
 	/**
 	 * @var int
@@ -99,7 +99,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setMaxAltitude($maxAltitude) {
+	public function setMaxAltitude(int $maxAltitude) {
 		$this->maxAltitude = $maxAltitude;
 		$this->_touchedFields[self::FIELD_MAX_ALTITUDE] = true;
 
@@ -109,7 +109,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @return int
 	 */
-	public function getMaxAltitude() {
+	public function getMaxAltitude(): int {
 		return $this->maxAltitude;
 	}
 
@@ -119,7 +119,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setMaxSpeed($maxSpeed) {
+	public function setMaxSpeed(int $maxSpeed) {
 		$this->maxSpeed = $maxSpeed;
 		$this->_touchedFields[self::FIELD_MAX_SPEED] = true;
 
@@ -129,7 +129,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @return int
 	 */
-	public function getMaxSpeed() {
+	public function getMaxSpeed(): int {
 		return $this->maxSpeed;
 	}
 
@@ -139,7 +139,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setComplexAttributes(array $complexAttributes = null) {
+	public function setComplexAttributes(?array $complexAttributes) {
 		$this->complexAttributes = $complexAttributes;
 		$this->_touchedFields[self::FIELD_COMPLEX_ATTRIBUTES] = true;
 
@@ -149,7 +149,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @return array|null
 	 */
-	public function getComplexAttributes() {
+	public function getComplexAttributes(): ?array {
 		return $this->complexAttributes;
 	}
 
@@ -158,7 +158,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return array
 	 */
-	public function getComplexAttributesOrFail() {
+	public function getComplexAttributesOrFail(): array {
 		if (!isset($this->complexAttributes)) {
 			throw new \RuntimeException('Value not set for field `complexAttributes` (expected to be not null)');
 		}
@@ -169,7 +169,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @return bool
 	 */
-	public function hasComplexAttributes() {
+	public function hasComplexAttributes(): bool {
 		return $this->complexAttributes !== null;
 	}
 

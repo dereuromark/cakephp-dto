@@ -7,10 +7,10 @@
 {% if associative %}
 	 * @param string|int $key
 {% endif %}
-	 * @param {% if singularType %}{{ singularType }}{% else %}mixed{% endif %} ${{ singular }}
+	 * @param {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}{% if singularNullable %}|null{% endif %} ${{ singular }}
 	 * @return $this
 	 */
-	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if (!isset($this->{{ name }})) {
 			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
 		}

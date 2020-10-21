@@ -15,9 +15,9 @@ namespace TestApp\Dto;
  */
 class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_ID = 'id';
-	const FIELD_NAME = 'name';
-	const FIELD_EMAIL = 'email';
+	public const FIELD_ID = 'id';
+	public const FIELD_NAME = 'name';
+	public const FIELD_EMAIL = 'email';
 
 	/**
 	 * @var int
@@ -99,7 +99,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId($id) {
+	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[self::FIELD_ID] = true;
@@ -110,14 +110,14 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return $this->id;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasId() {
+	public function hasId(): bool {
 		return $this->id !== null;
 	}
 
@@ -126,7 +126,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withName($name) {
+	public function withName(string $name) {
 		$new = clone $this;
 		$new->name = $name;
 		$new->_touchedFields[self::FIELD_NAME] = true;
@@ -137,14 +137,14 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 
@@ -153,7 +153,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withEmail($email) {
+	public function withEmail(?string $email = null) {
 		$new = clone $this;
 		$new->email = $email;
 		$new->_touchedFields[self::FIELD_EMAIL] = true;
@@ -164,7 +164,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string|null
 	 */
-	public function getEmail() {
+	public function getEmail(): ?string {
 		return $this->email;
 	}
 
@@ -173,7 +173,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return string
 	 */
-	public function getEmailOrFail() {
+	public function getEmailOrFail(): string {
 		if (!isset($this->email)) {
 			throw new \RuntimeException('Value not set for field `email` (expected to be not null)');
 		}
@@ -184,7 +184,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasEmail() {
+	public function hasEmail(): bool {
 		return $this->email !== null;
 	}
 

@@ -15,7 +15,7 @@ namespace TestApp\Dto;
  */
 class OldOneDto extends CarDto {
 
-	const FIELD_NAME = 'name';
+	public const FIELD_NAME = 'name';
 
 	/**
 	 * @var string|null
@@ -59,7 +59,7 @@ class OldOneDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setName($name) {
+	public function setName(?string $name) {
 		$this->name = $name;
 		$this->_touchedFields[self::FIELD_NAME] = true;
 
@@ -69,7 +69,7 @@ class OldOneDto extends CarDto {
 	/**
 	 * @return string|null
 	 */
-	public function getName() {
+	public function getName(): ?string {
 		return $this->name;
 	}
 
@@ -78,7 +78,7 @@ class OldOneDto extends CarDto {
 	 *
 	 * @return string
 	 */
-	public function getNameOrFail() {
+	public function getNameOrFail(): string {
 		if (!isset($this->name)) {
 			throw new \RuntimeException('Value not set for field `name` (expected to be not null)');
 		}
@@ -89,7 +89,7 @@ class OldOneDto extends CarDto {
 	/**
 	 * @return bool
 	 */
-	public function hasName() {
+	public function hasName(): bool {
 		return $this->name !== null;
 	}
 

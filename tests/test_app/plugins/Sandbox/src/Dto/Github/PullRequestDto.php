@@ -186,6 +186,8 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => '\Sandbox\Dto\Github\LabelDto',
+			'singularNullable' => false,
+			'singularTypeHint' => '\Sandbox\Dto\Github\LabelDto',
 		],
 		'head' => [
 			'name' => 'head',

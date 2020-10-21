@@ -57,12 +57,12 @@ Let's add some basic DTOs now:
     <dto name="Cars">
         <field name="cars" type="Car[]" collection="true" singular="car" />
     </dto>
-    
+
     <dto name="Owner">
         <field name="name" type="string"/>
         <field name="birthYear" type="int"/>
     </dto>
-    
+
     <dto name="FlyingCar" extends="Car">
         <field name="maxAltitude" type="int"/>
     </dto>
@@ -113,13 +113,13 @@ Simple scalars and types:
 - `bool`
 - `callable`
 - `resource`
-- `iterable` (requires PHP 7.1+)
-- `object` (requires PHP 7.2+)
+- `iterable`
+- `object`
 - `mixed`
 
 Simple array types:
 - `array` without array typehinting, but no further annotation (assumes "mixed" type)
-- `...[]` with array typehinting and concrete annotation ("mixed is not allowed here)
+- `...[]` with array typehinting and concrete annotation ("mixed" is not allowed here)
 
 Concrete objects:
 - DTOs (without suffix)
@@ -162,16 +162,16 @@ Based on the type of field, it will transform/cast values accordingly:
 - int, float: Simple cast
 - bool: string `true`/`false` become boolean values.
 
-Default values must be simple scalar values. 
+Default values must be simple scalar values.
 They automatically make non-required fields required (and not nullable) this way, unless specified differently:
 ```xml
 defaultValue="0" required="false"
 ```
 This similar to DB and e.g. not nullable integer columns with `0` as default value.
 
-`null` is not a default value, but set via boolean `required` key independently from this and means you can set or get `null` as value.
-In PHP7.1+ this will have not an effect on default value behavior, 
-whereas in versions before it would actually (due to the language restriction) set a default value` as `null` here 
+`null` is not a default value, but set via boolean `required` key independently of this and means you can set or get `null` as value.
+Since PHP7.1+ this will have not an effect on default value behavior,
+whereas in versions before it would actually (due to the language restriction) set a default value` as `null` here
 if a typehint is used and no default value is provided:
 ```php
     /**
@@ -181,8 +181,8 @@ if a typehint is used and no default value is provided:
      */
     public function setManufactured(\Cake\I18n\FrozenDate $manufactured = null) {}
 ```
-This technically means that yu could just call the method as `->setManufactured()` and it would set it to `null` - the only way to allow nullable here.
-With PHP 7.1+ it will be a clean API with non-optional first parameter as expected then:
+This technically means that you could just call the method as `->setManufactured()` and it would set it to `null` - the only way to allow nullable here.
+It will be a clean API with non-optional first parameter as expected then:
 ```php
     /**
      * @param \Cake\I18n\FrozenDate|null $manufactured
@@ -240,7 +240,7 @@ if ($carDto->hasCar('one')) {
 // Typehinted as mixed|null
 $greenOrNull = $carsDto->read(['cars', 'one', 'color', 'green']);
 ```
- 
+
 The downside is that you lose the return type-hinting which is usually useful for static analysis.
 It should also be avoided where not needed - as you lose the auto-complete/type-hinting aspect.
 Using the class constants as field names can however compensite a bit:
@@ -368,28 +368,28 @@ Other collections most likely will not work.
 // Example for adding DTOs with associated keys
 $fooDto->addBar('a', new Bar());
 $fooDto->addBar('b', new Bar());
-  
+
 // Example for setting DTO with associated keys
 $bars = new \ArrayObject([
     'a' => new Bar(),
     'b' => new Bar(),
 ]);
 $fooDto->setBars($bars);
-  
+
 // Example for adding associated array items
 $fooDto->addBaz('x', 'X');
 $fooDto->addBaz('y', 'Y');
-  
+
 // Example for setting associated array
 $fooDto->setBazs([
     'x' => 'X',
-    'y' => 'Y', 
+    'y' => 'Y',
 ]);
-  
+
 // Example for getting associated items
 $fooDto->getBar('a'); // returns the associated Dto object to "a"
 $fooDto->getBar('c'); // throws exception because it doesn't exists
-  
+
 // Example for checking associated items
 $fooDto->hasBar('a'); // returns true
 $fooDto->hasBar('c'); // returns false
@@ -457,7 +457,7 @@ Check the [TwigView](https://github.com/WyriHaximus/TwigView) plugin which is a 
 
 
 ## Immutability
-Immutable objects can make life simpler in many cases. 
+Immutable objects can make life simpler in many cases.
 They are especially applicable for value types, where objects don't have an identity so they can be easily replaced.
 
 `immutable="true"` on the DTO makes it read only and provides `->with{Field}()` instead of setters.
@@ -513,8 +513,8 @@ You can set some defaults via `app.php` and global Configure settings:
 ```php
 return [
     'Dto' => [
-        'strictTypes' => false, // Requires PHP 7.1+
-        'scalarTypeHints' => false, // null => Auto-detect, requires PHP 7.1+
+        'strictTypes' => false,
+        'scalarTypeHints' => true,
         'immutable' => false, // This can have a negative performance impact
         'defaultCollectionType' => null, // Defaults to \ArrayObject
     ],
@@ -561,18 +561,16 @@ See the examples for details.
 
 
 ## Scalar Type Hints
-Enable more strict PHP 7.1+ typehints using Configure and `'CakeDto.scalarTypeHints'` set to  `true`.
-This will auto-cast values if needed, so this is a good intermediate solution.
-
+Typehints for scalars are added by default. Use Configure and `'CakeDto.scalarTypeHints'` set to  `false` to disable this.
 
 ## Strict Types
-With PHP 7.1+ you can generate yourself the `declare(strict_types=1)` part into the top of the PHP files.
+You can let the script generate the `declare(strict_types=1)` part into the top of the PHP files.
 `'CakeDto.strictTypes` set to  `true` will enable this.
 
 This will also stop auto-casting then. Used together with the scalar type hints you should make sure that the data
 you store in your DTOs meets those standards.
 
-I would rather recommend leaving this off and instead using the scalar type hints.
+I would rather recommend leaving this off and instead using the scalar type hints only.
 
 
 ## Debugging

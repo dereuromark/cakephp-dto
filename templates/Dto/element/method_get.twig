@@ -24,16 +24,25 @@
 {% endif %}
 	 * @param string|int $key
 	 *
-	 * @return {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}
+	 * @return {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}{% if singularNullable %}|null{% endif %}
 
+{% if not singularNullable %}
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
+{% endif %}
 	 */
-	public function get{{ singular[:1]|upper ~ singular[1:] }}($key){% if singularReturnTypeHint %}: {% if nullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+	public function get{{ singular[:1]|upper ~ singular[1:] }}($key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+{% if singularNullable %}
+		if (!isset($this->{{ name }}[$key])) {
+			return null;
+		}
+
+{% else %}
 		if (!isset($this->{{ name }}[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `{{ name }}` and key `%s` (expected to be not null)', $key));
 		}
 
+{% endif %}
 		return $this->{{ name }}[$key];
 	}
 {% endif -%}

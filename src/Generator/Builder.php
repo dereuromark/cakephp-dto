@@ -63,6 +63,8 @@ class Builder {
 		'toArray',
 		'collectionType',
 		'singularType',
+		'singularTypeHint',
+		'singularNullable',
 		'associative',
 		'key',
 	];
@@ -75,7 +77,7 @@ class Builder {
 
 		$this->simpleTypeWhitelist = $this->simpleTypeWhitelist($this->simpleTypeWhitelist);
 		$config = [
-			'scalarTypeHints' => Configure::read('CakeDto.scalarTypeHints', version_compare(PHP_VERSION, '7.1') >= 0),
+			'scalarTypeHints' => Configure::read('CakeDto.scalarTypeHints', true),
 			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType', '\ArrayObject'),
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
@@ -309,9 +311,14 @@ class Builder {
 				$fields[$key]['nullable'] = false;
 
 				$fields[$key] = $this->_completeCollectionSingular($fields[$key], $dto['name'], $namespace);
+				$fields[$key]['singularNullable'] = substr($fields[$key]['type'], 0, 1) === '?';
 
 				if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $field['type'], $matches)) {
 					$fields[$key]['type'] = $this->dtoTypeToClass($matches[1], $namespace) . '[]';
+				}
+
+				if ($fields[$key]['singularNullable']) {
+					$fields[$key]['type'] = '(' . $fields[$key]['singularType'] . '|null)[]';
 				}
 
 				continue;
@@ -448,6 +455,7 @@ class Builder {
 			if ($fields[$key]['collection']) {
 				$fields[$key] += [
 					'singularTypeHint' => null,
+					'singularNullable' => false,
 					'singularReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {
@@ -522,6 +530,9 @@ class Builder {
 		}
 
 		$type = substr($type, 0, -2);
+		if (substr($type, 0, 1) === '?') {
+			$type = substr($type, 1);
+		}
 
 		return $this->isValidSimpleType($type) || $this->isValidDto($type) || $this->isValidInterfaceOrClass($type);
 	}
@@ -649,12 +660,8 @@ class Builder {
 	 * @return array
 	 */
 	protected function simpleTypeWhitelist(array $types): array {
-		if (version_compare(PHP_VERSION, '7.1') >= 0) {
-			$types[] = 'iterable';
-		}
-		if (version_compare(PHP_VERSION, '7.2') >= 0) {
-			$types[] = 'object';
-		}
+		$types[] = 'iterable';
+		$types[] = 'object';
 
 		return $types;
 	}
@@ -692,6 +699,10 @@ class Builder {
 		}
 
 		$type = substr($type, 0, -2);
+		if (substr($type, 0, 1) === '?') {
+			$type = substr($type, 1);
+		}
+
 		if (!$this->isValidSimpleType($type) && !$this->isValidDto($type) && !$this->isValidInterfaceOrClass($type)) {
 			return null;
 		}

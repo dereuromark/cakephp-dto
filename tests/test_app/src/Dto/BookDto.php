@@ -13,7 +13,7 @@ namespace TestApp\Dto;
  */
 class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_PAGES = 'pages';
+	public const FIELD_PAGES = 'pages';
 
 	/**
 	 * @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
@@ -38,6 +38,8 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'serializable' => false,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\PageDto',
+			'singularNullable' => false,
+			'singularTypeHint' => '\TestApp\Dto\PageDto',
 		],
 	];
 
@@ -69,7 +71,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
 	 */
-	public function getPages() {
+	public function getPages(): \Cake\Collection\Collection {
 		if ($this->pages === null) {
 			return new \Cake\Collection\Collection([]);
 		}
@@ -80,7 +82,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasPages() {
+	public function hasPages(): bool {
 		if ($this->pages === null) {
 			return false;
 		}

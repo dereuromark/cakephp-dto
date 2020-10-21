@@ -46,4 +46,3 @@ Cake\Core\Configure::write('CakeDto', [
 Cake\Core\Configure::write('debug', true);
 
 Cake\Core\Plugin::getCollection()->add(new CakeDto\Plugin());
-//Cake\Core\Plugin::load('WyriHaximus/TwigView', ['path' => ROOT . DS . 'vendor/wyrihaximus/twig-view/', 'autoload' => true, 'bootstrap' => true]);

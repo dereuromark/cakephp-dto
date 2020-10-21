@@ -16,10 +16,10 @@ namespace TestApp\Dto;
  */
 class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 
-	const FIELD_CUSTOMER_ACCOUNT = 'customerAccount';
-	const FIELD_VALUE = 'value';
-	const FIELD_COMMENT = 'comment';
-	const FIELD_CREATED = 'created';
+	public const FIELD_CUSTOMER_ACCOUNT = 'customerAccount';
+	public const FIELD_VALUE = 'value';
+	public const FIELD_COMMENT = 'comment';
+	public const FIELD_CREATED = 'created';
 
 	/**
 	 * @var \TestApp\Dto\CustomerAccountDto
@@ -132,14 +132,14 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \TestApp\Dto\CustomerAccountDto
 	 */
-	public function getCustomerAccount() {
+	public function getCustomerAccount(): \TestApp\Dto\CustomerAccountDto {
 		return $this->customerAccount;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasCustomerAccount() {
+	public function hasCustomerAccount(): bool {
 		return $this->customerAccount !== null;
 	}
 
@@ -148,7 +148,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withValue($value) {
+	public function withValue(float $value) {
 		$new = clone $this;
 		$new->value = $value;
 		$new->_touchedFields[self::FIELD_VALUE] = true;
@@ -159,14 +159,14 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return float
 	 */
-	public function getValue() {
+	public function getValue(): float {
 		return $this->value;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasValue() {
+	public function hasValue(): bool {
 		return $this->value !== null;
 	}
 
@@ -175,7 +175,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withComment($comment) {
+	public function withComment(?string $comment = null) {
 		$new = clone $this;
 		$new->comment = $comment;
 		$new->_touchedFields[self::FIELD_COMMENT] = true;
@@ -186,7 +186,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return string|null
 	 */
-	public function getComment() {
+	public function getComment(): ?string {
 		return $this->comment;
 	}
 
@@ -195,7 +195,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @return string
 	 */
-	public function getCommentOrFail() {
+	public function getCommentOrFail(): string {
 		if (!isset($this->comment)) {
 			throw new \RuntimeException('Value not set for field `comment` (expected to be not null)');
 		}
@@ -206,7 +206,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return bool
 	 */
-	public function hasComment() {
+	public function hasComment(): bool {
 		return $this->comment !== null;
 	}
 
@@ -226,14 +226,14 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @return \Cake\I18n\FrozenDate
 	 */
-	public function getCreated() {
+	public function getCreated(): \Cake\I18n\FrozenDate {
 		return $this->created;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasCreated() {
+	public function hasCreated(): bool {
 		return $this->created !== null;
 	}
 
