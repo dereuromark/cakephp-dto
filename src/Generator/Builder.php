@@ -455,6 +455,7 @@ class Builder {
 			if ($fields[$key]['collection']) {
 				$fields[$key] += [
 					'singularTypeHint' => null,
+					'singularNullable' => false,
 					'singularReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {

@@ -120,6 +120,11 @@ class BuilderTest extends TestCase {
 						'type' => 'string[]',
 						'singular' => 'mySingular',
 					],
+					'autoCollectionBySingularNullable' => [
+						'name' => 'myPluralNullable',
+						'type' => '?string[]',
+						'singular' => 'mySingularNullable',
+					],
 				],
 			],
 		];
@@ -268,6 +273,31 @@ class BuilderTest extends TestCase {
 			'toArray' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
+
+		$expected = [
+			'name' => 'myPlural',
+			'type' => 'string[]|\ArrayObject',
+			'required' => false,
+			'defaultValue' => null,
+			'nullable' => false,
+			'collectionType' => '\ArrayObject',
+			'isArray' => false,
+			'dto' => null,
+			'associative' => false,
+			'collection' => true,
+			'key' => null,
+			'singularType' => 'string',
+			'singularTypeHint' => null,
+			'singularNullable' => true,
+			'singularReturnTypeHint' => null,
+			'singular' => 'mySingular',
+			'typeHint' => '\ArrayObject',
+			'deprecated' => null,
+			'returnTypeHint' => null,
+			'serializable' => false,
+			'toArray' => false,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 	}
 
 	/**
@@ -385,7 +415,7 @@ class BuilderTest extends TestCase {
 	 */
 	protected function createBuilder() {
 		$engine = $this->getMockBuilder(EngineInterface::class)->getMock();
-		$builder = $this->getMockBuilder(Builder::class)->setMethods(['_merge', '_getFiles'])->setConstructorArgs([$engine])->getMock();
+		$builder = $this->getMockBuilder(Builder::class)->onlyMethods(['_merge', '_getFiles'])->setConstructorArgs([$engine])->getMock();
 		$builder->expects($this->any())->method('_getFiles')->willReturn([]);
 
 		return $builder;

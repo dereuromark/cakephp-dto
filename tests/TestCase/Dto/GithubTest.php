@@ -29,7 +29,7 @@ class GithubTest extends TestCase {
 		$this->out = new ConsoleOutput();
 		$this->err = new ConsoleOutput();
 		$io = new ConsoleIo($this->out, $this->err);
-		$this->shell = $this->getMockBuilder(DtoShell::class)->setMethods(['_getConfigPath', '_getSrcPath'])->setConstructorArgs([$io])->getMock();
+		$this->shell = $this->getMockBuilder(DtoShell::class)->onlyMethods(['_getConfigPath', '_getSrcPath'])->setConstructorArgs([$io])->getMock();
 
 		$sandboxPluginPath = TESTS . 'test_app' . DS . 'plugins' . DS . 'Sandbox' . DS;
 
