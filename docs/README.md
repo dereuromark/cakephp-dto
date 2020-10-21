@@ -45,17 +45,17 @@ Let's add some basic DTOs now:
 
 ```xml
     <dto name="Car">
-        <field name="color" type="string" />
-        <field name="attributes" type="string[]" />
-        <field name="isNew" type="bool" />
-        <field name="distanceTravelled" type="int" />
-        <field name="value" type="float" />
-        <field name="manufactured" type="\Cake\I18n\FrozenDate" />
+        <field name="color" type="string"/>
+        <field name="attributes" type="string[]"/>
+        <field name="isNew" type="bool"/>
+        <field name="distanceTravelled" type="int"/>
+        <field name="value" type="float"/>
+        <field name="manufactured" type="\Cake\I18n\FrozenDate"/>
         <field name="owner" type="Owner"/>
     </dto>
 
     <dto name="Cars">
-        <field name="cars" type="Car[]" collection="true" singular="car" />
+        <field name="cars" type="Car[]" collection="true" singular="car"/>
     </dto>
 
     <dto name="Owner">
@@ -355,8 +355,8 @@ Other collections most likely will not work.
 
 ```xml
 <dto name="Foo">
-    <field name="bars" type="Bar[]" singular="bar" collection="true" associative="true" />
-    <field name="bazs" type="array" singular="baz" associative="true" />
+    <field name="bars" type="Bar[]" singular="bar" collection="true" associative="true"/>
+    <field name="bazs" type="array" singular="baz" associative="true"/>
 </dto>
 
 <dto name="Bar">
@@ -418,6 +418,14 @@ will transform into the DTO field as associative array collection:
     }
 ],
 ```
+
+### Collections and nullable elements
+Sometimes you can have associative collections that can also contain null values for their keys.
+In this case you can define them using `?` prefix:
+```xml
+<field name="elements" type="?int[]" singular="element" associative="true"/>
+```
+Note: This is not valid for union types.
 
 ### serialize() and unserialize()
 These methods should be used carefully, for security reasons.
@@ -513,7 +521,7 @@ You can set some defaults via `app.php` and global Configure settings:
 ```php
 return [
     'Dto' => [
-        'strictTypes' => false,
+        'strictTypes' => false, // This can require additional casting
         'scalarTypeHints' => true,
         'immutable' => false, // This can have a negative performance impact
         'defaultCollectionType' => null, // Defaults to \ArrayObject

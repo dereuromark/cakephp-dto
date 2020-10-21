@@ -14,7 +14,7 @@
 								<xsd:element name="field" maxOccurs="unbounded" minOccurs="0">
 									<xsd:complexType mixed="true">
 										<xsd:attribute type="xsd:string" name="name" use="required"/>
-										<xsd:attribute type="xsd:string" name="type" use="required" />
+										<xsd:attribute type="xsd:string" name="type" use="required"/>
 										<xsd:attribute type="xsd:string" name="singular"/>
 										<xsd:attribute type="xsd:boolean" name="collection"/>
 										<xsd:attribute type="xsd:string" name="collectionType" default="\ArrayObject"/>
