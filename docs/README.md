@@ -294,7 +294,7 @@ also become an object right away.
 
 If you have more complex factory needs, you can map this to a static class method:
 ```xml
-<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="Custom::fromString()"/>
+<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="Custom::fromString"/>
 ```
 Using this setup, you should always have the same DTO back, no matter how often
 you transform it to array or serialized form.

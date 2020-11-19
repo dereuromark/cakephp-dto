@@ -76,7 +76,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			 'serializable' => false,
+			'serializable' => false,
 			'toArray' => false,
 			'isClass' => true,
 		],
