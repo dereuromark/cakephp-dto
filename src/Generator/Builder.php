@@ -502,8 +502,7 @@ class Builder {
 	 *
 	 * @return bool
 	 */
-	protected function isValidName(string $name): bool
-	{
+	protected function isValidName(string $name): bool {
 		if (preg_match('#^[a-zA-Z]+$#', $name)) {
 			return true;
 		}
