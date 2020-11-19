@@ -21,6 +21,7 @@ Especially with PHP 7.2+ now and more strict typehinting moving forward this is 
 - We can simplify the logic where required fields will now just throw a meaningful exception.
 - We can work with different inflections of field names more easily.
 - Easy way of immutable DTOs with required fields, to trust them in following code.
+- Works out of the box with any [value object](https://github.com/Serhii-DV/awesome-php-value-objects) that is serializable (either as array or string).
 
 For more see [Motivation and Background](/docs/Motivation.md).
 
