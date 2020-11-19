@@ -185,6 +185,11 @@ class XmlEngineTest extends TestCase {
 						'name' => 'birthYear',
 						'type' => 'int',
 					],
+					'lastLogin' => [
+						'name' => 'lastLogin',
+						'type' => '\Cake\I18n\FrozenTime',
+						'factory' => 'construct',
+					],
 				],
 			],
 		];

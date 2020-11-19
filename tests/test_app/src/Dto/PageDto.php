@@ -43,6 +43,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'content' => [
@@ -55,6 +56,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

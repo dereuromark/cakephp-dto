@@ -257,6 +257,8 @@ abstract class Dto implements Serializable {
 
 			} elseif ($this->_metadata[$field]['serializable']) {
 				$value = $this->createObject($field, $value);
+			} elseif ($this->_metadata[$field]['factory']) {
+				$value = $this->createWithFactory($field, $value);
 			}
 
 			if (!$immutable) {
@@ -340,6 +342,30 @@ abstract class Dto implements Serializable {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @param string $field
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	protected function createWithFactory(string $field, $value) {
+		$factory = $this->_metadata[$field]['factory'];
+		$class = $this->_metadata[$field]['type'];
+		if ($value instanceof $class) {
+			return $value;
+		}
+
+		if ($factory === 'construct') {
+			return new $class($value);
+		}
+
+		if (strpos($factory, '::') !== false) {
+			[$class, $factory] = explode('::', $factory, 2);
+		}
+
+		return $class::$factory($value);
 	}
 
 	/**

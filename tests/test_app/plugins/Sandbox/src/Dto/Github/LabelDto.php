@@ -43,6 +43,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'color' => [
@@ -55,6 +56,7 @@ class LabelDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

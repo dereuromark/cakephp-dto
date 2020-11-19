@@ -36,6 +36,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => '\ArrayObject',
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\CarDto',
 			'singularNullable' => false,

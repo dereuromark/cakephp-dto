@@ -281,6 +281,24 @@ use CakeDto\Dto\FromArrayToArrayInterface;
 final class Paint implements FromArrayToArrayInterface {}
 ```
 
+When using other value objects, like DateTime, you might also need a factory mapping set up:
+```xml
+<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="construct"/>
+```
+This would make the `fromArray` part auto convert using the constructor as factory if needed:
+```
+new \Cake\I18n\FrozenTime($value)
+```
+In this case any incoming string, e.g. in serialized (JSON) format `2011-01-26T19:01:12Z`, would
+also become an object right away.
+
+If you have more complex factory needs, you can map this to a static class method:
+```xml
+<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="Custom::fromString()"/>
+```
+Using this setup, you should always have the same DTO back, no matter how often
+you transform it to array or serialized form.
+
 ### Fields and touched fields
 You can get a list of the DTOs fields using `fields()`.
 `touchedFields()` will give you the list of not fields that have been set or unset so far.
@@ -570,6 +588,7 @@ See the examples for details.
 
 ## Scalar Param and Return Types
 Types for scalars are added by default. Use Configure and `'CakeDto.scalarTypeHints'` set to  `false` to disable this.
+
 
 ## Strict Types
 You can let the script generate the `declare(strict_types=1)` part into the top of the PHP files.

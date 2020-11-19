@@ -57,6 +57,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'htmlUrl' => [
@@ -69,6 +70,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'private' => [
@@ -81,6 +83,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'owner' => [
@@ -93,6 +96,7 @@ class RepoDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

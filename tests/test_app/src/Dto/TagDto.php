@@ -50,6 +50,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'name' => [
@@ -62,6 +63,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'weight' => [
@@ -74,6 +76,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

@@ -36,6 +36,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\PageDto',
 			'singularNullable' => false,

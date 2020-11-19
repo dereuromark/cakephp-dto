@@ -99,6 +99,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'number' => [
@@ -111,6 +112,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'state' => [
@@ -123,6 +125,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'title' => [
@@ -135,6 +138,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'body' => [
@@ -147,6 +151,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'user' => [
@@ -159,6 +164,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'createdAt' => [
@@ -171,6 +177,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'labels' => [
@@ -183,6 +190,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'dto' => null,
 			'collectionType' => 'array',
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => '\Sandbox\Dto\Github\LabelDto',
 			'singularNullable' => false,
@@ -198,6 +206,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'base' => [
@@ -210,6 +219,7 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

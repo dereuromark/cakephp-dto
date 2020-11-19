@@ -148,6 +148,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => 'array',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -168,6 +169,7 @@ class BuilderTest extends TestCase {
 			'deprecated' => null,
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -193,6 +195,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\ArrayObject',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
@@ -219,6 +222,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => 'array',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
@@ -245,6 +249,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\Cake\Collection\Collection',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
 
@@ -270,6 +275,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\ArrayObject',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 
@@ -295,6 +301,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\ArrayObject',
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
 	}
@@ -410,6 +417,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -430,6 +438,7 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => null,
 			'serializable' => false,
 			'toArray' => false,
+			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}

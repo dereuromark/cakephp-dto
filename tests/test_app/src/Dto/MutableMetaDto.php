@@ -43,6 +43,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'meta' => [
@@ -55,6 +56,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 			'dto' => null,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => 'string',
 			'singularNullable' => true,

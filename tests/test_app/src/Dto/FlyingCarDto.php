@@ -50,6 +50,7 @@ class FlyingCarDto extends CarDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'maxSpeed' => [
@@ -62,6 +63,7 @@ class FlyingCarDto extends CarDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'complexAttributes' => [
@@ -74,6 +76,7 @@ class FlyingCarDto extends CarDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 	];

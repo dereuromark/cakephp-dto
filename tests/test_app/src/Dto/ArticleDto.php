@@ -71,6 +71,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'author' => [
@@ -83,6 +84,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'title' => [
@@ -95,6 +97,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 		],
 		'created' => [
@@ -107,6 +110,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'isClass' => true,
 		],
@@ -120,6 +124,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'associative' => false,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => '\TestApp\Dto\TagDto',
 			'singularNullable' => false,
@@ -135,6 +140,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'dto' => null,
 			'key' => null,
 			'serializable' => false,
+			'factory' => null,
 			'toArray' => false,
 			'singularType' => 'string',
 			'singularNullable' => false,

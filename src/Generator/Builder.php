@@ -57,6 +57,7 @@ class Builder {
 		'type',
 		'isClass',
 		'serializable',
+		'factory',
 		'required',
 		'defaultValue',
 		'dto',
@@ -290,6 +291,7 @@ class Builder {
 				'key' => null,
 				'deprecated' => null,
 				'serializable' => false,
+				'factory' => null,
 				'toArray' => false,
 			];
 			if ($data['required']) {
@@ -462,7 +464,6 @@ class Builder {
 					'singularReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {
-
 					$fields[$key]['singularTypeHint'] = $this->typehint($fields[$key]['singularType']);
 				}
 
