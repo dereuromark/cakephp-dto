@@ -216,10 +216,10 @@ class Builder {
 
 		foreach ($fields as $name => $array) {
 			if (empty($array['name'])) {
-				throw new InvalidArgumentException(sprintf('Field attribute `%s:name` in %s DTO missing, but required.', $name, $dtoName));
+				throw new InvalidArgumentException(sprintf('Field field attribute `%s:name` in %s DTO missing, but required.', $name, $dtoName));
 			}
 			if (empty($array['type'])) {
-				throw new InvalidArgumentException(sprintf('Field attribute `%s:type` in %s DTO missing, but required.', $name, $dtoName));
+				throw new InvalidArgumentException(sprintf('Field field attribute `%s:type` in %s DTO missing, but required.', $name, $dtoName));
 			}
 			foreach ($array as $key => $value) {
 				$expected = Inflector::variable(Inflector::underscore($key));
@@ -228,6 +228,9 @@ class Builder {
 				}
 			}
 
+			if (!$this->isValidName($array['name'])) {
+				throw new InvalidArgumentException(sprintf('Invalid field attribute `name` in %s DTO: `%s`.', $name, $array['name']));
+			}
 			if (!$this->isValidType($array['type'])) {
 				throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:type` in %s DTO: `%s`.', $name, $dtoName, $array['type']));
 			}
@@ -492,6 +495,20 @@ class Builder {
 		}
 
 		return 'array';
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	protected function isValidName(string $name): bool
+	{
+		if (preg_match('#^[a-zA-Z]+$#', $name)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

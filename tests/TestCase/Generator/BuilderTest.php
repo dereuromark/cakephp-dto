@@ -302,6 +302,31 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testBuildInvalidName() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'fields' => [
+					'foo_bar' => [
+						'name' => 'foo_bar',
+						'type' => 'string',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid field attribute `name` in foo_bar DTO: `foo_bar`.');
+
+		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testBuildInvalidExtends() {
 		$this->builder = $this->createBuilder();
 

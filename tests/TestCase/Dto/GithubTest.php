@@ -36,7 +36,11 @@ class GithubTest extends TestCase {
 		$this->shell->expects($this->any())->method('_getConfigPath')->willReturn($sandboxPluginPath . 'config' . DS);
 		$this->shell->expects($this->any())->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
 
-		$result = $this->shell->runCommand(['generate', '-v', '-p', 'Sandbox', '-d']);
+		$command = ['generate', '-v', '-p', 'Sandbox', '-d'];
+		if (!empty($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'], true)) {
+			array_pop($command);
+		}
+		$result = $this->shell->runCommand($command);
 		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run. ' . $this->out->output());
 
 		$pullRequestDto = PullRequestDto::create($simulatedDataFromGitHubApi, true, PullRequestDto::TYPE_UNDERSCORED);
@@ -52,7 +56,7 @@ class GithubTest extends TestCase {
 			'user' =>
 				 [
 					'login' => 'octocat',
-					'html_url' => 'https://github.com/octocat',
+					'htmlUrl' => 'https://github.com/octocat',
 					'type' => 'User',
 				],
 			'createdAt' => '2011-01-26T19:01:12Z',
@@ -71,18 +75,18 @@ class GithubTest extends TestCase {
 					'user' =>
 						 [
 							'login' => 'octocat',
-							'html_url' => 'https://github.com/octocat',
+							'htmlUrl' => 'https://github.com/octocat',
 							'type' => 'User',
 						],
 					'repo' =>
 						 [
 							'name' => 'Hello-World',
-							'html_url' => 'https://github.com/octocat/Hello-World',
+							'htmlUrl' => 'https://github.com/octocat/Hello-World',
 							'private' => false,
 							'owner' =>
 								 [
 									'login' => 'octocat',
-									'html_url' => 'https://github.com/octocat',
+									'htmlUrl' => 'https://github.com/octocat',
 									'type' => 'User',
 								],
 						],
@@ -94,18 +98,18 @@ class GithubTest extends TestCase {
 					'user' =>
 						 [
 							'login' => 'octocat',
-							'html_url' => 'https://github.com/octocat',
+							'htmlUrl' => 'https://github.com/octocat',
 							'type' => 'User',
 						],
 					'repo' =>
 						 [
 							'name' => 'Hello-World',
-							'html_url' => 'https://github.com/octocat/Hello-World',
+							'htmlUrl' => 'https://github.com/octocat/Hello-World',
 							'private' => false,
 							'owner' =>
 								 [
 									'login' => 'octocat',
-									'html_url' => 'https://github.com/octocat',
+									'htmlUrl' => 'https://github.com/octocat',
 									'type' => 'User',
 								],
 						],
