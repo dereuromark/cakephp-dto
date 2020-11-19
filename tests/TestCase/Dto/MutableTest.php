@@ -11,20 +11,6 @@ class MutableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
-		parent::setUp();
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function test() {
 		$ownerDto = new OwnerDto();
 		$ownerDto->setName('The Owner');

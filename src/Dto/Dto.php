@@ -138,7 +138,7 @@ abstract class Dto implements Serializable {
 				if ($value instanceof self) {
 					$values[$key] = $touched ? $value->touchedToArray($type) : $value->toArray($type);
 				} elseif ($value instanceof Countable && $value->count()) {
-					$values = $this->transformCollectiontoArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
+					$values = $this->transformCollectionToArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
 				} elseif ($this->_metadata[$field]['serializable']) {
 					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
 					$values[$key] = $value->toArray();
@@ -174,7 +174,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return array
 	 */
-	protected function transformCollectiontoArray($value, array $values, string $arrayKey, string $childConvertMethodName, string $type): array {
+	protected function transformCollectionToArray($value, array $values, string $arrayKey, string $childConvertMethodName, string $type): array {
 		foreach ($value as $elementKey => $arrayElement) {
 			if (is_array($arrayElement) || is_scalar($arrayElement)) {
 				$values[$arrayKey][$elementKey] = $arrayElement;
@@ -223,6 +223,8 @@ abstract class Dto implements Serializable {
 	 * @throws \RuntimeException
 	 */
 	protected function setFromArray(array $data, bool $ignoreMissing, string $type = self::TYPE_DEFAULT) {
+		$immutable = $this instanceof AbstractImmutableDto;
+
 		foreach ($data as $field => $value) {
 			if (!$this->hasField($field, $ignoreMissing, $type)) {
 				continue;
@@ -257,8 +259,14 @@ abstract class Dto implements Serializable {
 				$value = $this->createObject($field, $value);
 			}
 
-			$this->$field = $value;
-			$this->_touchedFields[$field] = true;
+			if (!$immutable) {
+				$method = 'set' . ucfirst($field);
+				$this->$method($value);
+			} else {
+				$this->assertType($field, $value);
+				$this->$field = $value;
+				$this->_touchedFields[$field] = true;
+			}
 		}
 
 		return $this;
@@ -631,6 +639,52 @@ abstract class Dto implements Serializable {
 		$result = $this->$method();
 
 		return $result;
+	}
+
+	/**
+	 * Scalar and array type checks for mass assignment.
+	 *
+	 * @param string $field
+	 * @param mixed $value
+	 *
+	 * @return void
+	 */
+	protected function assertType(string $field, $value): void
+	{
+		// Missing fields will be checked afterwards
+		if ($value === null) {
+			return;
+		}
+
+		$expectedType = $this->_metadata[$field]['type'];
+		$actualType = $this->type($value);
+		$types = ['bool', 'int', 'string', 'double'];
+
+		if (in_array($expectedType, $types, true) || in_array($actualType, $types, true)) {
+			if ($actualType === $expectedType) {
+				return;
+			}
+
+			throw new InvalidArgumentException(sprintf('Type of field `%s` is `%s`, expected `%s`.', $field, $actualType, $expectedType));
+		}
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	protected function type($value): string {
+		$type = gettype($value);
+		if ($type === 'boolean') {
+			$type = 'bool';
+		} elseif ($type === 'double') {
+			$type = 'float';
+		} elseif ($type === 'integer') {
+			$type = 'int';
+		}
+
+		return $type;
 	}
 
 }
