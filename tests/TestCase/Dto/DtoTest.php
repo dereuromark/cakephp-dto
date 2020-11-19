@@ -22,23 +22,13 @@ class DtoTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
-		parent::setUp();
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testFromArray() {
 		$array = [
-			CarDto::FIELD_COLOR => 'blue',
+			CarDto::FIELD_COLOR => [
+				'red' => 0,
+				'green' => 0,
+				'blue' => 255,
+			],
 			CarDto::FIELD_DISTANCE_TRAVELLED => 33,
 		];
 
@@ -52,7 +42,11 @@ class DtoTest extends TestCase {
 	 */
 	public function testFromArrayDashed() {
 		$array = [
-			'color' => 'blue',
+			'color' => [
+				'red' => 0,
+				'green' => 0,
+				'blue' => 255,
+			],
 			'distance-travelled' => 66,
 		];
 
@@ -66,13 +60,18 @@ class DtoTest extends TestCase {
 	 */
 	public function testFromArrayUnderscored() {
 		$array = [
-			'color' => 'blue',
+			'color' => [
+				'red' => 0,
+				'green' => 0,
+				'blue' => 255,
+			],
 			'distance_travelled' => 66,
 		];
 
 		$dto = new CarDto($array, false, CarDto::TYPE_UNDERSCORED);
 
 		$this->assertSame($array['distance_travelled'], $dto->getDistanceTravelledOrFail());
+		$this->assertSame(255, $dto->getColorOrFail()->getBlue());
 	}
 
 	/**
@@ -81,7 +80,11 @@ class DtoTest extends TestCase {
 	public function testIgnoreMissing() {
 		$array = [
 			'foooo' => 'baaaaar',
-			'color' => 'blue',
+			'color' => [
+				'red' => 0,
+				'green' => 0,
+				'blue' => 255,
+			],
 			'distanceTravelled' => 66,
 		];
 		$dto = new CarDto($array, true, CarDto::TYPE_DEFAULT);

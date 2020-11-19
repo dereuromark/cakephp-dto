@@ -8,20 +8,6 @@ use TestApp\Dto\MutableMetaDto;
 class AssociativeTest extends TestCase {
 
 	/**
-	 * @return void
-	 */
-	public function setUp(): void {
-		parent::setUp();
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
-	/**
 	 * Shows PHP internal handling of string keys that are "numeric".
 	 *
 	 * They auto-transform to int array keys, as such careful with strict comparison afterwards.
