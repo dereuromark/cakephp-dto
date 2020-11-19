@@ -8,13 +8,13 @@
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
-A Data Transfer Object (DTO) is an object used to pass typed data between layers in your application, similar in 
+A Data Transfer Object (DTO) is an object used to pass typed data between layers in your application, similar in
 concept to [Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_language)) in C, Martin Fowler's [Transfer
  Objects](http://martinfowler.com/eaaCatalog/dataTransferObject.html), or [Value Objects](https://en.wikipedia.org/wiki/Value_object).
 
 The goal of this package is to structure "unstructured data", replacing simple (associative) arrays with a more speaking solution.
 
-- By making all fields typeable, we can be sure that their values are never something we didn't expect. 
+- By making all fields typeable, we can be sure that their values are never something we didn't expect.
 Especially with PHP 7.2+ now and more strict typehinting moving forward this is rather important to detect and fail early.
 - We can have full IDE autocomplete and typehinting.
 - We can use tools like PHPStan to statically analyze the code (more strictly).
@@ -33,9 +33,9 @@ This branch is for use with **CakePHP 4.0+**. For details see [version map](http
 Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
 
 See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
-The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/). 
+The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/).
 
-Note: Typehinting is enabled and strict types disabled by default.
+Note: Param/return types are enabled and strict types disabled by default.
 
 ## Installation
 

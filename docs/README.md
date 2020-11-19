@@ -118,8 +118,8 @@ Simple scalars and types:
 - `mixed`
 
 Simple array types:
-- `array` without array typehinting, but no further annotation (assumes "mixed" type)
-- `...[]` with array typehinting and concrete annotation ("mixed" is not allowed here)
+- `array` without array type, but no further annotation (assumes "mixed" type)
+- `...[]` with array type and concrete annotation ("mixed" is not allowed here)
 
 Concrete objects:
 - DTOs (without suffix)
@@ -172,7 +172,7 @@ This similar to DB and e.g. not nullable integer columns with `0` as default val
 `null` is not a default value, but set via boolean `required` key independently of this and means you can set or get `null` as value.
 Since PHP7.1+ this will have not an effect on default value behavior,
 whereas in versions before it would actually (due to the language restriction) set a default value` as `null` here
-if a typehint is used and no default value is provided:
+if a param/return type is used and no default value is provided:
 ```php
     /**
      * @param \Cake\I18n\FrozenDate|null $manufactured
@@ -224,10 +224,10 @@ Collections, however, cannot be null, they always return something. This means t
 Using `read()` you can use a path array to quickly access deeply nested values.
 This is especially useful if any of the elements in the chain can be null. Usually you have to check for each level separately:
 ```php
-// Nothing can be null in between, typehinted as int
+// Nothing can be null in between, typed as int
 $green = $carsDto->getCarOrFail('one')->getColorOrFail()->getGreenOrFail();
 
-// Something can be null in between, typehinted as int|null
+// Something can be null in between, typed as int|null
 $greenOrNull = null;
 if ($carDto->hasCar('one')) {
     $carDto = $carsDto->getCar('one');
@@ -237,7 +237,7 @@ if ($carDto->hasCar('one')) {
     }
 }
 
-// Typehinted as mixed|null
+// Typed as mixed|null
 $greenOrNull = $carsDto->read(['cars', 'one', 'color', 'green']);
 ```
 
@@ -485,7 +485,7 @@ It also means we could set some fields as required now from the start as usually
 Required fields (`required="true"`) can not be nullable, and would throw an exception if not provided or empty.
 You can still use `with...()` methods to overwrite fields.
 
-In this case there are also no `getOrFail()` methods and `get...()` is directly typehinted as not nullable.
+In this case there are also no `getOrFail()` methods and `get...()` is directly typed as not nullable.
 
 ```php
 use App\Dto\CarDto;
@@ -568,8 +568,8 @@ You should be able to easily transform between DTO/Entity using `...->fromArray(
 See the examples for details.
 
 
-## Scalar Type Hints
-Typehints for scalars are added by default. Use Configure and `'CakeDto.scalarTypeHints'` set to  `false` to disable this.
+## Scalar Param and Return Types
+Types for scalars are added by default. Use Configure and `'CakeDto.scalarTypeHints'` set to  `false` to disable this.
 
 ## Strict Types
 You can let the script generate the `declare(strict_types=1)` part into the top of the PHP files.
