@@ -281,20 +281,24 @@ use CakeDto\Dto\FromArrayToArrayInterface;
 final class Paint implements FromArrayToArrayInterface {}
 ```
 
-When using other value objects, like DateTime, you might also need a factory mapping set up:
+When using other value objects, like DateTime, it will expect the constructor to re-map the serialized output.
+So the following should work out of the box:
 ```xml
-<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="construct"/>
-```
-This would make the `fromArray` part auto convert using the constructor as factory if needed:
-```
-new \Cake\I18n\FrozenTime($value)
+<field name="lastLogin" type="\Cake\I18n\FrozenTime"/>
 ```
 In this case any incoming string, e.g. in serialized (JSON) format `2011-01-26T19:01:12Z`, would
 also become an object right away.
 
+Sometimes, especially with more custom serializing, you might need a factory:
+```xml
+<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="createFromArray"/>
+```
+
+This would make the `fromArray` part auto convert using the object's `createFromArray()` method as factory if needed:
+
 If you have more complex factory needs, you can map this to a static class method:
 ```xml
-<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="Custom::fromString"/>
+<field name="lastLogin" type="\My\Custom\Time" factory="\Some\Class::fromString"/>
 ```
 Using this setup, you should always have the same DTO back, no matter how often
 you transform it to array or serialized form.

@@ -67,7 +67,6 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 		'lastLogin' => [
 			'name' => 'lastLogin',
 			'type' => '\Cake\I18n\FrozenTime',
-			'factory' => 'construct',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -75,6 +74,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serialize' => null,
+			'factory' => null,
 			'isClass' => true,
 		],
 	];

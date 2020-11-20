@@ -17,6 +17,16 @@ class GithubTest extends TestCase {
 	protected $shell;
 
 	/**
+	 * @var \TestApp\TestSuite\ConsoleOutput
+	 */
+	protected $out;
+
+	/**
+	 * @var \TestApp\TestSuite\ConsoleOutput
+	 */
+	protected $err;
+
+	/**
 	 * @return void
 	 */
 	public function testMapping() {

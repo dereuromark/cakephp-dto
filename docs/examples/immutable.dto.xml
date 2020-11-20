@@ -14,7 +14,7 @@
 	<dto name="CustomerAccount">
 		<field name="customerName" type="string" required="true"/>
 		<field name="birthYear" type="int"/>
-		<field name="lastLogin" type="\Cake\I18n\FrozenTime" factory="construct"/>
+		<field name="lastLogin" type="\Cake\I18n\FrozenTime"/>
 	</dto>
 
 </dtos>

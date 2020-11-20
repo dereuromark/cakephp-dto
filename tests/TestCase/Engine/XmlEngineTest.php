@@ -102,7 +102,6 @@ class XmlEngineTest extends TestCase {
 					'birthday' => [
 						'name' => 'birthday',
 						'type' => '\TestApp\ValueObject\Birthday',
-						'factory' => 'construct',
 					],
 				],
 			],
@@ -198,7 +197,6 @@ class XmlEngineTest extends TestCase {
 					'lastLogin' => [
 						'name' => 'lastLogin',
 						'type' => '\Cake\I18n\FrozenTime',
-						'factory' => 'construct',
 					],
 				],
 			],

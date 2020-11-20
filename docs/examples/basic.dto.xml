@@ -22,7 +22,7 @@
 		<field name="name" type="string"/>
 		<field name="insuranceProvider" type="string"/>
 		<field name="attributes" type="\TestApp\ValueObject\KeyValuePair"/>
-		<field name="birthday" type="\TestApp\ValueObject\Birthday" factory="construct"/>
+		<field name="birthday" type="\TestApp\ValueObject\Birthday"/>
 	</dto>
 
 	<dto name="FlyingCar" extends="Car">

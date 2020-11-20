@@ -36,6 +36,7 @@
 	"require-dev": {
 		"ext-dom": "*",
 		"ext-libxml": "*",
+		"phpunit/phpunit": "^8.5 || ^9.5",
 		"nette/neon": "^2.4 || ^3.2",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
@@ -55,10 +56,10 @@
 		}
 	},
 	"scripts": {
-		"test": "php phpunit.phar",
-		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-8.5.1.phar && mv phpunit-8.5.1.phar phpunit.phar || true",
-		"test-coverage": "php phpunit.phar --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
-		"stan": "phpstan analyse -c tests/phpstan.neon -l 8 src/ && phpstan analyse -c tests/phpstan.neon -l 8 tests/test_app/src/Dto/ tests/test_app/plugins/Sandbox/src/Dto/",
+		"test": "phpunit",
+		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
+		"stan": "phpstan analyse src/ tests/test_app/src/Dto/ tests/test_app/plugins/Sandbox/src/Dto/",
+		"stan-tests": "phpstan analyse -c tests/phpstan.neon tests/TestCase/",
 		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 && mv composer.backup composer.json",
 		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/src/Dto/ --extensions=php src/ tests/",
 		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/src/Dto/ --extensions=php src/ tests/",

@@ -87,7 +87,6 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 		'birthday' => [
 			'name' => 'birthday',
 			'type' => '\TestApp\ValueObject\Birthday',
-			'factory' => 'construct',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -95,6 +94,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 			'associative' => false,
 			'key' => null,
 			'serialize' => null,
+			'factory' => null,
 			'isClass' => true,
 		],
 	];
