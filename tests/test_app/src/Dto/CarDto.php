@@ -77,8 +77,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => true,
-			'toArray' => false,
+			'serialize' => 'FromArrayToArray',
+			'factory' => null,
 			'isClass' => true,
 		],
 		'isNew' => [
@@ -90,8 +90,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'value' => [
 			'name' => 'value',
@@ -102,8 +102,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'distanceTravelled' => [
 			'name' => 'distanceTravelled',
@@ -114,8 +114,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'attributes' => [
 			'name' => 'attributes',
@@ -126,8 +126,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'manufactured' => [
 			'name' => 'manufactured',
@@ -138,8 +138,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 			'isClass' => true,
 		],
 		'owner' => [
@@ -151,8 +151,8 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 	];
 

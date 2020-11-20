@@ -9,8 +9,49 @@ use Countable;
 use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
+use Cake\Collection\CollectionInterface;
+use CakeDto\Dto\Dto;
+use ArrayObject;
 
 abstract class Dto implements Serializable {
+
+	/**
+	 * @param array $data
+	 * @param bool $ignoreMissing
+	 * @param string $type
+	 * @return static
+	 */
+	public static function createFromArray(array $data, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
+		return new static($data, $ignoreMissing, $type);
+	}
+
+	/**
+	 * @param string $data
+	 * @param bool $ignoreMissing
+	 * @return static
+	 */
+	public static function fromUnserialized(string $data, bool $ignoreMissing = false) {
+		$jsonUtil = new Json();
+
+		return new static($jsonUtil->decode($data, true), $ignoreMissing, static::TYPE_DEFAULT);
+	}
+
+	/**
+	 * Constructs the object
+	 *
+	 * @link https://php.net/manual/en/serializable.unserialize.php
+	 * @param string $serialized
+	 * @param bool $ignoreMissing
+	 * @return static
+	 */
+	public function unserialize($serialized, $ignoreMissing = false) {
+		$jsonUtil = new Json();
+
+		$new = clone($this);
+		$new->setFromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
+
+		return $new;
+	}
 
 	/**
 	 * Convenience wrapper for easier chaining.
@@ -139,13 +180,8 @@ abstract class Dto implements Serializable {
 					$values[$key] = $touched ? $value->touchedToArray($type) : $value->toArray($type);
 				} elseif ($value instanceof Countable && $value->count()) {
 					$values = $this->transformCollectionToArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
-				} elseif ($this->_metadata[$field]['serializable']) {
-					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
-					$values[$key] = $value->toArray();
-				} elseif ($this->_metadata[$field]['toArray']) {
-					// This will not be transformable in the other direction
-					/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
-					$values[$key] = $value->toArray();
+				} elseif ($this->_metadata[$field]['serialize']) {
+					$values[$key] = $this->transformSerialized($value, $this->_metadata[$field]['serialize']);
 				} else {
 					$values[$key] = $value;
 				}
@@ -255,8 +291,14 @@ abstract class Dto implements Serializable {
 				}
 				$value = $this->createArrayCollection($elementType, $value, $ignoreMissing, $type, $key);
 
-			} elseif ($this->_metadata[$field]['serializable']) {
+			} elseif ($this->_metadata[$field]['serialize'] === 'FromArrayToArray') {
 				$value = $this->createObject($field, $value);
+			} elseif ($this->_metadata[$field]['serialize'] === 'array') {
+				$value = $this->createObject($field, $value);
+			} elseif ($this->_metadata[$field]['factory']) {
+				$value = $this->createWithFactory($field, $value);
+			} elseif (!empty($this->_metadata[$field]['isClass']) && !is_object($value)) {
+				$value = $this->createWithConstructor($field, $value);
 			}
 
 			if (!$immutable) {
@@ -280,7 +322,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \Cake\Collection\CollectionInterface
 	 */
-	protected function createCakeCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \Cake\Collection\CollectionInterface {
+	protected function createCakeCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): CollectionInterface {
 		$collection = new Collection([]);
 		foreach ($arrayObject as $arrayElement) {
 			if (!is_array($arrayElement)) {
@@ -314,7 +356,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \CakeDto\Dto\Dto
 	 */
-	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): \CakeDto\Dto\Dto {
+	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): Dto {
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
@@ -343,6 +385,38 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
+	 * @param string $field
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	protected function createWithFactory(string $field, $value) {
+		$factory = $this->_metadata[$field]['factory'];
+		$class = $this->_metadata[$field]['type'];
+		if ($value instanceof $class) {
+			return $value;
+		}
+
+		if (strpos($factory, '::') !== false) {
+			[$class, $factory] = explode('::', $factory, 2);
+		}
+
+		return $class::$factory($value);
+	}
+
+	/**
+	 * @param string $field
+	 * @param mixed $value
+	 *
+	 * @return object
+	 */
+	protected function createWithConstructor(string $field, $value) {
+		$class = $this->_metadata[$field]['type'];
+
+		return new $class($value);
+	}
+
+	/**
 	 * @param string $collectionType
 	 * @param string $elementType
 	 * @param array|\ArrayObject $arrayObject
@@ -351,7 +425,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \ArrayObject
 	 */
-	protected function createCollection(string $collectionType, string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \ArrayObject {
+	protected function createCollection(string $collectionType, string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): ArrayObject {
 		/** @var \ArrayObject $collection */
 		$collection = new $collectionType();
 		foreach ($arrayObject as $arrayElement) {
@@ -649,8 +723,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return void
 	 */
-	protected function assertType(string $field, $value): void
-	{
+	protected function assertType(string $field, $value): void {
 		// Missing fields will be checked afterwards
 		if ($value === null) {
 			return;
@@ -685,6 +758,29 @@ abstract class Dto implements Serializable {
 		}
 
 		return $type;
+	}
+
+	/**
+	 * @param object $value
+	 * @param string $serialize
+	 *
+	 * @return string|array
+	 */
+	protected function transformSerialized(object $value, string $serialize) {
+		if ($serialize === 'FromArrayToArray') {
+			/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
+			return $value->toArray();
+		}
+		if ($serialize === 'array') {
+			// This will not be transformable in the other direction without FromArrayToArrayInterface or mapping
+			/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
+			return $value->toArray();
+		}
+		if ($serialize === 'string') {
+			return (string)$value;
+		}
+
+		throw new InvalidArgumentException('Cannot determine serialize type from `' . $serialize . '`.');
 	}
 
 }

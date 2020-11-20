@@ -8,6 +8,7 @@ use Cake\Utility\Inflector;
 use CakeDto\Dto\FromArrayToArrayInterface;
 use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
+use JsonSerializable;
 use RuntimeException;
 
 class Builder {
@@ -56,11 +57,11 @@ class Builder {
 		'name',
 		'type',
 		'isClass',
-		'serializable',
+		'serialize',
+		'factory',
 		'required',
 		'defaultValue',
 		'dto',
-		'toArray',
 		'collectionType',
 		'singularType',
 		'singularTypeHint',
@@ -289,8 +290,8 @@ class Builder {
 				'associative' => false,
 				'key' => null,
 				'deprecated' => null,
-				'serializable' => false,
-				'toArray' => false,
+				'serialize' => null,
+				'factory' => null,
 			];
 			if ($data['required']) {
 				$data['nullable'] = false;
@@ -338,10 +339,8 @@ class Builder {
 			if ($this->isValidInterfaceOrClass($field['type'])) {
 				$fields[$key]['isClass'] = true;
 
-				$serializable = is_subclass_of($fields[$key]['type'], FromArrayToArrayInterface::class);
-				$fields[$key]['serializable'] = $serializable;
-				if (!$serializable) {
-					$fields[$key]['toArray'] = method_exists($fields[$key]['type'], 'toArray');
+				if (empty($fields[$key]['serialize'])) {
+					$fields[$key]['serialize'] = $this->detectSerialize($fields[$key]);
 				}
 
 				continue;
@@ -462,7 +461,6 @@ class Builder {
 					'singularReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {
-
 					$fields[$key]['singularTypeHint'] = $this->typehint($fields[$key]['singularType']);
 				}
 
@@ -762,6 +760,29 @@ class Builder {
 	 */
 	protected function dtoTypeToClass(string $singularType, string $namespace): string {
 		return '\\' . $namespace . '\\Dto\\' . str_replace('/', '\\', $singularType) . 'Dto';
+	}
+
+	/**
+	 * @param array $config
+	 *
+	 * @return string|null
+	 */
+	protected function detectSerialize(array $config): ?string {
+		$serializable = is_subclass_of($config['type'], FromArrayToArrayInterface::class);
+		if ($serializable) {
+			return 'FromArrayToArray';
+		}
+
+		$jsonSafeToString = is_subclass_of($config['type'], JsonSerializable::class);
+		if ($jsonSafeToString) {
+			return null;
+		}
+
+		if (method_exists($config['type'], 'toArray')) {
+			return 'array';
+		}
+
+		return null;
 	}
 
 }

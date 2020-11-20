@@ -20,7 +20,9 @@
 
 	<dto name="Owner">
 		<field name="name" type="string"/>
-		<field name="birthYear" type="int"/>
+		<field name="insuranceProvider" type="string"/>
+		<field name="attributes" type="\TestApp\ValueObject\KeyValuePair"/>
+		<field name="birthday" type="\TestApp\ValueObject\Birthday"/>
 	</dto>
 
 	<dto name="FlyingCar" extends="Car">

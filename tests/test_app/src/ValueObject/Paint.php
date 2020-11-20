@@ -5,6 +5,8 @@ namespace TestApp\ValueObject;
 use CakeDto\Dto\FromArrayToArrayInterface;
 
 /**
+ * An example with a constructor with multiple scalars, using FromArrayToArray.
+ *
  * This class represent a category of paint, like 'blue' or 'red',
  * not a quantity.
  */
@@ -106,6 +108,16 @@ class Paint implements FromArrayToArrayInterface {
 	}
 
 	/**
+	 * @param string $string
+	 * @return static
+	 */
+	public static function createFromString(string $string): self {
+		$array = json_decode($string, true);
+
+		return static::createFromArray($array);
+	}
+
+	/**
 	 * @return array
 	 */
 	public function toArray(): array {
@@ -129,7 +141,7 @@ class Paint implements FromArrayToArrayInterface {
 	 * @return string
 	 */
 	public function __toString(): string {
-		return sprintf('%s, %s, %s', $this->red, $this->green, $this->blue);
+		return $this->serialize();
 	}
 
 	/**
@@ -137,9 +149,7 @@ class Paint implements FromArrayToArrayInterface {
 	 * @return static
 	 */
 	public function unserialize(string $serialized): self {
-		$array = json_decode($serialized, true);
-
-		return static::createFromArray($array);
+		return static::createFromString($serialized);
 	}
 
 }

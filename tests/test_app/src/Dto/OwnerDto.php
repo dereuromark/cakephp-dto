@@ -10,12 +10,16 @@ namespace TestApp\Dto;
  * Owner DTO
  *
  * @property string|null $name
- * @property int|null $birthYear
+ * @property string|null $insuranceProvider
+ * @property \TestApp\ValueObject\KeyValuePair|null $attributes
+ * @property \TestApp\ValueObject\Birthday|null $birthday
  */
 class OwnerDto extends \CakeDto\Dto\AbstractDto {
 
 	public const FIELD_NAME = 'name';
-	public const FIELD_BIRTH_YEAR = 'birthYear';
+	public const FIELD_INSURANCE_PROVIDER = 'insuranceProvider';
+	public const FIELD_ATTRIBUTES = 'attributes';
+	public const FIELD_BIRTHDAY = 'birthday';
 
 	/**
 	 * @var string|null
@@ -23,9 +27,19 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	protected $name;
 
 	/**
-	 * @var int|null
+	 * @var string|null
 	 */
-	protected $birthYear;
+	protected $insuranceProvider;
+
+	/**
+	 * @var \TestApp\ValueObject\KeyValuePair|null
+	 */
+	protected $attributes;
+
+	/**
+	 * @var \TestApp\ValueObject\Birthday|null
+	 */
+	protected $birthday;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -42,20 +56,46 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
-		'birthYear' => [
-			'name' => 'birthYear',
-			'type' => 'int',
+		'insuranceProvider' => [
+			'name' => 'insuranceProvider',
+			'type' => 'string',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
+		],
+		'attributes' => [
+			'name' => 'attributes',
+			'type' => '\TestApp\ValueObject\KeyValuePair',
+			'required' => false,
+			'defaultValue' => null,
+			'dto' => null,
+			'collectionType' => null,
+			'associative' => false,
+			'key' => null,
+			'serialize' => 'array',
+			'factory' => null,
+			'isClass' => true,
+		],
+		'birthday' => [
+			'name' => 'birthday',
+			'type' => '\TestApp\ValueObject\Birthday',
+			'required' => false,
+			'defaultValue' => null,
+			'dto' => null,
+			'collectionType' => null,
+			'associative' => false,
+			'key' => null,
+			'serialize' => null,
+			'factory' => null,
+			'isClass' => true,
 		],
 	];
 
@@ -65,11 +105,15 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	protected $_keyMap = [
 		'underscored' => [
 			'name' => 'name',
-			'birth_year' => 'birthYear',
+			'insurance_provider' => 'insuranceProvider',
+			'attributes' => 'attributes',
+			'birthday' => 'birthday',
 		],
 		'dashed' => [
 			'name' => 'name',
-			'birth-year' => 'birthYear',
+			'insurance-provider' => 'insuranceProvider',
+			'attributes' => 'attributes',
+			'birthday' => 'birthday',
 		],
 	];
 
@@ -113,42 +157,120 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param int|null $birthYear
+	 * @param string|null $insuranceProvider
 	 *
 	 * @return $this
 	 */
-	public function setBirthYear(?int $birthYear) {
-		$this->birthYear = $birthYear;
-		$this->_touchedFields[self::FIELD_BIRTH_YEAR] = true;
+	public function setInsuranceProvider(?string $insuranceProvider) {
+		$this->insuranceProvider = $insuranceProvider;
+		$this->_touchedFields[self::FIELD_INSURANCE_PROVIDER] = true;
 
 		return $this;
 	}
 
 	/**
-	 * @return int|null
+	 * @return string|null
 	 */
-	public function getBirthYear(): ?int {
-		return $this->birthYear;
+	public function getInsuranceProvider(): ?string {
+		return $this->insuranceProvider;
 	}
 
 	/**
 	 * @throws \RuntimeException If value is not set.
 	 *
-	 * @return int
+	 * @return string
 	 */
-	public function getBirthYearOrFail(): int {
-		if (!isset($this->birthYear)) {
-			throw new \RuntimeException('Value not set for field `birthYear` (expected to be not null)');
+	public function getInsuranceProviderOrFail(): string {
+		if (!isset($this->insuranceProvider)) {
+			throw new \RuntimeException('Value not set for field `insuranceProvider` (expected to be not null)');
 		}
 
-		return $this->birthYear;
+		return $this->insuranceProvider;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasBirthYear(): bool {
-		return $this->birthYear !== null;
+	public function hasInsuranceProvider(): bool {
+		return $this->insuranceProvider !== null;
+	}
+
+	/**
+	 * @param \TestApp\ValueObject\KeyValuePair|null $attributes
+	 *
+	 * @return $this
+	 */
+	public function setAttributes(?\TestApp\ValueObject\KeyValuePair $attributes) {
+		$this->attributes = $attributes;
+		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @return \TestApp\ValueObject\KeyValuePair|null
+	 */
+	public function getAttributes(): ?\TestApp\ValueObject\KeyValuePair {
+		return $this->attributes;
+	}
+
+	/**
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return \TestApp\ValueObject\KeyValuePair
+	 */
+	public function getAttributesOrFail(): \TestApp\ValueObject\KeyValuePair {
+		if (!isset($this->attributes)) {
+			throw new \RuntimeException('Value not set for field `attributes` (expected to be not null)');
+		}
+
+		return $this->attributes;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasAttributes(): bool {
+		return $this->attributes !== null;
+	}
+
+	/**
+	 * @param \TestApp\ValueObject\Birthday|null $birthday
+	 *
+	 * @return $this
+	 */
+	public function setBirthday(?\TestApp\ValueObject\Birthday $birthday) {
+		$this->birthday = $birthday;
+		$this->_touchedFields[self::FIELD_BIRTHDAY] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @return \TestApp\ValueObject\Birthday|null
+	 */
+	public function getBirthday(): ?\TestApp\ValueObject\Birthday {
+		return $this->birthday;
+	}
+
+	/**
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return \TestApp\ValueObject\Birthday
+	 */
+	public function getBirthdayOrFail(): \TestApp\ValueObject\Birthday {
+		if (!isset($this->birthday)) {
+			throw new \RuntimeException('Value not set for field `birthday` (expected to be not null)');
+		}
+
+		return $this->birthday;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasBirthday(): bool {
+		return $this->birthday !== null;
 	}
 
 }

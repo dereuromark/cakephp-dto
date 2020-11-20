@@ -11,11 +11,13 @@ namespace TestApp\Dto;
  *
  * @property string $customerName
  * @property int|null $birthYear
+ * @property \Cake\I18n\FrozenTime|null $lastLogin
  */
 class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 
 	public const FIELD_CUSTOMER_NAME = 'customerName';
 	public const FIELD_BIRTH_YEAR = 'birthYear';
+	public const FIELD_LAST_LOGIN = 'lastLogin';
 
 	/**
 	 * @var string
@@ -26,6 +28,11 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 * @var int|null
 	 */
 	protected $birthYear;
+
+	/**
+	 * @var \Cake\I18n\FrozenTime|null
+	 */
+	protected $lastLogin;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -42,8 +49,8 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'birthYear' => [
 			'name' => 'birthYear',
@@ -54,8 +61,21 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
+		],
+		'lastLogin' => [
+			'name' => 'lastLogin',
+			'type' => '\Cake\I18n\FrozenTime',
+			'required' => false,
+			'defaultValue' => null,
+			'dto' => null,
+			'collectionType' => null,
+			'associative' => false,
+			'key' => null,
+			'serialize' => null,
+			'factory' => null,
+			'isClass' => true,
 		],
 	];
 
@@ -66,10 +86,12 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 		'underscored' => [
 			'customer_name' => 'customerName',
 			'birth_year' => 'birthYear',
+			'last_login' => 'lastLogin',
 		],
 		'dashed' => [
 			'customer-name' => 'customerName',
 			'birth-year' => 'birthYear',
+			'last-login' => 'lastLogin',
 		],
 	];
 
@@ -136,6 +158,45 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function hasBirthYear(): bool {
 		return $this->birthYear !== null;
+	}
+
+	/**
+	 * @param \Cake\I18n\FrozenTime|null $lastLogin
+	 *
+	 * @return $this
+	 */
+	public function setLastLogin(?\Cake\I18n\FrozenTime $lastLogin) {
+		$this->lastLogin = $lastLogin;
+		$this->_touchedFields[self::FIELD_LAST_LOGIN] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @return \Cake\I18n\FrozenTime|null
+	 */
+	public function getLastLogin(): ?\Cake\I18n\FrozenTime {
+		return $this->lastLogin;
+	}
+
+	/**
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return \Cake\I18n\FrozenTime
+	 */
+	public function getLastLoginOrFail(): \Cake\I18n\FrozenTime {
+		if (!isset($this->lastLogin)) {
+			throw new \RuntimeException('Value not set for field `lastLogin` (expected to be not null)');
+		}
+
+		return $this->lastLogin;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasLastLogin(): bool {
+		return $this->lastLogin !== null;
 	}
 
 }

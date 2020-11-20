@@ -147,7 +147,7 @@ class DtoTest extends TestCase {
 		$car->setDistanceTravelled(11);
 
 		$owner = new OwnerDto();
-		$owner->setBirthYear(1960);
+		$owner->setInsuranceProvider('Foo Bar');
 
 		$car->setOwner($owner);
 
@@ -161,7 +161,9 @@ class DtoTest extends TestCase {
 			'manufactured' => null,
 			'owner' => [
 				'name' => null,
-				'birth-year' => 1960,
+				'insurance-provider' => 'Foo Bar',
+				'attributes' => null,
+				'birthday' => null,
 			],
 		];
 		ksort($expected);

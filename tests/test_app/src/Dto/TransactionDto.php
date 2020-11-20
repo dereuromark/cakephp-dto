@@ -56,8 +56,8 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'value' => [
 			'name' => 'value',
@@ -68,8 +68,8 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'comment' => [
 			'name' => 'comment',
@@ -80,8 +80,8 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 		],
 		'created' => [
 			'name' => 'created',
@@ -92,8 +92,8 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
+			'factory' => null,
 			'isClass' => true,
 		],
 	];
