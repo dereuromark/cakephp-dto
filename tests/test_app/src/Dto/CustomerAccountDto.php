@@ -49,9 +49,8 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'birthYear' => [
 			'name' => 'birthYear',
@@ -62,9 +61,8 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'lastLogin' => [
 			'name' => 'lastLogin',
@@ -76,8 +74,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'isClass' => true,
 		],
 	];

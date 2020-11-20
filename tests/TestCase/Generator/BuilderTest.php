@@ -146,8 +146,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => '?array',
 			'deprecated' => null,
 			'returnTypeHint' => 'array',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
@@ -167,8 +166,7 @@ class BuilderTest extends TestCase {
 			'key' => null,
 			'typeHint' => '?array',
 			'deprecated' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
@@ -193,8 +191,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 
 		];
@@ -220,8 +217,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => 'array',
 			'deprecated' => null,
 			'returnTypeHint' => 'array',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 
 		];
@@ -247,8 +243,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => '\Cake\Collection\Collection',
 			'deprecated' => null,
 			'returnTypeHint' => '\Cake\Collection\Collection',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
@@ -273,8 +268,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
@@ -299,8 +293,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => '\ArrayObject',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
@@ -415,8 +408,7 @@ class BuilderTest extends TestCase {
 			'typeHint' => null,
 			'deprecated' => null,
 			'returnTypeHint' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
@@ -436,11 +428,104 @@ class BuilderTest extends TestCase {
 			'typeHint' => null,
 			'deprecated' => null,
 			'returnTypeHint' => null,
-			'serializable' => false,
-			'toArray' => false,
+			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testSerializable() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'Demo' => [
+				'name' => 'Demo',
+				'fields' => [
+					'lastLogin' => [
+						'name' => 'lastLogin',
+						'type' => '\DateTimeImmutable',
+						'serialize' => 'string',
+					],
+					'color' => [
+						'name' => 'color',
+						'type' => '\TestApp\ValueObject\Paint',
+					],
+					'birthday' => [
+						'name' => 'birthday',
+						'type' => '\TestApp\ValueObject\Birthday',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'lastLogin',
+			'type' => '\DateTimeImmutable',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'isClass' => true,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => '?\DateTimeImmutable',
+			'deprecated' => null,
+			'returnTypeHint' => '\DateTimeImmutable',
+			'serialize' => 'string',
+			'factory' => null,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'color',
+			'type' => '\TestApp\ValueObject\Paint',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'isClass' => true,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => '?\TestApp\ValueObject\Paint',
+			'deprecated' => null,
+			'returnTypeHint' => '\TestApp\ValueObject\Paint',
+			'serialize' => 'FromArrayToArray',
+			'factory' => null,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
+
+		$expected = [
+			'associative' => false,
+			'name' => 'birthday',
+			'type' => '\TestApp\ValueObject\Birthday',
+			'defaultValue' => null,
+			'required' => false,
+			'nullable' => true,
+			'isArray' => false,
+			'isClass' => true,
+			'dto' => null,
+			'collection' => false,
+			'collectionType' => null,
+			'key' => null,
+			'typeHint' => '?\TestApp\ValueObject\Birthday',
+			'deprecated' => null,
+			'returnTypeHint' => '\TestApp\ValueObject\Birthday',
+			'serialize' => null,
+			'factory' => null,
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
 
 	/**

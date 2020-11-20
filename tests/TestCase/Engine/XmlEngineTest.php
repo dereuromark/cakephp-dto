@@ -4,6 +4,7 @@ namespace CakeDto\Test\TestCase\Engine;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\Engine\XmlEngine;
+use SebastianBergmann\Diff\Differ;
 
 class XmlEngineTest extends TestCase {
 
@@ -90,9 +91,18 @@ class XmlEngineTest extends TestCase {
 						'name' => 'name',
 						'type' => 'string',
 					],
-					'birthYear' => [
-						'name' => 'birthYear',
-						'type' => 'int',
+					'insuranceProvider' => [
+						'name' => 'insuranceProvider',
+						'type' => 'string',
+					],
+					'attributes' => [
+						'name' => 'attributes',
+						'type' => '\TestApp\ValueObject\KeyValuePair',
+					],
+					'birthday' => [
+						'name' => 'birthday',
+						'type' => '\TestApp\ValueObject\Birthday',
+						'factory' => 'construct',
 					],
 				],
 			],
@@ -135,7 +145,7 @@ class XmlEngineTest extends TestCase {
 			],
 		];
 
-		$this->assertSame($expected, $result, print_r($result, true));
+		$this->assertSame($expected, $result, (new Differ())->diff(json_encode($expected, JSON_PRETTY_PRINT), json_encode($result, JSON_PRETTY_PRINT)));
 	}
 
 	/**

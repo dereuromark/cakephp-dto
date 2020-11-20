@@ -56,9 +56,8 @@ class HeadDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'sha' => [
 			'name' => 'sha',
@@ -69,9 +68,8 @@ class HeadDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'user' => [
 			'name' => 'user',
@@ -82,9 +80,8 @@ class HeadDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'repo' => [
 			'name' => 'repo',
@@ -95,9 +92,8 @@ class HeadDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 	];
 

@@ -299,6 +299,8 @@ If you have more complex factory needs, you can map this to a static class metho
 Using this setup, you should always have the same DTO back, no matter how often
 you transform it to array or serialized form.
 
+Note: Make sure that for whatever you use the type matches the serialized form.
+
 ### Fields and touched fields
 You can get a list of the DTOs fields using `fields()`.
 `touchedFields()` will give you the list of not fields that have been set or unset so far.

@@ -70,9 +70,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'key' => [
 			'name' => 'key',
@@ -83,9 +82,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'status' => [
 			'name' => 'status',
@@ -96,9 +94,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'priority' => [
 			'name' => 'priority',
@@ -109,9 +106,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'summary' => [
 			'name' => 'summary',
@@ -122,9 +118,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 		'version' => [
 			'name' => 'version',
@@ -135,9 +130,8 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 			'collectionType' => null,
 			'associative' => false,
 			'key' => null,
-			'serializable' => false,
+			'serialize' => null,
 			'factory' => null,
-			'toArray' => false,
 		],
 	];
 

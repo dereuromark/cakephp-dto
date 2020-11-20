@@ -28,6 +28,7 @@
 	},
 	"require": {
 		"php": ">=7.2",
+		"ext-json": "*",
 		"cakephp/cakephp": "^4.0.1",
 		"cakephp/twig-view": "^1.0.0",
 		"sebastian/diff": "^3.0.2 || ^4.0.0"
