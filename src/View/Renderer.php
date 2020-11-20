@@ -63,9 +63,9 @@ class Renderer {
 	 */
 	protected function setGlobalConfiguration(): void {
 		$strictTypes = (bool)Configure::read('CakeDto.strictTypes', false);
-		$scalarTypeHints = (bool)Configure::read('CakeDto.scalarTypeHints', true);
+		$scalarAndReturnTypes = (bool)Configure::read('CakeDto.scalarAndReturnTypes', true);
 
-		$this->set(compact('strictTypes', 'scalarTypeHints'));
+		$this->set(compact('strictTypes', 'scalarAndReturnTypes'));
 	}
 
 }

@@ -546,7 +546,7 @@ You can set some defaults via `app.php` and global Configure settings:
 return [
     'Dto' => [
         'strictTypes' => false, // This can require additional casting
-        'scalarTypeHints' => true,
+        'scalarAndReturnTypes' => true,
         'immutable' => false, // This can have a negative performance impact
         'defaultCollectionType' => null, // Defaults to \ArrayObject
     ],
@@ -593,7 +593,7 @@ See the examples for details.
 
 
 ## Scalar Param and Return Types
-Types for scalars are added by default. Use Configure and `'CakeDto.scalarTypeHints'` set to  `false` to disable this.
+Types for scalars are added by default. Use Configure and `'CakeDto.scalarAndReturnTypes'` set to  `false` to disable this.
 
 
 ## Strict Types

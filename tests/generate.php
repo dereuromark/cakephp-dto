@@ -12,7 +12,7 @@ use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 
-Configure::write('CakeDto.scalarTypeHints', true);
+Configure::write('CakeDto.scalarAndReturnTypes', true);
 Configure::write('CakeDto.strictTypes', false);
 
 $engine = new XmlEngine();

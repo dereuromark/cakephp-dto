@@ -78,7 +78,7 @@ class Builder {
 
 		$this->simpleTypeWhitelist = $this->simpleTypeWhitelist($this->simpleTypeWhitelist);
 		$config = [
-			'scalarTypeHints' => Configure::read('CakeDto.scalarTypeHints', true),
+			'scalarAndReturnTypes' => Configure::read('CakeDto.scalarAndReturnTypes', true),
 			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType', '\ArrayObject'),
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
@@ -446,11 +446,11 @@ class Builder {
 				}
 			}
 
-			if ($fields[$key]['typeHint'] && $this->_config['scalarTypeHints']) {
+			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes']) {
 				$fields[$key]['returnTypeHint'] = $fields[$key]['typeHint'];
 			}
 
-			if ($fields[$key]['typeHint'] && $this->_config['scalarTypeHints'] && $fields[$key]['nullable']) {
+			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes'] && $fields[$key]['nullable']) {
 				$fields[$key]['typeHint'] = '?' . $fields[$key]['typeHint'];
 			}
 
@@ -464,7 +464,7 @@ class Builder {
 					$fields[$key]['singularTypeHint'] = $this->typehint($fields[$key]['singularType']);
 				}
 
-				if ($fields[$key]['singularTypeHint'] && $this->_config['scalarTypeHints']) {
+				if ($fields[$key]['singularTypeHint'] && $this->_config['scalarAndReturnTypes']) {
 					$fields[$key]['singularReturnTypeHint'] = $fields[$key]['singularTypeHint'];
 				}
 			}
@@ -695,7 +695,7 @@ class Builder {
 		if (in_array($type, $this->simpleTypeAdditionsForDocBlock, true)) {
 			return null;
 		}
-		if (!$this->_config['scalarTypeHints'] && in_array($type, $this->simpleTypeWhitelist, true)) {
+		if (!$this->_config['scalarAndReturnTypes'] && in_array($type, $this->simpleTypeWhitelist, true)) {
 			return null;
 		}
 

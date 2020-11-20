@@ -70,7 +70,7 @@ class GeneratorTest extends TestCase {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $this->configPath . 'dto.xml');
 
-		Configure::write('CakeDto.scalarTypeHints', false);
+		Configure::write('CakeDto.scalarAndReturnTypes', false);
 
 		$options = [
 			'confirm' => true,
@@ -95,7 +95,7 @@ class GeneratorTest extends TestCase {
 		$this->assertTemplateContains('CarDto.has', $file);
 		$this->assertTemplateContains('CarDto.get_or_fail', $file);
 
-		Configure::delete('CakeDto.scalarTypeHints');
+		Configure::delete('CakeDto.scalarAndReturnTypes');
 	}
 
 	/**
@@ -126,7 +126,7 @@ class GeneratorTest extends TestCase {
 		$xml = ROOT . DS . 'tests/files/xml/deprecated.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
-		Configure::write('CakeDto.scalarTypeHints', false);
+		Configure::write('CakeDto.scalarAndReturnTypes', false);
 
 		$options = [
 			'confirm' => true,
@@ -145,7 +145,7 @@ class GeneratorTest extends TestCase {
 		$this->assertTemplateContains('AnimalDto.dto', $file);
 		$this->assertTemplateContainsCount('@deprecated', 1, $file);
 
-		Configure::delete('CakeDto.scalarTypeHints');
+		Configure::delete('CakeDto.scalarAndReturnTypes');
 	}
 
 	/**
@@ -186,7 +186,7 @@ TXT;
 	/**
 	 * @return void
 	 */
-	public function testScalarTypeHints() {
+	public function testscalarAndReturnTypes() {
 		$xml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
@@ -201,13 +201,13 @@ TXT;
 		$this->assertSame(2, $result);
 
 		$file = $this->srcPath . 'Dto' . DS . 'CarDto.php';
-		$this->assertTemplateContains('ScalarTypeHints/CarDto.setDistanceTravelled', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/CarDto.setDistanceTravelled', $file);
 
 		$file = $this->srcPath . 'Dto' . DS . 'FlyingCarDto.php';
-		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.constant', $file);
-		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.setMaxAltitude', $file);
-		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.getMaxSpeed', $file);
-		$this->assertTemplateContains('ScalarTypeHints/FlyingCarDto.hasComplexAttributes', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.constant', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.setMaxAltitude', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.getMaxSpeed', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.hasComplexAttributes', $file);
 		$this->assertStringNotContainsString(' getMaxAltitudeOrFail(', file_get_contents($file));
 		$this->assertStringNotContainsString(' getMaxSpeedOrFail(', file_get_contents($file));
 		$this->assertStringContainsString(' getComplexAttributesOrFail(', file_get_contents($file));
@@ -218,17 +218,17 @@ TXT;
 
 		// Assoc
 		$file = $this->srcPath . 'Dto' . DS . 'CarsDto.php';
-		$this->assertTemplateContains('ScalarTypeHints/CarsDto.addCar', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/CarsDto.addCar', $file);
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testScalarTypeHintsDefaultValueRequiredFalse() {
+	public function testscalarAndReturnTypesDefaultValueRequiredFalse() {
 		$xml = ROOT . DS . 'tests/files/xml/scalar_default_required_false.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
-		Configure::write('CakeDto.scalarTypeHints', true);
+		Configure::write('CakeDto.scalarAndReturnTypes', true);
 		$this->generator = $this->createGenerator();
 
 		$options = [
@@ -240,7 +240,7 @@ TXT;
 		$this->assertSame(2, $result);
 
 		$file = $this->srcPath . 'Dto' . DS . 'DefaultValueDto.php';
-		$this->assertTemplateContains('ScalarTypeHints/DefaultValueDto.setDefaultedOptionalField', $file);
+		$this->assertTemplateContains('ScalarAndReturnTypes/DefaultValueDto.setDefaultedOptionalField', $file);
 	}
 
 	/**
