@@ -9,6 +9,9 @@ use Countable;
 use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
+use Cake\Collection\CollectionInterface;
+use CakeDto\Dto\Dto;
+use ArrayObject;
 
 abstract class Dto implements Serializable {
 
@@ -319,7 +322,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \Cake\Collection\CollectionInterface
 	 */
-	protected function createCakeCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \Cake\Collection\CollectionInterface {
+	protected function createCakeCollection(string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): CollectionInterface {
 		$collection = new Collection([]);
 		foreach ($arrayObject as $arrayElement) {
 			if (!is_array($arrayElement)) {
@@ -353,7 +356,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \CakeDto\Dto\Dto
 	 */
-	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): \CakeDto\Dto\Dto {
+	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): Dto {
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
@@ -407,8 +410,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return object
 	 */
-	protected function createWithConstructor(string $field, $value)
-	{
+	protected function createWithConstructor(string $field, $value) {
 		$class = $this->_metadata[$field]['type'];
 
 		return new $class($value);
@@ -423,7 +425,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return \ArrayObject
 	 */
-	protected function createCollection(string $collectionType, string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): \ArrayObject {
+	protected function createCollection(string $collectionType, string $elementType, $arrayObject, bool $ignoreMissing, string $type = self::TYPE_DEFAULT): ArrayObject {
 		/** @var \ArrayObject $collection */
 		$collection = new $collectionType();
 		foreach ($arrayObject as $arrayElement) {
@@ -721,8 +723,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return void
 	 */
-	protected function assertType(string $field, $value): void
-	{
+	protected function assertType(string $field, $value): void {
 		// Missing fields will be checked afterwards
 		if ($value === null) {
 			return;
@@ -765,8 +766,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return string|array
 	 */
-	protected function transformSerialized(object $value, string $serialize)
-	{
+	protected function transformSerialized(object $value, string $serialize) {
 		if ($serialize === 'FromArrayToArray') {
 			/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
 			return $value->toArray();
