@@ -10,7 +10,6 @@ use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
 use Cake\Collection\CollectionInterface;
-use CakeDto\Dto\Dto;
 use ArrayObject;
 
 abstract class Dto implements Serializable {

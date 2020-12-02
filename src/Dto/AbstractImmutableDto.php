@@ -2,7 +2,6 @@
 
 namespace CakeDto\Dto;
 
-use CakeDto\View\Json;
 use RuntimeException;
 
 abstract class AbstractImmutableDto extends Dto {
