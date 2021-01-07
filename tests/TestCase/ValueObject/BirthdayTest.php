@@ -23,7 +23,7 @@ class BirthdayTest extends TestCase {
 		$this->assertSame($expected, $result->toArray());
 
 		$birthday = Birthday::createFromArray($result->toArray());
-		$expectedString = $expected['month'] . '/' . $expected['day'] . '/' . substr($expected['year'], 0, 2);
+		$expectedString = $expected['month'] . '/' . $expected['day'] . '/' . substr($expected['year'], -2);
 		$this->assertSame($expectedString, (string)$birthday);
 
 		$newBirthday = Birthday::createFromString($expectedString);
