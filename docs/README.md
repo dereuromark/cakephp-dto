@@ -171,7 +171,7 @@ This similar to DB and e.g. not nullable integer columns with `0` as default val
 
 `null` is not a default value, but set via boolean `required` key independently of this and means you can set or get `null` as value.
 Since PHP7.1+ this will have not an effect on default value behavior,
-whereas in versions before it would actually (due to the language restriction) set a default value` as `null` here
+whereas in versions before it would actually (due to the language restriction) set a default value as `null` here
 if a param/return type is used and no default value is provided:
 ```php
     /**
