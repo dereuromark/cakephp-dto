@@ -381,7 +381,7 @@ class Builder {
 		}
 
 		$data['singularType'] = $this->singularType($data['type']);
-		if ($this->isValidDto($data['singularType'])) {
+		if ($data['singularType'] && $this->isValidDto($data['singularType'])) {
 			$data['singularType'] = $this->dtoTypeToClass($data['singularType'], $namespace);
 			$data['singularClass'] = $data['singularType'];
 		}
