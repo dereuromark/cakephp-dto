@@ -93,7 +93,7 @@ jobs:
         run: composer stan-setup
 
       - name: Run phpstan
-        run: composer stan
+        run: composer stan && composer stan-tests
 
       - name: Run phpcs
         run: composer cs-check
