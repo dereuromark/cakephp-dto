@@ -1,5 +1,9 @@
 parameters:
 	level: 8
+	paths:
+		- src/
+		- tests/test_app/src/Dto/
+		- tests/test_app/plugins/Sandbox/src/Dto/
 	bootstrapFiles:
 		- %rootDir%/../../../tests/bootstrap.php
 	checkMissingIterableValueType: false
