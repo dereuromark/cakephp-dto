@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -174,7 +174,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 * @return string
 	 */
 	public function getEmailOrFail(): string {
-		if (!isset($this->email)) {
+		if ($this->email === null) {
 			throw new \RuntimeException('Value not set for field `email` (expected to be not null)');
 		}
 

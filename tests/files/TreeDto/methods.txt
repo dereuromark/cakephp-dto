@@ -29,7 +29,7 @@
 	 * @return int
 	 */
 	public function getSizeOrFail() {
-		if (!isset($this->size)) {
+		if ($this->size === null) {
 			throw new \RuntimeException('Value not set for field `size` (expected to be not null)');
 		}
 

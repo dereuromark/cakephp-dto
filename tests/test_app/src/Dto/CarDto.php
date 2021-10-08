@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -205,7 +205,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \TestApp\ValueObject\Paint
 	 */
 	public function getColorOrFail(): \TestApp\ValueObject\Paint {
-		if (!isset($this->color)) {
+		if ($this->color === null) {
 			throw new \RuntimeException('Value not set for field `color` (expected to be not null)');
 		}
 
@@ -244,7 +244,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return bool
 	 */
 	public function getIsNewOrFail(): bool {
-		if (!isset($this->isNew)) {
+		if ($this->isNew === null) {
 			throw new \RuntimeException('Value not set for field `isNew` (expected to be not null)');
 		}
 
@@ -283,7 +283,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return float
 	 */
 	public function getValueOrFail(): float {
-		if (!isset($this->value)) {
+		if ($this->value === null) {
 			throw new \RuntimeException('Value not set for field `value` (expected to be not null)');
 		}
 
@@ -322,7 +322,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return int
 	 */
 	public function getDistanceTravelledOrFail(): int {
-		if (!isset($this->distanceTravelled)) {
+		if ($this->distanceTravelled === null) {
 			throw new \RuntimeException('Value not set for field `distanceTravelled` (expected to be not null)');
 		}
 
@@ -361,7 +361,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return string[]
 	 */
 	public function getAttributesOrFail(): array {
-		if (!isset($this->attributes)) {
+		if ($this->attributes === null) {
 			throw new \RuntimeException('Value not set for field `attributes` (expected to be not null)');
 		}
 
@@ -400,7 +400,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \Cake\I18n\FrozenDate
 	 */
 	public function getManufacturedOrFail(): \Cake\I18n\FrozenDate {
-		if (!isset($this->manufactured)) {
+		if ($this->manufactured === null) {
 			throw new \RuntimeException('Value not set for field `manufactured` (expected to be not null)');
 		}
 
@@ -439,7 +439,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \TestApp\Dto\OwnerDto
 	 */
 	public function getOwnerOrFail(): \TestApp\Dto\OwnerDto {
-		if (!isset($this->owner)) {
+		if ($this->owner === null) {
 			throw new \RuntimeException('Value not set for field `owner` (expected to be not null)');
 		}
 

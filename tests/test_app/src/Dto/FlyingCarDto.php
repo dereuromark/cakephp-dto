@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -159,7 +159,7 @@ class FlyingCarDto extends CarDto {
 	 * @return array
 	 */
 	public function getComplexAttributesOrFail(): array {
-		if (!isset($this->complexAttributes)) {
+		if ($this->complexAttributes === null) {
 			throw new \RuntimeException('Value not set for field `complexAttributes` (expected to be not null)');
 		}
 

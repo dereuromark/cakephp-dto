@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -142,7 +142,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return string
 	 */
 	public function getNameOrFail(): string {
-		if (!isset($this->name)) {
+		if ($this->name === null) {
 			throw new \RuntimeException('Value not set for field `name` (expected to be not null)');
 		}
 
@@ -181,7 +181,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return string
 	 */
 	public function getInsuranceProviderOrFail(): string {
-		if (!isset($this->insuranceProvider)) {
+		if ($this->insuranceProvider === null) {
 			throw new \RuntimeException('Value not set for field `insuranceProvider` (expected to be not null)');
 		}
 
@@ -220,7 +220,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \TestApp\ValueObject\KeyValuePair
 	 */
 	public function getAttributesOrFail(): \TestApp\ValueObject\KeyValuePair {
-		if (!isset($this->attributes)) {
+		if ($this->attributes === null) {
 			throw new \RuntimeException('Value not set for field `attributes` (expected to be not null)');
 		}
 
@@ -259,7 +259,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \TestApp\ValueObject\Birthday
 	 */
 	public function getBirthdayOrFail(): \TestApp\ValueObject\Birthday {
-		if (!isset($this->birthday)) {
+		if ($this->birthday === null) {
 			throw new \RuntimeException('Value not set for field `birthday` (expected to be not null)');
 		}
 
