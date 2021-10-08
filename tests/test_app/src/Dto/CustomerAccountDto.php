@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -146,7 +146,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 * @return int
 	 */
 	public function getBirthYearOrFail(): int {
-		if (!isset($this->birthYear)) {
+		if ($this->birthYear === null) {
 			throw new \RuntimeException('Value not set for field `birthYear` (expected to be not null)');
 		}
 
@@ -185,7 +185,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 * @return \Cake\I18n\FrozenTime
 	 */
 	public function getLastLoginOrFail(): \Cake\I18n\FrozenTime {
-		if (!isset($this->lastLogin)) {
+		if ($this->lastLogin === null) {
 			throw new \RuntimeException('Value not set for field `lastLogin` (expected to be not null)');
 		}
 

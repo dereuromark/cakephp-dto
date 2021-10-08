@@ -312,7 +312,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 * @return string
 	 */
 	public function getVersionOrFail(): string {
-		if (!isset($this->version)) {
+		if ($this->version === null) {
 			throw new \RuntimeException('Value not set for field `version` (expected to be not null)');
 		}
 

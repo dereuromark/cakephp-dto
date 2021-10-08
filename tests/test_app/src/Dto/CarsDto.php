@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * !!! Auto generated file. Do not directly modify this file. !!!
  * You can either version control this or generate the file on the fly prior to usage/deployment.
@@ -118,7 +118,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function addCar($key, \TestApp\Dto\CarDto $car) {
-		if (!isset($this->cars)) {
+		if ($this->cars === null) {
 			$this->cars = new \ArrayObject([]);
 		}
 

@@ -13,7 +13,7 @@ use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 
 Configure::write('CakeDto.scalarAndReturnTypes', true);
-Configure::write('CakeDto.strictTypes', false);
+Configure::write('CakeDto.strictTypes', true);
 
 $engine = new XmlEngine();
 $builder = new Builder($engine);
@@ -60,6 +60,21 @@ $options = [
 	'dryRun' => $dryRun,
 ];
 $result = $generator->generate($configPath, $srcPath, $options);
+if ($dryRun && $result !== $generator::CODE_SUCCESS) {
+	echo ' => Please run `composer generate` to update the demo DTOs.' . PHP_EOL;
+	exit($result);
+}
+
+$srcPath = ROOT . DS . 'tests' . DS . 'test_app' . DS . 'plugins' . DS . 'Sandbox' . DS . 'src' . DS;
+$configPath = ROOT . DS . 'tests' . DS . 'test_app' . DS . 'plugins' . DS . 'Sandbox' . DS . 'config' . DS;
+$options = [
+	'namespace' => 'Sandbox',
+	'confirm' => true,
+	'verbose' => true,
+	'dryRun' => $dryRun,
+];
+$result = $generator->generate($configPath, $srcPath, $options);
+
 if ($dryRun && $result !== $generator::CODE_SUCCESS) {
 	echo ' => Please run `composer generate` to update the demo DTOs.' . PHP_EOL;
 	exit($result);

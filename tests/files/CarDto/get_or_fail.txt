@@ -4,7 +4,7 @@
 	 * @return int
 	 */
 	public function getDistanceTravelledOrFail() {
-		if (!isset($this->distanceTravelled)) {
+		if ($this->distanceTravelled === null) {
 			throw new \RuntimeException('Value not set for field `distanceTravelled` (expected to be not null)');
 		}
 

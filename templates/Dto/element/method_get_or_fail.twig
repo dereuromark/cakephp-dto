@@ -8,7 +8,7 @@
 	 * @return {{ type }}
 	 */
 	public function get{{ name[:1]|upper ~ name[1:] }}OrFail(){% if returnTypeHint %}: {{ returnTypeHint }}{% endif %} {
-		if (!isset($this->{{ name }})) {
+		if ($this->{{ name }} === null) {
 			throw new \RuntimeException('Value not set for field `{{ name }}` (expected to be not null)');
 		}
 
