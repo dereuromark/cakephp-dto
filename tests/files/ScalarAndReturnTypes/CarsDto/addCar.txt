@@ -4,7 +4,7 @@
 	 * @return $this
 	 */
 	public function addCar($key, \App\Dto\CarDto $car) {
-		if (!isset($this->cars)) {
+		if ($this->cars === null) {
 			$this->cars = new \ArrayObject([]);
 		}
 
