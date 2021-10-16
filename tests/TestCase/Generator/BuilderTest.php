@@ -368,6 +368,37 @@ class BuilderTest extends TestCase {
 		$this->builder->build(TMP);
 	}
 
+
+	/**
+	 * @return void
+	 */
+	public function testBuildNonValidCollection() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => 'Car',
+				'fields' => [
+					'wheels' => [
+						'name' => 'wheels',
+						'type' => 'Wheel',
+						'collection' => true,
+					],
+				],
+			],
+			'Wheel' => [
+				'name' => 'Wheel',
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid field type `Wheel` in FlyingCar DTO, expected a collection `...[]`');
+
+		$this->builder->build(TMP);
+	}
+
 	/**
 	 * @return void
 	 */

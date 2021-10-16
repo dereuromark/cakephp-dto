@@ -15,6 +15,7 @@
 
 	<dto name="MyForest/Animal">
 		<field name="home" type="MyForest/MyTree"/>
+		<field name="relatedAnimals" type="MyForest/Animal[]" collection="true" singular="relatedAnimal"/>
 	</dto>
 
 </dtos>
