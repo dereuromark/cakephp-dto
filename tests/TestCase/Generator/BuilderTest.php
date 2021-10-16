@@ -368,7 +368,6 @@ class BuilderTest extends TestCase {
 		$this->builder->build(TMP);
 	}
 
-
 	/**
 	 * @return void
 	 */
