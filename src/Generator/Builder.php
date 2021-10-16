@@ -225,7 +225,7 @@ class Builder {
 			foreach ($array as $key => $value) {
 				$expected = Inflector::variable(Inflector::underscore($key));
 				if ($key !== $expected) {
-					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:%s` in %s DTO, expected `%s`', $name, $key, $dtoName, $expected));
+					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:%s` in %s DTO, expected `%s`.', $name, $key, $dtoName, $expected));
 				}
 			}
 
@@ -236,10 +236,16 @@ class Builder {
 				throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:type` in %s DTO: `%s`.', $name, $dtoName, $array['type']));
 			}
 
+			if (!empty($array['collection'])) {
+				if (!$this->isValidArray($array['type']) || !$this->isValidCollection($array['type'])) {
+					throw new InvalidArgumentException(sprintf('Invalid field type `%s` in %s DTO, expected a collection `...[]`.', $array['type'], $dtoName));
+				}
+			}
+
 			if (!empty($array['singular'])) {
 				$expected = Inflector::variable(Inflector::underscore($array['singular']));
 				if ($array['singular'] !== $expected) {
-					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:singular` in %s DTO, expected `%s`', $name, $dtoName, $expected));
+					throw new InvalidArgumentException(sprintf('Invalid field attribute `%s:singular` in %s DTO, expected `%s`.', $name, $dtoName, $expected));
 				}
 
 				if (isset($array['collection']) && $array['collection'] === false) {
