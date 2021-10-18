@@ -671,7 +671,7 @@ class Builder {
 			return $plugin;
 		}
 
-		return 'App';
+		return Configure::read('App.namespace');
 	}
 
 	/**
