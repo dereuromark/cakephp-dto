@@ -3,7 +3,7 @@
 [![CI](https://github.com/dereuromark/cakephp-dto/workflows/CI/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-dto/actions?query=workflow%3ACI+branch%3Amaster)
 [![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-dto/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
-[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-dto/license.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -27,7 +27,7 @@ For more see [Motivation and Background](/docs/Motivation.md).
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
-This branch is for use with **CakePHP 4.0+**. For details see [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map).
+This branch is for use with **CakePHP 4.2+**. For details see [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map).
 
 ## Examples
 

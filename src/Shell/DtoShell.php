@@ -94,6 +94,7 @@ class DtoShell extends Shell {
 	 * @return \CakeDto\Generator\Builder
 	 */
 	protected function _builder(): Builder {
+		/** @phpstan-var class-string<\CakeDto\Generator\Builder> $builderClass */
 		$builderClass = Configure::read('CakeDto.builder') ?: Builder::class;
 
 		return new $builderClass($this->_engine());
@@ -103,6 +104,7 @@ class DtoShell extends Shell {
 	 * @return \CakeDto\Generator\Generator
 	 */
 	protected function _generator(): Generator {
+		/** @phpstan-var class-string<\CakeDto\Generator\Generator> $generatorClass */
 		$generatorClass = Configure::read('CakeDto.generator') ?: Generator::class;
 
 		return new $generatorClass($this->_builder(), $this->_renderer(), $this->_io());
@@ -133,6 +135,7 @@ class DtoShell extends Shell {
 	 * @return \CakeDto\View\Renderer
 	 */
 	protected function _renderer(): Renderer {
+		/** @phpstan-var class-string<\CakeDto\View\Renderer> $rendererClass */
 		$rendererClass = Configure::read('CakeDto.renderer') ?: Renderer::class;
 
 		return new $rendererClass();

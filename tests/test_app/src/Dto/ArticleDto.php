@@ -313,7 +313,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withAddedTag(\TestApp\Dto\TagDto $tag) {
 		$new = clone $this;
 
-		if (!isset($new->tags)) {
+		if ($new->tags === null) {
 			$new->tags = [];
 		}
 
@@ -389,7 +389,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withAddedMetaValue($key, string $metaValue) {
 		$new = clone $this;
 
-		if (!isset($new->meta)) {
+		if ($new->meta === null) {
 			$new->meta = [];
 		}
 

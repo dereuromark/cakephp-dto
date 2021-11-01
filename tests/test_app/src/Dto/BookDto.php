@@ -96,7 +96,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withAddedPage(\TestApp\Dto\PageDto $page) {
 		$new = clone $this;
 
-		if (!isset($new->pages)) {
+		if ($new->pages === null) {
 			$new->pages = new \Cake\Collection\Collection([]);
 		}
 

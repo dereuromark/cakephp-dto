@@ -754,6 +754,7 @@ class Builder {
 	 * @return \CakeDto\Generator\Finder
 	 */
 	protected function _finder(): Finder {
+		/** @phpstan-var class-string<\CakeDto\Generator\Finder> $finderClass */
 		$finderClass = $this->_config['finder'];
 
 		return new $finderClass();
