@@ -3,14 +3,14 @@
 namespace CakeDto\Dto;
 
 use ArrayAccess;
-use CakeDto\View\Json;
+use ArrayObject;
 use Cake\Collection\Collection;
+use Cake\Collection\CollectionInterface;
+use CakeDto\View\Json;
 use Countable;
 use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
-use Cake\Collection\CollectionInterface;
-use ArrayObject;
 
 abstract class Dto implements Serializable {
 
@@ -64,7 +64,7 @@ abstract class Dto implements Serializable {
 	 * @param string $type
 	 * @return static
 	 */
-	public static function create(array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
+	public static function create(?array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
 		return new static($data, $ignoreMissing, $type);
 	}
 
@@ -72,22 +72,28 @@ abstract class Dto implements Serializable {
 	 * Default camelCased type.
 	 *
 	 * E.g. `myFieldName`
+	 *
+	 * @var string
 	 */
-	const TYPE_DEFAULT = 'default';
+	public const TYPE_DEFAULT = 'default';
 
 	/**
 	 * For DB and form input/output.
 	 *
 	 * E.g. `my_field_name`
+	 *
+	 * @var string
 	 */
-	const TYPE_UNDERSCORED = 'underscored';
+	public const TYPE_UNDERSCORED = 'underscored';
 
 	/**
 	 * For query string usage.
 	 *
 	 * E.g. `my-field-name`
+	 *
+	 * @var string
 	 */
-	const TYPE_DASHED = 'dashed';
+	public const TYPE_DASHED = 'dashed';
 
 	/**
 	 * For templating rendering.
@@ -115,7 +121,7 @@ abstract class Dto implements Serializable {
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 */
-	public function __construct(array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
+	public function __construct(?array $data = null, bool $ignoreMissing = false, string $type = self::TYPE_DEFAULT) {
 		if ($data) {
 			$this->setFromArray($data, $ignoreMissing, $type);
 		}
@@ -125,7 +131,7 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * @param string[] $path Path as array of strings.
+	 * @param array<string> $path Path as array of strings.
 	 * @param mixed|null $default The return value when the path does not exist.
 	 * @return mixed|null The value fetched from the DTO, or null.
 	 */
@@ -137,6 +143,7 @@ abstract class Dto implements Serializable {
 			}
 			if ($data === null) {
 				$data = $this->get($key);
+
 				continue;
 			}
 			if ($data instanceof self || $data instanceof FromArrayToArrayInterface) {
@@ -148,16 +155,17 @@ abstract class Dto implements Serializable {
 				return $default;
 			}
 		}
+
 		return $data;
 	}
 
 	/**
 	 * @param string|null $type
-	 * @param string[]|null $fields
+	 * @param array<string>|null $fields
 	 * @param bool $touched
 	 * @return array
 	 */
-	public function toArray(?string $type = self::TYPE_DEFAULT, array $fields = null, bool $touched = false): array {
+	public function toArray(?string $type = self::TYPE_DEFAULT, ?array $fields = null, bool $touched = false): array {
 		if ($fields === null) {
 			$fields = $this->fields();
 		}
@@ -184,6 +192,7 @@ abstract class Dto implements Serializable {
 				} else {
 					$values[$key] = $value;
 				}
+
 				continue;
 			}
 
@@ -254,8 +263,8 @@ abstract class Dto implements Serializable {
 	 * @param array $data
 	 * @param bool $ignoreMissing
 	 * @param string $type
-	 * @return $this
 	 * @throws \RuntimeException
+	 * @return $this
 	 */
 	protected function setFromArray(array $data, bool $ignoreMissing, string $type = self::TYPE_DEFAULT) {
 		$immutable = $this instanceof AbstractImmutableDto;
@@ -315,7 +324,7 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string $elementType
-	 * @param array|\ArrayObject $arrayObject
+	 * @param \ArrayObject|array $arrayObject
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
@@ -326,6 +335,7 @@ abstract class Dto implements Serializable {
 		foreach ($arrayObject as $arrayElement) {
 			if (!is_array($arrayElement)) {
 				$collection = $collection->appendItem(new $elementType());
+
 				continue;
 			}
 
@@ -349,17 +359,17 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string $field
-	 * @param \CakeDto\Dto\Dto|array $value
+	 * @param static|array $value
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
-	 * @return \CakeDto\Dto\Dto
+	 * @return static
 	 */
-	protected function createDto(string $field, $value, bool $ignoreMissing, string $type): Dto {
+	protected function createDto(string $field, $value, bool $ignoreMissing, string $type) {
 		$className = $this->_metadata[$field]['type'];
 
 		if (is_array($value)) {
-			/** @var \CakeDto\Dto\Dto $value */
+			/** @var static $value */
 			$value = new $className($value, $ignoreMissing, $type);
 		}
 
@@ -418,7 +428,7 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param string $collectionType
 	 * @param string $elementType
-	 * @param array|\ArrayObject $arrayObject
+	 * @param \ArrayObject|array $arrayObject
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 *
@@ -430,6 +440,7 @@ abstract class Dto implements Serializable {
 		foreach ($arrayObject as $arrayElement) {
 			if (!is_array($arrayElement)) {
 				$collection->append(new $elementType());
+
 				continue;
 			}
 
@@ -453,7 +464,7 @@ abstract class Dto implements Serializable {
 
 	/**
 	 * @param string $elementType
-	 * @param array|\ArrayObject $arrayObject
+	 * @param \ArrayObject|array $arrayObject
 	 * @param bool $ignoreMissing
 	 * @param string $type
 	 * @param string|bool $key
@@ -465,6 +476,7 @@ abstract class Dto implements Serializable {
 		foreach ($arrayObject as $index => $arrayElement) {
 			if (!is_array($arrayElement)) {
 				$collection = $this->addValueToArrayCollection($collection, new $elementType(), $arrayElement, $index, $key);
+
 				continue;
 			}
 
@@ -520,8 +532,8 @@ abstract class Dto implements Serializable {
 	 * @param string $field
 	 * @param bool $ignoreMissing
 	 * @param string $type
-	 * @return bool
 	 * @throws \InvalidArgumentException
+	 * @return bool
 	 */
 	protected function hasField(string $field, bool $ignoreMissing, string $type): bool {
 		if ($type === static::TYPE_DEFAULT && isset($this->_metadata[$field])) {
@@ -536,7 +548,7 @@ abstract class Dto implements Serializable {
 		}
 
 		throw new InvalidArgumentException(
-			sprintf('Missing field `%s` in `%s` for type `%s`', $field, get_class($this), $type)
+			sprintf('Missing field `%s` in `%s` for type `%s`', $field, static::class, $type),
 		);
 	}
 
@@ -575,14 +587,14 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string>
 	 */
 	public function fields(): array {
 		return array_keys($this->_metadata);
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string>
 	 */
 	public function touchedFields(): array {
 		return array_keys($this->_touchedFields);
@@ -593,8 +605,8 @@ abstract class Dto implements Serializable {
 	 *
 	 * @param string $name
 	 * @param string $type Either dashed or underscored
-	 * @return string
 	 * @throws \InvalidArgumentException
+	 * @return string
 	 */
 	public function field(string $name, string $type): string {
 		if (!isset($this->_keyMap[$type][$name])) {
@@ -607,8 +619,8 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param string $key
 	 * @param string $type
-	 * @return string
 	 * @throws \InvalidArgumentException
+	 * @return string
 	 */
 	protected function key(string $key, string $type): string {
 		$map = array_flip($this->_keyMap[$type]);
@@ -664,9 +676,9 @@ abstract class Dto implements Serializable {
 	 * Returns whether this entity contains a property named $property
 	 * regardless of if it is empty.
 	 *
+	 * @see \Cake\ORM\Entity::has()
 	 * @param string $property The property to check.
 	 * @return bool
-	 * @see \Cake\ORM\Entity::has()
 	 */
 	public function __isset(string $property): bool {
 		return $this->has($property);
@@ -675,8 +687,8 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param string $field
 	 * @param string $type
-	 * @return bool
 	 * @throws \RuntimeException
+	 * @return bool
 	 */
 	public function has(string $field, string $type = self::TYPE_DEFAULT): bool {
 		if ($type !== static::TYPE_DEFAULT) {
@@ -695,8 +707,8 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param string $field
 	 * @param string $type
-	 * @return mixed
 	 * @throws \RuntimeException
+	 * @return mixed
 	 */
 	public function &get(string $field, string $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {
@@ -763,7 +775,7 @@ abstract class Dto implements Serializable {
 	 * @param object $value
 	 * @param string $serialize
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
 	protected function transformSerialized(object $value, string $serialize) {
 		if ($serialize === 'FromArrayToArray') {
@@ -772,6 +784,7 @@ abstract class Dto implements Serializable {
 		}
 		if ($serialize === 'array') {
 			// This will not be transformable in the other direction without FromArrayToArrayInterface or mapping
+
 			/** @var \CakeDto\Dto\FromArrayToArrayInterface $value */
 			return $value->toArray();
 		}

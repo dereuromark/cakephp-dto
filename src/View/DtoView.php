@@ -16,7 +16,7 @@ class DtoView extends TwigView {
 	/**
 	 * Templates extensions to search for.
 	 *
-	 * @var string[]
+	 * @var array<string>
 	 */
 	protected $extensions = [
 		'.twig',

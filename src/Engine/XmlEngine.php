@@ -6,6 +6,9 @@ use Cake\Utility\Xml;
 
 class XmlEngine implements EngineInterface {
 
+	/**
+	 * @var string
+	 */
 	public const EXT = 'xml';
 
 	/**
@@ -111,11 +114,11 @@ class XmlEngine implements EngineInterface {
 	}
 
 	/**
-	 * @param string|int|float|bool $value
+	 * @param string|float|int|bool $value
 	 * @param string $key
 	 * @param array $fieldDefinition
 	 *
-	 * @return string|int|float|bool
+	 * @return string|float|int|bool
 	 */
 	protected function castDefaultValue($value, string $key, array $fieldDefinition) {
 		if (!in_array($key, ['defaultValue'], true) || empty($fieldDefinition['@type'])) {

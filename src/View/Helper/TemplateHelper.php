@@ -45,7 +45,7 @@ class TemplateHelper extends Helper {
 					$v = sprintf(
 						"'%s' => [%s]",
 						$k,
-						$this->stringifyList($v, $nestedOptions)
+						$this->stringifyList($v, $nestedOptions),
 					);
 				} else {
 					$v = "'$k' => $v";
@@ -57,7 +57,7 @@ class TemplateHelper extends Helper {
 				}
 				$v = sprintf(
 					'[%s]',
-					$this->stringifyList($v, $nestedOptions)
+					$this->stringifyList($v, $nestedOptions),
 				);
 			}
 		}

@@ -646,7 +646,7 @@ class Builder {
 
 	/**
 	 * @param string $configPath
-	 * @return string[]
+	 * @return array<string>
 	 */
 	protected function _getFiles(string $configPath): array {
 		$extension = $this->engine->extension();

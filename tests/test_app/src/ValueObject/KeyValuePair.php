@@ -20,9 +20,7 @@ class KeyValuePair implements Serializable {
 	protected $value;
 
 	/**
-	 * @phpstan-param array<string, mixed> $data
-	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 */
 	public function __construct(array $data) {
 		$this->key = (string)$data['key'];
@@ -44,9 +42,7 @@ class KeyValuePair implements Serializable {
 	}
 
 	/**
-	 * @phpstan-return array<string, mixed>
-	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function toArray(): array {
 		return [
@@ -67,9 +63,7 @@ class KeyValuePair implements Serializable {
 	}
 
 	/**
-	 * @phpstan-param array<string, mixed> $data
-	 *
-	 * @param array $array
+	 * @param array<string, mixed> $array
 	 *
 	 * @return static
 	 */

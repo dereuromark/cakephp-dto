@@ -65,7 +65,7 @@ class XmlValidator {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string>
 	 */
 	public static function getErrors(): array {
 		$errors = libxml_get_errors();

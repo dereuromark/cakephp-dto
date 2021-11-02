@@ -10,8 +10,6 @@
 	<exclude-pattern>/test_app/src/Dto/</exclude-pattern>
 	<exclude-pattern>/plugins/Sandbox/src/Dto/</exclude-pattern>
 
-	<rule ref="vendor/fig-r/psr2r-sniffer"/>
-
-	<!-- Define your own sniffs here -->
+	<rule ref="vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml"/>
 
 </ruleset>

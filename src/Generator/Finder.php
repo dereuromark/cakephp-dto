@@ -11,7 +11,7 @@ class Finder {
 	 * @param string $configPath
 	 * @param string $extension
 	 * @throws \InvalidArgumentException
-	 * @return string[]
+	 * @return array<string>
 	 */
 	public function collect(string $configPath, string $extension): array {
 		$files = [];

@@ -8,6 +8,9 @@ use Nette\Neon\Neon;
 
 class NeonEngine implements EngineInterface {
 
+	/**
+	 * @var string
+	 */
 	public const EXT = 'neon';
 
 	/**
@@ -49,7 +52,7 @@ class NeonEngine implements EngineInterface {
 		foreach ($result as $name => $dto) {
 			$dto['name'] = $name;
 
-			$fields = isset($dto['fields']) ? $dto['fields'] : [];
+			$fields = $dto['fields'] ?? [];
 			foreach ($fields as $key => $field) {
 				if (is_string($field)) {
 					$field = [

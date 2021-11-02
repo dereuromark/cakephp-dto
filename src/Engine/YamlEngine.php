@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 class YamlEngine implements EngineInterface {
 
+	/**
+	 * @var string
+	 */
 	public const EXT = 'yml';
 
 	/**
@@ -42,7 +45,7 @@ class YamlEngine implements EngineInterface {
 		foreach ($result as $name => $dto) {
 			$dto['name'] = $name;
 
-			$fields = isset($dto['fields']) ? $dto['fields'] : [];
+			$fields = $dto['fields'] ?? [];
 			foreach ($fields as $key => $field) {
 				if (!is_array($field)) {
 					$field = [

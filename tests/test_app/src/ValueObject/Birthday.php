@@ -14,6 +14,9 @@ use JsonSerializable;
  */
 class Birthday implements JsonSerializable {
 
+	/**
+	 * @var int
+	 */
 	public const YEAR_MAX = 130;
 
 	/**

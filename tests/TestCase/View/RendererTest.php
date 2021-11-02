@@ -24,7 +24,7 @@ class RendererTest extends TestCase {
 
 		Configure::write(
 			'App.paths.templates.x',
-			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'templates' . DS . 'Renderer' . DS
+			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'templates' . DS . 'Renderer' . DS,
 		);
 		Configure::delete('CakeDto.strictTypes');
 	}

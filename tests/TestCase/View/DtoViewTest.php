@@ -33,7 +33,7 @@ class DtoViewTest extends TestCase {
 
 		Configure::write(
 			'App.paths.templates.x',
-			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'templates' . DS . 'Twig' . DS
+			Plugin::path('CakeDto') . 'tests' . DS . 'test_app' . DS . 'templates' . DS . 'Twig' . DS,
 		);
 	}
 
@@ -101,7 +101,7 @@ class DtoViewTest extends TestCase {
 		$this->assertSame(
 			$expected,
 			$result,
-			'Tags at the end of a line should not swallow new lines when rendered'
+			'Tags at the end of a line should not swallow new lines when rendered',
 		);
 	}
 

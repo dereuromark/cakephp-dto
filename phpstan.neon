@@ -14,4 +14,5 @@ parameters:
 		- '#Cannot access offset mixed on \(array\|float\|int\).#'
 		- '#Parameter \#1 \$value of method .+XmlEngine::castBoolValue\(\) expects bool\|string, bool\|float\|int\|string given.#'
 		- '#Call to an undefined method object::toArray\(\).#'
+		- '#Parameter \#3 \$depth of function json_.+ expects int.+, int given#'
 	reportUnmatchedIgnoredErrors: false

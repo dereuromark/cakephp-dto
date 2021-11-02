@@ -47,8 +47,8 @@ abstract class AbstractDto extends Dto {
 	 * @param string $field
 	 * @param mixed $value
 	 * @param string $type
-	 * @return $this
 	 * @throws \RuntimeException
+	 * @return $this
 	 */
 	public function set(string $field, $value, string $type = self::TYPE_DEFAULT) {
 		if ($type !== static::TYPE_DEFAULT) {

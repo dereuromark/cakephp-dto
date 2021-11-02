@@ -13,6 +13,9 @@ class Generator {
 
 	use DiffHelperTrait;
 
+	/**
+	 * @var int
+	 */
 	public const CODE_CHANGES = 2;
 	public const CODE_SUCCESS = Shell::CODE_SUCCESS;
 	public const CODE_ERROR = Shell::CODE_ERROR;
@@ -122,7 +125,7 @@ class Generator {
 	/**
 	 * @param string $path
 	 *
-	 * @return string[]
+	 * @return array<string>
 	 */
 	protected function findExistingDtos(string $path): array {
 		if (!is_dir($path)) {
@@ -159,7 +162,7 @@ class Generator {
 	/**
 	 * @param array $definitions
 	 *
-	 * @return string[]
+	 * @return array<string>
 	 */
 	protected function generateDtos(array $definitions): array {
 		$dtos = [];
