@@ -7,7 +7,7 @@
 	 *
 	 * @return static
 	 */
-	public function with{{ name[:1]|upper ~ name[1:] }}({% if typeHint %}{{ typeHint }} {% endif %}${{ name }}{% if typeHint and nullable %} = null{% endif %}) {
+	public function with{{ name[:1]|upper ~ name[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable %} = null{% endif %}) {
 		$new = clone $this;
 		$new->{{ name }} = ${{ name }};
 		$new->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;

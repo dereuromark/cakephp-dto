@@ -193,6 +193,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param \TestApp\ValueObject\Paint $color
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setColorOrFail(\TestApp\ValueObject\Paint $color) {
+		$this->color = $color;
+		$this->_touchedFields[self::FIELD_COLOR] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return \TestApp\ValueObject\Paint|null
 	 */
 	public function getColor(): ?\TestApp\ValueObject\Paint {
@@ -225,6 +239,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setIsNew(?bool $isNew) {
+		$this->isNew = $isNew;
+		$this->_touchedFields[self::FIELD_IS_NEW] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param bool $isNew
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setIsNewOrFail(bool $isNew) {
 		$this->isNew = $isNew;
 		$this->_touchedFields[self::FIELD_IS_NEW] = true;
 
@@ -271,6 +299,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param float $value
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setValueOrFail(float $value) {
+		$this->value = $value;
+		$this->_touchedFields[self::FIELD_VALUE] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return float|null
 	 */
 	public function getValue(): ?float {
@@ -303,6 +345,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setDistanceTravelled(?int $distanceTravelled) {
+		$this->distanceTravelled = $distanceTravelled;
+		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $distanceTravelled
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setDistanceTravelledOrFail(int $distanceTravelled) {
 		$this->distanceTravelled = $distanceTravelled;
 		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
 
@@ -349,6 +405,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param string[] $attributes
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setAttributesOrFail(array $attributes) {
+		$this->attributes = $attributes;
+		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string[]|null
 	 */
 	public function getAttributes(): ?array {
@@ -388,6 +458,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param \Cake\I18n\FrozenDate $manufactured
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setManufacturedOrFail(\Cake\I18n\FrozenDate $manufactured) {
+		$this->manufactured = $manufactured;
+		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return \Cake\I18n\FrozenDate|null
 	 */
 	public function getManufactured(): ?\Cake\I18n\FrozenDate {
@@ -420,6 +504,20 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setOwner(?\TestApp\Dto\OwnerDto $owner) {
+		$this->owner = $owner;
+		$this->_touchedFields[self::FIELD_OWNER] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param \TestApp\Dto\OwnerDto $owner
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setOwnerOrFail(\TestApp\Dto\OwnerDto $owner) {
 		$this->owner = $owner;
 		$this->_touchedFields[self::FIELD_OWNER] = true;
 

@@ -147,6 +147,20 @@ class FlyingCarDto extends CarDto {
 	}
 
 	/**
+	 * @param array $complexAttributes
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setComplexAttributesOrFail(array $complexAttributes) {
+		$this->complexAttributes = $complexAttributes;
+		$this->_touchedFields[self::FIELD_COMPLEX_ATTRIBUTES] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return array|null
 	 */
 	public function getComplexAttributes(): ?array {

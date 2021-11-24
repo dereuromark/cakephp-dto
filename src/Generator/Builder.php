@@ -289,6 +289,7 @@ class Builder {
 				'defaultValue' => null,
 				'nullable' => empty($data['required']),
 				'returnTypeHint' => null,
+				'nullableTypeHint' => null,
 				'isArray' => false,
 				'dto' => null,
 				'collection' => !empty($data['singular']),
@@ -457,7 +458,7 @@ class Builder {
 			}
 
 			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes'] && $fields[$key]['nullable']) {
-				$fields[$key]['typeHint'] = '?' . $fields[$key]['typeHint'];
+				$fields[$key]['nullableTypeHint'] = '?' . $fields[$key]['typeHint'];
 			}
 
 			if ($fields[$key]['collection']) {

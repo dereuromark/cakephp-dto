@@ -67,6 +67,20 @@ class OldOneDto extends CarDto {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setNameOrFail(string $name) {
+		$this->name = $name;
+		$this->_touchedFields[self::FIELD_NAME] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getName(): ?string {

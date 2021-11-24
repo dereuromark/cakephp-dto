@@ -184,6 +184,20 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
+	 * @param string $comment
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setCommentOrFail(string $comment) {
+		$this->comment = $comment;
+		$this->_touchedFields[self::FIELD_COMMENT] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getComment(): ?string {
