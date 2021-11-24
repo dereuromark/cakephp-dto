@@ -50,13 +50,6 @@ class DtoShellTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testInit() {
 		$result = $this->shell->runCommand(['init', '-v']);
 		$this->assertNull($result);

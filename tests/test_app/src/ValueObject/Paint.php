@@ -66,7 +66,7 @@ class Paint implements FromArrayToArrayInterface {
 	}
 
 	/**
-	 * @param static $object
+	 * @param self $object
 	 * @return bool True if the two Paints are equal
 	 */
 	public function equals(self $object): bool {
@@ -80,13 +80,15 @@ class Paint implements FromArrayToArrayInterface {
 	 * Since the objects are immutable, the resulting Paint is a brand
 	 * new object, which is returned.
 	 *
-	 * @param static $another
-	 * @return static
+	 * @param self $another
+	 * @return self
 	 */
 	public function mix(self $another): self {
-		return new self($this->integerAverage($this->red, $another->red),
+		return new self(
+			$this->integerAverage($this->red, $another->red),
 			$this->integerAverage($this->green, $another->green),
-			$this->integerAverage($this->blue, $another->blue));
+			$this->integerAverage($this->blue, $another->blue),
+		);
 	}
 
 	/**
