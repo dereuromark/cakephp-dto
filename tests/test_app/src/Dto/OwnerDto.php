@@ -130,6 +130,20 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setNameOrFail(string $name) {
+		$this->name = $name;
+		$this->_touchedFields[self::FIELD_NAME] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getName(): ?string {
@@ -162,6 +176,20 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setInsuranceProvider(?string $insuranceProvider) {
+		$this->insuranceProvider = $insuranceProvider;
+		$this->_touchedFields[self::FIELD_INSURANCE_PROVIDER] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $insuranceProvider
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setInsuranceProviderOrFail(string $insuranceProvider) {
 		$this->insuranceProvider = $insuranceProvider;
 		$this->_touchedFields[self::FIELD_INSURANCE_PROVIDER] = true;
 
@@ -208,6 +236,20 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param \TestApp\ValueObject\KeyValuePair $attributes
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setAttributesOrFail(\TestApp\ValueObject\KeyValuePair $attributes) {
+		$this->attributes = $attributes;
+		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return \TestApp\ValueObject\KeyValuePair|null
 	 */
 	public function getAttributes(): ?\TestApp\ValueObject\KeyValuePair {
@@ -240,6 +282,20 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setBirthday(?\TestApp\ValueObject\Birthday $birthday) {
+		$this->birthday = $birthday;
+		$this->_touchedFields[self::FIELD_BIRTHDAY] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param \TestApp\ValueObject\Birthday $birthday
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setBirthdayOrFail(\TestApp\ValueObject\Birthday $birthday) {
 		$this->birthday = $birthday;
 		$this->_touchedFields[self::FIELD_BIRTHDAY] = true;
 

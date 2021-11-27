@@ -4,6 +4,9 @@
 {% else %}
 {{ element('method_set', field) }}
 {% endif %}
+{% if field.nullable %}
+{{ element('method_set_or_fail', field) }}
+{% endif %}
 {{ element('method_get', field) }}
 {% if field.nullable %}
 {{ element('method_get_or_fail', field) }}

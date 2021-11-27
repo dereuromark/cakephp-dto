@@ -15,6 +15,25 @@
 	/**
 	 * @deprecated Deprecated for no reason
 	 *
+	 * @param int $size
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setSizeOrFail($size) {
+		if ($size === null) {
+			throw new \RuntimeException('Value not present (expected to be not null)');
+		}
+		$this->size = $size;
+		$this->_touchedFields[self::FIELD_SIZE] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @deprecated Deprecated for no reason
+	 *
 	 * @return int|null
 	 */
 	public function getSize() {
@@ -44,3 +63,5 @@
 	public function hasSize() {
 		return $this->size !== null;
 	}
+
+}

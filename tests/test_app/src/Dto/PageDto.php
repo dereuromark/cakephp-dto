@@ -114,6 +114,20 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
+	 * @param string $content
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setContentOrFail(string $content) {
+		$this->content = $content;
+		$this->_touchedFields[self::FIELD_CONTENT] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getContent(): ?string {

@@ -162,6 +162,20 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
+	 * @param string $email
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setEmailOrFail(string $email) {
+		$this->email = $email;
+		$this->_touchedFields[self::FIELD_EMAIL] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getEmail(): ?string {

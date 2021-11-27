@@ -134,6 +134,20 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
+	 * @param int $birthYear
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setBirthYearOrFail(int $birthYear) {
+		$this->birthYear = $birthYear;
+		$this->_touchedFields[self::FIELD_BIRTH_YEAR] = true;
+
+		return $this;
+	}
+
+	/**
 	 * @return int|null
 	 */
 	public function getBirthYear(): ?int {
@@ -166,6 +180,20 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 * @return $this
 	 */
 	public function setLastLogin(?\Cake\I18n\FrozenTime $lastLogin) {
+		$this->lastLogin = $lastLogin;
+		$this->_touchedFields[self::FIELD_LAST_LOGIN] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @param \Cake\I18n\FrozenTime $lastLogin
+	 *
+	 * @throws \RuntimeException If value is not present.
+	 *
+	 * @return $this
+	 */
+	public function setLastLoginOrFail(\Cake\I18n\FrozenTime $lastLogin) {
 		$this->lastLogin = $lastLogin;
 		$this->_touchedFields[self::FIELD_LAST_LOGIN] = true;
 
