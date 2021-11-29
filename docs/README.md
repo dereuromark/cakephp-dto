@@ -205,7 +205,7 @@ You can add `deprecated="Reason why"` to any DTO or a specific field of it. It w
 
 ## Usage
 
-### Get vs GetOrFail
+### Get vs Get\*OrFail
 If you want to retrieve a field that could also be not set (nullable), use the normal getter.
 But if you want to make sure (without additional guard coding) that a value to be used is existing (`!== null`), use
 `get{Field}OrFail()` here.
@@ -215,6 +215,13 @@ echo $fooDto->getBarOrFail()->getBazOrFail()->getIntField();
 ```
 
 Tools like PHPStan understand the important difference here and warn you if you try to pass possible null values into other methods that do not expect or allow this.
+
+### Set vs Set\*OrFail
+Use the orFail wrapper here if you want to have early warning system (also through PHPStan) regarding null wrongly being set. Otherwise use normal setter.
+```php
+$footDto->setBar($valueCanBeNull);
+$footDto->setBarOrFail($valueCanNotBeNull);
+```
 
 ### Has
 Using `has{Field}()` you can check on the existence of a value, basically `!== null` for fields.
