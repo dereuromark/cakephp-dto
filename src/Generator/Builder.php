@@ -82,6 +82,7 @@ class Builder {
 			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType', '\ArrayObject'),
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
+			'finder' => Configure::read('CakeDto.finder', Finder::class),
 		];
 		$this->setConfig($config);
 	}
@@ -752,9 +753,9 @@ class Builder {
 	}
 
 	/**
-	 * @return \CakeDto\Generator\Finder
+	 * @return \CakeDto\Generator\FinderInterface
 	 */
-	protected function _finder(): Finder {
+	protected function _finder(): FinderInterface {
 		/** @phpstan-var class-string<\CakeDto\Generator\Finder> $finderClass */
 		$finderClass = $this->_config['finder'];
 
