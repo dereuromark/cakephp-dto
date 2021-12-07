@@ -85,6 +85,118 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testBuildCollectionSingular() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'Demo' => [
+				'name' => 'Demo',
+				'fields' => [
+					'parentCategories' => [
+						'name' => 'parentCategories',
+						'type' => 'CodeDescription[]',
+						'collection' => true,
+					],
+					'subCategories' => [
+						'name' => 'subCategories',
+						'type' => 'FilterElement[]',
+						'collection' => true,
+					],
+					'brands' => [
+						'name' => 'brands',
+						'type' => 'FilterElement[]',
+						'collection' => true,
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$expected = [
+			'parentCategories' => [
+				'name' => 'parentCategories',
+				'type' => '\App\Dto\CodeDescriptionDto[]|\ArrayObject',
+				'collection' => true,
+				'required' => false,
+				'defaultValue' => null,
+				'nullable' => false,
+				'returnTypeHint' => '\ArrayObject',
+				'nullableTypeHint' => null,
+				'isArray' => false,
+				'dto' => null,
+				'collectionType' => '\ArrayObject',
+				'associative' => false,
+				'key' => null,
+				'deprecated' => null,
+				'serialize' => null,
+				'factory' => null,
+				'singularType' => '\App\Dto\CodeDescriptionDto',
+				'singularClass' => '\App\Dto\CodeDescriptionDto',
+				'singular' => 'parentCategory',
+				'singularNullable' => false,
+				'typeHint' => '\ArrayObject',
+				'singularTypeHint' => '\App\Dto\CodeDescriptionDto',
+				'singularReturnTypeHint' => '\App\Dto\CodeDescriptionDto',
+			],
+			'subCategories' => [
+				'name' => 'subCategories',
+				'type' => '\App\Dto\FilterElementDto[]|\ArrayObject',
+				'collection' => true,
+				'required' => false,
+				'defaultValue' => null,
+				'nullable' => false,
+				'returnTypeHint' => '\ArrayObject',
+				'nullableTypeHint' => null,
+				'isArray' => false,
+				'dto' => null,
+				'collectionType' => '\ArrayObject',
+				'associative' => false,
+				'key' => null,
+				'deprecated' => null,
+				'serialize' => null,
+				'factory' => null,
+				'singularType' => '\App\Dto\FilterElementDto',
+				'singularClass' => '\App\Dto\FilterElementDto',
+				'singular' => 'subCategory',
+				'singularNullable' => false,
+				'typeHint' => '\ArrayObject',
+				'singularTypeHint' => '\App\Dto\FilterElementDto',
+				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
+			],
+			'brands' => [
+				'name' => 'brands',
+				'type' => '\App\Dto\FilterElementDto[]|\ArrayObject',
+				'collection' => true,
+				'required' => false,
+				'defaultValue' => null,
+				'nullable' => false,
+				'returnTypeHint' => '\ArrayObject',
+				'nullableTypeHint' => null,
+				'isArray' => false,
+				'dto' => null,
+				'collectionType' => '\ArrayObject',
+				'associative' => false,
+				'key' => null,
+				'deprecated' => null,
+				'serialize' => null,
+				'factory' => null,
+				'singularType' => '\App\Dto\FilterElementDto',
+				'singularClass' => '\App\Dto\FilterElementDto',
+				'singular' => 'brand',
+				'singularNullable' => false,
+				'typeHint' => '\ArrayObject',
+				'singularTypeHint' => '\App\Dto\FilterElementDto',
+				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
+			],
+		];
+		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testBuildCollections() {
 		$this->builder = $this->createBuilder();
 
