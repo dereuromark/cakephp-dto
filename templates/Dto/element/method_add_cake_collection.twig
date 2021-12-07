@@ -8,7 +8,7 @@
 	 *
 	 * @return $this
 	 */
-	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ name[:1]|upper ~ name[1:] }}({% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if ($this->{{ name }} === null) {
 			$this->{{ name }} = new {{ typeHint }}([]);
 		}
