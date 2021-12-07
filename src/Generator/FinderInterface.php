@@ -2,8 +2,8 @@
 
 namespace CakeDto\Generator;
 
-interface FinderInterface
-{
+interface FinderInterface {
+
 	/**
 	 * Find dto specification files
 	 *
@@ -14,4 +14,5 @@ interface FinderInterface
 	 * @return array<string>
 	 */
 	public function collect(string $configPath, string $extension): array;
+	
 }
