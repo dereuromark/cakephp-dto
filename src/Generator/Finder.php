@@ -5,7 +5,7 @@ namespace CakeDto\Generator;
 use DirectoryIterator;
 use InvalidArgumentException;
 
-class Finder {
+class Finder implements FinderInterface {
 
 	/**
 	 * @param string $configPath
