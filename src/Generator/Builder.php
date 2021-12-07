@@ -398,18 +398,6 @@ class Builder {
 			return $data;
 		}
 
-		if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $data['type'], $matches)) {
-			$singular = $matches[1];
-
-			if (strpos($singular, '/') !== false) {
-				$singular = substr($singular, strrpos($singular, '/') + 1);
-			}
-
-			$data['singular'] = lcfirst($singular);
-
-			return $data;
-		}
-
 		$singular = Inflector::singularize($fieldName);
 		if ($singular === $fieldName) {
 			throw new InvalidArgumentException(sprintf('Field name `%s` of %s DTO cannot be singularized automatically, please set `singular` value.', $fieldName, $dtoName));
