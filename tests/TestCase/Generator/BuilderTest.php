@@ -82,8 +82,10 @@ class BuilderTest extends TestCase {
 		$this->assertSame('\ArrayObject', $result['Cars']['fields']['cars']['typeHint']);
 	}
 
-	public function testBuildCollectionSingular()
-	{
+	/**
+	 * @return void
+	 */
+	public function testBuildCollectionSingular() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -93,17 +95,17 @@ class BuilderTest extends TestCase {
 					'parentCategories' => [
 						'name' => 'parentCategories',
 						'type' => 'CodeDescription[]',
-						'collection' => true
+						'collection' => true,
 					],
 					'subCategories' => [
 						'name' => 'subCategories',
 						'type' => 'FilterElement[]',
-						'collection' => true
+						'collection' => true,
 					],
 					'brands' => [
 						'name' => 'brands',
 						'type' => 'FilterElement[]',
-						'collection' => true
+						'collection' => true,
 					],
 				],
 			],
