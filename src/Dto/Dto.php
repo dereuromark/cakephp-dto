@@ -10,9 +10,8 @@ use CakeDto\View\Json;
 use Countable;
 use InvalidArgumentException;
 use RuntimeException;
-use Serializable;
 
-abstract class Dto implements Serializable {
+abstract class Dto {
 
 	/**
 	 * @param array $data
