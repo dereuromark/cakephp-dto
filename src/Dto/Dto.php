@@ -10,8 +10,9 @@ use CakeDto\View\Json;
 use Countable;
 use InvalidArgumentException;
 use RuntimeException;
+use Serializable;
 
-abstract class Dto {
+abstract class Dto implements Serializable {
 
 	/**
 	 * @param array $data
@@ -792,6 +793,22 @@ abstract class Dto {
 		}
 
 		throw new InvalidArgumentException('Cannot determine serialize type from `' . $serialize . '`.');
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function __serialize(): array {
+		return $this->touchedToArray();
+	}
+
+	/**
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	public function __unserialize(array $data): void {
+		$this->setFromArray($data, true);
 	}
 
 }
