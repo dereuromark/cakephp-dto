@@ -36,4 +36,26 @@ class SerializeTest extends TestCase {
 		$this->assertSame($newArray, $unserialized->toArray());
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testSerializeMagic() {
+		$array = [
+			'name' => 'My Name',
+			'attributes' => [
+				'key' => 'x',
+				'value' => 'y',
+			],
+		];
+		$owner = new OwnerDto($array);
+
+		$result = serialize($owner);
+		$this->assertTrue(is_string($result));
+
+		/** @var \TestApp\Dto\OwnerDto $owner */
+		$owner = unserialize($result);
+		$newArray = $owner->touchedToArray();
+		$this->assertSame($array, $newArray);
+	}
+
 }
