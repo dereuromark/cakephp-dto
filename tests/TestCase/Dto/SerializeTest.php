@@ -40,8 +40,6 @@ class SerializeTest extends TestCase {
 	 * @return void
 	 */
 	public function testSerializeMagic() {
-		$this->skipIf(version_compare(PHP_VERSION, '7.4.0', '<'), 'Require PHP 7.4+ to work properly.');
-
 		$array = [
 			'name' => 'My Name',
 			'attributes' => [
