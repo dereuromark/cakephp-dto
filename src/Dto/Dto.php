@@ -798,8 +798,7 @@ abstract class Dto implements Serializable {
 	/**
 	 * @return array<string, mixed>
 	 */
-	public function __serialize(): array
-	{
+	public function __serialize(): array {
 		return $this->touchedToArray();
 	}
 
@@ -808,8 +807,7 @@ abstract class Dto implements Serializable {
 	 *
 	 * @return void
 	 */
-	public function __unserialize(array $data): void
-	{
+	public function __unserialize(array $data): void {
 		$this->setFromArray($data, true);
 	}
 
