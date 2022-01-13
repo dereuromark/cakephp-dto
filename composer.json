@@ -2,7 +2,11 @@
 	"name": "dereuromark/cakephp-dto",
 	"description": "CakePHP DTO Plugin",
 	"type": "cakephp-plugin",
-	"keywords": ["cakephp", "dto", "plugin"],
+	"keywords": [
+		"cakephp",
+		"dto",
+		"plugin"
+	],
 	"homepage": "https://github.com/dereuromark/cakephp-dto/",
 	"license": "MIT",
 	"authors": [
@@ -66,5 +70,10 @@
 		"generate": "php tests/generate.php",
 		"generate-dry": "php tests/generate.php --dry-run"
 	},
-	"prefer-stable": true
+	"prefer-stable": true,
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }
