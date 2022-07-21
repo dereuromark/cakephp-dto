@@ -30,7 +30,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * Some data is only for debugging for now.
 	 *
-	 * @var array
+	 * @var array<string, array<string, mixed>>
 	 */
 	protected $_metadata = [
 		'number' => [
@@ -60,7 +60,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	];
 
 	/**
-	* @var array
+	* @var array<string, array<string, string>>
 	*/
 	protected $_keyMap = [
 		'underscored' => [

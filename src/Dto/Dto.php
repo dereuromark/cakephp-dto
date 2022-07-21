@@ -98,7 +98,7 @@ abstract class Dto implements Serializable {
 	/**
 	 * For templating rendering.
 	 *
-	 * @var array
+	 * @var array<string, array<string, mixed>>
 	 */
 	protected $_metadata = [];
 
