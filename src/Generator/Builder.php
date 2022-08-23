@@ -497,7 +497,7 @@ class Builder {
 	 * @return bool
 	 */
 	protected function isValidName(string $name): bool {
-		if (preg_match('#^[a-zA-Z]+$#', $name)) {
+		if (preg_match('#^[a-zA-Z][a-zA-Z0-9]+$#', $name)) {
 			return true;
 		}
 
@@ -510,7 +510,7 @@ class Builder {
 	 * @return bool
 	 */
 	protected function isValidDto(string $name): bool {
-		if (!preg_match('#^[A-Z][a-zA-Z/]+$#', $name)) {
+		if (!preg_match('#^[A-Z][a-zA-Z0-9/]+$#', $name)) {
 			return false;
 		}
 
