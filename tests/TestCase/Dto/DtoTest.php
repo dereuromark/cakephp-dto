@@ -3,6 +3,7 @@
 namespace CakeDto\Test\TestCase\Dto;
 
 use ArrayObject;
+use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
@@ -11,8 +12,10 @@ use TestApp\Dto\ArticleDto;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\Dto\CarsDto;
+use TestApp\Dto\CustomerAccountDto;
 use TestApp\Dto\FlyingCarDto;
 use TestApp\Dto\OwnerDto;
+use TestApp\Dto\TransactionDto;
 use TestApp\Model\Entity\Article;
 use TestApp\Model\Entity\Author;
 use TestApp\ValueObject\Paint;
@@ -482,4 +485,45 @@ class DtoTest extends TestCase {
 		$this->assertNull($greenOrNull);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testAssertTypeIntAsFloatOnImmutable() {
+		$customerAccount = CustomerAccountDto::create([
+			CustomerAccountDto::FIELD_CUSTOMER_NAME => 'sample name',
+		]);
+
+		$array = [
+			TransactionDto::FIELD_VALUE => 33,
+			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
+			TransactionDto::FIELD_CREATED => FrozenDate::now(),
+		];
+
+		$dto = new TransactionDto($array);
+
+		$this->assertSame(floatval($array[CarDto::FIELD_VALUE]), $dto->getValue());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testAssertTypeStringAsFloatOnImmutable() {
+		$customerAccount = CustomerAccountDto::create([
+			CustomerAccountDto::FIELD_CUSTOMER_NAME => 'sample name',
+		]);
+
+		$array = [
+			TransactionDto::FIELD_VALUE => '33.0',
+			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
+			TransactionDto::FIELD_CREATED => FrozenDate::now(),
+		];
+
+		try {
+			new TransactionDto($array);
+		} catch (InvalidArgumentException $e) {
+
+		}
+
+		$this->assertSame($e->getMessage(), 'Type of field `value` is `string`, expected `float`.');
+	}
 }
