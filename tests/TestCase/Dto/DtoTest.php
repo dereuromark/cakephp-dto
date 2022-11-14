@@ -6,6 +6,7 @@ use ArrayObject;
 use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
+use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 use TestApp\Dto\ArticleDto;
@@ -501,7 +502,7 @@ class DtoTest extends TestCase {
 
 		$dto = new TransactionDto($array);
 
-		$this->assertSame(floatval($array[CarDto::FIELD_VALUE]), $dto->getValue());
+		$this->assertSame((float)($array[CarDto::FIELD_VALUE]), $dto->getValue());
 	}
 
 	/**
@@ -518,7 +519,7 @@ class DtoTest extends TestCase {
 			TransactionDto::FIELD_CREATED => FrozenDate::now(),
 		];
 
-		$e = new \Exception();
+		$e = new Exception();
 
 		try {
 			new TransactionDto($array);
@@ -529,4 +530,5 @@ class DtoTest extends TestCase {
 		$this->assertInstanceOf(InvalidArgumentException::class, $e);
 		$this->assertSame($e->getMessage(), 'Type of field `value` is `string`, expected `float`.');
 	}
+
 }
