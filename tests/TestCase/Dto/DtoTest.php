@@ -518,12 +518,15 @@ class DtoTest extends TestCase {
 			TransactionDto::FIELD_CREATED => FrozenDate::now(),
 		];
 
+		$e = new \Exception();
+
 		try {
 			new TransactionDto($array);
 		} catch (InvalidArgumentException $e) {
 
 		}
 
+		$this->assertInstanceOf(InvalidArgumentException::class, $e);
 		$this->assertSame($e->getMessage(), 'Type of field `value` is `string`, expected `float`.');
 	}
 }
