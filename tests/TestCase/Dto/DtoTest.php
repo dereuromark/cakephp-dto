@@ -6,7 +6,6 @@ use ArrayObject;
 use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
-use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 use TestApp\Dto\ArticleDto;
@@ -519,8 +518,7 @@ class DtoTest extends TestCase {
 			TransactionDto::FIELD_CREATED => FrozenDate::now(),
 		];
 
-		$e = new Exception();
-
+		$e = null;
 		try {
 			new TransactionDto($array);
 		} catch (InvalidArgumentException $e) {
