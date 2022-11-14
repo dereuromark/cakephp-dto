@@ -789,6 +789,7 @@ abstract class Dto implements Serializable {
 			return $value->toArray();
 		}
 		if ($serialize === 'string') {
+			/** @var \Stringable $value */
 			return (string)$value;
 		}
 
