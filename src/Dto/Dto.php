@@ -744,6 +744,10 @@ abstract class Dto implements Serializable {
 		$actualType = $this->type($value);
 		$types = ['bool', 'int', 'string', 'double'];
 
+		if ($expectedType === 'float' && in_array($actualType, ['float', 'int'], true)) {
+			return;
+		}
+
 		if (in_array($expectedType, $types, true) || in_array($actualType, $types, true)) {
 			if ($actualType === $expectedType) {
 				return;
