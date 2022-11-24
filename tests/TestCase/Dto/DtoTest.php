@@ -123,6 +123,23 @@ class DtoTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testToArrayEmptyArrayObject() {
+		$dto = new CarsDto();
+		$dto->setCars(new ArrayObject());
+
+		$result = $dto->toArray();
+		$expected = [
+			'cars' => [],
+		];
+
+		ksort($expected);
+		ksort($result);
+		$this->assertSame($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testToArrayDashed() {
 		$dto = new CarDto();
 		$dto->setDistanceTravelled(11);

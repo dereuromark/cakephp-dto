@@ -185,7 +185,7 @@ abstract class Dto implements Serializable {
 			if (is_object($value)) {
 				if ($value instanceof self) {
 					$values[$key] = $touched ? $value->touchedToArray($type) : $value->toArray($type);
-				} elseif ($value instanceof Countable && $value->count()) {
+				} elseif ($value instanceof Countable) {
 					$values = $this->transformCollectionToArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
 				} elseif ($this->_metadata[$field]['serialize']) {
 					$values[$key] = $this->transformSerialized($value, $this->_metadata[$field]['serialize']);
@@ -219,6 +219,12 @@ abstract class Dto implements Serializable {
 	 * @return array
 	 */
 	protected function transformCollectionToArray($value, array $values, string $arrayKey, string $childConvertMethodName, string $type): array {
+		if ($value->count() === 0) {
+			$values[$arrayKey] = [];
+
+			return $values;
+		}
+
 		foreach ($value as $elementKey => $arrayElement) {
 			if (is_array($arrayElement) || is_scalar($arrayElement)) {
 				$values[$arrayKey][$elementKey] = $arrayElement;
