@@ -3,8 +3,8 @@
 namespace CakeDto\Test\TestCase\Dto;
 
 use ArrayObject;
-use Cake\I18n\FrozenDate;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\Date;
+use Cake\I18n\DateTime;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use RuntimeException;
@@ -456,7 +456,7 @@ class DtoTest extends TestCase {
 		$articleEntity->id = 2; // We simulate a persisted entity and its persisted relations
 		$articleEntity->author = new Author(['id' => 1, 'name' => 'me']);
 		$articleEntity->title = 'My title';
-		$articleEntity->created = new FrozenTime();
+		$articleEntity->created = new DateTime();
 
 		$articleDto = new ArticleDto($articleEntity->toArray());
 
@@ -513,7 +513,7 @@ class DtoTest extends TestCase {
 		$array = [
 			TransactionDto::FIELD_VALUE => 33,
 			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
-			TransactionDto::FIELD_CREATED => FrozenDate::now(),
+			TransactionDto::FIELD_CREATED => Date::now(),
 		];
 
 		$dto = new TransactionDto($array);
@@ -532,7 +532,7 @@ class DtoTest extends TestCase {
 		$array = [
 			TransactionDto::FIELD_VALUE => '33.0',
 			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
-			TransactionDto::FIELD_CREATED => FrozenDate::now(),
+			TransactionDto::FIELD_CREATED => Date::now(),
 		];
 
 		$e = null;

@@ -2,9 +2,9 @@
 
 namespace CakeDto\Console;
 
+use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
-use Cake\Console\Shell;
 
 /**
  * Composition class as proxy towards ConsoleIO - basically a shell replacement for inside business logic.
@@ -49,20 +49,13 @@ class Io {
 	 * Outputs a single or multiple messages to stdout. If no parameters
 	 * are passed outputs just a newline.
 	 *
-	 * ### Output levels
-	 *
-	 * There are 3 built-in output level. Shell::QUIET, Shell::NORMAL, Shell::VERBOSE.
-	 * The verbose and quiet output levels, map to the `verbose` and `quiet` output switches
-	 * present in most shells. Using Shell::QUIET for a message means it will always display.
-	 * While using Shell::VERBOSE means it will only display when verbose output is toggled.
-	 *
 	 * @link http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
 	 * @param string|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function out($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
+	public function out($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
 		return $this->_io->out((string)$message, $newlines, $level);
 	}
 
@@ -87,7 +80,7 @@ class Io {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function info($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
+	public function info($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
 		return $this->out('<info>' . (string)$message . '</info>', $newlines, $level);
 	}
 
@@ -100,7 +93,7 @@ class Io {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function comment($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
+	public function comment($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
 		return $this->out('<comment>' . (string)$message . '</comment>', $newlines, $level);
 	}
 
@@ -125,7 +118,7 @@ class Io {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function success($message = null, int $newlines = 1, int $level = Shell::NORMAL) {
+	public function success($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
 		return $this->out('<success>' . (string)$message . '</success>', $newlines, $level);
 	}
 
@@ -162,7 +155,7 @@ class Io {
 	 * @throws \Cake\Console\Exception\StopException
 	 * @return void
 	 */
-	public function abort(string $message, int $exitCode = Shell::CODE_ERROR): void {
+	public function abort(string $message, int $exitCode = Command::CODE_ERROR): void {
 		$this->_io->err('<error>' . $message . '</error>');
 
 		throw new StopException($message, $exitCode);

@@ -100,21 +100,21 @@ abstract class Dto implements Serializable {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [];
+	protected array $_metadata = [];
 
 	/**
 	 * For usage of inflections.
 	 *
 	 * @var array
 	 */
-	protected $_keyMap = [];
+	protected array $_keyMap = [];
 
 	/**
 	 * Holds touched fields.
 	 *
 	 * @var array
 	 */
-	protected $_touchedFields = [];
+	protected array $_touchedFields = [];
 
 	/**
 	 * @param array|null $data

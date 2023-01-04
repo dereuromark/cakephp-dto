@@ -4,7 +4,7 @@ namespace CakeDto\Test\TestCase\Dto;
 
 use Cake\Collection\Collection;
 use Cake\Collection\CollectionInterface;
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use Cake\TestSuite\TestCase;
 use CakeDto\Dto\AbstractImmutableDto;
 use TestApp\Dto\ArticleDto;
@@ -24,7 +24,7 @@ class ImmutableTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => new FrozenDate(time() - DAY),
+			'created' => new Date(time() - DAY),
 		];
 
 		$articleDto = new ArticleDto($array);
@@ -35,7 +35,7 @@ class ImmutableTest extends TestCase {
 		$this->assertSame('My new title', $modifiedArticleDto->getTitle());
 		$this->assertSame('My title', $articleDto->getTitle());
 
-		// A reason why we want to use immutable datetime objects (FrozenTime):
+		// A reason why we want to use immutable datetime objects (DateTime):
 		$created = $articleDto->getCreated();
 		$isToday = $created->addDay()->isToday();
 		// A mutable datetime inside $articleDto->getCreated() would now accidentally be modified

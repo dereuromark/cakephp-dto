@@ -60,7 +60,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'id' => [
 			'name' => 'id',
 			'type' => 'string',
@@ -138,7 +138,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'id' => 'id',
 			'key' => 'key',

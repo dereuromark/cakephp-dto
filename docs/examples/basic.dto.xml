@@ -10,7 +10,7 @@
 		<field name="value" type="float"/>
 		<field name="distanceTravelled" type="int"/>
 		<field name="attributes" type="string[]"/>
-		<field name="manufactured" type="\Cake\I18n\FrozenDate"/>
+		<field name="manufactured" type="\Cake\I18n\Date"/>
 		<field name="owner" type="Owner"/>
 	</dto>
 

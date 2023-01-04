@@ -2,7 +2,7 @@
 
 namespace CakeDto\Test\TestCase\ValueObject;
 
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use Cake\TestSuite\TestCase;
 use TestApp\ValueObject\Birthday;
 
@@ -12,7 +12,7 @@ class BirthdayTest extends TestCase {
 	 * @return void
 	 */
 	public function testBasic() {
-		$date = new FrozenDate(date('Y-m-d'));
+		$date = new Date(date('Y-m-d'));
 		$result = new Birthday($date);
 
 		$expected = [
@@ -34,13 +34,13 @@ class BirthdayTest extends TestCase {
 	 * @return void
 	 */
 	public function testAge() {
-		$date = new FrozenDate(date('Y-m-d'));
+		$date = new Date(date('Y-m-d'));
 		$birthday = new Birthday($date);
 
 		$age = $birthday->getAge();
 		$this->assertSame(0, $age);
 
-		$date = (new FrozenDate())->subYears(2);
+		$date = (new Date())->subYears(2);
 		$birthday = new Birthday($date);
 
 		$age = $birthday->getAge();

@@ -2,7 +2,8 @@
 
 namespace CakeDto\Generator;
 
-use Cake\Console\Shell;
+use Cake\Command\Command;
+use Cake\Console\ConsoleIo;
 use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
 use Exception;
@@ -17,8 +18,8 @@ class Generator {
 	 * @var int
 	 */
 	public const CODE_CHANGES = 2;
-	public const CODE_SUCCESS = Shell::CODE_SUCCESS;
-	public const CODE_ERROR = Shell::CODE_ERROR;
+	public const CODE_SUCCESS = Command::CODE_SUCCESS;
+	public const CODE_ERROR = Command::CODE_ERROR;
 
 	/**
 	 * @var \CakeDto\Generator\Builder
@@ -80,7 +81,7 @@ class Generator {
 
 			if (!$isNew && !$isModified) {
 				unset($foundDtos[$name]);
-				$this->io->out('Skipping: ' . $name . ' DTO', 1, Shell::VERBOSE);
+				$this->io->out('Skipping: ' . $name . ' DTO', 1, ConsoleIo::VERBOSE);
 
 				continue;
 			}
@@ -92,7 +93,7 @@ class Generator {
 			}
 
 			if ($isModified) {
-				$this->io->out('Changes in ' . $name . ' DTO:', 1, Shell::VERBOSE);
+				$this->io->out('Changes in ' . $name . ' DTO:', 1, ConsoleIo::VERBOSE);
 				$oldContent = file_get_contents($foundDtos[$name]) ?: '';
 				$this->_displayDiff($oldContent, $content);
 			}

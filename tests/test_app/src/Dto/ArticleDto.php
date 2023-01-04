@@ -12,7 +12,7 @@ namespace TestApp\Dto;
  * @property int $id
  * @property \TestApp\Dto\AuthorDto $author
  * @property string $title
- * @property \Cake\I18n\FrozenDate $created
+ * @property \Cake\I18n\Date $created
  * @property \TestApp\Dto\TagDto[] $tags
  * @property string[] $meta
  */
@@ -41,7 +41,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $title;
 
 	/**
-	 * @var \Cake\I18n\FrozenDate
+	 * @var \Cake\I18n\Date
 	 */
 	protected $created;
 
@@ -60,7 +60,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'id' => [
 			'name' => 'id',
 			'type' => 'int',
@@ -99,7 +99,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		],
 		'created' => [
 			'name' => 'created',
-			'type' => '\Cake\I18n\FrozenDate',
+			'type' => '\Cake\I18n\Date',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => null,
@@ -145,7 +145,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'id' => 'id',
 			'author' => 'author',
@@ -246,11 +246,11 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenDate $created
+	 * @param \Cake\I18n\Date $created
 	 *
 	 * @return static
 	 */
-	public function withCreated(\Cake\I18n\FrozenDate $created) {
+	public function withCreated(\Cake\I18n\Date $created) {
 		$new = clone $this;
 		$new->created = $created;
 		$new->_touchedFields[self::FIELD_CREATED] = true;
@@ -259,9 +259,9 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return \Cake\I18n\FrozenDate
+	 * @return \Cake\I18n\Date
 	 */
-	public function getCreated(): \Cake\I18n\FrozenDate {
+	public function getCreated(): \Cake\I18n\Date {
 		return $this->created;
 	}
 

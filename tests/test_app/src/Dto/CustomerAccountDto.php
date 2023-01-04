@@ -11,7 +11,7 @@ namespace TestApp\Dto;
  *
  * @property string $customerName
  * @property int|null $birthYear
- * @property \Cake\I18n\FrozenTime|null $lastLogin
+ * @property \Cake\I18n\DateTime|null $lastLogin
  */
 class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 
@@ -30,7 +30,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	protected $birthYear;
 
 	/**
-	 * @var \Cake\I18n\FrozenTime|null
+	 * @var \Cake\I18n\DateTime|null
 	 */
 	protected $lastLogin;
 
@@ -39,7 +39,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'customerName' => [
 			'name' => 'customerName',
 			'type' => 'string',
@@ -66,7 +66,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 		],
 		'lastLogin' => [
 			'name' => 'lastLogin',
-			'type' => '\Cake\I18n\FrozenTime',
+			'type' => '\Cake\I18n\DateTime',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -82,7 +82,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'customer_name' => 'customerName',
 			'birth_year' => 'birthYear',
@@ -175,11 +175,11 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenTime|null $lastLogin
+	 * @param \Cake\I18n\DateTime|null $lastLogin
 	 *
 	 * @return $this
 	 */
-	public function setLastLogin(?\Cake\I18n\FrozenTime $lastLogin) {
+	public function setLastLogin(?\Cake\I18n\DateTime $lastLogin) {
 		$this->lastLogin = $lastLogin;
 		$this->_touchedFields[self::FIELD_LAST_LOGIN] = true;
 
@@ -187,13 +187,13 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenTime $lastLogin
+	 * @param \Cake\I18n\DateTime $lastLogin
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */
-	public function setLastLoginOrFail(\Cake\I18n\FrozenTime $lastLogin) {
+	public function setLastLoginOrFail(\Cake\I18n\DateTime $lastLogin) {
 		$this->lastLogin = $lastLogin;
 		$this->_touchedFields[self::FIELD_LAST_LOGIN] = true;
 
@@ -201,18 +201,18 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @return \Cake\I18n\FrozenTime|null
+	 * @return \Cake\I18n\DateTime|null
 	 */
-	public function getLastLogin(): ?\Cake\I18n\FrozenTime {
+	public function getLastLogin(): ?\Cake\I18n\DateTime {
 		return $this->lastLogin;
 	}
 
 	/**
 	 * @throws \RuntimeException If value is not set.
 	 *
-	 * @return \Cake\I18n\FrozenTime
+	 * @return \Cake\I18n\DateTime
 	 */
-	public function getLastLoginOrFail(): \Cake\I18n\FrozenTime {
+	public function getLastLoginOrFail(): \Cake\I18n\DateTime {
 		if ($this->lastLogin === null) {
 			throw new \RuntimeException('Value not set for field `lastLogin` (expected to be not null)');
 		}

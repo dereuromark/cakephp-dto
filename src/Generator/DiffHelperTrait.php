@@ -2,7 +2,7 @@
 
 namespace CakeDto\Generator;
 
-use Cake\Console\Shell;
+use Cake\Console\ConsoleIo;
 use SebastianBergmann\Diff\Differ;
 
 trait DiffHelperTrait {
@@ -53,12 +53,12 @@ trait DiffHelperTrait {
 
 			if ($row[1] === 1) {
 				$char = '+';
-				$this->io->info('   | ' . $char . $output, 1, Shell::VERBOSE);
+				$this->io->info('   | ' . $char . $output, 1, ConsoleIo::VERBOSE);
 			} elseif ($row[1] === 2) {
 				$char = '-';
-				$this->io->out('<warning>' . '   | ' . $char . $output . '</warning>', 1, Shell::VERBOSE);
+				$this->io->out('<warning>' . '   | ' . $char . $output . '</warning>', 1, ConsoleIo::VERBOSE);
 			} else {
-				$this->io->out('   | ' . $char . $output, 1, Shell::VERBOSE);
+				$this->io->out('   | ' . $char . $output, 1, ConsoleIo::VERBOSE);
 			}
 		}
 	}

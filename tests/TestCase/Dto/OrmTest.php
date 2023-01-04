@@ -2,7 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\TestSuite\TestCase;
 use TestApp\Dto\ArticleDto;
 use TestApp\Model\Entity\Article;
@@ -19,7 +19,7 @@ class OrmTest extends TestCase {
 		$articleEntity->id = 2; // We simulate a persisted entity and its persisted relations
 		$articleEntity->author = new Author(['id' => 1, 'name' => 'me']);
 		$articleEntity->title = 'My title';
-		$articleEntity->created = new FrozenTime();
+		$articleEntity->created = new DateTime();
 
 		$articleDto = new ArticleDto($articleEntity->toArray());
 
@@ -37,14 +37,14 @@ class OrmTest extends TestCase {
 		$articleEntity->author_id = 1;
 		$articleEntity->author = new Author(['id' => 1, 'name' => 'me']);
 		$articleEntity->title = 'My title';
-		$articleEntity->created = new FrozenTime();
+		$articleEntity->created = new DateTime();
 		$articleEntity->tags = [
 			new Tag(['id' => 3, 'name' => 'Awesome']),
 			new Tag(['id' => 4, 'name' => 'Shiny']),
 		];
 
 		$array = $articleEntity->toArray();
-		$this->assertInstanceOf(FrozenTime::class, $array['created']);
+		$this->assertInstanceOf(DateTime::class, $array['created']);
 		unset($array['created']); // We can't assertSame() on objects
 		$expected = [
 			'id' => 2,
@@ -72,7 +72,7 @@ class OrmTest extends TestCase {
 		unset($expected['author_id']); // This will get lost on purpose
 
 		$result = $articleDto->touchedToArray();
-		$this->assertInstanceOf(FrozenTime::class, $result['created']);
+		$this->assertInstanceOf(DateTime::class, $result['created']);
 		unset($result['created']); // We can't assertSame() on objects
 
 		// Exactly the same :)

@@ -65,7 +65,7 @@ class XmlEngineTest extends TestCase {
 					],
 					'manufactured' => [
 						'name' => 'manufactured',
-						'type' => '\Cake\I18n\FrozenDate',
+						'type' => '\Cake\I18n\Date',
 					],
 					'owner' => [
 						'name' => 'owner',
@@ -177,7 +177,7 @@ class XmlEngineTest extends TestCase {
 					],
 					'created' => [
 						'name' => 'created',
-						'type' => '\Cake\I18n\FrozenDate',
+						'type' => '\Cake\I18n\Date',
 						'required' => true,
 					],
 				],
@@ -196,7 +196,7 @@ class XmlEngineTest extends TestCase {
 					],
 					'lastLogin' => [
 						'name' => 'lastLogin',
-						'type' => '\Cake\I18n\FrozenTime',
+						'type' => '\Cake\I18n\DateTime',
 					],
 				],
 			],

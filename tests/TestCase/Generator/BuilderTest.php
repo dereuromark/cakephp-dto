@@ -2,10 +2,10 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;
 use CakeDto\Engine\XmlEngine;
+use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
@@ -72,7 +72,7 @@ class BuilderTest extends TestCase {
 		$this->assertSame('Owner', $result['Car']['fields']['owner']['dto']);
 		$this->assertSame('\App\Dto\OwnerDto', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerDto', $result['Car']['fields']['owner']['nullableTypeHint']);
-		$this->assertSame('\Cake\I18n\FrozenDate', $result['Car']['fields']['manufactured']['type']);
+		$this->assertSame('\Cake\I18n\Date', $result['Car']['fields']['manufactured']['type']);
 
 		$this->assertFalse($result['Car']['fields']['attributes']['collection']);
 		$this->assertSame('array', $result['Car']['fields']['attributes']['typeHint']);

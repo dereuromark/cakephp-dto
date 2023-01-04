@@ -3,7 +3,7 @@
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 {% for field in metaData %}
 		'{{ field.name }}' => [
 			{{- Template.stringifyList(field, {})|raw -}}

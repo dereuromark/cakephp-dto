@@ -32,7 +32,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'number' => [
 			'name' => 'number',
 			'type' => 'int',
@@ -62,7 +62,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'number' => 'number',
 			'content' => 'content',

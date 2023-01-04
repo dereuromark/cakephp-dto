@@ -25,7 +25,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'pages' => [
 			'name' => 'pages',
 			'type' => '\TestApp\Dto\PageDto[]|\Cake\Collection\Collection',
@@ -46,7 +46,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'pages' => 'pages',
 		],

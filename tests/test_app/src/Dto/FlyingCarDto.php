@@ -39,7 +39,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'maxAltitude' => [
 			'name' => 'maxAltitude',
 			'type' => 'int',
@@ -81,7 +81,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'max_altitude' => 'maxAltitude',
 			'max_speed' => 'maxSpeed',

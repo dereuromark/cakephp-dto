@@ -25,7 +25,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'cars' => [
 			'name' => 'cars',
 			'type' => '\TestApp\Dto\CarDto[]|\ArrayObject',
@@ -46,7 +46,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'cars' => 'cars',
 		],

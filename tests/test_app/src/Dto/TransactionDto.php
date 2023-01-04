@@ -12,7 +12,7 @@ namespace TestApp\Dto;
  * @property \TestApp\Dto\CustomerAccountDto $customerAccount
  * @property float $value
  * @property string|null $comment
- * @property \Cake\I18n\FrozenDate $created
+ * @property \Cake\I18n\Date $created
  */
 class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 
@@ -37,7 +37,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	protected $comment;
 
 	/**
-	 * @var \Cake\I18n\FrozenDate
+	 * @var \Cake\I18n\Date
 	 */
 	protected $created;
 
@@ -46,7 +46,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'customerAccount' => [
 			'name' => 'customerAccount',
 			'type' => '\TestApp\Dto\CustomerAccountDto',
@@ -85,7 +85,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 		],
 		'created' => [
 			'name' => 'created',
-			'type' => '\Cake\I18n\FrozenDate',
+			'type' => '\Cake\I18n\Date',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => null,
@@ -101,7 +101,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'customer_account' => 'customerAccount',
 			'value' => 'value',
@@ -225,11 +225,11 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenDate $created
+	 * @param \Cake\I18n\Date $created
 	 *
 	 * @return static
 	 */
-	public function withCreated(\Cake\I18n\FrozenDate $created) {
+	public function withCreated(\Cake\I18n\Date $created) {
 		$new = clone $this;
 		$new->created = $created;
 		$new->_touchedFields[self::FIELD_CREATED] = true;
@@ -238,9 +238,9 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	}
 
 	/**
-	 * @return \Cake\I18n\FrozenDate
+	 * @return \Cake\I18n\Date
 	 */
-	public function getCreated(): \Cake\I18n\FrozenDate {
+	public function getCreated(): \Cake\I18n\Date {
 		return $this->created;
 	}
 

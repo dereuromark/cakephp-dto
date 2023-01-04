@@ -2,7 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use Cake\TestSuite\TestCase;
 use CakeDto\Dto\AbstractImmutableDto;
 use InvalidArgumentException;
@@ -21,7 +21,7 @@ class RequiredTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => new FrozenDate(time() - DAY),
+			'created' => new Date(time() - DAY),
 		];
 
 		$articleDto = new ArticleDto($array);
@@ -39,7 +39,7 @@ class RequiredTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => ['My title'], // should be string
-			'created' => new FrozenDate(time() - DAY),
+			'created' => new Date(time() - DAY),
 		];
 
 		$this->expectException(InvalidArgumentException::class);

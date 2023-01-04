@@ -66,7 +66,7 @@ class NeonEngineTest extends TestCase {
 					],
 					'manufactured' => [
 						'name' => 'manufactured',
-						'type' => '\Cake\I18n\FrozenDate',
+						'type' => '\Cake\I18n\Date',
 					],
 					'owner' => [
 						'name' => 'owner',

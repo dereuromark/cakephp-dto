@@ -18,7 +18,7 @@ class Builder {
 	/**
 	 * @var array
 	 */
-	protected $_defaultConfig = [
+	protected array $_defaultConfig = [
 		'finder' => Finder::class,
 	];
 
@@ -32,7 +32,7 @@ class Builder {
 	 *
 	 * @var array
 	 */
-	protected $simpleTypeWhitelist = [
+	protected array $simpleTypeWhitelist = [
 		'int',
 		'float',
 		'string',
@@ -43,7 +43,7 @@ class Builder {
 	/**
 	 * @var array
 	 */
-	protected $simpleTypeAdditionsForDocBlock = [
+	protected array $simpleTypeAdditionsForDocBlock = [
 		'resource',
 		'mixed', // Not for [] array notation
 	];
@@ -53,7 +53,7 @@ class Builder {
 	 *
 	 * @var array
 	 */
-	protected $metaDataKeys = [
+	protected array $metaDataKeys = [
 		'name',
 		'type',
 		'isClass',

@@ -31,10 +31,10 @@
 		"source": "https://github.com/dereuromark/cakephp-dto/"
 	},
 	"require": {
-		"php": ">=7.3",
+		"php": ">=8.1",
 		"ext-json": "*",
-		"cakephp/cakephp": "^4.2.0",
-		"cakephp/twig-view": "^1.0.0",
+		"cakephp/cakephp": "5.x-dev",
+		"cakephp/twig-view": "2.x-dev",
 		"sebastian/diff": "^4.0.0"
 	},
 	"require-dev": {
@@ -42,7 +42,7 @@
 		"ext-libxml": "*",
 		"phpunit/phpunit": "^9.5",
 		"nette/neon": "^2.4 || ^3.2",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "dev-next"
 	},
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
@@ -75,5 +75,6 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
-	}
+	},
+	"minimum-stability": "dev"
 }

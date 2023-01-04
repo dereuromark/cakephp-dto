@@ -4,10 +4,10 @@ namespace CakeDto\Test\TestCase\Generator;
 
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use CakeDto\Console\Io;
 use CakeDto\Engine\XmlEngine;
+use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;

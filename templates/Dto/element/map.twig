@@ -1,7 +1,7 @@
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 {% for field in fields %}
 			'{{ field.name | underscore }}' => '{{ field.name }}',

@@ -3,8 +3,8 @@
 namespace CakeDto\Test\TestCase\Shell;
 
 use Cake\Console\ConsoleIo;
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
+use CakeDto\Filesystem\Folder;
 use CakeDto\Shell\DtoShell;
 use TestApp\TestSuite\ConsoleOutput;
 

@@ -8,13 +8,13 @@
 		<field name="customerAccount" type="CustomerAccount" required="true"/>
 		<field name="value" type="float" required="true"/>
 		<field name="comment" type="string"/>
-		<field name="created" type="\Cake\I18n\FrozenDate" required="true"/>
+		<field name="created" type="\Cake\I18n\Date" required="true"/>
 	</dto>
 
 	<dto name="CustomerAccount">
 		<field name="customerName" type="string" required="true"/>
 		<field name="birthYear" type="int"/>
-		<field name="lastLogin" type="\Cake\I18n\FrozenTime"/>
+		<field name="lastLogin" type="\Cake\I18n\DateTime"/>
 	</dto>
 
 </dtos>

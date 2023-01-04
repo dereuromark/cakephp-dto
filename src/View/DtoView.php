@@ -18,7 +18,7 @@ class DtoView extends TwigView {
 	 *
 	 * @var array<string>
 	 */
-	protected $extensions = [
+	protected array $extensions = [
 		'.twig',
 	];
 
@@ -82,7 +82,7 @@ class DtoView extends TwigView {
 	 * Use the Bake prefix for bake related view events
 	 *
 	 * @param string $name Name of the event.
-	 * @param array|null $data Any value you wish to be transported with this event to
+	 * @param array $data Any value you wish to be transported with this event to
 	 * it can be read by listeners.
 	 *
 	 * @param object|null $subject The object that this event applies to
@@ -90,7 +90,7 @@ class DtoView extends TwigView {
 	 *
 	 * @return \Cake\Event\EventInterface
 	 */
-	public function dispatchEvent(string $name, ?array $data = null, ?object $subject = null): EventInterface {
+	public function dispatchEvent(string $name, array $data = [], ?object $subject = null): EventInterface {
 		$name = preg_replace('/^View\./', 'Dto.', $name) ?? '';
 
 		return parent::dispatchEvent($name, $data, $subject);

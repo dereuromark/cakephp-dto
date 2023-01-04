@@ -2,7 +2,7 @@
 
 namespace TestApp\ValueObject;
 
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -20,18 +20,18 @@ class Birthday implements JsonSerializable {
 	public const YEAR_MAX = 130;
 
 	/**
-	 * @var \Cake\I18n\FrozenDate
+	 * @var \Cake\I18n\Date
 	 */
 	protected $date;
 
 	/**
-	 * @param \Cake\I18n\FrozenDate|string $date
+	 * @param \Cake\I18n\Date|string $date
 	 *
 	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($date) {
-		if (!($date instanceof FrozenDate)) {
-			$date = new FrozenDate($date);
+		if (!($date instanceof Date)) {
+			$date = new Date($date);
 		}
 
 		$currentYear = getdate(time())['year'];
@@ -76,7 +76,7 @@ class Birthday implements JsonSerializable {
 	 * @return static
 	 */
 	public static function createFromString(string $birthdayString) {
-		$date = new FrozenDate($birthdayString);
+		$date = new Date($birthdayString);
 
 		return new static($date);
 	}

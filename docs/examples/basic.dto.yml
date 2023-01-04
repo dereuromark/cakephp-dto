@@ -5,7 +5,7 @@ Car:
     value: float
     distanceTravelled: int
     attributes: string[]
-    manufactured: \Cake\I18n\FrozenDate
+    manufactured: \Cake\I18n\Date
     owner: Owner
 
 Cars:

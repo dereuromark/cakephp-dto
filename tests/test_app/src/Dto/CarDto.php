@@ -14,7 +14,7 @@ namespace TestApp\Dto;
  * @property float|null $value
  * @property int|null $distanceTravelled
  * @property string[]|null $attributes
- * @property \Cake\I18n\FrozenDate|null $manufactured
+ * @property \Cake\I18n\Date|null $manufactured
  * @property \TestApp\Dto\OwnerDto|null $owner
  */
 class CarDto extends \CakeDto\Dto\AbstractDto {
@@ -53,7 +53,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	protected $attributes;
 
 	/**
-	 * @var \Cake\I18n\FrozenDate|null
+	 * @var \Cake\I18n\Date|null
 	 */
 	protected $manufactured;
 
@@ -67,7 +67,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	protected $_metadata = [
+	protected array $_metadata = [
 		'color' => [
 			'name' => 'color',
 			'type' => '\TestApp\ValueObject\Paint',
@@ -131,7 +131,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 		],
 		'manufactured' => [
 			'name' => 'manufactured',
-			'type' => '\Cake\I18n\FrozenDate',
+			'type' => '\Cake\I18n\Date',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -159,7 +159,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	* @var array<string, array<string, string>>
 	*/
-	protected $_keyMap = [
+	protected array $_keyMap = [
 		'underscored' => [
 			'color' => 'color',
 			'is_new' => 'isNew',
@@ -446,11 +446,11 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenDate|null $manufactured
+	 * @param \Cake\I18n\Date|null $manufactured
 	 *
 	 * @return $this
 	 */
-	public function setManufactured(?\Cake\I18n\FrozenDate $manufactured) {
+	public function setManufactured(?\Cake\I18n\Date $manufactured) {
 		$this->manufactured = $manufactured;
 		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
 
@@ -458,13 +458,13 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @param \Cake\I18n\FrozenDate $manufactured
+	 * @param \Cake\I18n\Date $manufactured
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */
-	public function setManufacturedOrFail(\Cake\I18n\FrozenDate $manufactured) {
+	public function setManufacturedOrFail(\Cake\I18n\Date $manufactured) {
 		$this->manufactured = $manufactured;
 		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
 
@@ -472,18 +472,18 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	}
 
 	/**
-	 * @return \Cake\I18n\FrozenDate|null
+	 * @return \Cake\I18n\Date|null
 	 */
-	public function getManufactured(): ?\Cake\I18n\FrozenDate {
+	public function getManufactured(): ?\Cake\I18n\Date {
 		return $this->manufactured;
 	}
 
 	/**
 	 * @throws \RuntimeException If value is not set.
 	 *
-	 * @return \Cake\I18n\FrozenDate
+	 * @return \Cake\I18n\Date
 	 */
-	public function getManufacturedOrFail(): \Cake\I18n\FrozenDate {
+	public function getManufacturedOrFail(): \Cake\I18n\Date {
 		if ($this->manufactured === null) {
 			throw new \RuntimeException('Value not set for field `manufactured` (expected to be not null)');
 		}
