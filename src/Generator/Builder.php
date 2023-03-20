@@ -16,7 +16,7 @@ class Builder {
 	use InstanceConfigTrait;
 
 	/**
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected $_defaultConfig = [
 		'finder' => Finder::class,
@@ -28,9 +28,7 @@ class Builder {
 	protected $engine;
 
 	/**
-	 * PHP 7.1 will add 'iterable', PHP 7.2 will add 'object'
-	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $simpleTypeWhitelist = [
 		'int',
@@ -38,10 +36,12 @@ class Builder {
 		'string',
 		'bool',
 		'callable',
+		'iterable',
+		'object',
 	];
 
 	/**
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $simpleTypeAdditionsForDocBlock = [
 		'resource',
@@ -49,7 +49,7 @@ class Builder {
 	];
 
 	/**
-	 * Needed for for Dto to work dynamically.
+	 * Needed for Dto to work dynamically.
 	 *
 	 * @var array
 	 */
@@ -83,6 +83,7 @@ class Builder {
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
 			'finder' => Configure::read('CakeDto.finder', Finder::class),
+			'suffix' => 'Dto',
 		];
 		$this->setConfig($config);
 	}
@@ -127,7 +128,7 @@ class Builder {
 			$dto += [
 				'immutable' => $this->_config['immutable'],
 				'namespace' => $namespace . '\Dto',
-				'className' => $name . 'Dto',
+				'className' => $name . $this->getConfigOrFail('suffix'),
 				'extends' => '\\CakeDto\\Dto\\AbstractDto',
 			];
 
@@ -670,9 +671,6 @@ class Builder {
 	 * @return array
 	 */
 	protected function simpleTypeWhitelist(array $types): array {
-		$types[] = 'iterable';
-		$types[] = 'object';
-
 		return $types;
 	}
 
