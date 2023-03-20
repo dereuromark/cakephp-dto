@@ -3,6 +3,7 @@
 namespace CakeDto\Generator;
 
 use Cake\Console\Shell;
+use Cake\Core\Configure;
 use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
 use Exception;
@@ -85,7 +86,7 @@ class Generator {
 				continue;
 			}
 
-			$target = $srcPath . 'Dto' . DS . $name . 'Dto.php';
+			$target = $srcPath . 'Dto' . DS . $name . Configure::read('CakeDto.suffix', 'Dto') . '.php';
 			$targetPath = dirname($target);
 			if (!is_dir($targetPath)) {
 				mkdir($targetPath, 0700, true);

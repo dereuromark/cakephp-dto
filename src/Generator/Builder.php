@@ -83,7 +83,7 @@ class Builder {
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
 			'finder' => Configure::read('CakeDto.finder', Finder::class),
-			'suffix' => 'Dto',
+			'suffix' => Configure::read('CakeDto.suffix', 'Dto'),
 		];
 		$this->setConfig($config);
 	}
@@ -145,7 +145,7 @@ class Builder {
 			}
 
 			$extendedDto = $dto['extends'];
-			$config[$name]['extends'] = $extendedDto . 'Dto';
+			$config[$name]['extends'] = $extendedDto . $this->getConfigOrFail('suffix');
 
 			if (!isset($config[$extendedDto])) {
 				throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. DTO does not seem to exist.', $dto['name'], $dto['extends']));
@@ -754,7 +754,9 @@ class Builder {
 	 * @return string
 	 */
 	protected function dtoTypeToClass(string $singularType, string $namespace): string {
-		return '\\' . $namespace . '\\Dto\\' . str_replace('/', '\\', $singularType) . 'Dto';
+		$className = str_replace('/', '\\', $singularType) . $this->getConfigOrFail('suffix');
+
+		return '\\' . $namespace . '\\Dto\\' . $className;
 	}
 
 	/**
