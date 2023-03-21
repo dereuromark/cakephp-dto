@@ -618,7 +618,7 @@ The suffix for your classes defaults to `Dto`.
 You can modify or remove the suffix using `CakeDto.suffix` config.
 
 Use empty string for none.
-But be careful: With this certain reserved words (Object, ...) cannot be used as DTO (class) names anymore then.
+But keep in mind: With this certain [reserved](https://www.php.net/manual/en/reserved.php) words (Object, ...) cannot be used as DTO (class) names anymore then.
 
 ## Debugging
 
