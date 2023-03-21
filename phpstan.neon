@@ -11,9 +11,6 @@ parameters:
 	ignoreErrors:
 		- '#Property .+BookDto::\$pages \(Cake\\Collection\\Collection&iterable<TestApp\\Dto\\PageDto>\) does not accept .+CollectionInterface.#'
 		- '#Unsafe usage of new static\(\).#'
-		- '#Cannot access offset mixed on \(array\|float\|int\).#'
 		- '#Parameter \#1 \$value of method .+XmlEngine::castBoolValue\(\) expects bool\|string, bool\|float\|int\|string given.#'
-		- '#Call to an undefined method object::toArray\(\).#'
 		- '#Parameter \#3 \$depth of function json_.+ expects int.+, int given#'
 		- '#Offset .+ does not exist on array\{function.+}#'
-	reportUnmatchedIgnoredErrors: false
