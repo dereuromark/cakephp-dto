@@ -140,7 +140,8 @@ class Generator {
 		foreach ($iterator as $fileInfo) {
 
 			$file = $fileInfo->getPathname();
-			if (!preg_match('#src/Dto/(\w+/\w+|\w+)Dto\.php$#', $file, $matches)) {
+			$suffix = Configure::read('CakeDto.suffix', 'Dto');
+			if (!preg_match('#src/Dto/(\w+/\w+|\w+)' . $suffix . '\.php$#', $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];
