@@ -12,7 +12,7 @@ Only bloat what really brings a big plus on top.
 
 ## Chose your poison
 
-You can chose between the following formats for the definitions:
+You can choose between the following formats for the definitions:
 
 - XML (.xml), native in CakePHP and default format (requires ext-libxml extension).
 - YAML (.yml), native in PHP (requires ext-yaml extension).
@@ -464,7 +464,7 @@ Make sure none of the values are dangerous objects. Best to use only for scalar 
 
 ### Property access
 In some cases it can be easier to use `->get('myField')` or `->myField` access.
-Especially with a programmatic access to the DTO you will find this easier than manually inflecting.
+Especially with programmatic access to the DTO you will find this easier than manually inflecting.
 ```php
 $field = 'myField';
 $value = $dto->$field;
@@ -612,6 +612,13 @@ you store in your DTOs meets those standards.
 
 I would rather recommend leaving this off and instead using the scalar type hints only.
 
+## Suffix
+
+The suffix for your classes defaults to `Dto`.
+You can modify or remove the suffix using `CakeDto.suffix` config.
+
+Use empty string for none.
+But keep in mind: With this certain [reserved](https://www.php.net/manual/en/reserved.php) words (Object, ...) cannot be used as DTO (class) names anymore then.
 
 ## Debugging
 
