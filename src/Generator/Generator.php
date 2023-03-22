@@ -4,6 +4,7 @@ namespace CakeDto\Generator;
 
 use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
+use Cake\Core\Configure;
 use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
 use Exception;
@@ -86,7 +87,7 @@ class Generator {
 				continue;
 			}
 
-			$target = $srcPath . 'Dto' . DS . $name . 'Dto.php';
+			$target = $srcPath . 'Dto' . DS . $name . Configure::read('CakeDto.suffix', 'Dto') . '.php';
 			$targetPath = dirname($target);
 			if (!is_dir($targetPath)) {
 				mkdir($targetPath, 0700, true);
@@ -140,7 +141,8 @@ class Generator {
 		foreach ($iterator as $fileInfo) {
 
 			$file = $fileInfo->getPathname();
-			if (!preg_match('#src/Dto/(\w+/\w+|\w+)Dto\.php$#', $file, $matches)) {
+			$suffix = Configure::read('CakeDto.suffix', 'Dto');
+			if (!preg_match('#src/Dto/(\w+/\w+|\w+)' . $suffix . '\.php$#', $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];
