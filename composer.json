@@ -31,7 +31,7 @@
 		"source": "https://github.com/dereuromark/cakephp-dto/"
 	},
 	"require": {
-		"php": ">=7.3",
+		"php": ">=7.4",
 		"ext-json": "*",
 		"cakephp/cakephp": "^4.2.0",
 		"cakephp/twig-view": "^1.0.0",
