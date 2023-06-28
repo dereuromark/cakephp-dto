@@ -69,6 +69,13 @@ class BuilderTest extends TestCase {
 		];
 		$this->assertSame($expected, array_keys($result));
 
+		$this->assertSame('CarDto', $result['Car']['className']);
+		$this->assertSame('CarsDto', $result['Cars']['className']);
+		$this->assertSame('OwnerDto', $result['Owner']['className']);
+		$this->assertSame('FlyingCarDto', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneDto', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneDto', $result['EmptyOne']['className']);
+
 		$this->assertSame('Owner', $result['Car']['fields']['owner']['dto']);
 		$this->assertSame('\App\Dto\OwnerDto', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerDto', $result['Car']['fields']['owner']['nullableTypeHint']);
@@ -80,6 +87,92 @@ class BuilderTest extends TestCase {
 
 		$this->assertTrue($result['Cars']['fields']['cars']['collection']);
 		$this->assertSame('\ArrayObject', $result['Cars']['fields']['cars']['typeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildWithoutSuffix() {
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', '');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('Car', $result['Car']['className']);
+		$this->assertSame('Cars', $result['Cars']['className']);
+		$this->assertSame('Owner', $result['Owner']['className']);
+		$this->assertSame('FlyingCar', $result['FlyingCar']['className']);
+		$this->assertSame('OldOne', $result['OldOne']['className']);
+		$this->assertSame('EmptyOne', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\Owner', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\Owner', $result['Car']['fields']['owner']['nullableTypeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildWithCustomSuffix() {
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', 'Data');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('CarData', $result['Car']['className']);
+		$this->assertSame('CarsData', $result['Cars']['className']);
+		$this->assertSame('OwnerData', $result['Owner']['className']);
+		$this->assertSame('FlyingCarData', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneData', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneData', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\OwnerData', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\OwnerData', $result['Car']['fields']['owner']['nullableTypeHint']);
 	}
 
 	/**
