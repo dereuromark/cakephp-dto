@@ -2,7 +2,6 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
-use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;
@@ -11,8 +10,7 @@ use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
-class BuilderTest extends TestCase
-{
+class BuilderTest extends TestCase {
 
 	use AssociativeArrayTestTrait;
 
@@ -24,8 +22,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function setUp(): void
-	{
+	public function setUp(): void {
 		parent::setUp();
 
 		$engine = new XmlEngine();
@@ -35,8 +32,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void
-	{
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->builder);
@@ -45,8 +41,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuild()
-	{
+	public function testBuild() {
 		$configPath = TMP . 'config' . DS;
 		if (!is_dir($configPath)) {
 			mkdir($configPath, 0700, true);
@@ -97,8 +92,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildWithoutSuffix()
-	{
+	public function testBuildWithoutSuffix() {
 		$configPath = TMP . 'config' . DS;
 		if (!is_dir($configPath)) {
 			mkdir($configPath, 0700, true);
@@ -141,8 +135,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildWithCustomSuffix()
-	{
+	public function testBuildWithCustomSuffix() {
 		$configPath = TMP . 'config' . DS;
 		if (!is_dir($configPath)) {
 			mkdir($configPath, 0700, true);
@@ -185,8 +178,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildCollectionSingular()
-	{
+	public function testBuildCollectionSingular() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -298,8 +290,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildCollections()
-	{
+	public function testBuildCollections() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -525,8 +516,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildInvalidName()
-	{
+	public function testBuildInvalidName() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -551,8 +541,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildInvalidExtends()
-	{
+	public function testBuildInvalidExtends() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -574,8 +563,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildNonExistentExtends()
-	{
+	public function testBuildNonExistentExtends() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -597,8 +585,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testBuildNonValidCollection()
-	{
+	public function testBuildNonValidCollection() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -628,8 +615,7 @@ class BuilderTest extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testUnionOfSimpleType()
-	{
+	public function testUnionOfSimpleType() {
 		$this->builder = $this->createBuilder();
 
 		$result = [
