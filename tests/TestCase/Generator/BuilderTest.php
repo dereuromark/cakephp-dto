@@ -2,6 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
+use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;
@@ -10,7 +11,8 @@ use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
-class BuilderTest extends TestCase {
+class BuilderTest extends TestCase
+{
 
 	use AssociativeArrayTestTrait;
 
@@ -22,7 +24,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	public function setUp(): void
+	{
 		parent::setUp();
 
 		$engine = new XmlEngine();
@@ -32,7 +35,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
+	public function tearDown(): void
+	{
 		parent::tearDown();
 
 		unset($this->builder);
@@ -41,7 +45,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuild() {
+	public function testBuild()
+	{
 		$configPath = TMP . 'config' . DS;
 		if (!is_dir($configPath)) {
 			mkdir($configPath, 0700, true);
@@ -69,6 +74,13 @@ class BuilderTest extends TestCase {
 		];
 		$this->assertSame($expected, array_keys($result));
 
+		$this->assertSame('CarDto', $result['Car']['className']);
+		$this->assertSame('CarsDto', $result['Cars']['className']);
+		$this->assertSame('OwnerDto', $result['Owner']['className']);
+		$this->assertSame('FlyingCarDto', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneDto', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneDto', $result['EmptyOne']['className']);
+
 		$this->assertSame('Owner', $result['Car']['fields']['owner']['dto']);
 		$this->assertSame('\App\Dto\OwnerDto', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerDto', $result['Car']['fields']['owner']['nullableTypeHint']);
@@ -85,7 +97,96 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildCollectionSingular() {
+	public function testBuildWithoutSuffix()
+	{
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', '');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('Car', $result['Car']['className']);
+		$this->assertSame('Cars', $result['Cars']['className']);
+		$this->assertSame('Owner', $result['Owner']['className']);
+		$this->assertSame('FlyingCar', $result['FlyingCar']['className']);
+		$this->assertSame('OldOne', $result['OldOne']['className']);
+		$this->assertSame('EmptyOne', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\Owner', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\Owner', $result['Car']['fields']['owner']['nullableTypeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildWithCustomSuffix()
+	{
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', 'Data');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('CarData', $result['Car']['className']);
+		$this->assertSame('CarsData', $result['Cars']['className']);
+		$this->assertSame('OwnerData', $result['Owner']['className']);
+		$this->assertSame('FlyingCarData', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneData', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneData', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\OwnerData', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\OwnerData', $result['Car']['fields']['owner']['nullableTypeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildCollectionSingular()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -197,7 +298,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildCollections() {
+	public function testBuildCollections()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -423,7 +525,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildInvalidName() {
+	public function testBuildInvalidName()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -448,7 +551,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildInvalidExtends() {
+	public function testBuildInvalidExtends()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -470,7 +574,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildNonExistentExtends() {
+	public function testBuildNonExistentExtends()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -492,7 +597,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildNonValidCollection() {
+	public function testBuildNonValidCollection()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
@@ -522,7 +628,8 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testUnionOfSimpleType() {
+	public function testUnionOfSimpleType()
+	{
 		$this->builder = $this->createBuilder();
 
 		$result = [
