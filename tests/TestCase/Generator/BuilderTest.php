@@ -623,7 +623,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `CakeDto\Test\TestCase\Generator\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `CakeDto\Test\test_app\src\Dto\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
 
 		$this->builder->build(TMP);
 	}
