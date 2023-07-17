@@ -7,7 +7,10 @@ use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;
 use CakeDto\Engine\XmlEngine;
 use CakeDto\Generator\Builder;
+use CakeDto\Test\test_app\src\Dto\DummyNonDtoClass;
 use InvalidArgumentException;
+use TestApp\Dto\AuthorDto;
+use TestApp\Dto\CarDto;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class BuilderTest extends TestCase {
@@ -555,7 +558,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `C?r`. Only DTOs are allowed.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `C?r`. Class does not seem to exist.');
 
 		$this->builder->build(TMP);
 	}
@@ -577,7 +580,72 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `Car`. DTO does not seem to exist.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `Car`. Class does not seem to exist.');
+
+		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsOtherClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => CarDto::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+		$this->assertSame(CarDto::class, $result['FlyingCar']['extends']);
+		$this->assertFalse($result['FlyingCar']['immutable']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsInvalidNonDtoClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => DummyNonDtoClass::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `CakeDto\Test\TestCase\Generator\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+
+		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsInvalidOtherImmutableClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => AuthorDto::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\Dto\AuthorDto`. Extended DTO is immutable.');
 
 		$this->builder->build(TMP);
 	}

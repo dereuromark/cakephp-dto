@@ -5,10 +5,13 @@ namespace CakeDto\Generator;
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Utility\Inflector;
+use CakeDto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractImmutableDto;
 use CakeDto\Dto\FromArrayToArrayInterface;
 use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
 use JsonSerializable;
+use ReflectionClass;
 use RuntimeException;
 
 class Builder {
@@ -145,17 +148,32 @@ class Builder {
 			}
 
 			$extendedDto = $dto['extends'];
-			$config[$name]['extends'] = $extendedDto . $this->getConfigOrFail('suffix');
+			$isImmutable = !empty($dto['immutable']);
 
-			if (!isset($config[$extendedDto])) {
-				throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. DTO does not seem to exist.', $dto['name'], $dto['extends']));
-			}
+			if (isset($config[$extendedDto])) {
+				$config[$name]['extends'] = $extendedDto . $this->getConfigOrFail('suffix');
+				if (!$isImmutable && !empty($config[$extendedDto]['immutable'])) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is immutable.', $dto['name'], $dto['extends']));
+				}
+				if ($isImmutable && empty($config[$extendedDto]['immutable'])) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is not immutable.', $dto['name'], $dto['extends']));
+				}
+			} else {
+				try {
+					$extendedDtoReflectionClass = new ReflectionClass($extendedDto);
+				} catch (\ReflectionException $e) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Class does not seem to exist.', $dto['name'], $dto['extends']));
+				}
 
-			if (empty($dto['immutable']) && !empty($config[$extendedDto]['immutable'])) {
-				throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is immutable.', $dto['name'], $dto['extends']));
-			}
-			if (!empty($dto['immutable']) && empty($config[$extendedDto]['immutable'])) {
-				throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is not immutable.', $dto['name'], $dto['extends']));
+				if ($extendedDtoReflectionClass->getParentClass() === false) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Parent class should extend `%s`.', $dto['name'], $dto['extends'], $isImmutable ? AbstractImmutableDto::class : AbstractDto::class));
+				}
+				if ($isImmutable && !$extendedDtoReflectionClass->isSubclassOf(AbstractImmutableDto::class)) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is not immutable.', $dto['name'], $dto['extends']));
+				}
+				if (!$isImmutable && !$extendedDtoReflectionClass->isSubclassOf(AbstractDto::class)) {
+					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Extended DTO is immutable.', $dto['name'], $dto['extends']));
+				}
 			}
 
 			$config[$name] += $this->_config;
@@ -209,10 +227,6 @@ class Builder {
 		$dtoName = $dto['name'];
 		if (!$this->isValidDto($dtoName)) {
 			throw new InvalidArgumentException(sprintf('Invalid DTO name `%s`.', $dtoName));
-		}
-
-		if (!empty($dto['extends']) && !$this->isValidDto($dto['extends'])) {
-			throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Only DTOs are allowed.', $dtoName, $dto['extends']));
 		}
 
 		$fields = $dto['fields'];
