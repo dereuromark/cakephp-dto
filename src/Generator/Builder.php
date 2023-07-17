@@ -12,6 +12,7 @@ use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionClass;
+use ReflectionException;
 use RuntimeException;
 
 class Builder {
@@ -161,7 +162,7 @@ class Builder {
 			} else {
 				try {
 					$extendedDtoReflectionClass = new ReflectionClass($extendedDto);
-				} catch (\ReflectionException $e) {
+				} catch (ReflectionException $e) {
 					throw new InvalidArgumentException(sprintf('Invalid %s DTO attribute `extends`: `%s`. Class does not seem to exist.', $dto['name'], $dto['extends']));
 				}
 
