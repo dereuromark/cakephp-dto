@@ -7,10 +7,10 @@ use Cake\TestSuite\TestCase;
 use CakeDto\Engine\EngineInterface;
 use CakeDto\Engine\XmlEngine;
 use CakeDto\Generator\Builder;
-use CakeDto\Test\test_app\src\Dto\DummyNonDtoClass;
 use InvalidArgumentException;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
+use TestApp\Dto\DummyNonDtoClass;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class BuilderTest extends TestCase {
@@ -623,7 +623,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `CakeDto\Test\test_app\src\Dto\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\Dto\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
 
 		$this->builder->build(TMP);
 	}
