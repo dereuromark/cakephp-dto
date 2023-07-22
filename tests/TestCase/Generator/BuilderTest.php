@@ -8,6 +8,9 @@ use CakeDto\Engine\XmlEngine;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use InvalidArgumentException;
+use TestApp\Dto\AuthorDto;
+use TestApp\Dto\CarDto;
+use TestApp\Dto\DummyNonDtoClass;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class BuilderTest extends TestCase {
@@ -69,6 +72,13 @@ class BuilderTest extends TestCase {
 		];
 		$this->assertSame($expected, array_keys($result));
 
+		$this->assertSame('CarDto', $result['Car']['className']);
+		$this->assertSame('CarsDto', $result['Cars']['className']);
+		$this->assertSame('OwnerDto', $result['Owner']['className']);
+		$this->assertSame('FlyingCarDto', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneDto', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneDto', $result['EmptyOne']['className']);
+
 		$this->assertSame('Owner', $result['Car']['fields']['owner']['dto']);
 		$this->assertSame('\App\Dto\OwnerDto', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerDto', $result['Car']['fields']['owner']['nullableTypeHint']);
@@ -80,6 +90,92 @@ class BuilderTest extends TestCase {
 
 		$this->assertTrue($result['Cars']['fields']['cars']['collection']);
 		$this->assertSame('\ArrayObject', $result['Cars']['fields']['cars']['typeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildWithoutSuffix() {
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', '');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('Car', $result['Car']['className']);
+		$this->assertSame('Cars', $result['Cars']['className']);
+		$this->assertSame('Owner', $result['Owner']['className']);
+		$this->assertSame('FlyingCar', $result['FlyingCar']['className']);
+		$this->assertSame('OldOne', $result['OldOne']['className']);
+		$this->assertSame('EmptyOne', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\Owner', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\Owner', $result['Car']['fields']['owner']['nullableTypeHint']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildWithCustomSuffix() {
+		$configPath = TMP . 'config' . DS;
+		if (!is_dir($configPath)) {
+			mkdir($configPath, 0700, true);
+		}
+		$srcPath = TMP . 'src' . DS;
+		$folder = new Folder($srcPath);
+		$folder->delete();
+		if (!is_dir($srcPath)) {
+			mkdir($srcPath, 0700, true);
+		}
+
+		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
+		copy($exampleXml, $configPath . 'dto.xml');
+
+		$options = [];
+		$this->builder->setConfig('suffix', 'Data');
+		$result = $this->builder->build($configPath, $options);
+
+		$expected = [
+			'Car',
+			'Cars',
+			'Owner',
+			'FlyingCar',
+			'OldOne',
+			'EmptyOne',
+		];
+		$this->assertSame($expected, array_keys($result));
+
+		$this->assertSame('CarData', $result['Car']['className']);
+		$this->assertSame('CarsData', $result['Cars']['className']);
+		$this->assertSame('OwnerData', $result['Owner']['className']);
+		$this->assertSame('FlyingCarData', $result['FlyingCar']['className']);
+		$this->assertSame('OldOneData', $result['OldOne']['className']);
+		$this->assertSame('EmptyOneData', $result['EmptyOne']['className']);
+
+		$this->assertSame('\App\Dto\OwnerData', $result['Car']['fields']['owner']['typeHint']);
+		$this->assertSame('?\App\Dto\OwnerData', $result['Car']['fields']['owner']['nullableTypeHint']);
 	}
 
 	/**
@@ -462,7 +558,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `C?r`. Only DTOs are allowed.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `C?r`. Class does not seem to exist.');
 
 		$this->builder->build(TMP);
 	}
@@ -484,7 +580,72 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `Car`. DTO does not seem to exist.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `Car`. Class does not seem to exist.');
+
+		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsOtherClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => CarDto::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+		$this->assertSame(CarDto::class, $result['FlyingCar']['extends']);
+		$this->assertFalse($result['FlyingCar']['immutable']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsInvalidNonDtoClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => DummyNonDtoClass::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\Dto\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+
+		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBuildExtendsInvalidOtherImmutableClass() {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'FlyingCar' => [
+				'name' => 'FlyingCar',
+				'extends' => AuthorDto::class,
+				'fields' => [
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\Dto\AuthorDto`. Extended DTO is immutable.');
 
 		$this->builder->build(TMP);
 	}
