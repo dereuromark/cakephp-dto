@@ -2,7 +2,7 @@
 
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use CakeDto\Plugin as CakeDtoPlugin;
+use CakeDto\CakeDtoPlugin;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
