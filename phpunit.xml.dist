@@ -13,12 +13,12 @@
             <directory>tests/TestCase/</directory>
         </testsuite>
     </testsuites>
-	<coverage>
+	<source>
 		<include>
 			<directory suffix=".php">src/</directory>
 		</include>
 		<exclude>
 			<directory>src/TestSuite/</directory>
 		</exclude>
-	</coverage>
+	</source>
 </phpunit>

@@ -4,6 +4,7 @@ namespace CakeDto\Generator;
 
 use Cake\Console\ConsoleIo;
 use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\DiffOnlyOutputBuilder;
 
 trait DiffHelperTrait {
 
@@ -21,7 +22,7 @@ trait DiffHelperTrait {
 	 * @return void
 	 */
 	protected function _displayDiff(string $oldContent, string $newContent): void {
-		$differ = new Differ(null);
+		$differ = new Differ(new DiffOnlyOutputBuilder());
 		$array = $differ->diffToArray($oldContent, $newContent);
 
 		$begin = null;
