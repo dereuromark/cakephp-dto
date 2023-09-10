@@ -674,7 +674,7 @@ class Builder {
 			return $namespace;
 		}
 		if ($plugin) {
-			return $plugin;
+			return str_replace('/', '\\', $plugin);
 		}
 
 		return Configure::read('App.namespace');
