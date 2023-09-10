@@ -56,7 +56,7 @@ class Birthday implements JsonSerializable {
 	public function getAge(): int {
 		$now = new DateTimeImmutable();
 
-		return $now->diff($this->date)->y;
+		return $now->diff($this->date->toNative())->y;
 	}
 
 	/**

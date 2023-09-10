@@ -52,9 +52,9 @@ class ImmutableTest extends TestCase {
 		$bookDto = new BookDto();
 		$bookDto = $bookDto->withAddedPage(new PageDto(['number' => 1]));
 
-		$array = $bookDto->toArray();
-		$this->assertInstanceOf(CollectionInterface::class, $array['pages']);
-		$this->assertSame(1, $array['pages']->count());
+		$pages = $bookDto->getPages();
+		$this->assertInstanceOf(CollectionInterface::class, $pages);
+		$this->assertSame(1, $pages->count());
 
 		$pages = $bookDto->getPages()->toArray();
 		$this->assertInstanceOf(PageDto::class, $pages[0]);
