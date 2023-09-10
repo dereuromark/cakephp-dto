@@ -24,7 +24,7 @@ class ImmutableTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => new Date(time() - DAY),
+			'created' => (new Date)->subDays(1),
 		];
 
 		$articleDto = new ArticleDto($array);
@@ -37,7 +37,7 @@ class ImmutableTest extends TestCase {
 
 		// A reason why we want to use immutable datetime objects (DateTime):
 		$created = $articleDto->getCreated();
-		$isToday = $created->addDay()->isToday();
+		$isToday = $created->addDays(1)->isToday();
 		// A mutable datetime inside $articleDto->getCreated() would now accidentally be modified
 		$this->assertTrue($isToday);
 
