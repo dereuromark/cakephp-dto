@@ -513,7 +513,7 @@ class DtoTest extends TestCase {
 		$array = [
 			TransactionDto::FIELD_VALUE => 33,
 			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
-			TransactionDto::FIELD_CREATED => Date::now(),
+			TransactionDto::FIELD_CREATED => (new Date())->now(),
 		];
 
 		$dto = new TransactionDto($array);
@@ -532,7 +532,7 @@ class DtoTest extends TestCase {
 		$array = [
 			TransactionDto::FIELD_VALUE => '33.0',
 			TransactionDto::FIELD_CUSTOMER_ACCOUNT => $customerAccount,
-			TransactionDto::FIELD_CREATED => Date::now(),
+			TransactionDto::FIELD_CREATED => (new Date())->now(),
 		];
 
 		$e = null;
