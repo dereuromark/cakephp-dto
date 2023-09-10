@@ -35,6 +35,9 @@ class DtoShell extends Shell {
 			}
 			$file = 'dto' . DS . $name . '.dto.xml';
 		} else {
+			if (!is_dir($path)) {
+				mkdir($path, 0700, true);
+			}
 			$file = 'dto.xml';
 		}
 

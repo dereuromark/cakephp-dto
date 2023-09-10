@@ -37,7 +37,7 @@ class ImmutableTest extends TestCase {
 
 		// A reason why we want to use immutable datetime objects (FrozenTime):
 		$created = $articleDto->getCreated();
-		$isToday = $created->addDay()->isToday();
+		$isToday = $created->addDays(1)->isToday();
 		// A mutable datetime inside $articleDto->getCreated() would now accidentally be modified
 		$this->assertTrue($isToday);
 
