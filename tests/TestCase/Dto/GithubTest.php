@@ -2,29 +2,15 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
+use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
-use CakeDto\Shell\DtoShell;
+use CakeDto\Command\DtoGenerateCommand;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 
 class GithubTest extends TestCase {
-
-	/**
-	 * @var \CakeDto\Shell\DtoShell|\PHPUnit\Framework\MockObject\MockObject
-	 */
-	protected $shell;
-
-	/**
-	 * @var \TestApp\TestSuite\ConsoleOutput
-	 */
-	protected $out;
-
-	/**
-	 * @var \TestApp\TestSuite\ConsoleOutput
-	 */
-	protected $err;
 
 	/**
 	 * @return void
@@ -36,22 +22,23 @@ class GithubTest extends TestCase {
 
 		Configure::write('CakeDto.strictTypes', true);
 
-		$this->out = new ConsoleOutput();
-		$this->err = new ConsoleOutput();
-		$io = new ConsoleIo($this->out, $this->err);
-		$this->shell = $this->getMockBuilder(DtoShell::class)->onlyMethods(['_getConfigPath', '_getSrcPath'])->setConstructorArgs([$io])->getMock();
+		$out = new ConsoleOutput();
+		$err = new ConsoleOutput();
+		$io = new ConsoleIo($out, $err);
+		$command = $this->getMockBuilder(DtoGenerateCommand::class)->onlyMethods(['_getConfigPath', '_getSrcPath'])->getMock();
 
 		$sandboxPluginPath = TESTS . 'test_app' . DS . 'plugins' . DS . 'Sandbox' . DS;
 
-		$this->shell->expects($this->any())->method('_getConfigPath')->willReturn($sandboxPluginPath . 'config' . DS);
-		$this->shell->expects($this->any())->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
+		$command->expects($this->any())->method('_getConfigPath')->willReturn($sandboxPluginPath . 'config' . DS);
+		$command->expects($this->any())->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
 
-		$command = ['generate', '-v', '-p', 'Sandbox', '-d'];
+		$options = ['verbose' => true, 'plugin' => 'Sandbox', 'dry-run' => true]; // ['generate', '-v', '-p', 'Sandbox', '-d'];
 		if (!empty($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'], true)) {
-			array_pop($command);
+			$options['dry-run'] = false;
 		}
-		$result = $this->shell->runCommand($command);
-		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run. ' . $this->out->output());
+		$args = new Arguments([], $options, []);
+		$result = $command->execute($args, $io);
+		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run. ' . $out->output());
 
 		$pullRequestDto = PullRequestDto::create($simulatedDataFromGitHubApi, true, PullRequestDto::TYPE_UNDERSCORED);
 
