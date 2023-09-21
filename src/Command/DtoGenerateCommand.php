@@ -24,6 +24,13 @@ class DtoGenerateCommand extends Command {
 	public const CODE_CHANGES = 2;
 
 	/**
+	 * @return string
+	 */
+	public static function getDescription(): string {
+		return 'Generate DTOs from current config.';
+	}
+
+	/**
 	 * E.g.:
 	 * bin/cake upgrade /path/to/app --level=cakephp40
 	 *
@@ -167,7 +174,7 @@ class DtoGenerateCommand extends Command {
 		];
 
 		return parent::getOptionParser()
-			->setDescription('Generate DTOs from current config.')
+			->setDescription(static::getDescription())
 			->addOptions($options);
 	}
 

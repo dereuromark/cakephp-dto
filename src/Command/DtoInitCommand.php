@@ -11,6 +11,13 @@ use Cake\Core\Plugin;
 class DtoInitCommand extends Command {
 
 	/**
+	 * @return string
+	 */
+	public static function getDescription(): string {
+		return 'Create a new config file to start from in your /config dir.';
+	}
+
+	/**
 	 * E.g.:
 	 * bin/cake upgrade /path/to/app --level=cakephp40
 	 *
@@ -83,7 +90,7 @@ class DtoInitCommand extends Command {
 		];
 
 		return parent::getOptionParser()
-			->setDescription('Create a new file to start from in your /config dir.')
+			->setDescription(static::getDescription())
 			->addOptions($options);
 	}
 
