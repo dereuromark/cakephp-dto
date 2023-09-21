@@ -24,7 +24,7 @@ class ImmutableTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => (new Date)->subDays(1),
+			'created' => (new Date())->subDays(1),
 		];
 
 		$articleDto = new ArticleDto($array);

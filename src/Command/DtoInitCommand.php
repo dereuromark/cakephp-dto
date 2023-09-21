@@ -11,11 +11,6 @@ use Cake\Core\Plugin;
 class DtoInitCommand extends Command {
 
 	/**
-	 * @var int
-	 */
-	public const CODE_CHANGES = 2;
-
-	/**
 	 * E.g.:
 	 * bin/cake upgrade /path/to/app --level=cakephp40
 	 *
@@ -39,7 +34,8 @@ class DtoInitCommand extends Command {
 			$file = 'dto.xml';
 		}
 
-		if (file_exists($path . $file)) {
+		$fileExists = file_exists($path . $file);
+		if ($fileExists && !$args->getOption('force')) {
 			$io->error('File already exists: ' . $file);
 			$this->abort();
 		}
@@ -47,7 +43,7 @@ class DtoInitCommand extends Command {
 		$content = file_get_contents(Plugin::path('CakeDto') . 'files' . DS . 'dto.xml');
 
 		file_put_contents($path . $file, $content);
-		$io->out('File generated: ' . $file);
+		$io->out('File ' . ($fileExists ? 're-generated' : 'generated') . ': ' . $file);
 	}
 
 	/**
@@ -79,6 +75,10 @@ class DtoInitCommand extends Command {
 			'plugin' => [
 				'short' => 'p',
 				'help' => 'The plugin to run it for. Defaults to the application otherwise.',
+			],
+			'force' => [
+				'short' => 'f',
+				'help' => 'Overwrite if existing (emptying it). Warning: Make sure to commit or have a backup file before doing so.',
 			],
 		];
 

@@ -21,7 +21,7 @@ class RequiredTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => 'My title',
-			'created' => (new Date)->subDays(1),
+			'created' => (new Date())->subDays(1),
 		];
 
 		$articleDto = new ArticleDto($array);
@@ -39,7 +39,7 @@ class RequiredTest extends TestCase {
 				'name' => 'me',
 			],
 			'title' => ['My title'], // should be string
-			'created' => (new Date)->subDays(1),
+			'created' => (new Date())->subDays(1),
 		];
 
 		$this->expectException(InvalidArgumentException::class);
