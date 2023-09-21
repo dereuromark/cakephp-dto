@@ -10,10 +10,10 @@ abstract class AbstractDto extends Dto {
 	/**
 	 * @param array $data
 	 * @param bool $ignoreMissing
-	 * @param string $type
+	 * @param string|null $type
 	 * @return $this
 	 */
-	public function fromArray(array $data, bool $ignoreMissing = false, $type = self::TYPE_DEFAULT) {
+	public function fromArray(array $data, bool $ignoreMissing = false, ?string $type = null) {
 		return $this->setFromArray($data, $ignoreMissing, $type);
 	}
 
@@ -27,7 +27,7 @@ abstract class AbstractDto extends Dto {
 	 */
 	public function unserialize($serialized, $ignoreMissing = false) {
 		$jsonUtil = new Json();
-		$this->fromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT);
+		$this->fromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing);
 
 		return $this;
 	}
@@ -46,11 +46,12 @@ abstract class AbstractDto extends Dto {
 	/**
 	 * @param string $field
 	 * @param mixed $value
-	 * @param string $type
+	 * @param string|null $type
 	 * @throws \RuntimeException
 	 * @return $this
 	 */
-	public function set(string $field, $value, string $type = self::TYPE_DEFAULT) {
+	public function set(string $field, $value, ?string $type = null) {
+		$type = $this->keyType($type);
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}
