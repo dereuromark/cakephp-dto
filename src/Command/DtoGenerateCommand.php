@@ -173,7 +173,7 @@ class DtoGenerateCommand extends Command {
 			],
 		];
 
-		return parent::getOptionParser()
+		return $parser
 			->setDescription(static::getDescription())
 			->addOptions($options);
 	}
