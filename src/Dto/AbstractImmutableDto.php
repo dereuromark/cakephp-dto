@@ -9,11 +9,12 @@ abstract class AbstractImmutableDto extends Dto {
 	/**
 	 * @param string $field
 	 * @param mixed $value
-	 * @param string $type
+	 * @param string|null $type
 	 * @throws \RuntimeException
 	 * @return static
 	 */
-	public function with(string $field, $value, string $type = self::TYPE_DEFAULT) {
+	public function with(string $field, $value, ?string $type = null) {
+		$type = $this->keyType($type);
 		if ($type !== static::TYPE_DEFAULT) {
 			$field = $this->field($field, $type);
 		}
