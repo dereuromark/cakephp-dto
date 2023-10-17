@@ -1,5 +1,7 @@
 <?php
 
+// The following configs can be globally configured, copy the array content over to your ROOT/config/app.php
+
 return [
 	'CakeDto' => [
 		'engine' => null, // Defaults to `XmlEngine`. Can be your custom yml, neon, ... engine
