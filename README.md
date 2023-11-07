@@ -1,6 +1,6 @@
 # CakePHP DTO plugin
 
-[![CI](https://github.com/dereuromark/cakephp-dto/workflows/CI/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-dto/actions?query=workflow%3ACI+branch%3Amaster)
+[![CI](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml?query=branch%3Amaster)
 [![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-dto/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
