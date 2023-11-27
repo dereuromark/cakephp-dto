@@ -1,14 +1,13 @@
 {
 	"name": "dereuromark/cakephp-dto",
 	"description": "CakePHP DTO Plugin",
+	"license": "MIT",
 	"type": "cakephp-plugin",
 	"keywords": [
 		"cakephp",
 		"dto",
 		"plugin"
 	],
-	"homepage": "https://github.com/dereuromark/cakephp-dto/",
-	"license": "MIT",
 	"authors": [
 		{
 			"name": "Mark Scherer",
@@ -26,6 +25,7 @@
 			"role": "Developer"
 		}
 	],
+	"homepage": "https://github.com/dereuromark/cakephp-dto/",
 	"support": {
 		"issues": "https://github.com/dereuromark/cakephp-dto/issues",
 		"source": "https://github.com/dereuromark/cakephp-dto/"
@@ -40,13 +40,15 @@
 	"require-dev": {
 		"ext-dom": "*",
 		"ext-libxml": "*",
-		"phpunit/phpunit": "^10.2",
+		"fig-r/psr2r-sniffer": "dev-next",
 		"nette/neon": "^2.4 || ^3.2",
-		"fig-r/psr2r-sniffer": "dev-next"
+		"phpunit/phpunit": "^10.2"
 	},
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
 	},
+	"minimum-stability": "stable",
+	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"CakeDto\\": "src/"
@@ -55,26 +57,24 @@
 	"autoload-dev": {
 		"psr-4": {
 			"CakeDto\\Test\\": "tests/",
-			"TestApp\\": "tests/test_app/src/",
-			"Sandbox\\": "tests/test_app/plugins/Sandbox/src/"
+			"Sandbox\\": "tests/test_app/plugins/Sandbox/src/",
+			"TestApp\\": "tests/test_app/src/"
 		}
 	},
-	"scripts": {
-		"test": "phpunit",
-		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
-		"stan": "phpstan analyse",
-		"stan-tests": "phpstan analyse -c tests/phpstan.neon tests/TestCase/",
-		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
-		"cs-check": "phpcs --extensions=php",
-		"cs-fix": "phpcbf --extensions=php",
-		"generate": "php tests/generate.php",
-		"generate-dry": "php tests/generate.php --dry-run"
-	},
-	"prefer-stable": true,
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
-	"minimum-stability": "stable"
+	"scripts": {
+		"cs-check": "phpcs --extensions=php",
+		"cs-fix": "phpcbf --extensions=php",
+		"generate": "php tests/generate.php",
+		"generate-dry": "php tests/generate.php --dry-run",
+		"stan": "phpstan analyse",
+		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
+		"stan-tests": "phpstan analyse -c tests/phpstan.neon tests/TestCase/",
+		"test": "phpunit",
+		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml"
+	}
 }
