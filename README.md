@@ -4,7 +4,7 @@
 [![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-dto/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/dereuromark/cakephp-dto/license.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
+[![License](https://poser.pugx.org/dereuromark/cakephp-dto/license.svg)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
