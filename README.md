@@ -15,7 +15,7 @@ concept to [Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_languag
 The goal of this package is to structure "unstructured data", replacing simple (associative) arrays with a more speaking solution.
 
 - By making all fields typeable, we can be sure that their values are never something we didn't expect.
-Especially with PHP 7.2+ now and more strict typehinting moving forward this is rather important to detect and fail early.
+Especially with modern PHP and more strict typehinting moving forward this is rather important to detect and fail early.
 - We can have full IDE autocomplete and typehinting.
 - We can use tools like PHPStan to statically analyze the code (more strictly).
 - We can simplify the logic where required fields will now just throw a meaningful exception.
