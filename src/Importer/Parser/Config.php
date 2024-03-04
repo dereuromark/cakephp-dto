@@ -2,6 +2,8 @@
 
 namespace CakeDto\Importer\Parser;
 
+use Cake\Core\Configure;
+
 class Config {
 
 	/**
@@ -22,6 +24,19 @@ class Config {
 			Data::NAME => Data::class,
 			Schema::NAME => Schema::class,
 		];
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public static function keyFields(): array {
+		$defaults = [
+			'slug',
+			'login',
+			'name',
+		];
+
+		return Configure::read('CakeDto.assocKeyFields') ?: $defaults;
 	}
 
 }

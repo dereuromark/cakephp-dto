@@ -14,22 +14,29 @@ class Data implements ParserInterface {
 	/**
 	 * @var array
 	 */
-	protected array $result;
+	protected array $result = [];
 
 	/**
 	 * @var array<string, array<string, string>>
 	 */
-	protected array $map;
+	protected array $map = [];
 
 	/**
 	 * @param array $input
 	 * @param array<string, mixed> $options
-	 * @param array<string, string> $parentData
+	 * @param array<string, mixed> $parentData
 	 *
 	 * @return $this
 	 */
 	public function parse(array $input, array $options = [], array $parentData = []) {
-		$dtoName = $parentData ? ucfirst($parentData['field']) : 'Object';
+		$dtoName = 'Object';
+		if ($parentData) {
+			$field = $parentData['field'];
+			if (!empty($parentData['collection'])) {
+				$field = Inflector::singularize($field);
+			}
+			$dtoName = ucfirst($field);
+		}
 
 		if ($options['namespace']) {
 			$dtoName = rtrim($options['namespace'], '/') . '/' . $dtoName;
@@ -38,6 +45,9 @@ class Data implements ParserInterface {
 		$fields = [];
 
 		foreach ($input as $fieldName => $value) {
+			$fieldDetails = [
+				'value' => $value,
+			];
 			if (str_starts_with($fieldName, '_')) {
 				continue;
 			}
@@ -46,24 +56,39 @@ class Data implements ParserInterface {
 
 			if (is_array($value)) {
 				if ($this->isAssoc($value)) {
-					$data = [
-						'dto' => $dtoName,
-						'field' => $fieldName,
-					];
-					$this->parse($value, $options, $data);
-				} else {
-					//TODO
+					$parseDetails = ['dto' => $dtoName, 'field' => $fieldName];
+					$this->parse($value, $options, $parseDetails);
+				} elseif ($this->isNumericKeyed($value) && $this->hasAssocValues($value)) {
+					$parseDetails = ['dto' => $dtoName, 'field' => $fieldName];
+					$parseDetails['collection'] = true;
+
+					$this->parse($value[0], $options, $parseDetails);
+					$fieldDetails['collection'] = true;
 				}
 			}
 
 			$type = $this->type($value);
+			if (!empty($fieldDetails['collection'])) {
+				$type = 'object';
+			}
 
-			$fieldDetails = [
-				'type' => $type,
-			];
+			$fieldDetails['type'] = $type;
 
 			if (isset($this->map[$dtoName][$fieldName])) {
 				$fieldDetails['type'] = $this->map[$dtoName][$fieldName];
+				if (!empty($fieldDetails['collection'])) {
+					$singular = Inflector::singularize($fieldName);
+					// Skip on conflicting/existing field
+					if (isset($this->map[$dtoName][$singular])) {
+						$fieldDetails['singular'] = $singular;
+					}
+
+					$keyField = $this->detectKeyField($value[0] ?? []);
+					if ($keyField) {
+						$fieldDetails['associative'] = $keyField;
+					}
+					$fieldDetails['type'] .= '[]';
+				}
 			}
 
 			$fields[$fieldName] = $fieldDetails;
@@ -71,7 +96,11 @@ class Data implements ParserInterface {
 
 		$this->result[$dtoName] = $fields;
 		if ($parentData) {
-			$this->map[$parentData['dto']][$parentData['field']] = $dtoName;
+			/** @var string $parentDtoName */
+			$parentDtoName = $parentData['dto'];
+			/** @var string $parentFieldName */
+			$parentFieldName = $parentData['field'];
+			$this->map[$parentDtoName][$parentFieldName] = $dtoName;
 		}
 
 		return $this;
@@ -127,6 +156,52 @@ class Data implements ParserInterface {
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param array $value
+	 *
+	 * @return bool
+	 */
+	protected function isNumericKeyed(array $value): bool {
+		foreach ($value as $k => $v) {
+			if (!is_int($k)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param array $value
+	 *
+	 * @return bool
+	 */
+	protected function hasAssocValues(array $value): bool {
+		foreach ($value as $k => $v) {
+			if (!is_array($v) || !$this->isAssoc($v)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param array<string, mixed> $value
+	 *
+	 * @return string|null
+	 */
+	protected function detectKeyField(array $value): ?string {
+		$strings = Config::keyFields();
+		foreach ($strings as $string) {
+			if (isset($value[$string]) && is_string($value[$string])) {
+				return $string;
+			}
+		}
+
+		return null;
 	}
 
 }

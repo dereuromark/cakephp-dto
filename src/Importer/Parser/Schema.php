@@ -15,17 +15,17 @@ class Schema implements ParserInterface {
 	/**
 	 * @var array
 	 */
-	protected array $result;
+	protected array $result = [];
 
 	/**
 	 * @var array<string, array<string, string>>
 	 */
-	protected array $map;
+	protected array $map = [];
 
 	/**
 	 * @param array $input
 	 * @param array<string, mixed> $options
-	 * @param array<string, string> $parentData When nesting
+	 * @param array<string, mixed> $parentData When nesting
 	 *
 	 * @return $this
 	 */
@@ -61,6 +61,12 @@ class Schema implements ParserInterface {
 					$details = $this->detailsFromObject($details);
 				}
 			}
+
+			if (is_array($details['type']) && in_array('array', $details['type'])) {
+				$details['type'] = 'array';
+				$required = false;
+			}
+
 			if ($details['type'] === 'array' && !empty($details['items']['type']) && $details['items']['type'] === 'object') {
 				$details['collection'] = true;
 				$details['type'] = 'object';
@@ -97,10 +103,15 @@ class Schema implements ParserInterface {
 				if (isset($this->map[$dtoName][$fieldName])) {
 					$fieldDetails['type'] = $this->map[$dtoName][$fieldName];
 					if (!empty($details['collection'])) {
-						$fieldDetails['singular'] = Inflector::singularize($fieldName);
+						$singular = Inflector::singularize($fieldName);
+						// Skip on conflicting/existing field
+						if (isset($this->map[$dtoName][$singular])) {
+							$fieldDetails['singular'] = $singular;
+						}
 						$dtoFields = $details['items']['properties'] ?? [];
-						if (!empty($dtoFields['name']) && $dtoFields['name']['type'] === 'string') {
-							$fieldDetails['associative'] = 'name';
+						$keyField = $this->detectKeyField($dtoFields);
+						if ($keyField) {
+							$fieldDetails['associative'] = $keyField;
 						}
 						$fieldDetails['type'] .= '[]';
 					}
@@ -112,7 +123,11 @@ class Schema implements ParserInterface {
 
 		$this->result[$dtoName] = $fields;
 		if ($parentData) {
-			$this->map[$parentData['dto']][$parentData['field']] = $dtoName;
+			/** @var string $parentDtoName */
+			$parentDtoName = $parentData['dto'];
+			/** @var string $parentFieldName */
+			$parentFieldName = $parentData['field'];
+			$this->map[$parentDtoName][$parentFieldName] = $dtoName;
 		}
 
 		return $this;
@@ -185,6 +200,22 @@ class Schema implements ParserInterface {
 		}
 
 		return $details;
+	}
+
+	/**
+	 * @param array<string, mixed> $dtoFields
+	 *
+	 * @return string|null
+	 */
+	protected function detectKeyField(array $dtoFields): ?string {
+		$strings = Config::keyFields();
+		foreach ($strings as $string) {
+			if (!empty($dtoFields[$string]) && $dtoFields[$string]['type'] === 'string') {
+				return $string;
+			}
+		}
+
+		return null;
 	}
 
 }
