@@ -3,6 +3,7 @@
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use CakeDto\CakeDtoPlugin;
+use TestApp\Controller\AppController;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
@@ -48,5 +49,7 @@ Configure::write('CakeDto', [
 ]);
 
 Configure::write('debug', true);
+
+class_alias(AppController::class, 'App\Controller\AppController');
 
 Plugin::getCollection()->add(new CakeDtoPlugin());
