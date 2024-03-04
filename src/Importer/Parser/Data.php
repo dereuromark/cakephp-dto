@@ -79,7 +79,7 @@ class Data implements ParserInterface {
 				if (!empty($fieldDetails['collection'])) {
 					$singular = Inflector::singularize($fieldName);
 					// Skip on conflicting/existing field
-					if (isset($this->map[$dtoName][$singular])) {
+					if (!isset($this->map[$dtoName][$singular])) {
 						$fieldDetails['singular'] = $singular;
 					}
 

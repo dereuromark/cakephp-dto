@@ -105,7 +105,7 @@ class Schema implements ParserInterface {
 					if (!empty($details['collection'])) {
 						$singular = Inflector::singularize($fieldName);
 						// Skip on conflicting/existing field
-						if (isset($this->map[$dtoName][$singular])) {
+						if (!isset($this->map[$dtoName][$singular])) {
 							$fieldDetails['singular'] = $singular;
 						}
 						$dtoFields = $details['items']['properties'] ?? [];

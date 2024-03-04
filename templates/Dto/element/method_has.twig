@@ -20,7 +20,7 @@
 		return $this->{{ name }} !== null;
 {% endif %}
 	}
-{%- if associative and not singularNullable%}
+{%- if associative and singular and not singularNullable%}
 
 
 	/**

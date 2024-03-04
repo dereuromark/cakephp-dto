@@ -338,8 +338,15 @@ class Builder {
 				$fields[$key]['collectionType'] = $this->collectionType($field);
 				$fields[$key]['nullable'] = false;
 
-				$fields[$key] = $this->_completeCollectionSingular($fields[$key], $dto['name'], $namespace);
+				$fields[$key] = $this->_completeCollectionSingular($fields[$key], $dto['name'], $namespace, $fields);
 				$fields[$key]['singularNullable'] = substr($fields[$key]['type'], 0, 1) === '?';
+
+				if (!empty($fields[$key]['singular'])) {
+					$singular = $fields[$key]['singular'];
+					if (!empty($fields[$singular])) {
+						throw new InvalidArgumentException(sprintf('Invalid singular name `%s` for field `%s` in %s DTO, already exists as field.', $singular, $key, $dto['name']));
+					}
+				}
 
 				if (preg_match('#^([A-Z][a-zA-Z/]+)\[\]$#', $field['type'], $matches)) {
 					$fields[$key]['type'] = $this->dtoTypeToClass($matches[1], $namespace) . '[]';
@@ -395,10 +402,11 @@ class Builder {
 	 * @param array $data
 	 * @param string $dtoName
 	 * @param string $namespace
+	 * @param array $fields
 	 * @throws \InvalidArgumentException
 	 * @return array
 	 */
-	protected function _completeCollectionSingular(array $data, string $dtoName, string $namespace): array {
+	protected function _completeCollectionSingular(array $data, string $dtoName, string $namespace, array $fields): array {
 		$fieldName = $data['name'];
 		if (!$data['collection'] && empty($data['collectionType'])) {
 			return $data;
@@ -417,6 +425,10 @@ class Builder {
 		$singular = Inflector::singularize($fieldName);
 		if ($singular === $fieldName) {
 			throw new InvalidArgumentException(sprintf('Field name `%s` of %s DTO cannot be singularized automatically, please set `singular` value.', $fieldName, $dtoName));
+		}
+		// Collision avoidance
+		if (!empty($fields[$singular])) {
+			$singular = null;
 		}
 
 		$data['singular'] = $singular;
