@@ -94,7 +94,7 @@ class Builder {
 
 	/**
 	 * @param string $configPath
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return array
 	 */
 	public function build(string $configPath, array $options = []): array {

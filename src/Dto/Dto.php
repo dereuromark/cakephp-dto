@@ -282,7 +282,6 @@ abstract class Dto implements Serializable {
 	 */
 	protected function setFromArray(array $data, bool $ignoreMissing, ?string $type = null) {
 		$immutable = $this instanceof AbstractImmutableDto;
-
 		$type = $this->keyType($type);
 		foreach ($data as $field => $value) {
 			if (!$this->hasField($field, $ignoreMissing, $type)) {

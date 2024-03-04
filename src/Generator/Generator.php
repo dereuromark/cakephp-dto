@@ -51,7 +51,7 @@ class Generator {
 	/**
 	 * @param string $configPath
 	 * @param string $srcPath
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return int Code
 	 */
 	public function generate(string $configPath, string $srcPath, array $options = []): int {
