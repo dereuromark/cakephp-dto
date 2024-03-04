@@ -2,8 +2,6 @@
 
 namespace CakeDto\Importer\Builder;
 
-use Cake\Utility\Hash;
-
 class ObjectsBuilder implements BuilderInterface {
 
 	/**

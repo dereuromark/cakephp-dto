@@ -139,10 +139,9 @@ class Generator {
 		$directory = new RecursiveDirectoryIterator($path);
 		$iterator = new RecursiveIteratorIterator($directory);
 		foreach ($iterator as $fileInfo) {
-
 			$file = $fileInfo->getPathname();
 			$suffix = Configure::read('CakeDto.suffix', 'Dto');
-			if (!preg_match('#src/Dto/(\w+/\w+|\w+)' . $suffix . '\.php$#', $file, $matches)) {
+			if (!preg_match('#src/Dto/(.+)' . $suffix . '\.php$#', $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];
