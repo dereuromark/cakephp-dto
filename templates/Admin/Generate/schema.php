@@ -50,8 +50,8 @@
 	<?php echo $this->Form->create(); ?>
 
 	<?php echo $this->Form->control('input', ['type' => 'textarea', 'rows' => 20]); ?>
-	<?php echo $this->Form->control('type', ['type' => 'select', 'options' => \CakeDto\Importer\Parser\Config::typeLabels(), 'empty' => ['' => 'Auto-Detect']]); ?>
-	<?php echo $this->Form->control('namespace', ['type' => 'text', 'placeholder' => 'Optional namespace prefix']); ?>
+	<?php echo $this->Form->control('type', ['type' => 'select', 'options' => \CakeDto\Importer\Parser\Config::typeLabels(), 'empty' => ['' => 'Auto-Detect'], 'default' => $this->request->getQuery('type')]); ?>
+	<?php echo $this->Form->control('namespace', ['type' => 'text', 'placeholder' => 'Optional namespace prefix', 'label' => 'DTO namespace']); ?>
 
 	<?php echo $this->Form->button('Parse'); ?>
 	<?php echo $this->Form->end(); ?>

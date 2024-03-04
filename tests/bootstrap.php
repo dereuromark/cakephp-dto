@@ -1,8 +1,10 @@
 <?php
 
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use CakeDto\CakeDtoPlugin;
+use TestApp\Application;
 use TestApp\Controller\AppController;
 
 if (!defined('DS')) {
@@ -50,6 +52,30 @@ Configure::write('CakeDto', [
 
 Configure::write('debug', true);
 
+$cache = [
+	'default' => [
+		'engine' => 'File',
+		'path' => CACHE,
+	],
+	'_cake_core_' => [
+		'className' => 'File',
+		'prefix' => 'crud_myapp_cake_core_',
+		'path' => CACHE . 'persistent/',
+		'serialize' => true,
+		'duration' => '+10 seconds',
+	],
+	'_cake_model_' => [
+		'className' => 'File',
+		'prefix' => 'crud_my_app_cake_model_',
+		'path' => CACHE . 'models/',
+		'serialize' => 'File',
+		'duration' => '+10 seconds',
+	],
+];
+
+Cache::setConfig($cache);
+
 class_alias(AppController::class, 'App\Controller\AppController');
+class_alias(Application::class, 'App\Application');
 
 Plugin::getCollection()->add(new CakeDtoPlugin());

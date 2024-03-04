@@ -57,11 +57,4 @@ class GenerateController extends AppController {
 
 	}
 
-	/**
-	 * @return void
-	 */
-	public function object(): void {
-
-	}
-
 }

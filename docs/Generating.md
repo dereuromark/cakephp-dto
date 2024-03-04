@@ -10,15 +10,16 @@ Navigate to
 
 and select `Schema`.
 
-Enter your JSON data structure and click `Parse`.
+Enter your JSON data and click `Parse`.
 
 If you didn't select the input type, it will determine it based on the high level structure.
 You can either use schema or example data.
 
 #### Using JSON schema
-This is usually a bit more precise as the schema defines the fields quite well.
+This uses [JSON Schema](https://json-schema.org/overview/what-is-jsonschema) standard.
+It is usually a bit more precise as the schema defines the fields quite well.
 
-It can sometimes have a field marked as "required", which is not the case.
+Depending on the API, a field can sometimes be marked as "required" which should not be the case.
 You should remove this then in your final DTO schema.
 
 #### Using example JSON data
@@ -30,13 +31,21 @@ Since we work with example data, we cannot infer too much about the overall data
 
 Best to check and fine tune your DTO schema afterwards.
 
-### JSON into PHP objects
-Navigate to
+#### Tips and useful notes
 
-    /admin/cake-dto/generate
+You want to look into assoc arrays and collections. In some cases you can - after parsing -
+  adjust the schema field definitions to set a "key" for the associative array/object collection.
 
-and select `Objects`.
+Right now, it looks for the following (string) keys to use for it:
+- 'slug'
+- 'login'
+- 'name'
 
-Enter your JSON example data and click `Parse`.
+You can customize this list using `'CakeDto.assocKeyFields'` Configure key.
+They should be of type `string`.
 
-TODO
+Example:
+```xml
+<field name="labels" type="Label[]" singular="label" associative="true" key="name"/>
+```
+This provides then also `has/get` methods for the specific (singular) collection item.
