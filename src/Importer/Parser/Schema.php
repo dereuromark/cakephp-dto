@@ -36,7 +36,11 @@ class Schema implements ParserInterface {
 
 		$dtoName = !empty($input['title']) ? Inflector::camelize($input['title']) : null;
 		if (!$dtoName) {
-			$dtoName = $parentData ? ucfirst($parentData['field']) : 'Object';
+			$field = $parentData['field'];
+			if (!empty($parentData['collection'])) {
+				$field = Inflector::singularize($field);
+			}
+			$dtoName = $parentData ? ucfirst($field) : 'Object';
 		}
 		if ($options['namespace']) {
 			$dtoName = rtrim($options['namespace'], '/') . '/' . $dtoName;
@@ -56,6 +60,12 @@ class Schema implements ParserInterface {
 				if (in_array('object', $details['type'])) {
 					$details = $this->detailsFromObject($details);
 				}
+			}
+			if ($details['type'] === 'array' && !empty($details['items']['type']) && $details['items']['type'] === 'object') {
+				$details['collection'] = true;
+				$details['type'] = 'object';
+				$details['properties'] = $details['items']['properties'];
+				$details['required'] = $details['items']['required'];
 			}
 
 			if (!is_string($details['type'])) {
@@ -78,10 +88,22 @@ class Schema implements ParserInterface {
 			];
 
 			if ($fieldDetails['type'] === 'object') {
-				$this->parse($details, $options, ['dto' => $dtoName, 'field' => $fieldName]);
+				$parseDetails = ['dto' => $dtoName, 'field' => $fieldName];
+				if (!empty($details['collection'])) {
+					$parseDetails['collection'] = $details['collection'];
+				}
+				$this->parse($details, $options, $parseDetails);
 
 				if (isset($this->map[$dtoName][$fieldName])) {
 					$fieldDetails['type'] = $this->map[$dtoName][$fieldName];
+					if (!empty($details['collection'])) {
+						$fieldDetails['singular'] = Inflector::singularize($fieldName);
+						$dtoFields = $details['items']['properties'] ?? [];
+						if (!empty($dtoFields['name']) && $dtoFields['name']['type'] === 'string') {
+							$fieldDetails['associative'] = 'name';
+						}
+						$fieldDetails['type'] .= '[]';
+					}
 				}
 			}
 

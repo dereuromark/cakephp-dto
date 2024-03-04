@@ -35,7 +35,6 @@ class GenerateController extends AppController {
 	 */
 	public function schema(): void {
 		if ($this->request->is(['post', 'put'])) {
-
 			if ($this->request->getData('dto')) {
 				$options = [
 					'namespace' => $this->request->getData('namespace'),

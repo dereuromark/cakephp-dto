@@ -25,6 +25,13 @@ class SchemaBuilder implements BuilderInterface {
 			if (!empty($fieldDetails['required'])) {
 				$attr[] = 'required="true"';
 			}
+			if (!empty($fieldDetails['singular'])) {
+				$attr[] = 'singular="' . $fieldDetails['singular'] . '"';
+			}
+			if (!empty($fieldDetails['associative'])) {
+				$attr[] = 'associative="true"';
+				$attr[] = 'key="' . $fieldDetails['associative'] . '"';
+			}
 
 			$fields[] = "\t\t" . '<field ' . implode(' ', $attr) . '/>';
 		}

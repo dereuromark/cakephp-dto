@@ -4,12 +4,15 @@
 	<?php echo $this->Html->link('Restart', ['action' => 'schema', '?' => $this->request->getQuery()]); ?>
 </div>
 
-<p>Enter your JSON data/structure (example API result or JSON schema):</p>
-
 <?php if (!empty($result)) { ?>
+
+	<h2>Result</h2>
+
 	<pre><?php echo h(implode("\n\n", $result)); ?></pre>
 
 <?php } elseif (!empty($schema)) { ?>
+
+	<p>Define which DTOs and fields should be present</p>
 
 	<?php echo $this->Form->create(); ?>
 
@@ -27,6 +30,8 @@
 			?>
 			<?php echo $this->Form->control('dto.' . $dtoName . '.' . $fieldName . '._include', ['type' => 'checkbox', 'default' => true, 'label' => $label]); ?>
 			<?php echo $this->Form->hidden('dto.' . $dtoName . '.' . $fieldName . '.type', ['value' => $details['type']]); ?>
+			<?php echo $this->Form->hidden('dto.' . $dtoName . '.' . $fieldName . '.singular', ['value' => $details['singular'] ?? null]); ?>
+			<?php echo $this->Form->hidden('dto.' . $dtoName . '.' . $fieldName . '.associative', ['value' => $details['associative'] ?? null]); ?>
 			<?php echo $this->Form->hidden('dto.' . $dtoName . '.' . $fieldName . '.required', ['value' => $details['required'] ?? null]); ?>
 			</li>
 		<?php } ?>
@@ -39,6 +44,8 @@
 	<?php echo $this->Form->end(); ?>
 
 <?php } else { ?>
+
+	<p>Enter your JSON data/structure (example API result or JSON schema):</p>
 
 	<?php echo $this->Form->create(); ?>
 
