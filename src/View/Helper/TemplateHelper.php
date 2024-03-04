@@ -13,7 +13,7 @@ class TemplateHelper extends Helper {
 	 * Returns an array converted into a formatted multiline string
 	 *
 	 * @param array $list array of items to be stringified
-	 * @param array $options options to use
+	 * @param array<string, mixed> $options options to use
 	 * @return string
 	 */
 	public function stringifyList(array $list, array $options = []): string {

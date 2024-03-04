@@ -641,6 +641,8 @@ object(TestApp\Dto\ArticleDto) {
 ## Examples
 See [Examples](Examples.md) for basic, immutable and complex entity use cases.
 
+## Generating from JSON
+See [Generating from JSON](Generating.md)
 
 ## TODOs
 

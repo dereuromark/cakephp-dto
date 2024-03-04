@@ -42,15 +42,15 @@ Note: Param/return types are enabled and strict types disabled by default.
 
 You can install this plugin into your CakePHP application using [Composer](https://getcomposer.org/).
 
-The recommended way to install is:
+The recommended way to install is as dev-dependency:
 
 ```
-composer require dereuromark/cakephp-dto
+composer require --dev dereuromark/cakephp-dto
 ```
 
 Then load the plugin with the following command:
 ```
-bin/cake plugin load CakeDto
+bin/cake plugin load CakeDto --only-debug
 ```
 
 ## Usage

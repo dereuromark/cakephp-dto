@@ -15,7 +15,7 @@
 {% endif %}
 		return $this->{{ name }};
 	}
-{% if associative %}
+{% if associative and singular %}
 
 	/**
 {% if deprecated is not null %}

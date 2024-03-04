@@ -51,7 +51,7 @@ class Generator {
 	/**
 	 * @param string $configPath
 	 * @param string $srcPath
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return int Code
 	 */
 	public function generate(string $configPath, string $srcPath, array $options = []): int {
@@ -139,10 +139,9 @@ class Generator {
 		$directory = new RecursiveDirectoryIterator($path);
 		$iterator = new RecursiveIteratorIterator($directory);
 		foreach ($iterator as $fileInfo) {
-
 			$file = $fileInfo->getPathname();
 			$suffix = Configure::read('CakeDto.suffix', 'Dto');
-			if (!preg_match('#src/Dto/(\w+/\w+|\w+)' . $suffix . '\.php$#', $file, $matches)) {
+			if (!preg_match('#src/Dto/(.+)' . $suffix . '\.php$#', $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];

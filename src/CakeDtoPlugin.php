@@ -4,6 +4,7 @@ namespace CakeDto;
 
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
+use Cake\Routing\RouteBuilder;
 use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Command\DtoInitCommand;
 
@@ -23,9 +24,19 @@ class CakeDtoPlugin extends BasePlugin {
 	protected bool $middlewareEnabled = false;
 
 	/**
-	 * @var bool
+	 * @param \Cake\Routing\RouteBuilder $routes The route builder to update.
+	 *
+	 * @return void
 	 */
-	protected bool $routesEnabled = false;
+	public function routes(RouteBuilder $routes): void {
+		$routes->prefix('Admin', function (RouteBuilder $routes): void {
+			$routes->plugin('CakeDto', function (RouteBuilder $routes): void {
+				$routes->connect('/', ['controller' => 'CakeDto', 'action' => 'index']);
+
+				$routes->fallbacks();
+			});
+		});
+	}
 
 	/**
 	 * Define the console commands for an application.
