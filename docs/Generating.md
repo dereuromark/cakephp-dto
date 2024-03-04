@@ -54,3 +54,10 @@ This provides then also `has/get` methods for the specific (singular) collection
 #### Existing schema files
 If you are looking for some inspiration or maybe schemas for existing APIs, check out
 - [github.com/SchemaStore/schemastore/tree/master/src/schemas/json](https://github.com/SchemaStore/schemastore/tree/master/src/schemas/json)
+
+#### Limitations
+
+Currently, it can not read schema file `#ref` elements, and ignores them.
+Also:
+- fields must not be prefixed with `_`
+- field names are currently expected to be under_scored. Other types might work, but are not fully tested.
