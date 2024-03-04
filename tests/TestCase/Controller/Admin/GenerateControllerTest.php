@@ -7,7 +7,7 @@ use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * @uses \Queue\Controller\Admin\QueueController
+ * @uses \CakeDto\Controller\Admin\GenerateController
  */
 class GenerateControllerTest extends TestCase {
 

@@ -49,17 +49,26 @@ class Schema implements ParserInterface {
 		$fields = [];
 
 		foreach ($input['properties'] as $fieldName => $details) {
-			if (str_starts_with($fieldName, '_')) {
+			if (str_starts_with($fieldName, '_') || !empty($details['$ref'])) {
 				continue;
 			}
 
-			$required = in_array($fieldName, $input['required'], true);
+			$required = in_array($fieldName, $input['required'] ?? [], true);
 
-			if (!isset($details['type'])) {
+			if (!isset($details['type']) && !empty($details['anyOf'])) {
 				$details['type'] = $this->guessType($details['anyOf']);
 				if (in_array('object', $details['type'])) {
 					$details = $this->detailsFromObject($details);
 				}
+			}
+			if (!isset($details['type']) && !empty($details['oneOf'])) {
+				$details['type'] = $this->guessType($details['oneOf']);
+				if (in_array('object', $details['type'])) {
+					$details = $this->detailsFromObject($details);
+				}
+			}
+			if (!isset($details['type']) && !empty($details['enum'])) {
+				$details['type'] = 'string';
 			}
 
 			if (is_array($details['type']) && in_array('array', $details['type'])) {
@@ -74,7 +83,7 @@ class Schema implements ParserInterface {
 				$details['required'] = $details['items']['required'];
 			}
 
-			if (!is_string($details['type'])) {
+			if (!empty($details['type']) && !is_string($details['type'])) {
 				if (in_array('null', $details['type'], true)) {
 					$keys = array_keys($details['type'], 'null');
 					foreach ($keys as $key) {
@@ -84,6 +93,13 @@ class Schema implements ParserInterface {
 				}
 
 				$details['type'] = implode('|', $details['type']);
+			}
+
+			if (!isset($details['type'])) {
+				$details['type'] = 'mixed';
+			}
+			if (empty($details['type'])) {
+				continue;
 			}
 
 			$fieldName = Inflector::variable($fieldName);

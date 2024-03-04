@@ -14,7 +14,7 @@ class SchemaBuilder implements BuilderInterface {
 	public function build(string $name, array $input, array $options = []): string {
 		$fields = [];
 		foreach ($input as $fieldName => $fieldDetails) {
-			if (!$fieldDetails['_include']) {
+			if (isset($fieldDetails['_include']) && !$fieldDetails['_include']) {
 				continue;
 			}
 

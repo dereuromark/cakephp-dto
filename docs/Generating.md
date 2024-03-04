@@ -31,9 +31,10 @@ Since we work with example data, we cannot infer too much about the overall data
 
 Best to check and fine tune your DTO schema afterwards.
 
-#### Tips and useful notes
+### Tips and useful notes
 
-You want to look into assoc arrays and collections. In some cases you can - after parsing -
+#### Associative collections
+You want to look into associative collections. In some cases you can - after parsing -
   adjust the schema field definitions to set a "key" for the associative array/object collection.
 
 Right now, it looks for the following (string) keys to use for it:
@@ -49,3 +50,7 @@ Example:
 <field name="labels" type="Label[]" singular="label" associative="true" key="name"/>
 ```
 This provides then also `has/get` methods for the specific (singular) collection item.
+
+#### Existing schema files
+If you are looking for some inspiration or maybe schemas for existing APIs, check out
+- [github.com/SchemaStore/schemastore/tree/master/src/schemas/json](https://github.com/SchemaStore/schemastore/tree/master/src/schemas/json)
