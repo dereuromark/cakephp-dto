@@ -41,15 +41,15 @@ abstract class Dto implements Serializable {
 	 * Constructs the object
 	 *
 	 * @link https://php.net/manual/en/serializable.unserialize.php
-	 * @param string $serialized
+	 * @param string $data
 	 * @param bool $ignoreMissing
 	 * @return static
 	 */
-	public function unserialize($serialized, $ignoreMissing = false) {
+	public function unserialize(string $data, bool $ignoreMissing = false) {
 		$jsonUtil = new Json();
 
 		$new = clone($this);
-		$new->setFromArray($jsonUtil->decode($serialized, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
+		$new->setFromArray($jsonUtil->decode($data, true) ?: [], $ignoreMissing, static::TYPE_DEFAULT)->setDefaults()->validate();
 
 		return $new;
 	}

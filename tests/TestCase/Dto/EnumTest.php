@@ -21,18 +21,29 @@ class EnumTest extends TestCase {
 		];
 		$dto = new EnumTestDto($array);
 
+		foreach ($array as $field => $value) {
+			$v = $dto->get($field);
+			$this->assertSame($value, $v);
+		}
+
 		$newArray = $dto->toArray();
 
 		// Apparently unit enums dont work otherwise
-		$array[EnumTestDto::FIELD_SOME_UNIT] = 'Y';
-		$this->assertSame($array, $newArray);
+		$testArray = $array;
+		$testArray[EnumTestDto::FIELD_SOME_UNIT] = 'Y';
+		$this->assertSame($testArray, $newArray);
 
 		$serialized = $dto->serialize();
 		$expected = '{"someUnit":"Y","someStringBacked":"b","someIntBacked":1}';
 		$this->assertSame($expected, $serialized);
 
 		$dto = EnumTestDto::fromUnserialized($serialized);
-		$this->assertSame($array, $dto->toArray());
+		$this->assertSame($testArray, $dto->toArray());
+
+		foreach ($array as $field => $value) {
+			$v = $dto->get($field);
+			$this->assertSame($value, $v);
+		}
 	}
 
 }
