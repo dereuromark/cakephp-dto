@@ -878,7 +878,7 @@ abstract class Dto implements Serializable {
 		if ($this->_metadata[$field]['enum'] === 'unit') {
 			assert(is_string($value));
 
-			return $class::{$value};
+			return constant($class . "::{$value}");
 		}
 
 		/** @var class-string<\BackedEnum> $class */

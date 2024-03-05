@@ -124,6 +124,7 @@ Simple array types:
 Concrete objects:
 - DTOs (without suffix)
 - Value objects and custom classes using FQCN and leading `\`.
+- Enums (mainly int/string backed enums)
 
 For all of the above you will have setters and getters available.
 
