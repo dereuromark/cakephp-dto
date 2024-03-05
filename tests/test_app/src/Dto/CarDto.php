@@ -80,6 +80,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'serialize' => 'FromArrayToArray',
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 		'isNew' => [
 			'name' => 'isNew',
@@ -141,6 +142,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 			'serialize' => null,
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 		'owner' => [
 			'name' => 'owner',

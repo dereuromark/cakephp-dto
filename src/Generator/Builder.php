@@ -12,6 +12,7 @@ use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionClass;
+use ReflectionEnum;
 use ReflectionException;
 use RuntimeException;
 
@@ -61,6 +62,7 @@ class Builder {
 		'name',
 		'type',
 		'isClass',
+		'enum',
 		'serialize',
 		'factory',
 		'required',
@@ -374,6 +376,8 @@ class Builder {
 					$fields[$key]['serialize'] = $this->detectSerialize($fields[$key]);
 				}
 
+				$fields[$key]['enum'] = $this->enumType($field['type']);
+
 				continue;
 			}
 
@@ -605,6 +609,27 @@ class Builder {
 		}
 
 		return interface_exists($type) || class_exists($type);
+	}
+
+	/**
+	 * @param class-string<\BackedEnum|\UnitEnum> $type
+	 *
+	 * @return string|null
+	 */
+	protected function enumType(string $type): ?string {
+		try {
+			$reflectionEnum = new ReflectionEnum($type);
+		} catch (ReflectionException $e) {
+			return null;
+		}
+
+		if (!$reflectionEnum->isBacked()) {
+			return 'unit';
+		}
+
+		$namedType = (string)$reflectionEnum->getBackingType();
+
+		return $namedType;
 	}
 
 	/**
