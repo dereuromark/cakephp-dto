@@ -186,7 +186,7 @@ TXT;
 	/**
 	 * @return void
 	 */
-	public function testscalarAndReturnTypes() {
+	public function testScalarAndReturnTypes() {
 		$xml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 
@@ -224,7 +224,7 @@ TXT;
 	/**
 	 * @return void
 	 */
-	public function testscalarAndReturnTypesDefaultValueRequiredFalse() {
+	public function testScalarAndReturnTypesDefaultValueRequiredFalse() {
 		$xml = ROOT . DS . 'tests/files/xml/scalar_default_required_false.xml';
 		copy($xml, $this->configPath . 'dto.xml');
 

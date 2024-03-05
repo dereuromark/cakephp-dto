@@ -117,9 +117,7 @@ class Generator {
 			$this->io->success('Deleting: ' . $name . ' DTO');
 		}
 
-		if ($returnCode === static::CODE_ERROR) {
-			return $returnCode;
-		}
+		$this->io->verbose('Done, ' . $changes . ' file(s) changed.');
 
 		return $changes ? static::CODE_CHANGES : static::CODE_SUCCESS;
 	}
