@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="EnumTest" immutable="true">
+		<field name="someUnit" type="\TestApp\Model\Enum\MyUnit"/>
+		<field name="someStringBacked" type="\TestApp\Model\Enum\MyStringBacked"/>
+		<field name="someIntBacked" type="\TestApp\Model\Enum\MyIntBacked"/>
+	</dto>
+
+</dtos>

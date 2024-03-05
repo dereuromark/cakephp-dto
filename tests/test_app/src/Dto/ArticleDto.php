@@ -109,6 +109,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'serialize' => null,
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 		'tags' => [
 			'name' => 'tags',

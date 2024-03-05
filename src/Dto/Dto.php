@@ -12,6 +12,7 @@ use Countable;
 use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
+use UnitEnum;
 
 abstract class Dto implements Serializable {
 
@@ -197,6 +198,9 @@ abstract class Dto implements Serializable {
 					$values = $this->transformCollectionToArray($value, $values, $key, $touched ? 'touchedToArray' : 'toArray', $type);
 				} elseif ($this->_metadata[$field]['serialize']) {
 					$values[$key] = $this->transformSerialized($value, $this->_metadata[$field]['serialize']);
+				} elseif (!empty($this->_metadata[$field]['enum']) && $this->_metadata[$field]['enum'] === 'unit') {
+					assert($value instanceof UnitEnum);
+					$values[$key] = $this->transformEnum($value);
 				} else {
 					$values[$key] = $value;
 				}
@@ -319,6 +323,9 @@ abstract class Dto implements Serializable {
 				$value = $this->createObject($field, $value);
 			} elseif ($this->_metadata[$field]['factory']) {
 				$value = $this->createWithFactory($field, $value);
+			} elseif (!empty($this->_metadata[$field]['isClass']) && !empty($this->_metadata[$field]['enum'])) {
+				/** @var class-string<\BackedEnum|\UnitEnum> $field */
+				$value = $this->createEnum($field, $value);
 			} elseif (!empty($this->_metadata[$field]['isClass']) && !is_object($value)) {
 				$value = $this->createWithConstructor($field, $value);
 			}
@@ -848,6 +855,47 @@ abstract class Dto implements Serializable {
 	 */
 	public function __unserialize(array $data): void {
 		$this->setFromArray($data, true);
+	}
+
+	/**
+	 * @param class-string<\BackedEnum|\UnitEnum> $field
+	 * @param \BackedEnum|\UnitEnum|string|int|null $value
+	 *
+	 * @return \BackedEnum|\UnitEnum|null
+	 */
+	protected function createEnum(string $field, $value) {
+		if ($value === null) {
+			return null;
+		}
+
+		if ($value instanceof UnitEnum) {
+			return $value;
+		}
+
+		/** @var class-string<\BackedEnum|\UnitEnum> $class */
+		$class = $this->_metadata[$field]['type'];
+
+		if ($this->_metadata[$field]['enum'] === 'unit') {
+			assert(is_string($value));
+
+			return constant($class . "::{$value}");
+		}
+
+		/** @var class-string<\BackedEnum> $class */
+		return $class::tryFrom($value);
+	}
+
+	/**
+	 * @param \UnitEnum|null $value
+	 *
+	 * @return string|null
+	 */
+	protected function transformEnum(?UnitEnum $value): ?string {
+		if ($value === null) {
+			return null;
+		}
+
+		return $value->name;
 	}
 
 }

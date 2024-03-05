@@ -95,6 +95,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 			'serialize' => null,
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 	];
 

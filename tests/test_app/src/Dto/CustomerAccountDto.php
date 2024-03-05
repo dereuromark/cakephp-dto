@@ -76,6 +76,7 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 			'serialize' => null,
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 	];
 

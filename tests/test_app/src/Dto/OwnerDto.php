@@ -83,6 +83,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 			'serialize' => 'array',
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 		'birthday' => [
 			'name' => 'birthday',
@@ -96,6 +97,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 			'serialize' => null,
 			'factory' => null,
 			'isClass' => true,
+			'enum' => null,
 		],
 	];
 
