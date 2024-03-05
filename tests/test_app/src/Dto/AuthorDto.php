@@ -166,13 +166,14 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function setEmailOrFail(string $email) {
-		$this->email = $email;
-		$this->_touchedFields[self::FIELD_EMAIL] = true;
+	public function withEmailOrFail(string $email) {
+		$new = clone $this;
+		$new->email = $email;
+		$new->_touchedFields[self::FIELD_EMAIL] = true;
 
-		return $this;
+		return $new;
 	}
 
 	/**

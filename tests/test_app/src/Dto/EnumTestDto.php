@@ -118,13 +118,14 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function setSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit) {
-		$this->someUnit = $someUnit;
-		$this->_touchedFields[self::FIELD_SOME_UNIT] = true;
+	public function withSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit) {
+		$new = clone $this;
+		$new->someUnit = $someUnit;
+		$new->_touchedFields[self::FIELD_SOME_UNIT] = true;
 
-		return $this;
+		return $new;
 	}
 
 	/**
@@ -172,13 +173,14 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function setSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked) {
-		$this->someStringBacked = $someStringBacked;
-		$this->_touchedFields[self::FIELD_SOME_STRING_BACKED] = true;
+	public function withSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked) {
+		$new = clone $this;
+		$new->someStringBacked = $someStringBacked;
+		$new->_touchedFields[self::FIELD_SOME_STRING_BACKED] = true;
 
-		return $this;
+		return $new;
 	}
 
 	/**
@@ -226,13 +228,14 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value is not present.
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function setSomeIntBackedOrFail(\TestApp\Model\Enum\MyIntBacked $someIntBacked) {
-		$this->someIntBacked = $someIntBacked;
-		$this->_touchedFields[self::FIELD_SOME_INT_BACKED] = true;
+	public function withSomeIntBackedOrFail(\TestApp\Model\Enum\MyIntBacked $someIntBacked) {
+		$new = clone $this;
+		$new->someIntBacked = $someIntBacked;
+		$new->_touchedFields[self::FIELD_SOME_INT_BACKED] = true;
 
-		return $this;
+		return $new;
 	}
 
 	/**
