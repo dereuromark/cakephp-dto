@@ -74,6 +74,7 @@ class GeneratorTest extends TestCase {
 
 		$options = [
 			'confirm' => true,
+			'verbose' => true,
 		];
 		$this->generator = $this->createGenerator();
 		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
@@ -131,6 +132,7 @@ class GeneratorTest extends TestCase {
 		$options = [
 			'confirm' => true,
 			'force' => true,
+			'verbose' => true,
 		];
 		$this->generator = $this->createGenerator();
 		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
@@ -158,6 +160,7 @@ class GeneratorTest extends TestCase {
 		$options = [
 			'confirm' => true,
 			'force' => true,
+			'verbose' => true,
 		];
 		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
 
@@ -195,6 +198,7 @@ TXT;
 		$options = [
 			'confirm' => true,
 			'force' => true,
+			'verbose' => true,
 		];
 		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
 
@@ -234,6 +238,7 @@ TXT;
 		$options = [
 			'confirm' => true,
 			'force' => true,
+			'verbose' => true,
 		];
 		$result = $this->generator->generate($this->configPath, $this->srcPath, $options);
 

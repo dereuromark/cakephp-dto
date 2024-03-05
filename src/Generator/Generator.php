@@ -59,6 +59,7 @@ class Generator {
 			'force' => false,
 			'dryRun' => false,
 			'confirm' => false,
+			'verbose' => false,
 		];
 
 		$definitions = [];
@@ -119,7 +120,11 @@ class Generator {
 
 		$this->io->verbose('Done, ' . $changes . ' file(s) changed.');
 
-		return $changes ? static::CODE_CHANGES : static::CODE_SUCCESS;
+		if ($options['dryRun'] || $options['verbose']) {
+			return $changes ? static::CODE_CHANGES : static::CODE_SUCCESS;
+		}
+
+		return static::CODE_SUCCESS;
 	}
 
 	/**
