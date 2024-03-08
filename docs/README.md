@@ -586,7 +586,8 @@ You can either `.gitignore` the `src/Dto` folder, or you can simple commit them 
 If you generate them always on the fly, make sure that they are also generated for CI and deployment.
 And if you commit them, use the `-d` param to verify on CI or staging that the files are up to date.
 
-Note: If you are commiting the DTOs, you can use this plugin as `require-dev` dependency. In this case you don't need to generate anything for deploy.
+Note: If you are committing the DTO class files, you can use this plugin as `require-dev` dependency.
+In this case you don't need to generate anything for deploy.
 
 
 ## Entities
