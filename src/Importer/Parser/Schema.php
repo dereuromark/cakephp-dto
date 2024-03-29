@@ -80,7 +80,7 @@ class Schema implements ParserInterface {
 				$details['collection'] = true;
 				$details['type'] = 'object';
 				$details['properties'] = $details['items']['properties'];
-				$details['required'] = $details['items']['required'];
+				$details['required'] = $details['items']['required'] ?? null;
 			}
 
 			if (!empty($details['type']) && !is_string($details['type'])) {
@@ -211,7 +211,7 @@ class Schema implements ParserInterface {
 			}
 
 			$details['properties'] = $item['properties'];
-			$details['required'] = $item['required'];
+			$details['required'] = $item['required'] ?? null;
 			$details['title'] = $item['title'];
 		}
 
