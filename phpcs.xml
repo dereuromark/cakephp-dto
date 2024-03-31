@@ -7,6 +7,7 @@
 	<file>config/</file>
 	<file>tests/</file>
 
+	<exclude-pattern>/tests/benchmark/</exclude-pattern>
 	<exclude-pattern>/test_app/src/Dto/</exclude-pattern>
 	<exclude-pattern>/plugins/Sandbox/src/Dto/</exclude-pattern>
 

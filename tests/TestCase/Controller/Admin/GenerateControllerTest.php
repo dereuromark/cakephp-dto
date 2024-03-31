@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CakeCto\Test\TestCase\Controller\Admin;
+namespace CakeDto\Test\TestCase\Controller\Admin;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
