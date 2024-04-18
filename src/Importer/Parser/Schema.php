@@ -49,7 +49,10 @@ class Schema implements ParserInterface {
 		$fields = [];
 
 		foreach ($input['properties'] as $fieldName => $details) {
-			if (str_starts_with($fieldName, '_') || !empty($details['$ref'])) {
+			if (!$details || str_starts_with($fieldName, '_') || !empty($details['$ref'])) {
+				continue;
+			}
+			if (!is_array($details)) {
 				continue;
 			}
 
