@@ -19,6 +19,7 @@ class GenerateControllerTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
+		$this->loadPlugins(['CakeDto']);
 		$this->disableErrorHandlerMiddleware();
 	}
 
