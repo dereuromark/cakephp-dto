@@ -514,8 +514,6 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param \Sandbox\Dto\Github\HeadDto $head
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setHeadOrFail(\Sandbox\Dto\Github\HeadDto $head) {
@@ -566,8 +564,6 @@ class PullRequestDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param \Sandbox\Dto\Github\BaseDto $base
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */

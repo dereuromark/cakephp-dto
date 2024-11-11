@@ -302,8 +302,6 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param string $version
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setVersionOrFail(string $version) {
