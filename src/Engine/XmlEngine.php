@@ -21,7 +21,7 @@ class XmlEngine implements EngineInterface {
 	/**
 	 * Validates files.
 	 *
-	 * @param array $files
+	 * @param array<string> $files
 	 * @return void
 	 */
 	public function validate(array $files): void {
@@ -116,7 +116,7 @@ class XmlEngine implements EngineInterface {
 	/**
 	 * @param string|float|int|bool $value
 	 * @param string $key
-	 * @param array $fieldDefinition
+	 * @param array<string, mixed> $fieldDefinition
 	 *
 	 * @return string|float|int|bool
 	 */

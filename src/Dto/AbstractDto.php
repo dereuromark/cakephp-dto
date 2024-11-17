@@ -8,7 +8,7 @@ use RuntimeException;
 abstract class AbstractDto extends Dto {
 
 	/**
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 * @return $this

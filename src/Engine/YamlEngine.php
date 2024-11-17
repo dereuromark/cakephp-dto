@@ -21,7 +21,7 @@ class YamlEngine implements EngineInterface {
 	/**
 	 * Validates files.
 	 *
-	 * @param array $files
+	 * @param array<string> $files
 	 * @return void
 	 */
 	public function validate(array $files): void {

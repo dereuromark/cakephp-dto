@@ -21,7 +21,7 @@ class NeonEngine implements EngineInterface {
 	}
 
 	/**
-	 * @param array $files
+	 * @param array<string> $files
 	 * @return void
 	 */
 	public function validate(array $files): void {

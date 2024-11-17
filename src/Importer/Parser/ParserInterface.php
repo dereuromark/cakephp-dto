@@ -7,7 +7,7 @@ interface ParserInterface {
 	/**
 	 * Translates JSON input into DTO content.
 	 *
-	 * @param array $input
+	 * @param array<string, mixed> $input
 	 * @param array<string, mixed> $options
 	 *
 	 * @return $this

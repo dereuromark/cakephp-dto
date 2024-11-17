@@ -22,7 +22,7 @@ class Data implements ParserInterface {
 	protected array $map = [];
 
 	/**
-	 * @param array $input
+	 * @param array<string, mixed> $input
 	 * @param array<string, mixed> $options
 	 * @param array<string, mixed> $parentData
 	 *

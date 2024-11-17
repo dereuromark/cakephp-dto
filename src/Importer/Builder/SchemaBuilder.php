@@ -6,7 +6,7 @@ class SchemaBuilder implements BuilderInterface {
 
 	/**
 	 * @param string $name
-	 * @param array $input
+	 * @param array<string, mixed> $input
 	 * @param array<string, mixed> $options
 	 *
 	 * @return string

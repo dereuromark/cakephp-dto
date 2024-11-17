@@ -23,7 +23,7 @@ class Schema implements ParserInterface {
 	protected array $map = [];
 
 	/**
-	 * @param array $input
+	 * @param array<string, mixed> $input
 	 * @param array<string, mixed> $options
 	 * @param array<string, mixed> $parentData When nesting
 	 *
@@ -195,9 +195,9 @@ class Schema implements ParserInterface {
 	}
 
 	/**
-	 * @param array $details
+	 * @param array<string, mixed> $details
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function detailsFromObject(array $details): array {
 		if (empty($details['anyOf'])) {

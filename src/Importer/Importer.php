@@ -28,7 +28,7 @@ class Importer {
 	}
 
 	/**
-	 * @param array $definitions
+	 * @param array<string, mixed> $definitions
 	 * @param array<string, mixed> $options
 	 *
 	 * @return array
@@ -47,7 +47,7 @@ class Importer {
 	}
 
 	/**
-	 * @param array $array
+	 * @param array<string, mixed> $array
 	 *
 	 * @return string
 	 */

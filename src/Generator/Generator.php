@@ -165,7 +165,7 @@ class Generator {
 	}
 
 	/**
-	 * @param array $definitions
+	 * @param array<string, mixed> $definitions
 	 *
 	 * @return array<string>
 	 */

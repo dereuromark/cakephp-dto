@@ -8,7 +8,7 @@ namespace CakeDto\Dto;
 interface FromArrayToArrayInterface {
 
 	/**
-	 * @param array $array
+	 * @param array<string, mixed> $array
 	 * @return static
 	 */
 	public static function createFromArray(array $array);

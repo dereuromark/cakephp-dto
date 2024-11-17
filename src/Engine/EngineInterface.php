@@ -14,7 +14,7 @@ interface EngineInterface {
 	/**
 	 * This can hold basic file validation for each file.
 	 *
-	 * @param array $files
+	 * @param array<string> $files
 	 * @return void
 	 */
 	public function validate(array $files): void;

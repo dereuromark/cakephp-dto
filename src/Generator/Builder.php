@@ -120,7 +120,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $config
+	 * @param array<string, mixed> $config
 	 * @param string $namespace
 	 * @throws \InvalidArgumentException
 	 * @return array
@@ -219,7 +219,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $dto
+	 * @param array<string, mixed> $dto
 	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
@@ -275,7 +275,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $configs
+	 * @param array<array<string, mixed>> $configs
 	 *
 	 * @return array
 	 */
@@ -295,7 +295,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $dto
+	 * @param array<string, mixed> $dto
 	 * @param string $namespace
 	 * @throws \InvalidArgumentException
 	 * @return array
@@ -390,7 +390,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $field
+	 * @param array<string, mixed> $field
 	 *
 	 * @return bool
 	 */
@@ -403,10 +403,10 @@ class Builder {
 	}
 
 	/**
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param string $dtoName
 	 * @param string $namespace
-	 * @param array $fields
+	 * @param array<string, mixed> $fields
 	 * @throws \InvalidArgumentException
 	 * @return array
 	 */
@@ -441,7 +441,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $dto
+	 * @param array<string, mixed> $dto
 	 * @param string $namespace
 	 * @throws \InvalidArgumentException
 	 * @return array
@@ -509,7 +509,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $field
+	 * @param array<string, mixed> $field
 	 * @return string
 	 */
 	protected function collectionType(array $field): string {
@@ -634,7 +634,7 @@ class Builder {
 
 	/**
 	 * @param string $type
-	 * @param array $additional
+	 * @param array<string> $additional
 	 * @return bool
 	 */
 	protected function isValidSimpleType(string $type, array $additional = []): bool {
@@ -642,12 +642,12 @@ class Builder {
 		$types = explode('|', $type);
 
 		// Non-union simple types with brackets are arrays
-		if (count($types) === 1 && substr($types[0], -2) === '[]') {
+		if (count($types) === 1 && str_ends_with($types[0], '[]')) {
 			return false;
 		}
 
 		$types = array_map(function($value) {
-			return substr($value, -2) !== '[]' ? $value : substr($value, 0, -2);
+			return !str_ends_with($value, '[]') ? $value : substr($value, 0, -2);
 		}, $types);
 
 		foreach ($types as $t) {
@@ -718,9 +718,9 @@ class Builder {
 	}
 
 	/**
-	 * @param array $types
+	 * @param array<string> $types
 	 *
-	 * @return array
+	 * @return array<string>
 	 */
 	protected function simpleTypeWhitelist(array $types): array {
 		return $types;
@@ -771,8 +771,8 @@ class Builder {
 	}
 
 	/**
-	 * @param array $fields
-	 * @return array
+	 * @param array<string, mixed> $fields
+	 * @return array<string, mixed>
 	 */
 	protected function metaData(array $fields): array {
 		$meta = [];
@@ -812,7 +812,7 @@ class Builder {
 	}
 
 	/**
-	 * @param array $config
+	 * @param array<string, mixed> $config
 	 *
 	 * @return string|null
 	 */

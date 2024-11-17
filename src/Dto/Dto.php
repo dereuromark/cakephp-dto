@@ -17,7 +17,7 @@ use UnitEnum;
 abstract class Dto implements Serializable {
 
 	/**
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 * @return static
@@ -278,7 +278,7 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 * @throws \RuntimeException
@@ -520,7 +520,7 @@ abstract class Dto implements Serializable {
 	}
 
 	/**
-	 * @param array $collection
+	 * @param array<mixed> $collection
 	 * @param mixed $element
 	 * @param mixed $arrayElement
 	 * @param string|int $index

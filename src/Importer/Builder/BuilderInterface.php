@@ -8,7 +8,7 @@ interface BuilderInterface {
 	 * Translates array definition into DTO schema or code.
 	 *
 	 * @param string $name
-	 * @param array $input
+	 * @param array<string, mixed> $input
 	 *
 	 * @return string
 	 */
