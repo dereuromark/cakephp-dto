@@ -4,8 +4,10 @@
 	 *
 {% endif %}
 	 * @param {{ type }} ${{ name }}
+{% if not typeHint %}
 	 *
 	 * @throws \RuntimeException If value is not present.
+{% endif %}
 	 *
 	 * @return static
 	 */
