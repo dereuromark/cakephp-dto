@@ -15,7 +15,7 @@ class Importer {
 	 * @return array
 	 */
 	public function parse(string $json, array $options = []): array {
-		$array = json_decode($json, true);
+		$array = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 		if (!$array) {
 			return [];
 		}

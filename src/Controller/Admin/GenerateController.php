@@ -49,7 +49,13 @@ class GenerateController extends AppController {
 					'type' => $type,
 					'namespace' => $this->request->getData('namespace'),
 				];
-				$schema = (new Importer())->parse($json, $options);
+
+				$schema = null;
+				try {
+					$schema = (new Importer())->parse($json, $options);
+				} catch (\Exception $e) {
+					$this->Flash->error($e->getMessage());
+				}
 
 				$this->set(compact('schema'));
 			}
