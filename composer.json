@@ -35,7 +35,7 @@
 		"ext-json": "*",
 		"cakephp/cakephp": "^5.0.3",
 		"cakephp/twig-view": "^2.0.1",
-		"sebastian/diff": "^5.0.0 || ^6.0.0"
+		"sebastian/diff": "^5.0.0 || ^6.0.0 || ^7.0.0"
 	},
 	"require-dev": {
 		"ext-dom": "*",
