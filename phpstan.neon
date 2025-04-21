@@ -6,9 +6,9 @@ parameters:
 		- tests/test_app/plugins/Sandbox/src/Dto/
 	bootstrapFiles:
 		- %rootDir%/../../../tests/bootstrap.php
-	checkMissingIterableValueType: false
-	checkGenericClassInNonGenericObjectType: false
 	ignoreErrors:
+		- identifier: missingType.iterableValue
+		- identifier: missingType.generics
 		- '#Property .+BookDto::\$pages \(Cake\\Collection\\Collection&iterable<TestApp\\Dto\\PageDto>\) does not accept .+CollectionInterface.#'
 		- '#Unsafe usage of new static\(\).#'
 		- '#Parameter \#1 \$value of method .+XmlEngine::castBoolValue\(\) expects bool\|string, bool\|float\|int\|string given.#'
