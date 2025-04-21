@@ -188,7 +188,7 @@ class Schema implements ParserInterface {
 	/**
 	 * @param array $anyOf
 	 *
-	 * @return list<string>
+	 * @return array<string>
 	 */
 	protected function guessType(array $anyOf): array {
 		return Hash::extract($anyOf, '{n}.type');

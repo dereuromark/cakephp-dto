@@ -13,5 +13,4 @@ parameters:
 		- '#Unsafe usage of new static\(\).#'
 		- '#Parameter \#1 \$value of method .+XmlEngine::castBoolValue\(\) expects bool\|string, bool\|float\|int\|string given.#'
 		- '#Parameter \#3 \$depth of function json_.+ expects int.+, int given#'
-		- '#Offset .+ does not exist on array\{function.+}#'
 		- '#Parameter \#3 \$subject of method .+\\View::dispatchEvent\(\) expects .+\\View\|null, object\|null given.#'

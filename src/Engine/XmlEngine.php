@@ -25,7 +25,6 @@ class XmlEngine implements EngineInterface {
 	 * @return void
 	 */
 	public function validate(array $files): void {
-		/** @var \CakeDto\Engine\XmlValidator $class */
 		$class = XmlValidator::class;
 
 		foreach ($files as $file) {

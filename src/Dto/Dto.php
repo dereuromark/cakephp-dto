@@ -309,7 +309,7 @@ abstract class Dto implements Serializable {
 				} else {
 					$value = $this->createCollection($collectionType, $elementType, $value, $ignoreMissing, $type);
 				}
-			} elseif ($this->_metadata[$field]['collectionType'] && $this->_metadata[$field]['collectionType'] === 'array') {
+			} elseif ($this->_metadata[$field]['collectionType']) {
 				$elementType = $this->_metadata[$field]['singularType'];
 				$key = $this->_metadata[$field]['associative'];
 				if ($this->_metadata[$field]['associative'] && $this->_metadata[$field]['key']) {
