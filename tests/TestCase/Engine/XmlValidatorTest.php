@@ -23,15 +23,6 @@ class XmlValidatorTest extends TestCase {
 	}
 
 	/**
-	 * @return void
-	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->validator);
-	}
-
-	/**
 	 * @throws \InvalidArgumentException
 	 * @return void
 	 */

@@ -27,15 +27,6 @@ class NeonEngineTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->engine);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testParse() {
 		$exampleNeon = ROOT . DS . 'docs/examples/basic.dto.neon';
 		$content = file_get_contents($exampleNeon);

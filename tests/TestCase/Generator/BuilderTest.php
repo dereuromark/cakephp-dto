@@ -35,15 +35,6 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->builder);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testBuild() {
 		$configPath = TMP . 'config' . DS;
 		if (!is_dir($configPath)) {

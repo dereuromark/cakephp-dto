@@ -38,16 +38,6 @@ class DtoViewTest extends TestCase {
 	}
 
 	/**
-	 * tearDown method
-	 *
-	 * @return void
-	 */
-	public function tearDown(): void {
-		parent::tearDown();
-		unset($this->View);
-	}
-
-	/**
 	 * test rendering a template file
 	 *
 	 * @return void

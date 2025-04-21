@@ -57,15 +57,6 @@ class GeneratorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->generator);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testBasic() {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $this->configPath . 'dto.xml');

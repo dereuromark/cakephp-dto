@@ -26,15 +26,6 @@ class XmlEngineTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->engine);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testParse() {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		$content = file_get_contents($exampleXml);

@@ -29,15 +29,6 @@ class YamlEngineTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
-
-		unset($this->engine);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testParse() {
 		$exampleYml = ROOT . DS . 'docs/examples/basic.dto.yml';
 		$content = file_get_contents($exampleYml);
