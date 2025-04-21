@@ -197,8 +197,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param \TestApp\ValueObject\Paint $color
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setColorOrFail(\TestApp\ValueObject\Paint $color) {
@@ -249,8 +247,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param bool $isNew
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */
@@ -303,8 +299,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param float $value
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setValueOrFail(float $value) {
@@ -355,8 +349,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param int $distanceTravelled
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */
@@ -409,8 +401,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param string[] $attributes
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setAttributesOrFail(array $attributes) {
@@ -462,8 +452,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param \Cake\I18n\Date $manufactured
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setManufacturedOrFail(\Cake\I18n\Date $manufactured) {
@@ -514,8 +502,6 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param \TestApp\Dto\OwnerDto $owner
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */

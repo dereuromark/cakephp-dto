@@ -116,8 +116,6 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @param \TestApp\Model\Enum\MyUnit $someUnit
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return static
 	 */
 	public function withSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit) {
@@ -171,8 +169,6 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @param \TestApp\Model\Enum\MyStringBacked $someStringBacked
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return static
 	 */
 	public function withSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked) {
@@ -225,8 +221,6 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 
 	/**
 	 * @param \TestApp\Model\Enum\MyIntBacked $someIntBacked
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return static
 	 */

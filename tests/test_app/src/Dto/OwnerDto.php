@@ -134,8 +134,6 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param string $name
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setNameOrFail(string $name) {
@@ -186,8 +184,6 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param string $insuranceProvider
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */
@@ -240,8 +236,6 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param \TestApp\ValueObject\KeyValuePair $attributes
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setAttributesOrFail(\TestApp\ValueObject\KeyValuePair $attributes) {
@@ -292,8 +286,6 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param \TestApp\ValueObject\Birthday $birthday
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */

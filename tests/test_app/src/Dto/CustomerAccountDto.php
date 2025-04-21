@@ -137,8 +137,6 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 	/**
 	 * @param int $birthYear
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setBirthYearOrFail(int $birthYear) {
@@ -189,8 +187,6 @@ class CustomerAccountDto extends \CakeDto\Dto\AbstractDto {
 
 	/**
 	 * @param \Cake\I18n\DateTime $lastLogin
-	 *
-	 * @throws \RuntimeException If value is not present.
 	 *
 	 * @return $this
 	 */

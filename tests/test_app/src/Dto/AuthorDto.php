@@ -164,8 +164,6 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @param string $email
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return static
 	 */
 	public function withEmailOrFail(string $email) {

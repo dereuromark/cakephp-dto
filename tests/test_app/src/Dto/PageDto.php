@@ -116,8 +116,6 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @param string $content
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return static
 	 */
 	public function withContentOrFail(string $content) {

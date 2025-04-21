@@ -187,8 +187,6 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	/**
 	 * @param string $comment
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return static
 	 */
 	public function withCommentOrFail(string $comment) {

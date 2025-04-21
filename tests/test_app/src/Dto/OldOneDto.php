@@ -69,8 +69,6 @@ class OldOneDto extends CarDto {
 	/**
 	 * @param string $name
 	 *
-	 * @throws \RuntimeException If value is not present.
-	 *
 	 * @return $this
 	 */
 	public function setNameOrFail(string $name) {
