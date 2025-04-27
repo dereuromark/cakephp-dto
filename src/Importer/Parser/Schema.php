@@ -43,7 +43,7 @@ class Schema implements ParserInterface {
 			if (!empty($parentData['collection'])) {
 				$field = Inflector::singularize($field);
 			}
-			$dtoName = $parentData ? ucfirst($field) : 'Object';
+			$dtoName = $field ? ucfirst($field) : 'Object';
 		}
 		if (!empty($options['namespace'])) {
 			$dtoName = rtrim($options['namespace'], '/') . '/' . $dtoName;
@@ -98,7 +98,7 @@ class Schema implements ParserInterface {
 					$required = false;
 				}
 
-				$type = implode('|', $details['type'] ?? []);
+				$type = implode('|', $details['type']);
 				$details['type'] = $type;
 			}
 
