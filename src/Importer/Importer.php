@@ -20,7 +20,7 @@ class Importer {
 			return [];
 		}
 
-		if (!$options['type']) {
+		if (empty($options['type'])) {
 			$options['type'] = $this->guessType($array);
 		}
 

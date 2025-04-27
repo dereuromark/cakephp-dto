@@ -38,7 +38,7 @@ class Data implements ParserInterface {
 			$dtoName = ucfirst($field);
 		}
 
-		if ($options['namespace']) {
+		if (!empty($options['namespace'])) {
 			$dtoName = rtrim($options['namespace'], '/') . '/' . $dtoName;
 		}
 
