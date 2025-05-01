@@ -13,7 +13,7 @@ class GenerateController extends AppController {
 	 *
 	 * @return void
 	 */
-	public function beforeFilter(EventInterface $event) {
+	public function beforeFilter(EventInterface $event): void {
 		if ($this->components()->has('Auth') && method_exists($this->components()->get('Auth'), 'allow')) {
 			$this->components()->get('Auth')->allow();
 		} elseif ($this->components()->has('Authentication') && method_exists($this->components()->get('Authentication'), 'addUnauthenticatedActions')) {
