@@ -327,7 +327,7 @@ abstract class Dto implements Serializable {
 				/** @var class-string<\BackedEnum|\UnitEnum> $field */
 				$value = $this->createEnum($field, $value);
 			} elseif (!empty($this->_metadata[$field]['isClass']) && !is_object($value)) {
-				$value = $this->createWithConstructor($field, $value);
+				$value = $this->createWithConstructor($field, $value, $this->_metadata[$field]);
 			}
 
 			if (!$immutable) {
@@ -427,7 +427,7 @@ abstract class Dto implements Serializable {
 			return $value;
 		}
 
-		if (strpos($factory, '::') !== false) {
+		if (str_contains($factory, '::')) {
 			[$class, $factory] = explode('::', $factory, 2);
 		}
 
@@ -437,10 +437,15 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param string $field
 	 * @param mixed $value
+	 * @param array $metadata
 	 *
-	 * @return object
+	 * @return object|null
 	 */
-	protected function createWithConstructor(string $field, $value) {
+	protected function createWithConstructor(string $field, $value, array $metadata) {
+		if (!$metadata['required'] && $value === null && !isset($metadata['defaultValue'])) {
+			return null;
+		}
+
 		$class = $this->_metadata[$field]['type'];
 
 		return new $class($value);

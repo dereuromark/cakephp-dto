@@ -32,4 +32,24 @@ class DateTimeTest extends TestCase {
 		$this->assertEquals($array['lastLogin'], $newCustomerAccount->getLastLogin());
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testFromArrayNull(): void {
+		$array = [
+			'customerName' => 'My title',
+			'lastLogin' => null,
+		];
+		$customerAccount = new CustomerAccountDto($array);
+
+		$array = $customerAccount->toArray();
+		$json = json_encode($array);
+
+		$expected = '{"customerName":"My title","birthYear":null,"lastLogin":null}';
+		$this->assertSame($expected, $json);
+
+		$newArray = json_decode($expected, true);
+		$this->assertNull($newArray['lastLogin']);
+	}
+
 }

@@ -98,6 +98,7 @@ class Schema implements ParserInterface {
 					$required = false;
 				}
 
+				$details['type'] = Hash::flatten($details['type']);
 				$type = implode('|', $details['type']);
 				$details['type'] = $type;
 			}
