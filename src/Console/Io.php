@@ -67,8 +67,8 @@ class Io {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
-	public function err($message = null, int $newlines = 1) {
-		return $this->_io->err('<error>' . (string)$message . '</error>', $newlines);
+	public function error($message = null, int $newlines = 1) {
+		return $this->_io->error((string)$message, $newlines);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Io {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function info($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
-		return $this->out('<info>' . (string)$message . '</info>', $newlines, $level);
+		return $this->_io->info((string)$message, $level);
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Io {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function comment($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
-		return $this->out('<comment>' . (string)$message . '</comment>', $newlines, $level);
+		return $this->_io->comment((string)$message, $level);
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Io {
 	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
 	public function warn($message = null, int $newlines = 1) {
-		return $this->_io->err('<warning>' . (string)$message . '</warning>', $newlines);
+		return $this->_io->warning((string)$message, $newlines);
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Io {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function success($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
-		return $this->out('<success>' . (string)$message . '</success>', $newlines, $level);
+		return $this->_io->success((string)$message, $level);
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Io {
 	 * @return void
 	 */
 	public function abort(string $message, int $exitCode = Command::CODE_ERROR): void {
-		$this->_io->err('<error>' . $message . '</error>');
+		$this->_io->error($message);
 
 		throw new StopException($message, $exitCode);
 	}

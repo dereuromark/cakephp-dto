@@ -189,7 +189,7 @@ class Generator {
 		exec('php -l "' . $file . '"', $output, $returnValue);
 
 		if ($returnValue !== static::CODE_SUCCESS) {
-			$this->io->err('PHP file invalid: ' . implode("\n", $output));
+			$this->io->error('PHP file invalid: ' . implode("\n", $output));
 
 			return false;
 		}
