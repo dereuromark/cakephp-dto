@@ -116,14 +116,14 @@ abstract class Dto implements Serializable {
 	/**
 	 * For usage of inflections.
 	 *
-	 * @var array
+	 * @var array<string, array<string, string>>
 	 */
 	protected array $_keyMap = [];
 
 	/**
 	 * Holds touched fields.
 	 *
-	 * @var array
+	 * @var array<string, bool>
 	 */
 	protected array $_touchedFields = [];
 
