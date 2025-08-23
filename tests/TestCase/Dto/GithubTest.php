@@ -52,65 +52,65 @@ class GithubTest extends TestCase {
 			'body' => 'Please pull these awesome changes',
 			'user' =>
 				 [
-					'login' => 'octocat',
-					'htmlUrl' => 'https://github.com/octocat',
-					'type' => 'User',
-				],
+					 'login' => 'octocat',
+					 'htmlUrl' => 'https://github.com/octocat',
+					 'type' => 'User',
+				 ],
 			'createdAt' => '2011-01-26T19:01:12Z',
 			'labels' =>
 				 [
-					'bug' =>
+					 'bug' =>
 						 [
-							'name' => 'bug',
-							'color' => 'f29513',
-						],
-				],
+							 'name' => 'bug',
+							 'color' => 'f29513',
+						 ],
+				 ],
 			'head' =>
 				 [
-					'ref' => 'new-topic',
-					'sha' => '6dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'user' =>
+					 'ref' => 'new-topic',
+					 'sha' => '6dcb09b5b57875f334f61aebed695e2e4193db5e',
+					 'user' =>
 						 [
-							'login' => 'octocat',
-							'htmlUrl' => 'https://github.com/octocat',
-							'type' => 'User',
-						],
-					'repo' =>
+							 'login' => 'octocat',
+							 'htmlUrl' => 'https://github.com/octocat',
+							 'type' => 'User',
+						 ],
+					 'repo' =>
 						 [
-							'name' => 'Hello-World',
-							'htmlUrl' => 'https://github.com/octocat/Hello-World',
-							'private' => false,
-							'owner' =>
+							 'name' => 'Hello-World',
+							 'htmlUrl' => 'https://github.com/octocat/Hello-World',
+							 'private' => false,
+							 'owner' =>
 								 [
-									'login' => 'octocat',
-									'htmlUrl' => 'https://github.com/octocat',
-									'type' => 'User',
-								],
-						],
-				],
+									 'login' => 'octocat',
+									 'htmlUrl' => 'https://github.com/octocat',
+									 'type' => 'User',
+								 ],
+						 ],
+				 ],
 			'base' =>
 				 [
-					'ref' => 'master',
-					'sha' => '6dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'user' =>
+					 'ref' => 'master',
+					 'sha' => '6dcb09b5b57875f334f61aebed695e2e4193db5e',
+					 'user' =>
 						 [
-							'login' => 'octocat',
-							'htmlUrl' => 'https://github.com/octocat',
-							'type' => 'User',
-						],
-					'repo' =>
+							 'login' => 'octocat',
+							 'htmlUrl' => 'https://github.com/octocat',
+							 'type' => 'User',
+						 ],
+					 'repo' =>
 						 [
-							'name' => 'Hello-World',
-							'htmlUrl' => 'https://github.com/octocat/Hello-World',
-							'private' => false,
-							'owner' =>
+							 'name' => 'Hello-World',
+							 'htmlUrl' => 'https://github.com/octocat/Hello-World',
+							 'private' => false,
+							 'owner' =>
 								 [
-									'login' => 'octocat',
-									'htmlUrl' => 'https://github.com/octocat',
-									'type' => 'User',
-								],
-						],
-				],
+									 'login' => 'octocat',
+									 'htmlUrl' => 'https://github.com/octocat',
+									 'type' => 'User',
+								 ],
+						 ],
+				 ],
 		];
 
 		$this->assertSame($expected, $pullRequestDtoArray);

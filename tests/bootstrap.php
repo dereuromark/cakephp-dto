@@ -47,8 +47,7 @@ Configure::write('App', [
 	],
 ]);
 
-Configure::write('CakeDto', [
-]);
+Configure::write('CakeDto', []);
 
 Configure::write('debug', true);
 

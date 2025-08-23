@@ -542,8 +542,7 @@ class BuilderTest extends TestCase {
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
 				'extends' => 'C?r',
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
@@ -564,8 +563,7 @@ class BuilderTest extends TestCase {
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
 				'extends' => 'Car',
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
@@ -586,8 +584,7 @@ class BuilderTest extends TestCase {
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
 				'extends' => CarDto::class,
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
@@ -607,8 +604,7 @@ class BuilderTest extends TestCase {
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
 				'extends' => DummyNonDtoClass::class,
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
@@ -629,8 +625,7 @@ class BuilderTest extends TestCase {
 			'FlyingCar' => [
 				'name' => 'FlyingCar',
 				'extends' => AuthorDto::class,
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);

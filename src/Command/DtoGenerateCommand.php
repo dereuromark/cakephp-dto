@@ -42,12 +42,12 @@ class DtoGenerateCommand extends Command {
 	 */
 	public function execute(Arguments $args, ConsoleIo $io) {
 		$options = [
-				'dryRun' => $args->getOption('dry-run'),
-				'confirm' => $args->getOption('confirm'),
-				'force' => $args->getOption('force'),
-				'plugin' => $args->getOption('plugin'),
-				'namespace' => $args->getOption('namespace'),
-			] + (array)Configure::read('CakeDto');
+			'dryRun' => $args->getOption('dry-run'),
+			'confirm' => $args->getOption('confirm'),
+			'force' => $args->getOption('force'),
+			'plugin' => $args->getOption('plugin'),
+			'namespace' => $args->getOption('namespace'),
+		] + (array)Configure::read('CakeDto');
 
 		return $this->_generator($io)->generate($this->_getConfigPath($args), $this->_getSrcPath($args), $options);
 	}

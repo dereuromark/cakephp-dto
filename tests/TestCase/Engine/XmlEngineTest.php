@@ -131,8 +131,7 @@ class XmlEngineTest extends TestCase {
 			],
 			'EmptyOne' => [
 				'name' => 'EmptyOne',
-				'fields' => [
-				],
+				'fields' => [],
 			],
 		];
 
