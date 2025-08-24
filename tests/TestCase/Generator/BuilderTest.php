@@ -397,7 +397,6 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\ArrayObject',
 			'serialize' => null,
 			'factory' => null,
-
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
 
@@ -424,7 +423,6 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => 'array',
 			'serialize' => null,
 			'factory' => null,
-
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
 
@@ -837,7 +835,7 @@ class BuilderTest extends TestCase {
 	/**
 	 * @return \CakeDto\Generator\Builder|\PHPUnit\Framework\MockObject\MockObject
 	 */
-	protected function createBuilder() {
+	protected function createBuilder(): Builder {
 		$engine = $this->getMockBuilder(EngineInterface::class)->getMock();
 		$builder = $this->getMockBuilder(Builder::class)->onlyMethods(['_merge', '_getFiles'])->setConstructorArgs([$engine])->getMock();
 		$builder->expects($this->any())->method('_getFiles')->willReturn([]);

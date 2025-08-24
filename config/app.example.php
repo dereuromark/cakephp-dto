@@ -13,5 +13,4 @@ return [
 		'debug' => false, // Add all meta data into DTOs for debugging
 		'keyType' => null, // Dto::TYPE_DEFAULT by default which uses Dto::TYPE_CAMEL
 	],
-
 ];
