@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * Owner DTO
  *
@@ -14,11 +16,23 @@ namespace TestApp\Dto;
  * @property \TestApp\ValueObject\KeyValuePair|null $attributes
  * @property \TestApp\ValueObject\Birthday|null $birthday
  */
-class OwnerDto extends \CakeDto\Dto\AbstractDto {
+class OwnerDto extends AbstractDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_NAME = 'name';
+	/**
+	 * @var string
+	 */
 	public const FIELD_INSURANCE_PROVIDER = 'insuranceProvider';
+	/**
+	 * @var string
+	 */
 	public const FIELD_ATTRIBUTES = 'attributes';
+	/**
+	 * @var string
+	 */
 	public const FIELD_BIRTHDAY = 'birthday';
 
 	/**
@@ -126,7 +140,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setName(?string $name) {
 		$this->name = $name;
-		$this->_touchedFields[self::FIELD_NAME] = true;
+		$this->_touchedFields[static::FIELD_NAME] = true;
 
 		return $this;
 	}
@@ -138,7 +152,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setNameOrFail(string $name) {
 		$this->name = $name;
-		$this->_touchedFields[self::FIELD_NAME] = true;
+		$this->_touchedFields[static::FIELD_NAME] = true;
 
 		return $this;
 	}
@@ -177,7 +191,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setInsuranceProvider(?string $insuranceProvider) {
 		$this->insuranceProvider = $insuranceProvider;
-		$this->_touchedFields[self::FIELD_INSURANCE_PROVIDER] = true;
+		$this->_touchedFields[static::FIELD_INSURANCE_PROVIDER] = true;
 
 		return $this;
 	}
@@ -189,7 +203,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setInsuranceProviderOrFail(string $insuranceProvider) {
 		$this->insuranceProvider = $insuranceProvider;
-		$this->_touchedFields[self::FIELD_INSURANCE_PROVIDER] = true;
+		$this->_touchedFields[static::FIELD_INSURANCE_PROVIDER] = true;
 
 		return $this;
 	}
@@ -228,7 +242,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setAttributes(?\TestApp\ValueObject\KeyValuePair $attributes) {
 		$this->attributes = $attributes;
-		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
 		return $this;
 	}
@@ -240,7 +254,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setAttributesOrFail(\TestApp\ValueObject\KeyValuePair $attributes) {
 		$this->attributes = $attributes;
-		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
 		return $this;
 	}
@@ -279,7 +293,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setBirthday(?\TestApp\ValueObject\Birthday $birthday) {
 		$this->birthday = $birthday;
-		$this->_touchedFields[self::FIELD_BIRTHDAY] = true;
+		$this->_touchedFields[static::FIELD_BIRTHDAY] = true;
 
 		return $this;
 	}
@@ -291,7 +305,7 @@ class OwnerDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setBirthdayOrFail(\TestApp\ValueObject\Birthday $birthday) {
 		$this->birthday = $birthday;
-		$this->_touchedFields[self::FIELD_BIRTHDAY] = true;
+		$this->_touchedFields[static::FIELD_BIRTHDAY] = true;
 
 		return $this;
 	}

@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Article DTO
  *
@@ -16,13 +18,31 @@ namespace TestApp\Dto;
  * @property \TestApp\Dto\TagDto[] $tags
  * @property string[] $meta
  */
-class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
+class ArticleDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_ID = 'id';
+	/**
+	 * @var string
+	 */
 	public const FIELD_AUTHOR = 'author';
+	/**
+	 * @var string
+	 */
 	public const FIELD_TITLE = 'title';
+	/**
+	 * @var string
+	 */
 	public const FIELD_CREATED = 'created';
+	/**
+	 * @var string
+	 */
 	public const FIELD_TAGS = 'tags';
+	/**
+	 * @var string
+	 */
 	public const FIELD_META = 'meta';
 
 	/**
@@ -173,7 +193,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
-		$new->_touchedFields[self::FIELD_ID] = true;
+		$new->_touchedFields[static::FIELD_ID] = true;
 
 		return $new;
 	}
@@ -200,7 +220,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withAuthor(\TestApp\Dto\AuthorDto $author) {
 		$new = clone $this;
 		$new->author = $author;
-		$new->_touchedFields[self::FIELD_AUTHOR] = true;
+		$new->_touchedFields[static::FIELD_AUTHOR] = true;
 
 		return $new;
 	}
@@ -227,7 +247,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withTitle(string $title) {
 		$new = clone $this;
 		$new->title = $title;
-		$new->_touchedFields[self::FIELD_TITLE] = true;
+		$new->_touchedFields[static::FIELD_TITLE] = true;
 
 		return $new;
 	}
@@ -254,7 +274,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withCreated(\Cake\I18n\Date $created) {
 		$new = clone $this;
 		$new->created = $created;
-		$new->_touchedFields[self::FIELD_CREATED] = true;
+		$new->_touchedFields[static::FIELD_CREATED] = true;
 
 		return $new;
 	}
@@ -281,7 +301,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withTags(array $tags) {
 		$new = clone $this;
 		$new->tags = $tags;
-		$new->_touchedFields[self::FIELD_TAGS] = true;
+		$new->_touchedFields[static::FIELD_TAGS] = true;
 
 		return $new;
 	}
@@ -319,7 +339,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		}
 
 		$new->tags[] = $tag;
-		$new->_touchedFields[self::FIELD_TAGS] = true;
+		$new->_touchedFields[static::FIELD_TAGS] = true;
 
 		return $new;
 	}
@@ -332,7 +352,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withMeta(array $meta) {
 		$new = clone $this;
 		$new->meta = $meta;
-		$new->_touchedFields[self::FIELD_META] = true;
+		$new->_touchedFields[static::FIELD_META] = true;
 
 		return $new;
 	}
@@ -395,7 +415,7 @@ class ArticleDto extends \CakeDto\Dto\AbstractImmutableDto {
 		}
 
 		$new->meta[$key] = $metaValue;
-		$new->_touchedFields[self::FIELD_META] = true;
+		$new->_touchedFields[static::FIELD_META] = true;
 
 		return $new;
 	}

@@ -9,7 +9,7 @@
 		}
 
 		$this->cars[$key] = $car;
-		$this->_touchedFields[self::FIELD_CARS] = true;
+		$this->_touchedFields[static::FIELD_CARS] = true;
 
 		return $this;
 	}

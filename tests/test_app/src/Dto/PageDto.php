@@ -6,15 +6,23 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Page DTO
  *
  * @property int $number
  * @property string|null $content
  */
-class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
+class PageDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_NUMBER = 'number';
+	/**
+	 * @var string
+	 */
 	public const FIELD_CONTENT = 'content';
 
 	/**
@@ -81,7 +89,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withNumber(int $number) {
 		$new = clone $this;
 		$new->number = $number;
-		$new->_touchedFields[self::FIELD_NUMBER] = true;
+		$new->_touchedFields[static::FIELD_NUMBER] = true;
 
 		return $new;
 	}
@@ -108,7 +116,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withContent(?string $content = null) {
 		$new = clone $this;
 		$new->content = $content;
-		$new->_touchedFields[self::FIELD_CONTENT] = true;
+		$new->_touchedFields[static::FIELD_CONTENT] = true;
 
 		return $new;
 	}
@@ -121,7 +129,7 @@ class PageDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withContentOrFail(string $content) {
 		$new = clone $this;
 		$new->content = $content;
-		$new->_touchedFields[self::FIELD_CONTENT] = true;
+		$new->_touchedFields[static::FIELD_CONTENT] = true;
 
 		return $new;
 	}

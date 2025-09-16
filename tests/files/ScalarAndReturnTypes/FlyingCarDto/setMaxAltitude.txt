@@ -5,7 +5,7 @@
 	 */
 	public function setMaxAltitude(int $maxAltitude) {
 		$this->maxAltitude = $maxAltitude;
-		$this->_touchedFields[self::FIELD_MAX_ALTITUDE] = true;
+		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 
 		return $this;
 	}

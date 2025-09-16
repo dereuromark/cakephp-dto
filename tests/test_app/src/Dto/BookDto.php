@@ -6,13 +6,18 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Book DTO
  *
  * @property \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
  */
-class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
+class BookDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_PAGES = 'pages';
 
 	/**
@@ -63,7 +68,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withPages(\Cake\Collection\Collection $pages) {
 		$new = clone $this;
 		$new->pages = $pages;
-		$new->_touchedFields[self::FIELD_PAGES] = true;
+		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;
 	}
@@ -101,7 +106,7 @@ class BookDto extends \CakeDto\Dto\AbstractImmutableDto {
 		}
 
 		$new->pages = $new->pages->appendItem($page);
-		$new->_touchedFields[self::FIELD_PAGES] = true;
+		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;
 	}

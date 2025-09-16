@@ -7,6 +7,10 @@
 
 namespace {{ namespace }};
 
+{% if extends starts with '\\' %}
+use {{ extends[1:] }};
+{% endif %}
+
 /**
  * {{ name }} DTO
 {{ element('doc', fields) -}}
@@ -15,7 +19,7 @@ namespace {{ namespace }};
  * @deprecated {{ deprecated }}
 {% endif %}
  */
-class {{ className }} extends {{ extends }} {
+class {{ className }} extends {% if extends starts with '\\' %}{{ extends[1:] | split('\\') | last }}{% else %}{{ extends }}{% endif %} {
 
 {{ element('constants', fields) }}
 {{ element('properties', fields) -}}

@@ -6,6 +6,7 @@
 
 namespace TestApp\Dto;
 
+
 /**
  * OldOne DTO
  *
@@ -15,6 +16,9 @@ namespace TestApp\Dto;
  */
 class OldOneDto extends CarDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_NAME = 'name';
 
 	/**
@@ -61,7 +65,7 @@ class OldOneDto extends CarDto {
 	 */
 	public function setName(?string $name) {
 		$this->name = $name;
-		$this->_touchedFields[self::FIELD_NAME] = true;
+		$this->_touchedFields[static::FIELD_NAME] = true;
 
 		return $this;
 	}
@@ -73,7 +77,7 @@ class OldOneDto extends CarDto {
 	 */
 	public function setNameOrFail(string $name) {
 		$this->name = $name;
-		$this->_touchedFields[self::FIELD_NAME] = true;
+		$this->_touchedFields[static::FIELD_NAME] = true;
 
 		return $this;
 	}

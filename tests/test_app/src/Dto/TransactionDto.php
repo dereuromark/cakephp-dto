@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Transaction DTO
  *
@@ -14,11 +16,23 @@ namespace TestApp\Dto;
  * @property string|null $comment
  * @property \Cake\I18n\Date $created
  */
-class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
+class TransactionDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_CUSTOMER_ACCOUNT = 'customerAccount';
+	/**
+	 * @var string
+	 */
 	public const FIELD_VALUE = 'value';
+	/**
+	 * @var string
+	 */
 	public const FIELD_COMMENT = 'comment';
+	/**
+	 * @var string
+	 */
 	public const FIELD_CREATED = 'created';
 
 	/**
@@ -125,7 +139,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withCustomerAccount(\TestApp\Dto\CustomerAccountDto $customerAccount) {
 		$new = clone $this;
 		$new->customerAccount = $customerAccount;
-		$new->_touchedFields[self::FIELD_CUSTOMER_ACCOUNT] = true;
+		$new->_touchedFields[static::FIELD_CUSTOMER_ACCOUNT] = true;
 
 		return $new;
 	}
@@ -152,7 +166,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withValue(float $value) {
 		$new = clone $this;
 		$new->value = $value;
-		$new->_touchedFields[self::FIELD_VALUE] = true;
+		$new->_touchedFields[static::FIELD_VALUE] = true;
 
 		return $new;
 	}
@@ -179,7 +193,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withComment(?string $comment = null) {
 		$new = clone $this;
 		$new->comment = $comment;
-		$new->_touchedFields[self::FIELD_COMMENT] = true;
+		$new->_touchedFields[static::FIELD_COMMENT] = true;
 
 		return $new;
 	}
@@ -192,7 +206,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withCommentOrFail(string $comment) {
 		$new = clone $this;
 		$new->comment = $comment;
-		$new->_touchedFields[self::FIELD_COMMENT] = true;
+		$new->_touchedFields[static::FIELD_COMMENT] = true;
 
 		return $new;
 	}
@@ -232,7 +246,7 @@ class TransactionDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withCreated(\Cake\I18n\Date $created) {
 		$new = clone $this;
 		$new->created = $created;
-		$new->_touchedFields[self::FIELD_CREATED] = true;
+		$new->_touchedFields[static::FIELD_CREATED] = true;
 
 		return $new;
 	}

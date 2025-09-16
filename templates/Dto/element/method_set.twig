@@ -9,7 +9,7 @@
 	 */
 	public function set{{ name[:1]|upper ~ name[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable and not scalarAndReturnTypes %} = null{% endif %}) {
 		$this->{{ name }} = ${{ name }};
-		$this->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
+		$this->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
 
 		return $this;
 	}

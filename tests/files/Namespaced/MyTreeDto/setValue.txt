@@ -5,7 +5,7 @@
 	 */
 	public function setValue($value) {
 		$this->value = $value;
-		$this->_touchedFields[self::FIELD_VALUE] = true;
+		$this->_touchedFields[static::FIELD_VALUE] = true;
 
 		return $this;
 	}

@@ -5,7 +5,7 @@
 	 */
 	public function setDefaultedOptionalField(?int $defaultedOptionalField) {
 		$this->defaultedOptionalField = $defaultedOptionalField;
-		$this->_touchedFields[self::FIELD_DEFAULTED_OPTIONAL_FIELD] = true;
+		$this->_touchedFields[static::FIELD_DEFAULTED_OPTIONAL_FIELD] = true;
 
 		return $this;
 	}

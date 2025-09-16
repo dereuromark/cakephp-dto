@@ -14,7 +14,7 @@
 		}
 
 		$this->{{ name }} = $this->{{ name }}->appendItem(${{ singular }});
-		$this->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
+		$this->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
 
 		return $this;
 	}

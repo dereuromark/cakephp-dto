@@ -8,6 +8,7 @@ return [
 		'suffix' => 'Dto', // Class name suffix (recommended)
 		'strictTypes' => false, // This can create casting requirement
 		'scalarAndReturnTypes' => true,
+		'typedConstants' => false, // Requires PHP 8.3+ for typed class constants
 		'immutable' => false, // This can have a negative performance impact
 		'defaultCollectionType' => null, // Defaults to `\ArrayObject`
 		'debug' => false, // Add all meta data into DTOs for debugging

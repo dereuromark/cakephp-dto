@@ -555,6 +555,7 @@ return [
     'Dto' => [
         'strictTypes' => false, // This can require additional casting
         'scalarAndReturnTypes' => true,
+        'typedConstants' => false, // Requires PHP 8.3+ for typed class constants
         'immutable' => false, // This can have a negative performance impact
         'defaultCollectionType' => null, // Defaults to \ArrayObject
     ],
@@ -613,6 +614,26 @@ This will also stop auto-casting then. Used together with the scalar type hints 
 you store in your DTOs meets those standards.
 
 I would rather recommend leaving this off and instead using the scalar type hints only.
+
+## Typed Constants
+For projects using PHP 8.3+, you can enable typed class constants instead of docblock annotations:
+
+`'CakeDto.typedConstants'` set to `true` will enable this feature.
+
+**Default behavior (PHP 8.1+ compatible):**
+```php
+/**
+ * @var string
+ */
+public const FIELD_ID = 'id';
+```
+
+**With typed constants enabled (PHP 8.3+ required):**
+```php
+public const string FIELD_ID = 'id';
+```
+
+This provides the same type safety while using modern PHP syntax and eliminating the need for docblock annotations on constants.
 
 ## Suffix
 

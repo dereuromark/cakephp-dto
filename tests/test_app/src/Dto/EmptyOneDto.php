@@ -6,11 +6,13 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * EmptyOne DTO
  *
  */
-class EmptyOneDto extends \CakeDto\Dto\AbstractDto {
+class EmptyOneDto extends AbstractDto {
 
 
 	/**

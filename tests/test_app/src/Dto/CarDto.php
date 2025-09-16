@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * Car DTO
  *
@@ -17,14 +19,35 @@ namespace TestApp\Dto;
  * @property \Cake\I18n\Date|null $manufactured
  * @property \TestApp\Dto\OwnerDto|null $owner
  */
-class CarDto extends \CakeDto\Dto\AbstractDto {
+class CarDto extends AbstractDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_COLOR = 'color';
+	/**
+	 * @var string
+	 */
 	public const FIELD_IS_NEW = 'isNew';
+	/**
+	 * @var string
+	 */
 	public const FIELD_VALUE = 'value';
+	/**
+	 * @var string
+	 */
 	public const FIELD_DISTANCE_TRAVELLED = 'distanceTravelled';
+	/**
+	 * @var string
+	 */
 	public const FIELD_ATTRIBUTES = 'attributes';
+	/**
+	 * @var string
+	 */
 	public const FIELD_MANUFACTURED = 'manufactured';
+	/**
+	 * @var string
+	 */
 	public const FIELD_OWNER = 'owner';
 
 	/**
@@ -189,7 +212,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setColor(?\TestApp\ValueObject\Paint $color) {
 		$this->color = $color;
-		$this->_touchedFields[self::FIELD_COLOR] = true;
+		$this->_touchedFields[static::FIELD_COLOR] = true;
 
 		return $this;
 	}
@@ -201,7 +224,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setColorOrFail(\TestApp\ValueObject\Paint $color) {
 		$this->color = $color;
-		$this->_touchedFields[self::FIELD_COLOR] = true;
+		$this->_touchedFields[static::FIELD_COLOR] = true;
 
 		return $this;
 	}
@@ -240,7 +263,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setIsNew(?bool $isNew) {
 		$this->isNew = $isNew;
-		$this->_touchedFields[self::FIELD_IS_NEW] = true;
+		$this->_touchedFields[static::FIELD_IS_NEW] = true;
 
 		return $this;
 	}
@@ -252,7 +275,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setIsNewOrFail(bool $isNew) {
 		$this->isNew = $isNew;
-		$this->_touchedFields[self::FIELD_IS_NEW] = true;
+		$this->_touchedFields[static::FIELD_IS_NEW] = true;
 
 		return $this;
 	}
@@ -291,7 +314,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setValue(?float $value) {
 		$this->value = $value;
-		$this->_touchedFields[self::FIELD_VALUE] = true;
+		$this->_touchedFields[static::FIELD_VALUE] = true;
 
 		return $this;
 	}
@@ -303,7 +326,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setValueOrFail(float $value) {
 		$this->value = $value;
-		$this->_touchedFields[self::FIELD_VALUE] = true;
+		$this->_touchedFields[static::FIELD_VALUE] = true;
 
 		return $this;
 	}
@@ -342,7 +365,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setDistanceTravelled(?int $distanceTravelled) {
 		$this->distanceTravelled = $distanceTravelled;
-		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
+		$this->_touchedFields[static::FIELD_DISTANCE_TRAVELLED] = true;
 
 		return $this;
 	}
@@ -354,7 +377,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setDistanceTravelledOrFail(int $distanceTravelled) {
 		$this->distanceTravelled = $distanceTravelled;
-		$this->_touchedFields[self::FIELD_DISTANCE_TRAVELLED] = true;
+		$this->_touchedFields[static::FIELD_DISTANCE_TRAVELLED] = true;
 
 		return $this;
 	}
@@ -393,7 +416,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setAttributes(?array $attributes) {
 		$this->attributes = $attributes;
-		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
 		return $this;
 	}
@@ -405,7 +428,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setAttributesOrFail(array $attributes) {
 		$this->attributes = $attributes;
-		$this->_touchedFields[self::FIELD_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
 		return $this;
 	}
@@ -444,7 +467,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setManufactured(?\Cake\I18n\Date $manufactured) {
 		$this->manufactured = $manufactured;
-		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
+		$this->_touchedFields[static::FIELD_MANUFACTURED] = true;
 
 		return $this;
 	}
@@ -456,7 +479,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setManufacturedOrFail(\Cake\I18n\Date $manufactured) {
 		$this->manufactured = $manufactured;
-		$this->_touchedFields[self::FIELD_MANUFACTURED] = true;
+		$this->_touchedFields[static::FIELD_MANUFACTURED] = true;
 
 		return $this;
 	}
@@ -495,7 +518,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setOwner(?\TestApp\Dto\OwnerDto $owner) {
 		$this->owner = $owner;
-		$this->_touchedFields[self::FIELD_OWNER] = true;
+		$this->_touchedFields[static::FIELD_OWNER] = true;
 
 		return $this;
 	}
@@ -507,7 +530,7 @@ class CarDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setOwnerOrFail(\TestApp\Dto\OwnerDto $owner) {
 		$this->owner = $owner;
-		$this->_touchedFields[self::FIELD_OWNER] = true;
+		$this->_touchedFields[static::FIELD_OWNER] = true;
 
 		return $this;
 	}

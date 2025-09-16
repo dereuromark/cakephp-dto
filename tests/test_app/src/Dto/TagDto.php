@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Tag DTO
  *
@@ -13,10 +15,19 @@ namespace TestApp\Dto;
  * @property string $name
  * @property int $weight
  */
-class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
+class TagDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_ID = 'id';
+	/**
+	 * @var string
+	 */
 	public const FIELD_NAME = 'name';
+	/**
+	 * @var string
+	 */
 	public const FIELD_WEIGHT = 'weight';
 
 	/**
@@ -102,7 +113,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
-		$new->_touchedFields[self::FIELD_ID] = true;
+		$new->_touchedFields[static::FIELD_ID] = true;
 
 		return $new;
 	}
@@ -129,7 +140,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withName(string $name) {
 		$new = clone $this;
 		$new->name = $name;
-		$new->_touchedFields[self::FIELD_NAME] = true;
+		$new->_touchedFields[static::FIELD_NAME] = true;
 
 		return $new;
 	}
@@ -156,7 +167,7 @@ class TagDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withWeight(int $weight) {
 		$new = clone $this;
 		$new->weight = $weight;
-		$new->_touchedFields[self::FIELD_WEIGHT] = true;
+		$new->_touchedFields[static::FIELD_WEIGHT] = true;
 
 		return $new;
 	}

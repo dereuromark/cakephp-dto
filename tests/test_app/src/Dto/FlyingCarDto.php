@@ -6,6 +6,7 @@
 
 namespace TestApp\Dto;
 
+
 /**
  * FlyingCar DTO
  *
@@ -15,8 +16,17 @@ namespace TestApp\Dto;
  */
 class FlyingCarDto extends CarDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_MAX_ALTITUDE = 'maxAltitude';
+	/**
+	 * @var string
+	 */
 	public const FIELD_MAX_SPEED = 'maxSpeed';
+	/**
+	 * @var string
+	 */
 	public const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
 
 	/**
@@ -101,7 +111,7 @@ class FlyingCarDto extends CarDto {
 	 */
 	public function setMaxAltitude(int $maxAltitude) {
 		$this->maxAltitude = $maxAltitude;
-		$this->_touchedFields[self::FIELD_MAX_ALTITUDE] = true;
+		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 
 		return $this;
 	}
@@ -121,7 +131,7 @@ class FlyingCarDto extends CarDto {
 	 */
 	public function setMaxSpeed(int $maxSpeed) {
 		$this->maxSpeed = $maxSpeed;
-		$this->_touchedFields[self::FIELD_MAX_SPEED] = true;
+		$this->_touchedFields[static::FIELD_MAX_SPEED] = true;
 
 		return $this;
 	}
@@ -141,7 +151,7 @@ class FlyingCarDto extends CarDto {
 	 */
 	public function setComplexAttributes(?array $complexAttributes) {
 		$this->complexAttributes = $complexAttributes;
-		$this->_touchedFields[self::FIELD_COMPLEX_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_COMPLEX_ATTRIBUTES] = true;
 
 		return $this;
 	}
@@ -153,7 +163,7 @@ class FlyingCarDto extends CarDto {
 	 */
 	public function setComplexAttributesOrFail(array $complexAttributes) {
 		$this->complexAttributes = $complexAttributes;
-		$this->_touchedFields[self::FIELD_COMPLEX_ATTRIBUTES] = true;
+		$this->_touchedFields[static::FIELD_COMPLEX_ATTRIBUTES] = true;
 
 		return $this;
 	}

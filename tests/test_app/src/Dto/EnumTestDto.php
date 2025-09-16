@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * EnumTest DTO
  *
@@ -13,10 +15,19 @@ namespace TestApp\Dto;
  * @property \TestApp\Model\Enum\MyStringBacked|null $someStringBacked
  * @property \TestApp\Model\Enum\MyIntBacked|null $someIntBacked
  */
-class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
+class EnumTestDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_SOME_UNIT = 'someUnit';
+	/**
+	 * @var string
+	 */
 	public const FIELD_SOME_STRING_BACKED = 'someStringBacked';
+	/**
+	 * @var string
+	 */
 	public const FIELD_SOME_INT_BACKED = 'someIntBacked';
 
 	/**
@@ -108,7 +119,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeUnit(?\TestApp\Model\Enum\MyUnit $someUnit = null) {
 		$new = clone $this;
 		$new->someUnit = $someUnit;
-		$new->_touchedFields[self::FIELD_SOME_UNIT] = true;
+		$new->_touchedFields[static::FIELD_SOME_UNIT] = true;
 
 		return $new;
 	}
@@ -121,7 +132,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit) {
 		$new = clone $this;
 		$new->someUnit = $someUnit;
-		$new->_touchedFields[self::FIELD_SOME_UNIT] = true;
+		$new->_touchedFields[static::FIELD_SOME_UNIT] = true;
 
 		return $new;
 	}
@@ -161,7 +172,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeStringBacked(?\TestApp\Model\Enum\MyStringBacked $someStringBacked = null) {
 		$new = clone $this;
 		$new->someStringBacked = $someStringBacked;
-		$new->_touchedFields[self::FIELD_SOME_STRING_BACKED] = true;
+		$new->_touchedFields[static::FIELD_SOME_STRING_BACKED] = true;
 
 		return $new;
 	}
@@ -174,7 +185,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked) {
 		$new = clone $this;
 		$new->someStringBacked = $someStringBacked;
-		$new->_touchedFields[self::FIELD_SOME_STRING_BACKED] = true;
+		$new->_touchedFields[static::FIELD_SOME_STRING_BACKED] = true;
 
 		return $new;
 	}
@@ -214,7 +225,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeIntBacked(?\TestApp\Model\Enum\MyIntBacked $someIntBacked = null) {
 		$new = clone $this;
 		$new->someIntBacked = $someIntBacked;
-		$new->_touchedFields[self::FIELD_SOME_INT_BACKED] = true;
+		$new->_touchedFields[static::FIELD_SOME_INT_BACKED] = true;
 
 		return $new;
 	}
@@ -227,7 +238,7 @@ class EnumTestDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withSomeIntBackedOrFail(\TestApp\Model\Enum\MyIntBacked $someIntBacked) {
 		$new = clone $this;
 		$new->someIntBacked = $someIntBacked;
-		$new->_touchedFields[self::FIELD_SOME_INT_BACKED] = true;
+		$new->_touchedFields[static::FIELD_SOME_INT_BACKED] = true;
 
 		return $new;
 	}

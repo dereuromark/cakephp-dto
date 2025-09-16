@@ -85,6 +85,7 @@ class Builder {
 		$this->simpleTypeWhitelist = $this->simpleTypeWhitelist($this->simpleTypeWhitelist);
 		$config = [
 			'scalarAndReturnTypes' => Configure::read('CakeDto.scalarAndReturnTypes', true),
+			'typedConstants' => Configure::read('CakeDto.typedConstants', false),
 			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType', '\ArrayObject'),
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),

@@ -6,6 +6,8 @@
 
 namespace Sandbox\Dto\Jira;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * Jira/Issue DTO
  *
@@ -16,13 +18,31 @@ namespace Sandbox\Dto\Jira;
  * @property string $summary
  * @property string|null $version
  */
-class IssueDto extends \CakeDto\Dto\AbstractDto {
+class IssueDto extends AbstractDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_ID = 'id';
+	/**
+	 * @var string
+	 */
 	public const FIELD_KEY = 'key';
+	/**
+	 * @var string
+	 */
 	public const FIELD_STATUS = 'status';
+	/**
+	 * @var string
+	 */
 	public const FIELD_PRIORITY = 'priority';
+	/**
+	 * @var string
+	 */
 	public const FIELD_SUMMARY = 'summary';
+	/**
+	 * @var string
+	 */
 	public const FIELD_VERSION = 'version';
 
 	/**
@@ -164,7 +184,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setId(string $id) {
 		$this->id = $id;
-		$this->_touchedFields[self::FIELD_ID] = true;
+		$this->_touchedFields[static::FIELD_ID] = true;
 
 		return $this;
 	}
@@ -190,7 +210,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setKey(string $key) {
 		$this->key = $key;
-		$this->_touchedFields[self::FIELD_KEY] = true;
+		$this->_touchedFields[static::FIELD_KEY] = true;
 
 		return $this;
 	}
@@ -216,7 +236,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setStatus(string $status) {
 		$this->status = $status;
-		$this->_touchedFields[self::FIELD_STATUS] = true;
+		$this->_touchedFields[static::FIELD_STATUS] = true;
 
 		return $this;
 	}
@@ -242,7 +262,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setPriority(string $priority) {
 		$this->priority = $priority;
-		$this->_touchedFields[self::FIELD_PRIORITY] = true;
+		$this->_touchedFields[static::FIELD_PRIORITY] = true;
 
 		return $this;
 	}
@@ -268,7 +288,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setSummary(string $summary) {
 		$this->summary = $summary;
-		$this->_touchedFields[self::FIELD_SUMMARY] = true;
+		$this->_touchedFields[static::FIELD_SUMMARY] = true;
 
 		return $this;
 	}
@@ -294,7 +314,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setVersion(?string $version) {
 		$this->version = $version;
-		$this->_touchedFields[self::FIELD_VERSION] = true;
+		$this->_touchedFields[static::FIELD_VERSION] = true;
 
 		return $this;
 	}
@@ -306,7 +326,7 @@ class IssueDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setVersionOrFail(string $version) {
 		$this->version = $version;
-		$this->_touchedFields[self::FIELD_VERSION] = true;
+		$this->_touchedFields[static::FIELD_VERSION] = true;
 
 		return $this;
 	}

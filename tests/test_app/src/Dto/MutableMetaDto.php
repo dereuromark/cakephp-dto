@@ -6,15 +6,23 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * MutableMeta DTO
  *
  * @property string $title
  * @property (string|null)[] $meta
  */
-class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
+class MutableMetaDto extends AbstractDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_TITLE = 'title';
+	/**
+	 * @var string
+	 */
 	public const FIELD_META = 'meta';
 
 	/**
@@ -83,7 +91,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setTitle(string $title) {
 		$this->title = $title;
-		$this->_touchedFields[self::FIELD_TITLE] = true;
+		$this->_touchedFields[static::FIELD_TITLE] = true;
 
 		return $this;
 	}
@@ -109,7 +117,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setMeta(array $meta) {
 		$this->meta = $meta;
-		$this->_touchedFields[self::FIELD_META] = true;
+		$this->_touchedFields[static::FIELD_META] = true;
 
 		return $this;
 	}
@@ -159,7 +167,7 @@ class MutableMetaDto extends \CakeDto\Dto\AbstractDto {
 		}
 
 		$this->meta[$key] = $metaValue;
-		$this->_touchedFields[self::FIELD_META] = true;
+		$this->_touchedFields[static::FIELD_META] = true;
 
 		return $this;
 	}

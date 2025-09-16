@@ -165,6 +165,8 @@ class GeneratorTest extends TestCase {
 		$expected = <<<TXT
 namespace App\Dto\MyForest;
 
+use App\Dto\MyForest\MyTreeDto;
+
 /**
  * MyForest/MySpecialTree DTO
 TXT;
@@ -172,7 +174,7 @@ TXT;
 
 		$expected = <<<TXT
  */
-class MySpecialTreeDto extends \App\Dto\MyForest\MyTreeDto {
+class MySpecialTreeDto extends MyTreeDto {
 TXT;
 		$this->assertTextContains($expected, $content);
 	}

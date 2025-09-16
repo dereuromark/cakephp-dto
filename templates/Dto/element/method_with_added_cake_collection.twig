@@ -22,7 +22,7 @@
 {% else %}
 		$new->{{ name }} = $new->{{ name }}->appendItem(${{ singular }});
 {% endif %}
-		$new->_touchedFields[self::FIELD_{{ name | underscore | upper }}] = true;
+		$new->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
 
 		return $new;
 	}

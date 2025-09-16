@@ -6,6 +6,8 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractImmutableDto;
+
 /**
  * Author DTO
  *
@@ -13,10 +15,19 @@ namespace TestApp\Dto;
  * @property string $name
  * @property string|null $email
  */
-class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
+class AuthorDto extends AbstractImmutableDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_ID = 'id';
+	/**
+	 * @var string
+	 */
 	public const FIELD_NAME = 'name';
+	/**
+	 * @var string
+	 */
 	public const FIELD_EMAIL = 'email';
 
 	/**
@@ -102,7 +113,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withId(int $id) {
 		$new = clone $this;
 		$new->id = $id;
-		$new->_touchedFields[self::FIELD_ID] = true;
+		$new->_touchedFields[static::FIELD_ID] = true;
 
 		return $new;
 	}
@@ -129,7 +140,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withName(string $name) {
 		$new = clone $this;
 		$new->name = $name;
-		$new->_touchedFields[self::FIELD_NAME] = true;
+		$new->_touchedFields[static::FIELD_NAME] = true;
 
 		return $new;
 	}
@@ -156,7 +167,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withEmail(?string $email = null) {
 		$new = clone $this;
 		$new->email = $email;
-		$new->_touchedFields[self::FIELD_EMAIL] = true;
+		$new->_touchedFields[static::FIELD_EMAIL] = true;
 
 		return $new;
 	}
@@ -169,7 +180,7 @@ class AuthorDto extends \CakeDto\Dto\AbstractImmutableDto {
 	public function withEmailOrFail(string $email) {
 		$new = clone $this;
 		$new->email = $email;
-		$new->_touchedFields[self::FIELD_EMAIL] = true;
+		$new->_touchedFields[static::FIELD_EMAIL] = true;
 
 		return $new;
 	}

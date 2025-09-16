@@ -6,13 +6,18 @@
 
 namespace TestApp\Dto;
 
+use CakeDto\Dto\AbstractDto;
+
 /**
  * Cars DTO
  *
  * @property \TestApp\Dto\CarDto[]|\ArrayObject $cars
  */
-class CarsDto extends \CakeDto\Dto\AbstractDto {
+class CarsDto extends AbstractDto {
 
+	/**
+	 * @var string
+	 */
 	public const FIELD_CARS = 'cars';
 
 	/**
@@ -62,7 +67,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 	 */
 	public function setCars(\ArrayObject $cars) {
 		$this->cars = $cars;
-		$this->_touchedFields[self::FIELD_CARS] = true;
+		$this->_touchedFields[static::FIELD_CARS] = true;
 
 		return $this;
 	}
@@ -123,7 +128,7 @@ class CarsDto extends \CakeDto\Dto\AbstractDto {
 		}
 
 		$this->cars[$key] = $car;
-		$this->_touchedFields[self::FIELD_CARS] = true;
+		$this->_touchedFields[static::FIELD_CARS] = true;
 
 		return $this;
 	}

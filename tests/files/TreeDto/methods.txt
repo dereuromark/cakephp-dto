@@ -7,7 +7,7 @@
 	 */
 	public function setSize($size) {
 		$this->size = $size;
-		$this->_touchedFields[self::FIELD_SIZE] = true;
+		$this->_touchedFields[static::FIELD_SIZE] = true;
 
 		return $this;
 	}
@@ -26,7 +26,7 @@
 			throw new \RuntimeException('Value not present (expected to be not null)');
 		}
 		$this->size = $size;
-		$this->_touchedFields[self::FIELD_SIZE] = true;
+		$this->_touchedFields[static::FIELD_SIZE] = true;
 
 		return $this;
 	}
