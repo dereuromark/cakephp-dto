@@ -3,12 +3,24 @@
 Often times, you have an API result that you want to convert into PHP (transfer) objects.
 In this case, you can either write them manually, or let a tool convert it for you.
 
+### Web User Interface
+
+The plugin provides a web-based interface for generating DTO definitions from JSON data. This is particularly useful for quickly converting API responses or existing data structures into DTO schemas.
+
+**Accessing the UI:**
+Navigate to `/admin/cake-dto/generate` in your browser. This route is provided by the plugin and includes:
+
+- **Index page**: Overview of available generation tools
+- **Schema page**: Interactive JSON parser and schema builder
+
+The web UI allows you to:
+- Paste JSON data directly into the interface
+- Choose between JSON Schema format or example JSON data
+- Parse the data into DTO XML schema definitions
+- Copy the generated schema for use in your `config/dto.xml` or `config/dto/` files
+
 ### JSON into Schema
-Navigate to
-
-    /admin/cake-dto/generate
-
-and select `Schema`.
+From the web UI at `/admin/cake-dto/generate`, select `Schema`.
 
 Enter your JSON data and click `Parse`.
 

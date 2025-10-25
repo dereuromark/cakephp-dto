@@ -313,6 +313,45 @@ you transform it to array or serialized form.
 
 Note: Make sure that for whatever you use the type matches the serialized form.
 
+### Static Factory Methods
+DTOs provide convenient static factory methods for instantiation:
+
+#### createFromArray()
+Create a DTO from an associative array:
+```php
+$carDto = CarDto::createFromArray([
+    'color' => 'red',
+    'isNew' => true,
+]);
+```
+
+The second parameter `ignoreMissing` allows extra array keys that aren't defined in the DTO:
+```php
+$carDto = CarDto::createFromArray($data, true);
+```
+
+The third parameter allows you to specify the array key inflection type:
+```php
+$carDto = CarDto::createFromArray($data, true, CarDto::TYPE_UNDERSCORED);
+```
+
+#### create()
+An alias for `createFromArray()` that accepts an optional array:
+```php
+$carDto = CarDto::create(); // Empty DTO
+$carDto = CarDto::create(['color' => 'blue']);
+$carDto = CarDto::create($data, true);
+```
+
+#### fromUnserialized()
+Create a DTO from a serialized string:
+```php
+$serialized = serialize($carDto);
+$newCarDto = CarDto::fromUnserialized($serialized);
+```
+
+These static methods are particularly useful when you want to avoid using `new` directly or when working with dependency injection containers.
+
 ### Fields and touched fields
 You can get a list of the DTOs fields using `fields()`.
 `touchedFields()` will give you the list of not fields that have been set or unset so far.
@@ -477,6 +516,24 @@ In case you only have the underscored or dashed version, you need to call `field
 $field = $dto->field('my_field'); // returns 'myField'
 $dto->set($field, $value);
 ```
+
+#### Generic set() Method (Mutable DTOs)
+For mutable DTOs, you can use the generic `set()` method for programmatic field assignment:
+```php
+$dto->set('color', 'red');
+$dto->set('is_new', true, $dto::TYPE_UNDERSCORED);
+```
+
+This is particularly useful when field names are determined at runtime or when working with inflected keys.
+
+#### Generic with() Method (Immutable DTOs)
+For immutable DTOs, the generic `with()` method allows programmatic updates:
+```php
+$updatedDto = $dto->with('color', 'blue');
+$updatedDto = $dto->with('is_new', true, $dto::TYPE_UNDERSCORED);
+```
+
+While generated `withColor()` methods are available, the generic `with()` is useful for dynamic field updates.
 
 ### PHP Template Usage
 Inside templates just annotate the variables passed down in the doc block at the top:
