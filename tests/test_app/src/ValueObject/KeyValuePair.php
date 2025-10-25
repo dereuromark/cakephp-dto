@@ -57,9 +57,9 @@ class KeyValuePair implements Serializable {
 	 * @return static
 	 */
 	public static function createFromString(string $string) {
-		 $array = json_decode($string, true);
+		$array = json_decode($string, true);
 
-		 return static::createFromArray($array);
+		return static::createFromArray($array);
 	}
 
 	/**
