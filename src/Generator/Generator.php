@@ -91,7 +91,7 @@ class Generator {
 			$target = $srcPath . 'Dto' . DS . $name . Configure::read('CakeDto.suffix', 'Dto') . '.php';
 			$targetPath = dirname($target);
 			if (!is_dir($targetPath)) {
-				mkdir($targetPath, 0700, true);
+				mkdir($targetPath, 0755, true);
 			}
 
 			if ($isModified) {
@@ -134,7 +134,7 @@ class Generator {
 	 */
 	protected function findExistingDtos(string $path): array {
 		if (!is_dir($path)) {
-			mkdir($path, 0700, true);
+			mkdir($path, 0755, true);
 		}
 
 		$files = [];

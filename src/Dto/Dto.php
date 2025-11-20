@@ -199,7 +199,9 @@ abstract class Dto implements Serializable {
 				} elseif ($this->_metadata[$field]['serialize']) {
 					$values[$key] = $this->transformSerialized($value, $this->_metadata[$field]['serialize']);
 				} elseif (!empty($this->_metadata[$field]['enum']) && $this->_metadata[$field]['enum'] === 'unit') {
-					assert($value instanceof UnitEnum);
+					if (!$value instanceof UnitEnum) {
+						throw new InvalidArgumentException('Expected UnitEnum instance');
+					}
 					$values[$key] = $this->transformEnum($value);
 				} else {
 					$values[$key] = $value;
