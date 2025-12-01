@@ -80,7 +80,7 @@ class Paint implements FromArrayToArrayInterface {
 	 * Since the objects are immutable, the resulting Paint is a brand
 	 * new object, which is returned.
 	 *
-	 * @param static|self $another
+	 * @param self $another
 	 * @return static|self
 	 */
 	public function mix(self $another): self {

@@ -5,6 +5,7 @@ namespace CakeDto\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
 use CakeDto\Importer\Importer;
+use Exception;
 
 class GenerateController extends AppController {
 
@@ -53,7 +54,7 @@ class GenerateController extends AppController {
 				$schema = null;
 				try {
 					$schema = (new Importer())->parse($json, $options);
-				} catch (\Exception $e) {
+				} catch (Exception $e) {
 					$this->Flash->error($e->getMessage());
 				}
 
