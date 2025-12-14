@@ -32,7 +32,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function verbose($message, int $newlines = 1) {
+	public function verbose($message, int $newlines = 1): ?int {
 		return $this->_io->verbose($message, $newlines);
 	}
 
@@ -43,7 +43,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function quiet($message, int $newlines = 1) {
+	public function quiet($message, int $newlines = 1): ?int {
 		return $this->_io->quiet($message, $newlines);
 	}
 
@@ -57,7 +57,7 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function out($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
+	public function out($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->out((string)$message, $newlines, $level);
 	}
 
@@ -69,7 +69,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
-	public function error($message = null, int $newlines = 1) {
+	public function error($message = null, int $newlines = 1): ?int {
 		return $this->_io->error((string)$message, $newlines);
 	}
 
@@ -120,7 +120,7 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function success($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
+	public function success($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->success((string)$message, $level);
 	}
 
