@@ -1,3 +1,13 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var mixed $dto
+ * @var mixed $format
+ * @var mixed $namespace
+ * @var mixed $result
+ * @var mixed $schema
+ */
+?>
 <h1>Generate DTO Schema from JSON/Structure</h1>
 
 <div class="float-end">
