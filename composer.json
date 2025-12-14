@@ -30,12 +30,6 @@
 		"issues": "https://github.com/dereuromark/cakephp-dto/issues",
 		"source": "https://github.com/dereuromark/cakephp-dto/"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/php-collective/dto"
-		}
-	],
 	"require": {
 		"php": ">=8.1",
 		"ext-json": "*",
