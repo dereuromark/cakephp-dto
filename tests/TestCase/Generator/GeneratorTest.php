@@ -6,11 +6,11 @@ use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Console\Io;
+use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 use PhpCollective\Dto\Engine\XmlEngine;
-use PhpCollective\Dto\Filesystem\Folder;
 use TestApp\TestSuite\ConsoleOutput;
 use TestApp\TestSuite\PhpFileTemplateTestTrait;
 

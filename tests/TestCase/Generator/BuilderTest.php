@@ -3,11 +3,11 @@
 namespace CakeDto\Test\TestCase\Generator;
 
 use Cake\TestSuite\TestCase;
+use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use PhpCollective\Dto\Engine\EngineInterface;
 use PhpCollective\Dto\Engine\XmlEngine;
-use PhpCollective\Dto\Filesystem\Folder;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\DtoCustom\DummyNonDtoClass;

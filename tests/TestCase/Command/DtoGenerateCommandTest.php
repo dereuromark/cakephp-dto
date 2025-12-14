@@ -6,7 +6,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
-use PhpCollective\Dto\Filesystem\Folder;
+use CakeDto\Filesystem\Folder;
 use TestApp\TestSuite\ConsoleOutput;
 
 class DtoGenerateCommandTest extends TestCase {
