@@ -37,11 +37,15 @@ class GenerateController extends AppController {
 	public function schema(): void {
 		if ($this->request->is(['post', 'put'])) {
 			if ($this->request->getData('dto')) {
+				$format = $this->request->getData('format') ?: 'php';
 				$options = [
 					'namespace' => $this->request->getData('namespace'),
+					'format' => $format,
 				];
-				$result = (new Importer())->buildSchema($this->request->getData('dto'), $options);
-				$this->set(compact('result'));
+				$dto = $this->request->getData('dto');
+				$namespace = $this->request->getData('namespace');
+				$result = (new Importer())->buildSchema($dto, $options);
+				$this->set(compact('result', 'dto', 'namespace', 'format'));
 			} else {
 				$json = $this->request->getData('input');
 				$type = $this->request->getData('type');

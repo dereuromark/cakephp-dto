@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <h1>Generate from JSON/Structure</h1>
 
 <p>With this admin backend you can generate the DTO schema files from</p>
