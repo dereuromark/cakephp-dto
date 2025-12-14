@@ -8,7 +8,7 @@
 
 	<h2>Result</h2>
 
-	<pre><?php echo h(implode("\n\n", $result)); ?></pre>
+	<pre><?php echo h($result); ?></pre>
 
 <?php } elseif (!empty($schema)) { ?>
 
@@ -50,7 +50,7 @@
 	<?php echo $this->Form->create(); ?>
 
 	<?php echo $this->Form->control('input', ['type' => 'textarea', 'rows' => 20]); ?>
-	<?php echo $this->Form->control('type', ['type' => 'select', 'options' => \CakeDto\Importer\Parser\Config::typeLabels(), 'empty' => ['' => 'Auto-Detect'], 'default' => $this->request->getQuery('type')]); ?>
+	<?php echo $this->Form->control('type', ['type' => 'select', 'options' => \PhpCollective\Dto\Importer\Parser\Config::typeLabels(), 'empty' => ['' => 'Auto-Detect'], 'default' => $this->request->getQuery('type')]); ?>
 	<?php echo $this->Form->control('namespace', ['type' => 'text', 'placeholder' => 'Optional namespace prefix', 'label' => 'DTO namespace']); ?>
 
 	<?php echo $this->Form->button('Parse'); ?>

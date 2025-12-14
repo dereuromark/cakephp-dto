@@ -11,6 +11,8 @@ use PhpCollective\Dto\Dto\AbstractDto;
 use PhpCollective\Dto\Dto\AbstractImmutableDto;
 use PhpCollective\Dto\Dto\FromArrayToArrayInterface;
 use PhpCollective\Dto\Engine\EngineInterface;
+use PhpCollective\Dto\Generator\Finder;
+use PhpCollective\Dto\Generator\FinderInterface;
 use ReflectionClass;
 use ReflectionEnum;
 use ReflectionException;
@@ -812,10 +814,10 @@ class Builder {
 	}
 
 	/**
-	 * @return \CakeDto\Generator\FinderInterface
+	 * @return \PhpCollective\Dto\Generator\FinderInterface
 	 */
 	protected function _finder(): FinderInterface {
-		/** @phpstan-var class-string<\CakeDto\Generator\Finder> $finderClass */
+		/** @phpstan-var class-string<\PhpCollective\Dto\Generator\Finder> $finderClass */
 		$finderClass = $this->_config['finder'];
 
 		return new $finderClass();

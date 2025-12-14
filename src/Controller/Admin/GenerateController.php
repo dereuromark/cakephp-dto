@@ -4,8 +4,8 @@ namespace CakeDto\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
-use CakeDto\Importer\Importer;
 use Exception;
+use PhpCollective\Dto\Importer\Importer;
 
 class GenerateController extends AppController {
 
