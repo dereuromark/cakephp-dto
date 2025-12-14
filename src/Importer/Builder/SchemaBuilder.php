@@ -19,31 +19,42 @@ class SchemaBuilder implements BuilderInterface {
 			}
 
 			$attr = [
-				'name="' . $fieldName . '"',
-				'type="' . $fieldDetails['type'] . '"',
+				'name="' . $this->escapeXmlAttr($fieldName) . '"',
+				'type="' . $this->escapeXmlAttr($fieldDetails['type']) . '"',
 			];
 			if (!empty($fieldDetails['required'])) {
 				$attr[] = 'required="true"';
 			}
 			if (!empty($fieldDetails['singular'])) {
-				$attr[] = 'singular="' . $fieldDetails['singular'] . '"';
+				$attr[] = 'singular="' . $this->escapeXmlAttr($fieldDetails['singular']) . '"';
 			}
 			if (!empty($fieldDetails['associative'])) {
 				$attr[] = 'associative="true"';
-				$attr[] = 'key="' . $fieldDetails['associative'] . '"';
+				$attr[] = 'key="' . $this->escapeXmlAttr($fieldDetails['associative']) . '"';
 			}
 
 			$fields[] = "\t\t" . '<field ' . implode(' ', $attr) . '/>';
 		}
 
 		$fields = implode("\n", $fields);
+		$escapedName = $this->escapeXmlAttr($name);
 		$xml = <<<XML
-	<dto name="$name">
+	<dto name="$escapedName">
 $fields
 	</dto>
 XML;
 
 		return $xml;
+	}
+
+	/**
+	 * Escape a string for use in an XML attribute.
+	 *
+	 * @param string $value
+	 * @return string
+	 */
+	protected function escapeXmlAttr(string $value): string {
+		return htmlspecialchars($value, ENT_XML1 | ENT_QUOTES, 'UTF-8');
 	}
 
 }
