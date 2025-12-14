@@ -91,4 +91,74 @@ class SerializeTest extends TestCase {
 		]);
 	}
 
+	/**
+	 * Tests that __unserialize accepts valid known fields.
+	 *
+	 * @return void
+	 */
+	public function testUnserializeAcceptsKnownFields(): void {
+		$owner = new OwnerDto(['name' => 'Initial']);
+
+		// Should not throw - all fields are known
+		$owner->__unserialize([
+			'name' => 'Updated Name',
+			'attributes' => ['key' => 'value'],
+		]);
+
+		$this->assertSame('Updated Name', $owner->getName());
+	}
+
+	/**
+	 * Tests that __unserialize works with empty data.
+	 *
+	 * @return void
+	 */
+	public function testUnserializeWithEmptyData(): void {
+		$owner = new OwnerDto(['name' => 'Initial']);
+
+		// Should not throw with empty data
+		$owner->__unserialize([]);
+
+		// Name should remain from initial state (since we're unserializing to same instance)
+		$this->assertSame('Initial', $owner->getName());
+	}
+
+	/**
+	 * Tests serialization round-trip preserves data integrity.
+	 *
+	 * @return void
+	 */
+	public function testSerializeRoundTripPreservesData(): void {
+		$original = new OwnerDto([
+			'name' => 'Test Owner',
+			'attributes' => ['role' => 'admin', 'level' => '5'],
+		]);
+
+		// Serialize and unserialize
+		$serialized = serialize($original);
+		/** @var \TestApp\Dto\OwnerDto $restored */
+		$restored = unserialize($serialized);
+
+		// Data should be preserved
+		$this->assertSame($original->getName(), $restored->getName());
+		$this->assertEquals($original->getAttributes(), $restored->getAttributes());
+		$this->assertEquals($original->touchedToArray(), $restored->touchedToArray());
+	}
+
+	/**
+	 * Tests that __serialize returns only touched fields.
+	 *
+	 * @return void
+	 */
+	public function testSerializeReturnsOnlyTouchedFields(): void {
+		$owner = new OwnerDto(['name' => 'Test']);
+
+		$serializedData = $owner->__serialize();
+
+		// Should only contain 'name' as it's the only touched field
+		$this->assertArrayHasKey('name', $serializedData);
+		$this->assertArrayNotHasKey('attributes', $serializedData);
+		$this->assertArrayNotHasKey('insuranceId', $serializedData);
+	}
+
 }
