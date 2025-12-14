@@ -738,11 +738,12 @@ class Builder {
 	 * @return string|null
 	 */
 	protected function typehint(string $type): ?string {
-		// Unset the typehint for simple type unions
+		// Handle simple type unions (e.g., int|string) - PHP 8.0+ supports union types natively
 		if ($this->isValidSimpleType($type)) {
 			$types = explode('|', $type);
 			if (count($types) > 1) {
-				return null;
+				// Return union type for PHP 8.0+ native support
+				return $type;
 			}
 		}
 		if (in_array($type, $this->simpleTypeAdditionsForDocBlock, true)) {
