@@ -486,7 +486,12 @@ class Builder {
 			}
 
 			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes'] && $fields[$key]['nullable']) {
-				$fields[$key]['nullableTypeHint'] = '?' . $fields[$key]['typeHint'];
+				// For union types, use |null suffix instead of ? prefix (PHP 8.0+ syntax)
+				if (str_contains($fields[$key]['typeHint'], '|')) {
+					$fields[$key]['nullableTypeHint'] = $fields[$key]['typeHint'] . '|null';
+				} else {
+					$fields[$key]['nullableTypeHint'] = '?' . $fields[$key]['typeHint'];
+				}
 			}
 
 			if ($fields[$key]['collection']) {
@@ -738,11 +743,20 @@ class Builder {
 	 * @return string|null
 	 */
 	protected function typehint(string $type): ?string {
-		// Unset the typehint for simple type unions
+		// Handle simple type unions (e.g., int|string) - PHP 8.0+ supports union types natively
 		if ($this->isValidSimpleType($type)) {
 			$types = explode('|', $type);
 			if (count($types) > 1) {
-				return null;
+				// Check if any type in the union is an array type (e.g., string[]|int[])
+				// Array union types are not valid PHP syntax, only docblock annotations
+				foreach ($types as $t) {
+					if (str_ends_with($t, '[]')) {
+						return null;
+					}
+				}
+
+				// Return union type for PHP 8.0+ native support
+				return $type;
 			}
 		}
 		if (in_array($type, $this->simpleTypeAdditionsForDocBlock, true)) {
