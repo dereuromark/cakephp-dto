@@ -5,11 +5,13 @@ namespace CakeDto\Console;
 use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
+use PhpCollective\Dto\Generator\IoInterface;
 
 /**
  * Composition class as proxy towards ConsoleIO - basically a shell replacement for inside business logic.
+ * Implements the standalone library's IoInterface for compatibility.
  */
-class Io {
+class Io implements IoInterface {
 
 	/**
 	 * @var \Cake\Console\ConsoleIo
