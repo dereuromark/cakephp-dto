@@ -27,7 +27,7 @@ class Renderer implements RendererInterface {
 	 * @param array<string, mixed> $vars
 	 * @return $this
 	 */
-	public function set(array $vars): static {
+	public function set(array $vars): static { // phpcs:ignore PhpCollective.Classes.ReturnTypeHint.InvalidSelf
 		$this->traitSet($vars);
 
 		return $this;
