@@ -136,6 +136,13 @@ Collections (require `type="array"` or `type="...[]"`):
 For collections you will also have `add{SingularName}()` methods as convenience wrappers available to add to the existing stack.
 So here it is important to either manually define `singular="..."`, or make sure it can be auto-singularized (it tries to inflect the singular from the plural name).
 
+**Singular Collision Detection:** The generator will throw an exception if the singular name collides with an existing field name. For example:
+```xml
+<field name="item" type="string"/>
+<field name="items" type="string[]" singular="item"/> <!-- Error: collision with 'item' field -->
+```
+This prevents silent failures where `addItem()` would conflict with `getItem()`/`setItem()`.
+
 ### Namespaces
 If you plan on using DTOs a lot, it is advised to namespace them. Instead of a long flat collection of DTOs, you can nest them in subfolders.
 This also prevents you from having to be more and more creative - as class names must be unique per namespace.
@@ -196,9 +203,80 @@ An argument is always required, even for setting it to null: `->setManufactured(
 
 
 ### Union types
-In same rare cases you need to declare union types, e.g. scalar `string|int|float` or array `string[]|int[]`.
-Note that this will usually prevent more strict typehinting to be possible.
+In some cases you need to declare union types, e.g. scalar `string|int|float` or array `string[]|int[]`.
 
+```xml
+<field name="identifier" type="string|int"/>
+<field name="values" type="string[]|int[]"/>
+```
+
+**Native PHP Union Type Hints (PHP 8.0+):**
+For simple union types like `string|int`, the generator now produces native PHP union type hints:
+```php
+public function setIdentifier(string|int $identifier): static
+public function getIdentifier(): string|int|null
+```
+
+**Nullable Union Types:**
+Nullable union types use the `type|null` syntax rather than the `?type` shorthand:
+```php
+public function getValue(): string|int|null
+```
+
+**Array Union Types:**
+Array notation in union types (e.g., `string[]|int[]`) cannot use native PHP type hints since `string[]|int[]` is not valid PHP syntax. These will use docblock annotations only:
+```php
+/**
+ * @param array<string>|array<int> $values
+ */
+public function setValues(array $values): static
+```
+
+### Field Mapping (mapFrom/mapTo)
+When working with external APIs or databases, field names often differ from your DTO property names.
+Use `mapFrom` and `mapTo` to define custom mappings:
+
+```xml
+<field name="emailAddress" type="string" mapFrom="email" mapTo="email_address"/>
+```
+
+**mapFrom:** Maps an input key to the field during `fromArray()`:
+```php
+// Input array uses 'email', but DTO field is 'emailAddress'
+$dto = new UserDto(['email' => 'john@example.com'], true);
+$dto->getEmailAddress(); // 'john@example.com'
+```
+
+**mapTo:** Maps the field to an output key during `toArray()`:
+```php
+$dto->setEmailAddress('john@example.com');
+$dto->toArray(); // ['email_address' => 'john@example.com']
+```
+
+This is especially useful when integrating with APIs that use different naming conventions than your internal DTOs.
+
+### Custom Traits
+You can add custom traits to your generated DTOs using the `traits` attribute:
+
+```xml
+<dto name="Article" traits="\App\Dto\Traits\TimestampTrait,\App\Dto\Traits\SlugTrait">
+    <field name="title" type="string"/>
+</dto>
+```
+
+The traits will be added to the generated DTO class, allowing you to share common functionality across multiple DTOs.
+
+### Serialize Mode
+Control how fields are serialized using the `serialize` attribute:
+
+```xml
+<field name="password" type="string" serialize="hidden"/>
+<field name="createdAt" type="\DateTime" serialize="string"/>
+```
+
+Available modes:
+- `hidden` - Excludes the field from serialization output
+- `string` - Forces string representation during serialization
 
 ### Deprecations
 You can add `deprecated="Reason why"` to any DTO or a specific field of it. It will mark the methods as strike-through in your IDE.
@@ -498,9 +576,37 @@ In this case you can define them using `?` prefix:
 ```
 Note: This is not valid for union types.
 
+### Deep Cloning with clone()
+When working with nested DTOs, a shallow copy (using PHP's `clone`) shares references to nested objects.
+Use the `clone()` method for deep copying:
+
+```php
+$original = new CarDto([
+    'color' => 'red',
+    'owner' => new OwnerDto(['name' => 'John']),
+]);
+
+// Shallow copy - nested owner is shared
+$shallow = clone $original;
+$shallow->getOwner()->setName('Jane'); // Also changes $original!
+
+// Deep copy - nested owner is independent
+$deep = $original->clone();
+$deep->getOwner()->setName('Jane'); // Only changes $deep
+```
+
+The `clone()` method recursively clones:
+- Nested DTOs
+- Arrays containing DTOs
+- ArrayObject collections
+- Other Traversable collections
+- Any other objects (using native clone)
+
 ### serialize() and unserialize()
 These methods should be used carefully, for security reasons.
 Make sure none of the values are dangerous objects. Best to use only for scalar values.
+
+**Security validation:** The `__unserialize()` method validates that no unknown fields are present in the serialized data. This prevents injection of unexpected data during unserialization.
 
 ### Property access
 In some cases it can be easier to use `->get('myField')` or `->myField` access.
@@ -602,6 +708,8 @@ It also can either solve or create accidental side effects on nested DTOs or obj
 
 Immutability should be used on simple DTOs and ideally always with `array` collections only.
 At the same time that means: If you want mutable collections, do not use `array`, but `\ArrayObject`.
+
+**Defensive Array Copying:** When creating an immutable DTO from an array, a defensive copy is made to prevent external modification of the source array from affecting the DTO's internal state.
 
 
 ## Configuration

@@ -76,6 +76,8 @@ class Builder {
 		'singularNullable',
 		'associative',
 		'key',
+		'mapFrom',
+		'mapTo',
 	];
 
 	/**
@@ -139,7 +141,11 @@ class Builder {
 				'namespace' => $namespace . '\Dto',
 				'className' => $name . $this->getConfigOrFail('suffix'),
 				'extends' => '\\PhpCollective\\Dto\\Dto\\AbstractDto',
+				'traits' => [],
 			];
+
+			// Normalize traits to array format
+			$dto['traits'] = $this->normalizeTraits($dto['traits']);
 
 			if (!empty($dto['immutable']) && $dto['extends'] === '\\PhpCollective\\Dto\\Dto\\AbstractDto') {
 				$dto['extends'] = '\\PhpCollective\\Dto\\Dto\\AbstractImmutableDto';
@@ -321,6 +327,8 @@ class Builder {
 				'deprecated' => null,
 				'serialize' => null,
 				'factory' => null,
+				'mapFrom' => null,
+				'mapTo' => null,
 			];
 			if ($data['required']) {
 				$data['nullable'] = false;
@@ -471,25 +479,41 @@ class Builder {
 			if ($field['collection']) {
 				if ($field['collectionType'] === 'array') {
 					$fields[$key]['typeHint'] = 'array';
+					// Generic PHPDoc type for arrays: array<int, ElementType>
+					$fields[$key]['docBlockType'] = $this->buildGenericArrayType($field);
 				} else {
 					$fields[$key]['typeHint'] = $field['collectionType'];
 
 					$fields[$key]['type'] .= '|' . $fields[$key]['typeHint'];
+					// Generic PHPDoc type for collections: \ArrayObject<int, ElementType>
+					$fields[$key]['docBlockType'] = $this->buildGenericCollectionType($field);
 				}
 			}
 			if ($field['isArray']) {
 				if ($field['type'] !== 'array') {
 					$fields[$key]['typeHint'] = 'array';
+					// Generic PHPDoc type for typed arrays: array<int, ElementType>
+					$fields[$key]['docBlockType'] = $this->buildGenericArrayType($field);
 				}
 			}
 
 			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes']) {
 				$fields[$key]['returnTypeHint'] = $fields[$key]['typeHint'];
+
+				// Pre-compute nullable return type hint (for getters)
+				if ($fields[$key]['nullable']) {
+					// For union types, use |null suffix instead of ? prefix
+					if ($this->isUnionType($fields[$key]['typeHint'])) {
+						$fields[$key]['nullableReturnTypeHint'] = $fields[$key]['typeHint'] . '|null';
+					} else {
+						$fields[$key]['nullableReturnTypeHint'] = '?' . $fields[$key]['typeHint'];
+					}
+				}
 			}
 
 			if ($fields[$key]['typeHint'] && $this->_config['scalarAndReturnTypes'] && $fields[$key]['nullable']) {
-				// For union types, use |null suffix instead of ? prefix (PHP 8.0+ syntax)
-				if (str_contains($fields[$key]['typeHint'], '|')) {
+				// For union types, use |null suffix instead of ? prefix
+				if ($this->isUnionType($fields[$key]['typeHint'])) {
 					$fields[$key]['nullableTypeHint'] = $fields[$key]['typeHint'] . '|null';
 				} else {
 					$fields[$key]['nullableTypeHint'] = '?' . $fields[$key]['typeHint'];
@@ -501,6 +525,7 @@ class Builder {
 					'singularTypeHint' => null,
 					'singularNullable' => false,
 					'singularReturnTypeHint' => null,
+					'singularNullableReturnTypeHint' => null,
 				];
 				if ($fields[$key]['singularType']) {
 					$fields[$key]['singularTypeHint'] = $this->typehint($fields[$key]['singularType']);
@@ -508,6 +533,15 @@ class Builder {
 
 				if ($fields[$key]['singularTypeHint'] && $this->_config['scalarAndReturnTypes']) {
 					$fields[$key]['singularReturnTypeHint'] = $fields[$key]['singularTypeHint'];
+
+					// Pre-compute nullable singular return type hint for associative collections
+					if ($fields[$key]['singularNullable']) {
+						if ($this->isUnionType($fields[$key]['singularTypeHint'])) {
+							$fields[$key]['singularNullableReturnTypeHint'] = $fields[$key]['singularTypeHint'] . '|null';
+						} else {
+							$fields[$key]['singularNullableReturnTypeHint'] = '?' . $fields[$key]['singularTypeHint'];
+						}
+					}
 				}
 			}
 		}
@@ -855,6 +889,91 @@ class Builder {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Check if a type is a union type.
+	 *
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
+	protected function isUnionType(string $type): bool {
+		return str_contains($type, '|');
+	}
+
+	/**
+	 * Build a generic PHPDoc type for array collections.
+	 *
+	 * Converts `string[]` to `array<int, string>` or `array<string, string>` for associative.
+	 *
+	 * @param array<string, mixed> $field
+	 *
+	 * @return string
+	 */
+	protected function buildGenericArrayType(array $field): string {
+		$elementType = $field['singularType'] ?? null;
+
+		// Extract element type from type[] notation if not already set
+		if (!$elementType && isset($field['type'])) {
+			$type = $field['type'];
+			if (str_ends_with($type, '[]')) {
+				$elementType = substr($type, 0, -2);
+			}
+		}
+
+		$keyType = ($field['associative'] ?? false) ? 'string' : 'int';
+
+		return sprintf('array<%s, %s>', $keyType, $elementType ?: 'mixed');
+	}
+
+	/**
+	 * Build a generic PHPDoc type for object collections (ArrayObject, etc.).
+	 *
+	 * Converts `ItemDto[]|\ArrayObject` to `\ArrayObject<int, ItemDto>`.
+	 *
+	 * @param array<string, mixed> $field
+	 *
+	 * @return string
+	 */
+	protected function buildGenericCollectionType(array $field): string {
+		$collectionType = $field['collectionType'] ?? '\ArrayObject';
+		$elementType = $field['singularType'] ?? 'mixed';
+		$keyType = $field['associative'] ? 'string' : 'int';
+
+		return sprintf('%s<%s, %s>', $collectionType, $keyType, $elementType);
+	}
+
+	/**
+	 * Normalize traits configuration to an array of fully qualified class names.
+	 *
+	 * Supports:
+	 * - Single string (comma-separated or single trait)
+	 * - Array of trait names
+	 *
+	 * @param array<string>|string|null $traits
+	 *
+	 * @return array<string>
+	 */
+	protected function normalizeTraits(string|array|null $traits): array {
+		if ($traits === null || $traits === '' || $traits === []) {
+			return [];
+		}
+
+		if (is_string($traits)) {
+			// Support comma-separated traits in XML
+			$traits = array_map('trim', explode(',', $traits));
+		}
+
+		// Ensure all traits start with backslash
+		return array_map(function (string $trait): string {
+			$trait = trim($trait);
+			if ($trait !== '' && $trait[0] !== '\\') {
+				return '\\' . $trait;
+			}
+
+			return $trait;
+		}, array_filter($traits));
 	}
 
 }

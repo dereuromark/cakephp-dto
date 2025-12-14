@@ -92,6 +92,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'key' => [
 			'name' => 'key',
@@ -104,6 +106,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'status' => [
 			'name' => 'status',
@@ -116,6 +120,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'priority' => [
 			'name' => 'priority',
@@ -128,6 +134,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'summary' => [
 			'name' => 'summary',
@@ -140,6 +148,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'version' => [
 			'name' => 'version',
@@ -152,6 +162,8 @@ class IssueDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 

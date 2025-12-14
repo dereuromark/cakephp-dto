@@ -72,6 +72,8 @@ class HeadDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'sha' => [
 			'name' => 'sha',
@@ -84,6 +86,8 @@ class HeadDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'user' => [
 			'name' => 'user',
@@ -96,6 +100,8 @@ class HeadDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'repo' => [
 			'name' => 'repo',
@@ -108,6 +114,8 @@ class HeadDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 

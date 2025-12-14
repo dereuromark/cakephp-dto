@@ -132,6 +132,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'number' => [
 			'name' => 'number',
@@ -144,6 +146,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'state' => [
 			'name' => 'state',
@@ -156,6 +160,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'title' => [
 			'name' => 'title',
@@ -168,6 +174,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'body' => [
 			'name' => 'body',
@@ -180,6 +188,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'user' => [
 			'name' => 'user',
@@ -192,6 +202,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'createdAt' => [
 			'name' => 'createdAt',
@@ -204,6 +216,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'labels' => [
 			'name' => 'labels',
@@ -216,6 +230,8 @@ class PullRequestDto extends AbstractDto {
 			'collectionType' => 'array',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'singularType' => '\Sandbox\Dto\Github\LabelDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\Sandbox\Dto\Github\LabelDto',
@@ -231,6 +247,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'base' => [
 			'name' => 'base',
@@ -243,6 +261,8 @@ class PullRequestDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
