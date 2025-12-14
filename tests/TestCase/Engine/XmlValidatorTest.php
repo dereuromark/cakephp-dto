@@ -3,8 +3,8 @@
 namespace CakeDto\Test\TestCase\Engine;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\XmlValidator;
 use InvalidArgumentException;
+use PhpCollective\Dto\Engine\XmlValidator;
 
 class XmlValidatorTest extends TestCase {
 
@@ -31,7 +31,7 @@ class XmlValidatorTest extends TestCase {
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_error.xml';
 
 		try {
-			/** @var \CakeDto\Engine\XmlValidator $validator */
+			/** @var \PhpCollective\Dto\Engine\XmlValidator $validator */
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {
@@ -50,7 +50,7 @@ class XmlValidatorTest extends TestCase {
 		$exampleXml = ROOT . DS . 'tests/files/xml/validate_fatal_error.xml';
 
 		try {
-			/** @var \CakeDto\Engine\XmlValidator $validator */
+			/** @var \PhpCollective\Dto\Engine\XmlValidator $validator */
 			$validator = $this->validator;
 			$validator::validate($exampleXml);
 		} catch (InvalidArgumentException $e) {

@@ -23,8 +23,8 @@ class KeyValuePair implements Serializable {
 	 * @param array<string, mixed> $data
 	 */
 	public function __construct(array $data) {
-		$this->key = (string)$data['key'];
-		$this->value = $data['value'];
+		$this->key = (string)($data['key'] ?? '');
+		$this->value = $data['value'] ?? null;
 	}
 
 	/**
@@ -113,8 +113,8 @@ class KeyValuePair implements Serializable {
 	 * @return void
 	 */
 	public function __unserialize(array $data): void {
-		$this->key = (string)$data['key'];
-		$this->value = $data['value'];
+		$this->key = (string)($data['key'] ?? '');
+		$this->value = $data['value'] ?? null;
 	}
 
 }

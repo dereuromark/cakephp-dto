@@ -9,11 +9,11 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use CakeDto\Console\Io;
-use CakeDto\Engine\EngineInterface;
-use CakeDto\Engine\XmlEngine;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
+use PhpCollective\Dto\Engine\EngineInterface;
+use PhpCollective\Dto\Engine\XmlEngine;
 use RuntimeException;
 
 class DtoGenerateCommand extends Command {
@@ -110,7 +110,7 @@ class DtoGenerateCommand extends Command {
 
 	/**
 	 * @throws \RuntimeException
-	 * @return \CakeDto\Engine\EngineInterface
+	 * @return \PhpCollective\Dto\Engine\EngineInterface
 	 */
 	protected function _engine(): EngineInterface {
 		$engineClass = Configure::read('CakeDto.engine') ?: XmlEngine::class;

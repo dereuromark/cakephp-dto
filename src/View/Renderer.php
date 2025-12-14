@@ -9,10 +9,27 @@ use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
 use Cake\View\ViewVarsTrait;
+use PhpCollective\Dto\Generator\RendererInterface;
 
-class Renderer {
+/**
+ * CakePHP-based template renderer.
+ * Implements the standalone library's RendererInterface.
+ */
+class Renderer implements RendererInterface {
 
-	use ViewVarsTrait;
+	use ViewVarsTrait {
+		set as traitSet;
+	}
+
+	/**
+	 * Set template variables.
+	 *
+	 * @param array<string, mixed> $vars
+	 * @return void
+	 */
+	public function set(array $vars): void {
+		$this->traitSet($vars);
+	}
 
 	/**
 	 * Runs the template

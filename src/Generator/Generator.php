@@ -5,9 +5,10 @@ namespace CakeDto\Generator;
 use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use CakeDto\Console\Io;
 use CakeDto\View\Renderer;
 use Exception;
+use PhpCollective\Dto\Generator\DiffHelperTrait;
+use PhpCollective\Dto\Generator\IoInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -33,16 +34,11 @@ class Generator {
 	protected $renderer;
 
 	/**
-	 * @var \CakeDto\Console\Io
-	 */
-	protected $io;
-
-	/**
 	 * @param \CakeDto\Generator\Builder $builder
 	 * @param \CakeDto\View\Renderer $renderer
-	 * @param \CakeDto\Console\Io $io
+	 * @param \PhpCollective\Dto\Generator\IoInterface $io
 	 */
-	public function __construct(Builder $builder, Renderer $renderer, Io $io) {
+	public function __construct(Builder $builder, Renderer $renderer, IoInterface $io) {
 		$this->builder = $builder;
 		$this->renderer = $renderer;
 		$this->io = $io;

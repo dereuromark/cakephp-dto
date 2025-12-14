@@ -21,6 +21,9 @@
 										<xsd:attribute type="xsd:boolean" name="associative"/>
 										<xsd:attribute type="xsd:string" name="key"/>
 										<xsd:attribute type="xsd:string" name="factory"/>
+										<xsd:attribute type="xsd:string" name="serialize"/>
+										<xsd:attribute type="xsd:string" name="mapFrom"/>
+										<xsd:attribute type="xsd:string" name="mapTo"/>
 										<xsd:attribute type="xsd:string" name="deprecated" default="Deprecated"/>
 										<xsd:attribute type="xsd:boolean" name="required"/>
 										<xsd:attribute type="xsd:string" name="defaultValue"/>
@@ -30,6 +33,7 @@
 						</xsd:sequence>
 						<xsd:attribute type="xsd:string" name="name" use="required"/>
 						<xsd:attribute type="xsd:string" name="extends"/>
+						<xsd:attribute type="xsd:string" name="traits"/>
 						<xsd:attribute type="xsd:string" name="deprecated" default="Deprecated"/>
 						<xsd:attribute type="xsd:boolean" name="immutable"/>
 					</xsd:complexType>

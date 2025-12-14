@@ -12,10 +12,10 @@
 <h2>Select your input</h2>
 <ul>
 	<li>
-		<?php echo $this->Html->link('Schema', ['action' => 'schema', '?' => ['type' => \CakeDto\Importer\Parser\Schema::NAME]]); ?>
+		<?php echo $this->Html->link('Schema', ['action' => 'schema', '?' => ['type' => \PhpCollective\Dto\Importer\Parser\SchemaParser::NAME]]); ?>
 	</li>
 	<li>
-		<?php echo $this->Html->link('Example data', ['action' => 'schema', '?' => ['type' => \CakeDto\Importer\Parser\Data::NAME]]); ?>
+		<?php echo $this->Html->link('Example data', ['action' => 'schema', '?' => ['type' => \PhpCollective\Dto\Importer\Parser\DataParser::NAME]]); ?>
 	</li>
 	<li>
 		or let it <?php echo $this->Html->link('auto-detect', ['action' => 'schema']); ?>

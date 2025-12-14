@@ -3,14 +3,14 @@
 namespace CakeDto\Test\TestCase\Engine;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\XmlEngine;
+use PhpCollective\Dto\Engine\XmlEngine;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\DiffOnlyOutputBuilder;
 
 class XmlEngineTest extends TestCase {
 
 	/**
-	 * @var \CakeDto\Engine\EngineInterface
+	 * @var \PhpCollective\Dto\Engine\EngineInterface
 	 */
 	protected $engine;
 

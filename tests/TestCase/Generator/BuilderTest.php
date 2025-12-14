@@ -3,11 +3,11 @@
 namespace CakeDto\Test\TestCase\Generator;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\EngineInterface;
-use CakeDto\Engine\XmlEngine;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use InvalidArgumentException;
+use PhpCollective\Dto\Engine\EngineInterface;
+use PhpCollective\Dto\Engine\XmlEngine;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\DtoCustom\DummyNonDtoClass;
@@ -219,13 +219,17 @@ class BuilderTest extends TestCase {
 				'deprecated' => null,
 				'serialize' => null,
 				'factory' => null,
+				'mapFrom' => null,
+				'mapTo' => null,
 				'singularType' => '\App\Dto\CodeDescriptionDto',
 				'singularClass' => '\App\Dto\CodeDescriptionDto',
 				'singular' => 'parentCategory',
 				'singularNullable' => false,
 				'typeHint' => '\ArrayObject',
+				'docBlockType' => '\ArrayObject<int, \App\Dto\CodeDescriptionDto>',
 				'singularTypeHint' => '\App\Dto\CodeDescriptionDto',
 				'singularReturnTypeHint' => '\App\Dto\CodeDescriptionDto',
+				'singularNullableReturnTypeHint' => null,
 			],
 			'subCategories' => [
 				'name' => 'subCategories',
@@ -244,13 +248,17 @@ class BuilderTest extends TestCase {
 				'deprecated' => null,
 				'serialize' => null,
 				'factory' => null,
+				'mapFrom' => null,
+				'mapTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'subCategory',
 				'singularNullable' => false,
 				'typeHint' => '\ArrayObject',
+				'docBlockType' => '\ArrayObject<int, \App\Dto\FilterElementDto>',
 				'singularTypeHint' => '\App\Dto\FilterElementDto',
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
+				'singularNullableReturnTypeHint' => null,
 			],
 			'brands' => [
 				'name' => 'brands',
@@ -269,13 +277,17 @@ class BuilderTest extends TestCase {
 				'deprecated' => null,
 				'serialize' => null,
 				'factory' => null,
+				'mapFrom' => null,
+				'mapTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'brand',
 				'singularNullable' => false,
 				'typeHint' => '\ArrayObject',
+				'docBlockType' => '\ArrayObject<int, \App\Dto\FilterElementDto>',
 				'singularTypeHint' => '\App\Dto\FilterElementDto',
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
+				'singularNullableReturnTypeHint' => null,
 			],
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']);
@@ -340,6 +352,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'nullableTypeHint' => '?array',
+			'nullableReturnTypeHint' => '?array',
 			'isArray' => true,
 			'dto' => null,
 			'collection' => false,
@@ -350,6 +363,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => 'array',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -361,6 +376,7 @@ class BuilderTest extends TestCase {
 			'defaultValue' => null,
 			'nullable' => true,
 			'nullableTypeHint' => '?array',
+			'nullableReturnTypeHint' => '?array',
 			'returnTypeHint' => 'array',
 			'isArray' => true,
 			'dto' => null,
@@ -368,9 +384,12 @@ class BuilderTest extends TestCase {
 			'collectionType' => null,
 			'key' => null,
 			'typeHint' => 'array',
+			'docBlockType' => 'array<int, string>',
 			'deprecated' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -392,11 +411,15 @@ class BuilderTest extends TestCase {
 			'singularTypeHint' => 'string',
 			'singularNullable' => false,
 			'singularReturnTypeHint' => 'string',
+			'singularNullableReturnTypeHint' => null,
 			'typeHint' => '\ArrayObject',
+			'docBlockType' => '\ArrayObject<int, string>',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
 
@@ -418,11 +441,15 @@ class BuilderTest extends TestCase {
 			'singularTypeHint' => 'string',
 			'singularNullable' => false,
 			'singularReturnTypeHint' => 'string',
+			'singularNullableReturnTypeHint' => null,
 			'typeHint' => 'array',
+			'docBlockType' => 'array<string, string>',
 			'deprecated' => null,
 			'returnTypeHint' => 'array',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
 
@@ -443,12 +470,16 @@ class BuilderTest extends TestCase {
 			'singularTypeHint' => 'string',
 			'singularNullable' => false,
 			'singularReturnTypeHint' => 'string',
+			'singularNullableReturnTypeHint' => null,
 			'singular' => 'customCollectionAttribute',
 			'typeHint' => '\Cake\Collection\Collection',
+			'docBlockType' => '\Cake\Collection\Collection<int, string>',
 			'deprecated' => null,
 			'returnTypeHint' => '\Cake\Collection\Collection',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
 
@@ -469,12 +500,16 @@ class BuilderTest extends TestCase {
 			'singularTypeHint' => 'string',
 			'singularNullable' => false,
 			'singularReturnTypeHint' => 'string',
+			'singularNullableReturnTypeHint' => null,
 			'singular' => 'mySingular',
 			'typeHint' => '\ArrayObject',
+			'docBlockType' => '\ArrayObject<int, string>',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 
@@ -495,12 +530,16 @@ class BuilderTest extends TestCase {
 			'singularTypeHint' => 'string',
 			'singularNullable' => true,
 			'singularReturnTypeHint' => 'string',
+			'singularNullableReturnTypeHint' => '?string',
 			'singular' => 'mySingularNullable',
 			'typeHint' => '\ArrayObject',
+			'docBlockType' => '\ArrayObject<int, string>',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
 	}
@@ -608,7 +647,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\DtoCustom\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\DtoCustom\DummyNonDtoClass`. Parent class should extend `PhpCollective\Dto\Dto\AbstractDto`.');
 
 		$this->builder->build(TMP);
 	}
@@ -698,6 +737,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'nullableTypeHint' => 'string|float|int|null',
+			'nullableReturnTypeHint' => 'string|float|int|null',
 			'isArray' => false,
 			'dto' => null,
 			'collection' => false,
@@ -708,6 +748,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => 'string|float|int',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -730,6 +772,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
@@ -772,6 +816,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'nullableTypeHint' => '?\DateTimeImmutable',
+			'nullableReturnTypeHint' => '?\DateTimeImmutable',
 			'isArray' => false,
 			'isClass' => true,
 			'dto' => null,
@@ -784,6 +829,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\DateTimeImmutable',
 			'serialize' => 'string',
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
 
@@ -795,6 +842,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'nullableTypeHint' => '?\TestApp\ValueObject\Paint',
+			'nullableReturnTypeHint' => '?\TestApp\ValueObject\Paint',
 			'isArray' => false,
 			'isClass' => true,
 			'dto' => null,
@@ -807,6 +855,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\TestApp\ValueObject\Paint',
 			'serialize' => 'FromArrayToArray',
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
 
@@ -818,6 +868,7 @@ class BuilderTest extends TestCase {
 			'required' => false,
 			'nullable' => true,
 			'nullableTypeHint' => '?\TestApp\ValueObject\Birthday',
+			'nullableReturnTypeHint' => '?\TestApp\ValueObject\Birthday',
 			'isArray' => false,
 			'isClass' => true,
 			'dto' => null,
@@ -830,6 +881,8 @@ class BuilderTest extends TestCase {
 			'returnTypeHint' => '\TestApp\ValueObject\Birthday',
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
@@ -893,6 +946,83 @@ class BuilderTest extends TestCase {
 		$this->expectExceptionMessage("Collection field 'items' in Demo DTO has auto-generated singular 'item' that collides with existing field.");
 
 		$this->builder->build(TMP);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFieldMapping(): void {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'User' => [
+				'name' => 'User',
+				'fields' => [
+					'emailAddress' => [
+						'name' => 'emailAddress',
+						'type' => 'string',
+						'mapFrom' => 'email',
+						'mapTo' => 'email_address',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$this->assertSame('email', $result['User']['fields']['emailAddress']['mapFrom']);
+		$this->assertSame('email_address', $result['User']['fields']['emailAddress']['mapTo']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testTraits(): void {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'Article' => [
+				'name' => 'Article',
+				'traits' => ['\App\Dto\Traits\TimestampTrait', '\App\Dto\Traits\SlugTrait'],
+				'fields' => [
+					'title' => [
+						'name' => 'title',
+						'type' => 'string',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$this->assertSame(['\App\Dto\Traits\TimestampTrait', '\App\Dto\Traits\SlugTrait'], $result['Article']['traits']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testSerializeMode(): void {
+		$this->builder = $this->createBuilder();
+
+		$result = [
+			'User' => [
+				'name' => 'User',
+				'fields' => [
+					'password' => [
+						'name' => 'password',
+						'type' => 'string',
+						'serialize' => 'hidden',
+					],
+				],
+			],
+		];
+		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
+
+		$result = $this->builder->build(TMP);
+
+		$this->assertSame('hidden', $result['User']['fields']['password']['serialize']);
 	}
 
 	/**
