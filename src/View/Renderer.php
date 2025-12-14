@@ -25,12 +25,10 @@ class Renderer implements RendererInterface {
 	 * Set template variables.
 	 *
 	 * @param array<string, mixed> $vars
-	 * @return static
+	 * @return void
 	 */
-	public function set(array $vars): static {
+	public function set(array $vars): void {
 		$this->traitSet($vars);
-
-		return $this;
 	}
 
 	/**
