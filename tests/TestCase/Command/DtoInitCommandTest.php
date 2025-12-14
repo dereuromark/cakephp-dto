@@ -7,7 +7,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoInitCommand;
-use CakeDto\Filesystem\Folder;
+use PhpCollective\Dto\Filesystem\Folder;
 use TestApp\TestSuite\ConsoleOutput;
 
 class DtoInitCommandTest extends TestCase {

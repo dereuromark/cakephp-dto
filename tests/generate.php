@@ -6,12 +6,12 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOutput;
 use Cake\Core\Configure;
 use CakeDto\Console\Io;
-use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 use PhpCollective\Dto\Engine\XmlEngine;
 use PhpCollective\Dto\Engine\XmlValidator;
+use PhpCollective\Dto\Filesystem\Folder;
 
 // Use CakePHP-DTO XSD for validation (different namespace than standalone)
 XmlValidator::setXsdPath(ROOT . DS . 'config' . DS . 'dto.xsd');
