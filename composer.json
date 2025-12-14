@@ -35,7 +35,7 @@
 		"ext-json": "*",
 		"cakephp/cakephp": "^5.1.1",
 		"cakephp/twig-view": "^2.0.1",
-		"php-collective/dto": "dev-master",
+		"php-collective/dto": "^0.1.0",
 		"sebastian/diff": "^6.0.0 || ^7.0.0"
 	},
 	"require-dev": {
