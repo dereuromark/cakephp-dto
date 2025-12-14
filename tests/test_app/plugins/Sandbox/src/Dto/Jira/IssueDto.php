@@ -190,6 +190,101 @@ class IssueDto extends AbstractDto {
 	];
 
 	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'id' => 'setId',
+		'key' => 'setKey',
+		'status' => 'setStatus',
+		'priority' => 'setPriority',
+		'summary' => 'setSummary',
+		'version' => 'setVersion',
+	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['id'])) {
+			$this->id = $data['id'];
+			$this->_touchedFields['id'] = true;
+		}
+		if (isset($data['key'])) {
+			$this->key = $data['key'];
+			$this->_touchedFields['key'] = true;
+		}
+		if (isset($data['status'])) {
+			$this->status = $data['status'];
+			$this->_touchedFields['status'] = true;
+		}
+		if (isset($data['priority'])) {
+			$this->priority = $data['priority'];
+			$this->_touchedFields['priority'] = true;
+		}
+		if (isset($data['summary'])) {
+			$this->summary = $data['summary'];
+			$this->_touchedFields['summary'] = true;
+		}
+		if (isset($data['version'])) {
+			$this->version = $data['version'];
+			$this->_touchedFields['version'] = true;
+		}
+	}
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->id === null || $this->key === null || $this->status === null || $this->priority === null || $this->summary === null) {
+			$errors = [];
+			if ($this->id === null) {
+				$errors[] = 'id';
+			}
+			if ($this->key === null) {
+				$errors[] = 'key';
+			}
+			if ($this->status === null) {
+				$errors[] = 'status';
+			}
+			if ($this->priority === null) {
+				$errors[] = 'priority';
+			}
+			if ($this->summary === null) {
+				$errors[] = 'summary';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
+
+	/**
 	 * @param string $id
 	 *
 	 * @return $this
