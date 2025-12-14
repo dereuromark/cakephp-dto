@@ -25,9 +25,9 @@ class Renderer implements RendererInterface {
 	 * Set template variables.
 	 *
 	 * @param array<string, mixed> $vars
-	 * @return $this
+	 * @return static
 	 */
-	public function set(array $vars): static { // phpcs:ignore PhpCollective.Classes.ReturnTypeHint.InvalidSelf
+	public function set(array $vars): static {
 		$this->traitSet($vars);
 
 		return $this;
