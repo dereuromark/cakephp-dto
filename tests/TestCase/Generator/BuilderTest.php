@@ -689,6 +689,7 @@ class BuilderTest extends TestCase {
 
 		$result = $this->builder->build(TMP);
 
+		// Union types now generate native PHP type hints (PHP 8.0+)
 		$expected = [
 			'associative' => false,
 			'name' => 'unionScalarField',
@@ -696,20 +697,21 @@ class BuilderTest extends TestCase {
 			'defaultValue' => null,
 			'required' => false,
 			'nullable' => true,
-			'nullableTypeHint' => null,
+			'nullableTypeHint' => 'string|float|int|null',
 			'isArray' => false,
 			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
 			'key' => null,
-			'typeHint' => null,
+			'typeHint' => 'string|float|int',
 			'deprecated' => null,
-			'returnTypeHint' => null,
+			'returnTypeHint' => 'string|float|int',
 			'serialize' => null,
 			'factory' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
+		// Array union types don't get native type hints (not valid PHP syntax)
 		$expected = [
 			'associative' => false,
 			'name' => 'unionArrayField',
