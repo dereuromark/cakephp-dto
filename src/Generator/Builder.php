@@ -431,9 +431,15 @@ class Builder {
 		if ($singular === $fieldName) {
 			throw new InvalidArgumentException(sprintf('Field name `%s` of %s DTO cannot be singularized automatically, please set `singular` value.', $fieldName, $dtoName));
 		}
-		// Collision avoidance
+		// Collision detection - throw exception instead of silent failure
 		if (!empty($fields[$singular])) {
-			$singular = null;
+			throw new InvalidArgumentException(sprintf(
+				"Collection field '%s' in %s DTO has auto-generated singular '%s' that collides with existing field. "
+				. "Please set an explicit 'singular' attribute to avoid this collision.",
+				$fieldName,
+				$dtoName,
+				$singular,
+			));
 		}
 
 		$data['singular'] = $singular;

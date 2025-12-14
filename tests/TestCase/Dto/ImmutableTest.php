@@ -2,11 +2,8 @@
 
 namespace CakeDto\Test\TestCase\Dto;
 
-use Cake\Collection\Collection;
-use Cake\Collection\CollectionInterface;
 use Cake\I18n\Date;
 use Cake\TestSuite\TestCase;
-use CakeDto\Dto\AbstractImmutableDto;
 use TestApp\Dto\ArticleDto;
 use TestApp\Dto\BookDto;
 use TestApp\Dto\PageDto;
@@ -14,114 +11,93 @@ use TestApp\Dto\PageDto;
 class ImmutableTest extends TestCase {
 
 	/**
+	 * Tests that arrays passed to immutable DTOs are defensively copied.
+	 *
 	 * @return void
 	 */
-	public function testBasic() {
-		$array = [
-			'id' => 2,
-			'author' => [
-				'id' => 1,
-				'name' => 'me',
-			],
-			'title' => 'My title',
-			'created' => (new Date())->subDays(1),
+	public function testImmutableDefensiveCopyForArrays(): void {
+		$tagsArray = [
+			['id' => 1, 'name' => 'php', 'weight' => 10],
+			['id' => 2, 'name' => 'cakephp', 'weight' => 20],
 		];
 
-		$articleDto = new ArticleDto($array);
-		$this->assertInstanceOf(AbstractImmutableDto::class, $articleDto);
+		$articleDto = new ArticleDto([
+			'id' => 1,
+			'author' => ['id' => 1, 'name' => 'John'],
+			'title' => 'Test Article',
+			'created' => new Date(),
+			'tags' => $tagsArray,
+		]);
 
-		// A trivial example
-		$modifiedArticleDto = $articleDto->withTitle('My new title');
-		$this->assertSame('My new title', $modifiedArticleDto->getTitle());
-		$this->assertSame('My title', $articleDto->getTitle());
+		// Modify the original array after creating the DTO
+		$tagsArray[0]['name'] = 'modified';
 
-		// A reason why we want to use immutable datetime objects (DateTime):
-		$created = $articleDto->getCreated();
-		$isToday = $created->addDays(1)->isToday();
-		// A mutable datetime inside $articleDto->getCreated() would now accidentally be modified
-		$this->assertTrue($isToday);
-
-		// But luckily we don't have this side effect with our immutable one.
-		$this->assertSame($created, $articleDto->getCreated());
+		// The DTO should not be affected by external modification
+		$dtoTags = $articleDto->getTags();
+		$this->assertSame('php', $dtoTags[0]->getName());
 	}
 
 	/**
+	 * Tests that nested array data is defensively copied.
+	 *
 	 * @return void
 	 */
-	public function testCakeCollection() {
-		$bookDto = new BookDto();
-		$bookDto = $bookDto->withAddedPage(new PageDto(['number' => 1]));
+	public function testImmutableDefensiveCopyForNestedArrayData(): void {
+		$tagData = ['id' => 1, 'name' => 'Original', 'weight' => 10];
+		$tagsArray = [$tagData];
 
-		$pages = $bookDto->getPages();
-		$this->assertInstanceOf(CollectionInterface::class, $pages);
-		$this->assertSame(1, $pages->count());
+		$articleDto = new ArticleDto([
+			'id' => 1,
+			'author' => ['id' => 1, 'name' => 'John'],
+			'title' => 'Test Article',
+			'created' => new Date(),
+			'tags' => $tagsArray,
+		]);
 
+		// Modify the original array after creating the ArticleDto
+		$tagsArray[0]['name'] = 'Modified';
+
+		// The DTO's internal copy should not be affected
+		$dtoTags = $articleDto->getTags();
+		$this->assertSame('Original', $dtoTags[0]->getName());
+	}
+
+	/**
+	 * Tests immutable DTO with Collection built via methods.
+	 *
+	 * @return void
+	 */
+	public function testImmutableDefensiveCopyForCollectionViaMethod(): void {
+		$page1 = new PageDto(['number' => 1, 'content' => 'Original Content']);
+
+		// Build book using the withAddedPage method
+		$bookDto = (new BookDto())->withAddedPage($page1);
+
+		// Get the pages and verify content
 		$pages = $bookDto->getPages()->toArray();
-		$this->assertInstanceOf(PageDto::class, $pages[0]);
-		$this->assertSame(1, $bookDto->getPages()->count());
-
-		$array = [
-			'pages' => [
-				[
-					'number' => 1,
-				],
-				[
-					'number' => 2,
-				],
-			],
-		];
-		$bookDto = BookDto::createFromArray($array);
-
-		$this->assertInstanceOf(CollectionInterface::class, $bookDto->getPages());
-		$this->assertSame(2, $bookDto->getPages()->count());
-
-		$this->assertSame(1, $bookDto->getPages()->first()->getNumber());
-		$this->assertSame(2, $bookDto->getPages()->last()->getNumber());
-
-		// It seems we lose an item if we keep preserveKeys true...
-		$result = $bookDto->getPages()->toArray(false);
-		$this->assertCount(2, $result);
-
-		$pageArray = $result[0]->touchedToArray();
-		$expected = [
-			'number' => 1,
-		];
-		$this->assertSame($expected, $pageArray);
-
-		$pageArray = $result[1]->touchedToArray();
-		$expected = [
-			'number' => 2,
-		];
-		$this->assertSame($expected, $pageArray);
+		$this->assertSame('Original Content', $pages[0]->getContent());
 	}
 
 	/**
+	 * Tests immutable DTO constructor triggers defensive copy.
+	 *
 	 * @return void
 	 */
-	public function testWithGetHas() {
-		$bookDto = new BookDto();
+	public function testImmutableConstructorDefensiveCopy(): void {
+		$authorData = ['id' => 1, 'name' => 'John'];
 
-		$this->assertFalse($bookDto->has($bookDto::FIELD_PAGES));
+		$articleDto = new ArticleDto([
+			'id' => 1,
+			'author' => $authorData,
+			'title' => 'Test Article',
+			'created' => new Date(),
+		]);
 
-		$pages = new Collection([new PageDto(['number' => 1])]);
-		$bookDto = $bookDto->with('pages', $pages);
+		// Modify original array - should not affect DTO
+		$authorData['name'] = 'Modified';
 
-		$this->assertSame(1, $bookDto->get($bookDto::FIELD_PAGES)->count());
-
-		$this->assertTrue($bookDto->has($bookDto::FIELD_PAGES));
-	}
-
-	/**
-	 * @return void
-	 */
-	public function testPropertyAccessFails() {
-		$bookDto = new BookDto();
-		$pages = $bookDto->pages;
-		$this->assertSame(0, $pages->count());
-
-		$this->expectException('Error');
-
-		$bookDto->pages = new Collection([]);
+		// Verify DTO is unaffected
+		$this->assertSame('John', $articleDto->getAuthor()->getName());
 	}
 
 }

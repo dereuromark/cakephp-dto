@@ -12,6 +12,7 @@ use Countable;
 use InvalidArgumentException;
 use RuntimeException;
 use Serializable;
+use Throwable;
 use UnitEnum;
 
 abstract class Dto implements Serializable {
@@ -337,6 +338,10 @@ abstract class Dto implements Serializable {
 				$this->$method($value);
 			} else {
 				$this->assertType($field, $value);
+				// Defensive copy for arrays to prevent external modification of immutable DTOs
+				if (is_array($value)) {
+					$value = $this->cloneArray($value);
+				}
 				$this->$field = $value;
 				$this->_touchedFields[$field] = true;
 			}
@@ -420,6 +425,7 @@ abstract class Dto implements Serializable {
 	 * @param string $field
 	 * @param mixed $value
 	 *
+	 * @throws \RuntimeException If factory method does not exist or fails.
 	 * @return mixed
 	 */
 	protected function createWithFactory(string $field, $value) {
@@ -433,7 +439,28 @@ abstract class Dto implements Serializable {
 			[$class, $factory] = explode('::', $factory, 2);
 		}
 
-		return $class::$factory($value);
+		if (!method_exists($class, $factory)) {
+			throw new RuntimeException(sprintf(
+				"Factory method '%s' does not exist on class '%s' for field '%s' in %s",
+				$factory,
+				$class,
+				$field,
+				static::class,
+			));
+		}
+
+		try {
+			return $class::$factory($value);
+		} catch (Throwable $e) {
+			throw new RuntimeException(sprintf(
+				"Factory method '%s::%s' failed for field '%s' in %s: %s",
+				$class,
+				$factory,
+				$field,
+				static::class,
+				$e->getMessage(),
+			), 0, $e);
+		}
 	}
 
 	/**
@@ -858,9 +885,19 @@ abstract class Dto implements Serializable {
 	/**
 	 * @param array<string, mixed> $data
 	 *
+	 * @throws \RuntimeException If serialized data contains unknown fields.
 	 * @return void
 	 */
 	public function __unserialize(array $data): void {
+		$unknownFields = array_diff(array_keys($data), array_keys($this->_metadata));
+		if ($unknownFields) {
+			throw new RuntimeException(sprintf(
+				"Unknown field(s) '%s' in serialized data for %s",
+				implode("', '", $unknownFields),
+				static::class,
+			));
+		}
+
 		$this->setFromArray($data, true);
 	}
 
@@ -903,6 +940,107 @@ abstract class Dto implements Serializable {
 		}
 
 		return $value->name;
+	}
+
+	/**
+	 * Creates a deep clone of this DTO, including nested DTOs and collections.
+	 *
+	 * This ensures that modifications to nested objects in the clone
+	 * do not affect the original DTO.
+	 *
+	 * @return static
+	 */
+	public function clone(): static {
+		// Use native clone to avoid constructor validation
+		$clone = clone $this;
+		foreach ($this->_metadata as $field => $metadata) {
+			$value = $this->$field;
+			if ($value === null) {
+				continue;
+			}
+
+			if ($value instanceof self) {
+				$clone->$field = $value->clone();
+			} elseif (is_array($value)) {
+				$clone->$field = $this->cloneArray($value);
+			} elseif ($value instanceof ArrayObject) {
+				$clone->$field = $this->cloneArrayObject($value);
+			} elseif ($value instanceof CollectionInterface) {
+				$clone->$field = $this->cloneCollection($value);
+			} elseif (is_object($value)) {
+				$clone->$field = clone $value;
+			} else {
+				$clone->$field = $value;
+			}
+		}
+		$clone->_touchedFields = $this->_touchedFields;
+
+		return $clone;
+	}
+
+	/**
+	 * Deep clones an array, including any nested DTOs.
+	 *
+	 * @param array<mixed> $items
+	 * @return array<mixed>
+	 */
+	protected function cloneArray(array $items): array {
+		return array_map(function ($item) {
+			if ($item instanceof self) {
+				return $item->clone();
+			}
+			if (is_array($item)) {
+				return $this->cloneArray($item);
+			}
+			if (is_object($item)) {
+				return clone $item;
+			}
+
+			return $item;
+		}, $items);
+	}
+
+	/**
+	 * Deep clones an ArrayObject, including any nested DTOs.
+	 *
+	 * @param \ArrayObject<array-key, mixed> $arrayObject
+	 * @return \ArrayObject<array-key, mixed>
+	 */
+	protected function cloneArrayObject(ArrayObject $arrayObject): ArrayObject {
+		$class = $arrayObject::class;
+		$clone = new $class();
+		foreach ($arrayObject as $key => $item) {
+			if ($item instanceof self) {
+				$clone[$key] = $item->clone();
+			} elseif (is_object($item)) {
+				$clone[$key] = clone $item;
+			} else {
+				$clone[$key] = $item;
+			}
+		}
+
+		return $clone;
+	}
+
+	/**
+	 * Deep clones a Collection, including any nested DTOs.
+	 *
+	 * @param \Cake\Collection\CollectionInterface<mixed> $collection
+	 * @return \Cake\Collection\CollectionInterface<mixed>
+	 */
+	protected function cloneCollection(CollectionInterface $collection): CollectionInterface {
+		$items = [];
+		foreach ($collection as $key => $item) {
+			if ($item instanceof self) {
+				$items[$key] = $item->clone();
+			} elseif (is_object($item)) {
+				$items[$key] = clone $item;
+			} else {
+				$items[$key] = $item;
+			}
+		}
+
+		return new Collection($items);
 	}
 
 }
