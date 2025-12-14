@@ -17,17 +17,92 @@ You can choose between the following formats for the definitions:
 - XML (.xml), native in CakePHP and default format (requires ext-libxml extension).
 - YAML (.yml), native in PHP (requires ext-yaml extension).
 - NEON (.neon), requires `nette/neon` package
-- Create your own one (PHP, custom format and schema validator, ...).
+- PHP (.php), with fluent builder API for full IDE support.
 
 In Configure (via app.php), just set your desired engine:
 ```php
-    'engine' => YamlEngine::class,
+use PhpCollective\Dto\Engine\XmlEngine;
+use PhpCollective\Dto\Engine\YamlEngine;
+use PhpCollective\Dto\Engine\NeonEngine;
+use PhpCollective\Dto\Engine\PhpEngine;
+
+'CakeDto' => [
+    'engine' => XmlEngine::class, // default
+]
 ```
 
 YAML or alike might have the advantage of less typing, but the power of XML comes with its XSD validation and full auto-complete/typehinting.
 Just start typing and you will see how it already gives you all the options to chose from.
 
 Tip: Check out the `examples/basic.dto.xml` and edit/add properties. Then you will see the power of such typehinting, how fast it is to modify.
+
+### PHP Engine with Fluent Builder
+
+The PHP engine allows you to define DTOs using a fluent builder API with full IDE autocomplete:
+
+```php
+<?php
+// config/dto.php
+use PhpCollective\Dto\Config\Schema;
+use PhpCollective\Dto\Config\Dto;
+use PhpCollective\Dto\Config\Field;
+
+return Schema::create()
+    ->dto(Dto::create('Car')->fields(
+        Field::string('color'),
+        Field::array('attributes', 'string'),
+        Field::bool('isNew'),
+        Field::int('distanceTravelled'),
+        Field::float('value'),
+        Field::class('manufactured', 'Cake\I18n\Date'),
+        Field::dto('owner', 'Owner'),
+    ))
+    ->dto(Dto::create('Owner')->fields(
+        Field::string('name')->required(),
+        Field::int('birthYear'),
+    ))
+    ->dto(Dto::immutable('FlyingCar')->extends('Car')->fields(
+        Field::int('maxAltitude')->required(),
+    ))
+    ->toArray();
+```
+
+**Available Field Types:**
+- `Field::string('name')` - String field
+- `Field::int('name')` - Integer field
+- `Field::float('name')` - Float field
+- `Field::bool('name')` - Boolean field
+- `Field::array('name', 'elementType')` - Typed array (e.g., `string[]`)
+- `Field::dto('name', 'DtoName')` - Reference to another DTO
+- `Field::collection('name', 'ElementType')` - Collection with add methods
+- `Field::class('name', 'ClassName')` - Any class (DateTimeImmutable, etc.)
+- `Field::enum('name', 'EnumClass')` - PHP enum
+- `Field::union('name', 'int', 'string')` - Union types
+- `Field::mixed('name')` - Mixed type
+- `Field::of('name', 'customType')` - Explicit type
+
+**Field Modifiers:**
+```php
+Field::string('email')
+    ->required()                    // Mark as required
+    ->default('default@example.com') // Set default value
+    ->deprecated('Use newEmail')    // Mark as deprecated
+    ->factory('createFromString')   // Custom factory method
+    ->serialize('string')           // Serialization mode
+
+Field::collection('items', 'Item')
+    ->singular('item')              // Singular name for addItem()
+    ->associative()                 // Enable associative keys
+    ->asCollection('\ArrayObject')  // Custom collection type
+```
+
+**DTO Modifiers:**
+```php
+Dto::create('User')
+    ->asImmutable()                 // Make immutable
+    ->extends('BaseUser')           // Extend another DTO
+    ->deprecated('Use NewUser')     // Mark as deprecated
+```
 
 
 ## Build your config
