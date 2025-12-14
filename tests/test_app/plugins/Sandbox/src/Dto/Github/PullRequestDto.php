@@ -297,6 +297,146 @@ class PullRequestDto extends AbstractDto {
 	];
 
 	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'url' => 'setUrl',
+		'number' => 'setNumber',
+		'state' => 'setState',
+		'title' => 'setTitle',
+		'body' => 'setBody',
+		'user' => 'setUser',
+		'createdAt' => 'setCreatedat',
+		'labels' => 'setLabels',
+		'head' => 'setHead',
+		'base' => 'setBase',
+	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['url'])) {
+			$this->url = $data['url'];
+			$this->_touchedFields['url'] = true;
+		}
+		if (isset($data['number'])) {
+			$this->number = $data['number'];
+			$this->_touchedFields['number'] = true;
+		}
+		if (isset($data['state'])) {
+			$this->state = $data['state'];
+			$this->_touchedFields['state'] = true;
+		}
+		if (isset($data['title'])) {
+			$this->title = $data['title'];
+			$this->_touchedFields['title'] = true;
+		}
+		if (isset($data['body'])) {
+			$this->body = $data['body'];
+			$this->_touchedFields['body'] = true;
+		}
+		if (isset($data['user'])) {
+			$value = $data['user'];
+			if (is_array($value)) {
+				$value = new \Sandbox\Dto\Github\UserDto($value);
+			}
+			$this->user = $value;
+			$this->_touchedFields['user'] = true;
+		}
+		if (isset($data['createdAt'])) {
+			$this->createdAt = $data['createdAt'];
+			$this->_touchedFields['createdAt'] = true;
+		}
+		if (isset($data['labels'])) {
+			$collection = [];
+			foreach ($data['labels'] as $key => $item) {
+				if (is_array($item)) {
+					$item = new \Sandbox\Dto\Github\LabelDto($item);
+				}
+				$collection[$key] = $item;
+			}
+			$this->labels = $collection;
+			$this->_touchedFields['labels'] = true;
+		}
+		if (isset($data['head'])) {
+			$value = $data['head'];
+			if (is_array($value)) {
+				$value = new \Sandbox\Dto\Github\HeadDto($value);
+			}
+			$this->head = $value;
+			$this->_touchedFields['head'] = true;
+		}
+		if (isset($data['base'])) {
+			$value = $data['base'];
+			if (is_array($value)) {
+				$value = new \Sandbox\Dto\Github\BaseDto($value);
+			}
+			$this->base = $value;
+			$this->_touchedFields['base'] = true;
+		}
+	}
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->url === null || $this->number === null || $this->state === null || $this->title === null || $this->body === null || $this->user === null || $this->createdAt === null) {
+			$errors = [];
+			if ($this->url === null) {
+				$errors[] = 'url';
+			}
+			if ($this->number === null) {
+				$errors[] = 'number';
+			}
+			if ($this->state === null) {
+				$errors[] = 'state';
+			}
+			if ($this->title === null) {
+				$errors[] = 'title';
+			}
+			if ($this->body === null) {
+				$errors[] = 'body';
+			}
+			if ($this->user === null) {
+				$errors[] = 'user';
+			}
+			if ($this->createdAt === null) {
+				$errors[] = 'createdAt';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
+
+	/**
 	 * @param string $url
 	 *
 	 * @return $this

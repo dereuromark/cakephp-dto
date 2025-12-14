@@ -25,5 +25,6 @@ class {{ className }} extends {% if extends starts with '\\' %}{{ extends[1:] | 
 {{ element('properties', fields) -}}
 {{ element('metadata', metaData) }}
 {{ element('map', fields) }}
+{{ element('optimizations', {'fields': fields, 'immutable': immutable}) }}
 {{ element('methods', fields) -}}
 }
