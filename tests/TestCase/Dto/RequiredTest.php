@@ -4,8 +4,8 @@ namespace CakeDto\Test\TestCase\Dto;
 
 use Cake\I18n\Date;
 use Cake\TestSuite\TestCase;
-use CakeDto\Dto\AbstractImmutableDto;
 use InvalidArgumentException;
+use PhpCollective\Dto\Dto\AbstractImmutableDto;
 use TestApp\Dto\ArticleDto;
 
 class RequiredTest extends TestCase {

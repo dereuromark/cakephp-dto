@@ -3,7 +3,7 @@
 namespace CakeDto\Test\TestCase\Engine;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\NeonEngine;
+use PhpCollective\Dto\Engine\NeonEngine;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class NeonEngineTest extends TestCase {
@@ -11,7 +11,7 @@ class NeonEngineTest extends TestCase {
 	use AssociativeArrayTestTrait;
 
 	/**
-	 * @var \CakeDto\Engine\EngineInterface
+	 * @var \PhpCollective\Dto\Engine\EngineInterface
 	 */
 	protected $engine;
 

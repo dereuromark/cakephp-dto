@@ -3,11 +3,11 @@
 namespace CakeDto\Test\TestCase\Generator;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\EngineInterface;
-use CakeDto\Engine\XmlEngine;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use InvalidArgumentException;
+use PhpCollective\Dto\Engine\EngineInterface;
+use PhpCollective\Dto\Engine\XmlEngine;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\DtoCustom\DummyNonDtoClass;
@@ -608,7 +608,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\DtoCustom\DummyNonDtoClass`. Parent class should extend `CakeDto\Dto\AbstractDto`.');
+		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\DtoCustom\DummyNonDtoClass`. Parent class should extend `PhpCollective\Dto\Dto\AbstractDto`.');
 
 		$this->builder->build(TMP);
 	}

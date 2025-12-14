@@ -2,7 +2,7 @@
 
 namespace TestApp\ValueObject;
 
-use CakeDto\Dto\FromArrayToArrayInterface;
+use PhpCollective\Dto\Dto\FromArrayToArrayInterface;
 
 /**
  * An example with a constructor with multiple scalars, using FromArrayToArray.

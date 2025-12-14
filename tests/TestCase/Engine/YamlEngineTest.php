@@ -3,7 +3,7 @@
 namespace CakeDto\Test\TestCase\Engine;
 
 use Cake\TestSuite\TestCase;
-use CakeDto\Engine\YamlEngine;
+use PhpCollective\Dto\Engine\YamlEngine;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
 class YamlEngineTest extends TestCase {
@@ -11,7 +11,7 @@ class YamlEngineTest extends TestCase {
 	use AssociativeArrayTestTrait;
 
 	/**
-	 * @var \CakeDto\Engine\EngineInterface
+	 * @var \PhpCollective\Dto\Engine\EngineInterface
 	 */
 	protected $engine;
 

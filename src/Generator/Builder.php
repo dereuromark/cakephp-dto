@@ -5,12 +5,12 @@ namespace CakeDto\Generator;
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Utility\Inflector;
-use CakeDto\Dto\AbstractDto;
-use CakeDto\Dto\AbstractImmutableDto;
-use CakeDto\Dto\FromArrayToArrayInterface;
-use CakeDto\Engine\EngineInterface;
 use InvalidArgumentException;
 use JsonSerializable;
+use PhpCollective\Dto\Dto\AbstractDto;
+use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use PhpCollective\Dto\Dto\FromArrayToArrayInterface;
+use PhpCollective\Dto\Engine\EngineInterface;
 use ReflectionClass;
 use ReflectionEnum;
 use ReflectionException;
@@ -28,7 +28,7 @@ class Builder {
 	];
 
 	/**
-	 * @var \CakeDto\Engine\EngineInterface
+	 * @var \PhpCollective\Dto\Engine\EngineInterface
 	 */
 	protected $engine;
 
@@ -77,7 +77,7 @@ class Builder {
 	];
 
 	/**
-	 * @param \CakeDto\Engine\EngineInterface $engine
+	 * @param \PhpCollective\Dto\Engine\EngineInterface $engine
 	 */
 	public function __construct(EngineInterface $engine) {
 		$this->engine = $engine;
@@ -136,18 +136,18 @@ class Builder {
 				'immutable' => $this->_config['immutable'],
 				'namespace' => $namespace . '\Dto',
 				'className' => $name . $this->getConfigOrFail('suffix'),
-				'extends' => '\\CakeDto\\Dto\\AbstractDto',
+				'extends' => '\\PhpCollective\\Dto\\Dto\\AbstractDto',
 			];
 
-			if (!empty($dto['immutable']) && $dto['extends'] === '\\CakeDto\\Dto\\AbstractDto') {
-				$dto['extends'] = '\\CakeDto\\Dto\\AbstractImmutableDto';
+			if (!empty($dto['immutable']) && $dto['extends'] === '\\PhpCollective\\Dto\\Dto\\AbstractDto') {
+				$dto['extends'] = '\\PhpCollective\\Dto\\Dto\\AbstractImmutableDto';
 			}
 
 			$config[$name] = $dto;
 		}
 
 		foreach ($config as $name => $dto) {
-			if (in_array($dto['extends'], ['\\CakeDto\\Dto\\AbstractDto', '\\CakeDto\\Dto\\AbstractImmutableDto'], true)) {
+			if (in_array($dto['extends'], ['\\PhpCollective\\Dto\\Dto\\AbstractDto', '\\PhpCollective\\Dto\\Dto\\AbstractImmutableDto'], true)) {
 				continue;
 			}
 
