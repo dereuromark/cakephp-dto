@@ -15,7 +15,7 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property bool|null $isNew
  * @property float|null $value
  * @property int|null $distanceTravelled
- * @property string[]|null $attributes
+ * @property array<int, string>|null $attributes
  * @property \Cake\I18n\Date|null $manufactured
  * @property \TestApp\Dto\OwnerDto|null $owner
  */
@@ -71,7 +71,7 @@ class CarDto extends AbstractDto {
 	protected $distanceTravelled;
 
 	/**
-	 * @var string[]|null
+	 * @var array<int, string>|null
 	 */
 	protected $attributes;
 
@@ -466,7 +466,7 @@ class CarDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string[]|null $attributes
+	 * @param array<int, string>|null $attributes
 	 *
 	 * @return $this
 	 */
@@ -478,7 +478,7 @@ class CarDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string[] $attributes
+	 * @param array<int, string> $attributes
 	 *
 	 * @return $this
 	 */
@@ -490,7 +490,7 @@ class CarDto extends AbstractDto {
 	}
 
 	/**
-	 * @return string[]|null
+	 * @return array<int, string>|null
 	 */
 	public function getAttributes(): ?array {
 		return $this->attributes;
@@ -499,7 +499,7 @@ class CarDto extends AbstractDto {
 	/**
 	 * @throws \RuntimeException If value is not set.
 	 *
-	 * @return string[]
+	 * @return array<int, string>
 	 */
 	public function getAttributesOrFail(): array {
 		if ($this->attributes === null) {
