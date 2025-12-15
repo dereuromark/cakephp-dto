@@ -16,7 +16,7 @@ The goal of this package is to structure "unstructured data", replacing simple (
 
 **Unique approach:** Unlike other PHP DTO libraries that use runtime reflection, this plugin generates actual PHP code from configuration files.
 This provides the best possible IDE support, static analysis compatibility, and runtime performance.
-See [Motivation](/docs/Motivation.md) for a comparison with alternatives.
+See [Motivation](https://github.com/php-collective/dto/blob/master/docs/Motivation.md) for a comparison with alternatives.
 
 - By making all fields typeable, we can be sure that their values are never something we didn't expect.
 Especially with modern PHP and more strict typehinting moving forward this is rather important to detect and fail early.
@@ -26,8 +26,6 @@ Especially with modern PHP and more strict typehinting moving forward this is ra
 - We can work with different inflections of field names more easily.
 - Easy way of immutable DTOs with required fields, to trust them in following code.
 - Works out of the box with any [value object](https://github.com/Serhii-DV/awesome-php-value-objects) that is serializable (either as array or string).
-
-For more see [Motivation and Background](/docs/Motivation.md).
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
