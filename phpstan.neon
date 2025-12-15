@@ -9,8 +9,6 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
-		# Nullable singular type vs non-nullable array element type (bug in php-collective/dto)
-		- '#Property TestApp\\Dto\\MutableMetaDto::\$meta .+ does not accept array<string, string\|null>.#'
 		# DTO inheritance with shaped arrays - child DTOs have different fields than parent
 		-
 			identifier: method.childReturnType
