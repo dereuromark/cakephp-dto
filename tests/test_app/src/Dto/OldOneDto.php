@@ -152,17 +152,17 @@ class OldOneDto extends CarDto {
 	 * @param array<string>|null $fields
 	 * @param bool $touched
 	 *
-	 * @return array{name: string|null}
+	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, name: string|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @var array{name: string|null} $result */
+		/** @var array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, name: string|null} $result */
 		$result = $this->_toArrayInternal($type, $fields, $touched);
 
 		return $result;
 	}
 
 	/**
-	 * @param array{name: string|null} $data
+	 * @param array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, name: string|null} $data
 	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type

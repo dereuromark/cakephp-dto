@@ -262,17 +262,17 @@ class FlyingCarDto extends CarDto {
 	 * @param array<string>|null $fields
 	 * @param bool $touched
 	 *
-	 * @return array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null}
+	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @var array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $result */
+		/** @var array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $result */
 		$result = $this->_toArrayInternal($type, $fields, $touched);
 
 		return $result;
 	}
 
 	/**
-	 * @param array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
+	 * @param array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
 	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
