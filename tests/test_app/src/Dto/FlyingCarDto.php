@@ -265,10 +265,8 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null}
 	 */
-	#[\Override]
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type */
-		return parent::toArray($type, $fields, $touched);
+		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
 	/**
@@ -278,9 +276,8 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return static
 	 */
-	#[\Override] // @phpstan-ignore method.childParameterType
 	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
-		return parent::createFromArray($data, $ignoreMissing, $type);
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }
