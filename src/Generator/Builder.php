@@ -85,6 +85,28 @@ class Builder extends BaseBuilder {
 	}
 
 	/**
+	 * Create DTOs from config, adding arrayShape for each.
+	 *
+	 * Overrides parent to add arrayShape for shaped array types in toArray()/createFromArray().
+	 * This is needed until php-collective/dto releases a version with this feature.
+	 *
+	 * @param array<string, array<string, mixed>> $config
+	 * @param string $namespace
+	 *
+	 * @return array<string, array<string, mixed>>
+	 */
+	protected function _createDtos(array $config, string $namespace): array {
+		$config = parent::_createDtos($config, $namespace);
+
+		// Add shaped array types for toArray()/createFromArray() PHPDoc
+		foreach ($config as $name => $dto) {
+			$config[$name]['arrayShape'] = $this->buildArrayShape($dto['fields'], $config);
+		}
+
+		return $config;
+	}
+
+	/**
 	 * Build PHPStan shaped array type for a DTO's fields.
 	 *
 	 * This method is included here until php-collective/dto releases a version
