@@ -143,7 +143,9 @@ class BookDto extends AbstractImmutableDto {
 			$new->pages = new \Cake\Collection\Collection([]);
 		}
 
-		$new->pages = $new->pages->appendItem($page);
+		/** @var \Cake\Collection\Collection $collection */
+		$collection = $new->pages->appendItem($page);
+		$new->pages = $collection;
 		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;
