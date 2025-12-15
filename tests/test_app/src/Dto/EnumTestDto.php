@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use CakeDto\Dto\AbstractImmutableDto;
+use PhpCollective\Dto\Dto\AbstractImmutableDto;
 
 /**
  * EnumTest DTO

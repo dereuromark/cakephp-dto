@@ -6,7 +6,7 @@
 
 namespace Sandbox\Dto\Github;
 
-use CakeDto\Dto\AbstractDto;
+use PhpCollective\Dto\Dto\AbstractDto;
 
 /**
  * Github/Repo DTO
