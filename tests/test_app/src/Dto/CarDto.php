@@ -102,6 +102,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => 'FromArrayToArray',
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -116,6 +118,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'value' => [
 			'name' => 'value',
@@ -128,6 +132,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'distanceTravelled' => [
 			'name' => 'distanceTravelled',
@@ -140,6 +146,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'attributes' => [
 			'name' => 'attributes',
@@ -152,6 +160,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'manufactured' => [
 			'name' => 'manufactured',
@@ -164,6 +174,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -178,6 +190,8 @@ class CarDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
@@ -204,6 +218,48 @@ class CarDto extends AbstractDto {
 			'owner' => 'owner',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'color' => 'setColor',
+		'isNew' => 'setIsnew',
+		'value' => 'setValue',
+		'distanceTravelled' => 'setDistancetravelled',
+		'attributes' => 'setAttributes',
+		'manufactured' => 'setManufactured',
+		'owner' => 'setOwner',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
 
 	/**
 	 * @param \TestApp\ValueObject\Paint|null $color
@@ -560,6 +616,30 @@ class CarDto extends AbstractDto {
 	 */
 	public function hasOwner(): bool {
 		return $this->owner !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null}
+	 */
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }

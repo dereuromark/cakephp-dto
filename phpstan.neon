@@ -11,3 +11,12 @@ parameters:
 		- identifier: missingType.generics
 		- '#Property TestApp\\Dto\\BookDto::\$pages \(Cake\\Collection\\Collection&iterable<TestApp\\Dto\\PageDto>\) does not accept Cake\\Collection\\CollectionInterface.#'
 		- '#Parameter \#3 \$subject of method .+\\View::dispatchEvent\(\) expects .+\\View\|null, object\|null given.#'
+		# DTO inheritance with shaped arrays - child DTOs have different fields than parent
+		-
+			identifier: method.childReturnType
+			path: tests/test_app/src/Dto/*Dto.php
+		-
+			identifier: argument.type
+			path: tests/test_app/src/Dto/*Dto.php
+	# Generated test DTOs may have unmatched ignores (e.g., empty DTOs)
+	reportUnmatchedIgnoredErrors: false

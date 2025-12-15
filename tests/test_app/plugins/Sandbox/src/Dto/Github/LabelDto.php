@@ -100,23 +100,6 @@ class LabelDto extends AbstractDto {
 		'color' => 'setColor',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['name'])) {
-			$this->name = $data['name'];
-			$this->_touchedFields['name'] = true;
-		}
-		if (isset($data['color'])) {
-			$this->color = $data['color'];
-			$this->_touchedFields['color'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
@@ -249,10 +232,9 @@ class LabelDto extends AbstractDto {
 	 *
 	 * @return array{name: string|null, color: string|null}
 	 */
-	#[\Override]
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
-		return parent::toArray($type, $fields, $touched);
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
 	/**
@@ -262,9 +244,8 @@ class LabelDto extends AbstractDto {
 	 *
 	 * @return static
 	 */
-	#[\Override]
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
-		return parent::createFromArray($data, $ignoreMissing, $type);
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }

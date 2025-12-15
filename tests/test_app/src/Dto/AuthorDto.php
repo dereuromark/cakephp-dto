@@ -62,6 +62,8 @@ class AuthorDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'name' => [
 			'name' => 'name',
@@ -74,6 +76,8 @@ class AuthorDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'email' => [
 			'name' => 'email',
@@ -86,6 +90,8 @@ class AuthorDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
@@ -104,6 +110,56 @@ class AuthorDto extends AbstractImmutableDto {
 			'email' => 'email',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'id' => 'withId',
+		'name' => 'withName',
+		'email' => 'withEmail',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->id === null || $this->name === null) {
+			$errors = [];
+			if ($this->id === null) {
+				$errors[] = 'id';
+			}
+			if ($this->name === null) {
+				$errors[] = 'name';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param int $id
@@ -210,6 +266,30 @@ class AuthorDto extends AbstractImmutableDto {
 	 */
 	public function hasEmail(): bool {
 		return $this->email !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{id: int, name: string, email: string|null}
+	 */
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{id: int, name: string, email: string|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }

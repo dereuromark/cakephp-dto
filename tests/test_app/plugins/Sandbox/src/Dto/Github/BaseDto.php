@@ -154,39 +154,6 @@ class BaseDto extends AbstractDto {
 		'repo' => 'setRepo',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['ref'])) {
-			$this->ref = $data['ref'];
-			$this->_touchedFields['ref'] = true;
-		}
-		if (isset($data['sha'])) {
-			$this->sha = $data['sha'];
-			$this->_touchedFields['sha'] = true;
-		}
-		if (isset($data['user'])) {
-			$value = $data['user'];
-			if (is_array($value)) {
-				$value = new \Sandbox\Dto\Github\UserDto($value);
-			}
-			$this->user = $value;
-			$this->_touchedFields['user'] = true;
-		}
-		if (isset($data['repo'])) {
-			$value = $data['repo'];
-			if (is_array($value)) {
-				$value = new \Sandbox\Dto\Github\RepoDto($value);
-			}
-			$this->repo = $value;
-			$this->_touchedFields['repo'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
@@ -339,10 +306,9 @@ class BaseDto extends AbstractDto {
 	 *
 	 * @return array{ref: string, sha: string, user: array<string, mixed>, repo: array<string, mixed>}
 	 */
-	#[\Override]
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
-		return parent::toArray($type, $fields, $touched);
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
 	/**
@@ -352,9 +318,8 @@ class BaseDto extends AbstractDto {
 	 *
 	 * @return static
 	 */
-	#[\Override]
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
-		return parent::createFromArray($data, $ignoreMissing, $type);
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }

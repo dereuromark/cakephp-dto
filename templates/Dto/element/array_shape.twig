@@ -1,3 +1,4 @@
+{% if arrayShape %}
 
 	/**
 	 * @param string|null $type
@@ -6,10 +7,9 @@
 	 *
 	 * @return {{ arrayShape|raw }}
 	 */
-	#[\Override]
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
-		return parent::toArray($type, $fields, $touched);
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
 	/**
@@ -19,7 +19,7 @@
 	 *
 	 * @return static
 	 */
-	#[\Override]
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
-		return parent::createFromArray($data, $ignoreMissing, $type);
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
+{% endif %}

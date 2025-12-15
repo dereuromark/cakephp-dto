@@ -92,6 +92,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'author' => [
 			'name' => 'author',
@@ -104,6 +106,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'title' => [
 			'name' => 'title',
@@ -116,6 +120,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'created' => [
 			'name' => 'created',
@@ -128,6 +134,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -142,6 +150,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'singularType' => '\TestApp\Dto\TagDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\TagDto',
@@ -157,6 +167,8 @@ class ArticleDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'singularType' => 'string',
 			'singularNullable' => false,
 			'singularTypeHint' => 'string',
@@ -184,6 +196,65 @@ class ArticleDto extends AbstractImmutableDto {
 			'meta' => 'meta',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'id' => 'withId',
+		'author' => 'withAuthor',
+		'title' => 'withTitle',
+		'created' => 'withCreated',
+		'tags' => 'withTags',
+		'meta' => 'withMeta',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->id === null || $this->author === null || $this->title === null || $this->created === null) {
+			$errors = [];
+			if ($this->id === null) {
+				$errors[] = 'id';
+			}
+			if ($this->author === null) {
+				$errors[] = 'author';
+			}
+			if ($this->title === null) {
+				$errors[] = 'title';
+			}
+			if ($this->created === null) {
+				$errors[] = 'created';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param int $id
@@ -418,6 +489,30 @@ class ArticleDto extends AbstractImmutableDto {
 		$new->_touchedFields[static::FIELD_META] = true;
 
 		return $new;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{id: int, author: array{id: int, name: string, email: string|null}, title: string, created: \Cake\I18n\Date, tags: array<int, array{id: int, name: string, weight: int}>, meta: array<string, string>}
+	 */
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{id: int, author: array{id: int, name: string, email: string|null}, title: string, created: \Cake\I18n\Date, tags: array<int, array{id: int, name: string, weight: int}>, meta: array<string, string>} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }

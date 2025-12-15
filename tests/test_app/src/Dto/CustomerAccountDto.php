@@ -62,6 +62,8 @@ class CustomerAccountDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'birthYear' => [
 			'name' => 'birthYear',
@@ -74,6 +76,8 @@ class CustomerAccountDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'lastLogin' => [
 			'name' => 'lastLogin',
@@ -86,6 +90,8 @@ class CustomerAccountDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -106,6 +112,53 @@ class CustomerAccountDto extends AbstractDto {
 			'last-login' => 'lastLogin',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'customerName' => 'setCustomername',
+		'birthYear' => 'setBirthyear',
+		'lastLogin' => 'setLastlogin',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->customerName === null) {
+			$errors = [];
+			if ($this->customerName === null) {
+				$errors[] = 'customerName';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param string $customerName
@@ -233,6 +286,30 @@ class CustomerAccountDto extends AbstractDto {
 	 */
 	public function hasLastLogin(): bool {
 		return $this->lastLogin !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}
+	 */
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return $this->_toArrayInternal($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
 }
