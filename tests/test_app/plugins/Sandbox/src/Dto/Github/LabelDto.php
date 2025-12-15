@@ -241,4 +241,30 @@ class LabelDto extends AbstractDto {
 		return $this->color !== null;
 	}
 
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{name: string|null, color: string|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{name: string|null, color: string|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
+	}
+
 }

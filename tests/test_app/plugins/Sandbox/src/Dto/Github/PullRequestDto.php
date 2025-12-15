@@ -793,4 +793,30 @@ class PullRequestDto extends AbstractDto {
 		return $this->base !== null;
 	}
 
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{url: string, number: int, state: string, title: string, body: string, user: array<string, mixed>, createdAt: string, labels: array<string, \Sandbox\Dto\Github\LabelDto>, head: array<string, mixed>|null, base: array<string, mixed>|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{url: string, number: int, state: string, title: string, body: string, user: array<string, mixed>, createdAt: string, labels: array<string, \Sandbox\Dto\Github\LabelDto>, head: array<string, mixed>|null, base: array<string, mixed>|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
+	}
+
 }
