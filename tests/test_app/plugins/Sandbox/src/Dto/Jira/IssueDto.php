@@ -6,7 +6,7 @@
 
 namespace Sandbox\Dto\Jira;
 
-use CakeDto\Dto\AbstractDto;
+use PhpCollective\Dto\Dto\AbstractDto;
 
 /**
  * Jira/Issue DTO

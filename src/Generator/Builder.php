@@ -6,8 +6,6 @@ namespace CakeDto\Generator;
 
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
-use CakeDto\Dto\AbstractDto;
-use CakeDto\Dto\AbstractImmutableDto;
 use PhpCollective\Dto\Engine\EngineInterface;
 use PhpCollective\Dto\Generator\Builder as BaseBuilder;
 
@@ -18,20 +16,6 @@ use PhpCollective\Dto\Generator\Builder as BaseBuilder;
  * configuration handling and namespace resolution.
  */
 class Builder extends BaseBuilder {
-
-	/**
-	 * Abstract DTO class for mutable DTOs.
-	 *
-	 * @var string
-	 */
-	public const ABSTRACT_DTO = '\\' . AbstractDto::class;
-
-	/**
-	 * Abstract DTO class for immutable DTOs.
-	 *
-	 * @var string
-	 */
-	public const ABSTRACT_IMMUTABLE_DTO = '\\' . AbstractImmutableDto::class;
 
 	use InstanceConfigTrait {
 		setConfig as traitSetConfig;
@@ -77,33 +61,6 @@ class Builder extends BaseBuilder {
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Build DTOs from configuration.
-	 *
-	 * Overrides parent to use CakePHP-specific abstract classes with
-	 * corrected fast path logic for constructor.
-	 *
-	 * @param string $configPath
-	 * @param array<string, mixed> $options
-	 *
-	 * @return array<string, array<string, mixed>>
-	 */
-	public function build(string $configPath, array $options = []): array {
-		$result = parent::build($configPath, $options);
-
-		// Replace parent library's abstract classes with CakeDto wrapper classes
-		// which have corrected constructor logic for the fast path
-		foreach ($result as $name => $dto) {
-			if ($dto['extends'] === '\\PhpCollective\\Dto\\Dto\\AbstractDto') {
-				$result[$name]['extends'] = static::ABSTRACT_DTO;
-			} elseif ($dto['extends'] === '\\PhpCollective\\Dto\\Dto\\AbstractImmutableDto') {
-				$result[$name]['extends'] = static::ABSTRACT_IMMUTABLE_DTO;
-			}
-		}
-
-		return $result;
 	}
 
 	/**

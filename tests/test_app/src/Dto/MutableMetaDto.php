@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use CakeDto\Dto\AbstractDto;
+use PhpCollective\Dto\Dto\AbstractDto;
 
 /**
  * MutableMeta DTO
