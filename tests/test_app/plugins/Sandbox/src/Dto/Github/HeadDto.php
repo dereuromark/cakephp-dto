@@ -15,6 +15,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string $sha
  * @property \Sandbox\Dto\Github\UserDto $user
  * @property \Sandbox\Dto\Github\RepoDto $repo
+ *
+ * @method array{ref: string, sha: string, user: array<string, mixed>, repo: array<string, mixed>} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{ref: string, sha: string, user: array<string, mixed>, repo: array<string, mixed>} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class HeadDto extends AbstractDto {
 
@@ -154,39 +157,6 @@ class HeadDto extends AbstractDto {
 		'repo' => 'setRepo',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['ref'])) {
-			$this->ref = $data['ref'];
-			$this->_touchedFields['ref'] = true;
-		}
-		if (isset($data['sha'])) {
-			$this->sha = $data['sha'];
-			$this->_touchedFields['sha'] = true;
-		}
-		if (isset($data['user'])) {
-			$value = $data['user'];
-			if (is_array($value)) {
-				$value = new \Sandbox\Dto\Github\UserDto($value);
-			}
-			$this->user = $value;
-			$this->_touchedFields['user'] = true;
-		}
-		if (isset($data['repo'])) {
-			$value = $data['repo'];
-			if (is_array($value)) {
-				$value = new \Sandbox\Dto\Github\RepoDto($value);
-			}
-			$this->repo = $value;
-			$this->_touchedFields['repo'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

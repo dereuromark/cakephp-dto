@@ -11,6 +11,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
 /**
  * EmptyOne DTO
  *
+ *
+ * @method array{} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class EmptyOneDto extends AbstractDto {
 
@@ -32,5 +35,66 @@ class EmptyOneDto extends AbstractDto {
 		'dashed' => [
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
+	}
 
 }

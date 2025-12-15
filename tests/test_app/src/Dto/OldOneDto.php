@@ -12,6 +12,9 @@ namespace TestApp\Dto;
  *
  * @property string|null $name
  *
+ * @method array{name: string|null} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{name: string|null} $data, bool $ignoreMissing = false, ?string $type = null)
+ *
  * @deprecated Yeah, sry
  */
 class OldOneDto extends CarDto {
@@ -43,6 +46,8 @@ class OldOneDto extends CarDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
@@ -57,6 +62,42 @@ class OldOneDto extends CarDto {
 			'name' => 'name',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'name' => 'setName',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
 
 	/**
 	 * @param string|null $name
@@ -107,6 +148,32 @@ class OldOneDto extends CarDto {
 	 */
 	public function hasName(): bool {
 		return $this->name !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{name: string|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{name: string|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

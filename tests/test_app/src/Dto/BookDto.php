@@ -12,6 +12,9 @@ use PhpCollective\Dto\Dto\AbstractImmutableDto;
  * Book DTO
  *
  * @property \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
+ *
+ * @method array{pages: array<int, array{number: int, content: string|null}>} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{pages: array<int, array{number: int, content: string|null}>} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class BookDto extends AbstractImmutableDto {
 
@@ -42,6 +45,8 @@ class BookDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'singularType' => '\TestApp\Dto\PageDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\PageDto',
@@ -59,6 +64,42 @@ class BookDto extends AbstractImmutableDto {
 			'pages' => 'pages',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'pages' => 'withPages',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
 
 	/**
 	 * @param \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
@@ -109,6 +150,32 @@ class BookDto extends AbstractImmutableDto {
 		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{pages: array<int, array{number: int, content: string|null}>}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{pages: array<int, array{number: int, content: string|null}>} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

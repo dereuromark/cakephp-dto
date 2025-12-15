@@ -14,6 +14,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string $login
  * @property string $htmlUrl
  * @property string $type
+ *
+ * @method array{login: string, htmlUrl: string, type: string} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{login: string, htmlUrl: string, type: string} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class UserDto extends AbstractDto {
 
@@ -127,27 +130,6 @@ class UserDto extends AbstractDto {
 		'type' => 'setType',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['login'])) {
-			$this->login = $data['login'];
-			$this->_touchedFields['login'] = true;
-		}
-		if (isset($data['htmlUrl'])) {
-			$this->htmlUrl = $data['htmlUrl'];
-			$this->_touchedFields['htmlUrl'] = true;
-		}
-		if (isset($data['type'])) {
-			$this->type = $data['type'];
-			$this->_touchedFields['type'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

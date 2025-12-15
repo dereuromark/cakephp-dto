@@ -14,6 +14,9 @@ use PhpCollective\Dto\Dto\AbstractImmutableDto;
  * @property \TestApp\Model\Enum\MyUnit|null $someUnit
  * @property \TestApp\Model\Enum\MyStringBacked|null $someStringBacked
  * @property \TestApp\Model\Enum\MyIntBacked|null $someIntBacked
+ *
+ * @method array{someUnit: \TestApp\Model\Enum\MyUnit|null, someStringBacked: \TestApp\Model\Enum\MyStringBacked|null, someIntBacked: \TestApp\Model\Enum\MyIntBacked|null} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{someUnit: \TestApp\Model\Enum\MyUnit|null, someStringBacked: \TestApp\Model\Enum\MyStringBacked|null, someIntBacked: \TestApp\Model\Enum\MyIntBacked|null} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class EnumTestDto extends AbstractImmutableDto {
 
@@ -62,6 +65,8 @@ class EnumTestDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => 'unit',
 		],
@@ -76,6 +81,8 @@ class EnumTestDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => 'string',
 		],
@@ -90,6 +97,8 @@ class EnumTestDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => 'int',
 		],
@@ -110,6 +119,44 @@ class EnumTestDto extends AbstractImmutableDto {
 			'some-int-backed' => 'someIntBacked',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'someUnit' => 'withSomeunit',
+		'someStringBacked' => 'withSomestringbacked',
+		'someIntBacked' => 'withSomeintbacked',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
 
 	/**
 	 * @param \TestApp\Model\Enum\MyUnit|null $someUnit
@@ -268,6 +315,32 @@ class EnumTestDto extends AbstractImmutableDto {
 	 */
 	public function hasSomeIntBacked(): bool {
 		return $this->someIntBacked !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{someUnit: \TestApp\Model\Enum\MyUnit|null, someStringBacked: \TestApp\Model\Enum\MyStringBacked|null, someIntBacked: \TestApp\Model\Enum\MyIntBacked|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{someUnit: \TestApp\Model\Enum\MyUnit|null, someStringBacked: \TestApp\Model\Enum\MyStringBacked|null, someIntBacked: \TestApp\Model\Enum\MyIntBacked|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

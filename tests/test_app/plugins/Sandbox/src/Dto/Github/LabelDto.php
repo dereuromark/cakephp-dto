@@ -13,6 +13,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
  *
  * @property string|null $name
  * @property string|null $color
+ *
+ * @method array{name: string|null, color: string|null} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{name: string|null, color: string|null} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class LabelDto extends AbstractDto {
 
@@ -100,23 +103,6 @@ class LabelDto extends AbstractDto {
 		'color' => 'setColor',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['name'])) {
-			$this->name = $data['name'];
-			$this->_touchedFields['name'] = true;
-		}
-		if (isset($data['color'])) {
-			$this->color = $data['color'];
-			$this->_touchedFields['color'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

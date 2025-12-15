@@ -13,7 +13,7 @@ use {{ extends[1:] }};
 
 /**
  * {{ name }} DTO
-{{ element('doc', fields) -}}
+{{ element('doc', {'fields': fields, 'arrayShape': arrayShape}) -}}
  {% if deprecated is not null %}
  *
  * @deprecated {{ deprecated }}

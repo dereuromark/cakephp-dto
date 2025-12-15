@@ -15,6 +15,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string|null $insuranceProvider
  * @property \TestApp\ValueObject\KeyValuePair|null $attributes
  * @property \TestApp\ValueObject\Birthday|null $birthday
+ *
+ * @method array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class OwnerDto extends AbstractDto {
 
@@ -72,6 +75,8 @@ class OwnerDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'insuranceProvider' => [
 			'name' => 'insuranceProvider',
@@ -84,6 +89,8 @@ class OwnerDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'attributes' => [
 			'name' => 'attributes',
@@ -96,6 +103,8 @@ class OwnerDto extends AbstractDto {
 			'key' => null,
 			'serialize' => 'array',
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -110,6 +119,8 @@ class OwnerDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -132,6 +143,45 @@ class OwnerDto extends AbstractDto {
 			'birthday' => 'birthday',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'name' => 'setName',
+		'insuranceProvider' => 'setInsuranceprovider',
+		'attributes' => 'setAttributes',
+		'birthday' => 'setBirthday',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+	}
+
 
 	/**
 	 * @param string|null $name
@@ -335,6 +385,32 @@ class OwnerDto extends AbstractDto {
 	 */
 	public function hasBirthday(): bool {
 		return $this->birthday !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

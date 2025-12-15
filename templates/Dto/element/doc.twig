@@ -1,4 +1,7 @@
  *
 {% for field in fields %}
  * @property {{ field.type }}{% if field.nullable %}|null{% endif %} ${{ field.name }}
-{% endfor -%}
+{% endfor %}
+ *
+ * @method {{ arrayShape|raw }} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray({{ arrayShape|raw }} $data, bool $ignoreMissing = false, ?string $type = null)

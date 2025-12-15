@@ -15,6 +15,9 @@ use PhpCollective\Dto\Dto\AbstractImmutableDto;
  * @property float $value
  * @property string|null $comment
  * @property \Cake\I18n\Date $created
+ *
+ * @method array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class TransactionDto extends AbstractImmutableDto {
 
@@ -72,6 +75,8 @@ class TransactionDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'value' => [
 			'name' => 'value',
@@ -84,6 +89,8 @@ class TransactionDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'comment' => [
 			'name' => 'comment',
@@ -96,6 +103,8 @@ class TransactionDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'created' => [
 			'name' => 'created',
@@ -108,6 +117,8 @@ class TransactionDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -130,6 +141,60 @@ class TransactionDto extends AbstractImmutableDto {
 			'created' => 'created',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'customerAccount' => 'withCustomeraccount',
+		'value' => 'withValue',
+		'comment' => 'withComment',
+		'created' => 'withCreated',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->customerAccount === null || $this->value === null || $this->created === null) {
+			$errors = [];
+			if ($this->customerAccount === null) {
+				$errors[] = 'customerAccount';
+			}
+			if ($this->value === null) {
+				$errors[] = 'value';
+			}
+			if ($this->created === null) {
+				$errors[] = 'created';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param \TestApp\Dto\CustomerAccountDto $customerAccount
@@ -263,6 +328,32 @@ class TransactionDto extends AbstractImmutableDto {
 	 */
 	public function hasCreated(): bool {
 		return $this->created !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override]
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

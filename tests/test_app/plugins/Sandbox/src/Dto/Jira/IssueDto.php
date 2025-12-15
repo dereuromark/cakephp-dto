@@ -17,6 +17,9 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string $priority
  * @property string $summary
  * @property string|null $version
+ *
+ * @method array{id: string, key: string, status: string, priority: string, summary: string, version: string|null} toArray(?string $type = null, ?array $fields = null, bool $touched = false)
+ * @method static static createFromArray(array{id: string, key: string, status: string, priority: string, summary: string, version: string|null} $data, bool $ignoreMissing = false, ?string $type = null)
  */
 class IssueDto extends AbstractDto {
 
@@ -208,39 +211,6 @@ class IssueDto extends AbstractDto {
 		'version' => 'setVersion',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['id'])) {
-			$this->id = $data['id'];
-			$this->_touchedFields['id'] = true;
-		}
-		if (isset($data['key'])) {
-			$this->key = $data['key'];
-			$this->_touchedFields['key'] = true;
-		}
-		if (isset($data['status'])) {
-			$this->status = $data['status'];
-			$this->_touchedFields['status'] = true;
-		}
-		if (isset($data['priority'])) {
-			$this->priority = $data['priority'];
-			$this->_touchedFields['priority'] = true;
-		}
-		if (isset($data['summary'])) {
-			$this->summary = $data['summary'];
-			$this->_touchedFields['summary'] = true;
-		}
-		if (isset($data['version'])) {
-			$this->version = $data['version'];
-			$this->_touchedFields['version'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
