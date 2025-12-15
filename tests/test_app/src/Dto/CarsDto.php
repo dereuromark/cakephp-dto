@@ -11,7 +11,7 @@ use PhpCollective\Dto\Dto\AbstractDto;
 /**
  * Cars DTO
  *
- * @property \TestApp\Dto\CarDto[]|\ArrayObject $cars
+ * @property \ArrayObject<string, \TestApp\Dto\CarDto> $cars
  */
 class CarsDto extends AbstractDto {
 
@@ -21,7 +21,7 @@ class CarsDto extends AbstractDto {
 	public const FIELD_CARS = 'cars';
 
 	/**
-	 * @var \TestApp\Dto\CarDto[]|\ArrayObject
+	 * @var \ArrayObject<string, \TestApp\Dto\CarDto>
 	 */
 	protected $cars;
 
@@ -99,7 +99,7 @@ class CarsDto extends AbstractDto {
 
 
 	/**
-	 * @param \TestApp\Dto\CarDto[]|\ArrayObject $cars
+	 * @param \ArrayObject<string, \TestApp\Dto\CarDto> $cars
 	 *
 	 * @return $this
 	 */
@@ -111,7 +111,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @return \TestApp\Dto\CarDto[]|\ArrayObject
+	 * @return \ArrayObject<string, \TestApp\Dto\CarDto>
 	 */
 	public function getCars(): \ArrayObject {
 		if ($this->cars === null) {
@@ -122,7 +122,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return \TestApp\Dto\CarDto
 	 *
@@ -148,7 +148,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasCar($key): bool {
@@ -156,7 +156,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param \TestApp\Dto\CarDto $car
 	 * @return $this
 	 */

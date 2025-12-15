@@ -11,7 +11,7 @@ use PhpCollective\Dto\Dto\AbstractImmutableDto;
 /**
  * Book DTO
  *
- * @property \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
+ * @property \Cake\Collection\Collection<int, \TestApp\Dto\PageDto> $pages
  */
 class BookDto extends AbstractImmutableDto {
 
@@ -21,7 +21,7 @@ class BookDto extends AbstractImmutableDto {
 	public const FIELD_PAGES = 'pages';
 
 	/**
-	 * @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
+	 * @var \Cake\Collection\Collection<int, \TestApp\Dto\PageDto>
 	 */
 	protected $pages;
 
@@ -99,7 +99,7 @@ class BookDto extends AbstractImmutableDto {
 
 
 	/**
-	 * @param \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $pages
+	 * @param \Cake\Collection\Collection<int, \TestApp\Dto\PageDto> $pages
 	 *
 	 * @return static
 	 */
@@ -112,7 +112,7 @@ class BookDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @return \TestApp\Dto\PageDto[]|\Cake\Collection\Collection
+	 * @return \Cake\Collection\Collection<int, \TestApp\Dto\PageDto>
 	 */
 	public function getPages(): \Cake\Collection\Collection {
 		if ($this->pages === null) {

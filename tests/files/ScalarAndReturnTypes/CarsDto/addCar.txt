@@ -1,5 +1,5 @@
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param \App\Dto\CarDto $car
 	 * @return $this
 	 */

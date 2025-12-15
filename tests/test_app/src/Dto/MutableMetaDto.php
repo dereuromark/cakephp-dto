@@ -12,7 +12,7 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * MutableMeta DTO
  *
  * @property string $title
- * @property (string|null)[] $meta
+ * @property array<string, string> $meta
  */
 class MutableMetaDto extends AbstractDto {
 
@@ -31,7 +31,7 @@ class MutableMetaDto extends AbstractDto {
 	protected $title;
 
 	/**
-	 * @var (string|null)[]
+	 * @var array<string, string>
 	 */
 	protected $meta;
 
@@ -161,7 +161,7 @@ class MutableMetaDto extends AbstractDto {
 	}
 
 	/**
-	 * @param (string|null)[] $meta
+	 * @param array<string, string> $meta
 	 *
 	 * @return $this
 	 */
@@ -173,7 +173,7 @@ class MutableMetaDto extends AbstractDto {
 	}
 
 	/**
-	 * @return (string|null)[]
+	 * @return array<string, string>
 	 */
 	public function getMeta(): array {
 		if ($this->meta === null) {
@@ -184,7 +184,7 @@ class MutableMetaDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return string|null
 	 */
@@ -207,7 +207,7 @@ class MutableMetaDto extends AbstractDto {
 		return count($this->meta) > 0;
 	}
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param string|null $metaValue
 	 * @return $this
 	 */

@@ -15,8 +15,8 @@ use PhpCollective\Dto\Dto\AbstractImmutableDto;
  * @property \TestApp\Dto\AuthorDto $author
  * @property string $title
  * @property \Cake\I18n\Date $created
- * @property \TestApp\Dto\TagDto[] $tags
- * @property string[] $meta
+ * @property array<int, \TestApp\Dto\TagDto> $tags
+ * @property array<string, string> $meta
  */
 class ArticleDto extends AbstractImmutableDto {
 
@@ -66,12 +66,12 @@ class ArticleDto extends AbstractImmutableDto {
 	protected $created;
 
 	/**
-	 * @var \TestApp\Dto\TagDto[]
+	 * @var array<int, \TestApp\Dto\TagDto>
 	 */
 	protected $tags;
 
 	/**
-	 * @var string[]
+	 * @var array<string, string>
 	 */
 	protected $meta;
 
@@ -365,7 +365,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param \TestApp\Dto\TagDto[] $tags
+	 * @param array<int, \TestApp\Dto\TagDto> $tags
 	 *
 	 * @return static
 	 */
@@ -378,7 +378,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @return \TestApp\Dto\TagDto[]
+	 * @return array<int, \TestApp\Dto\TagDto>
 	 */
 	public function getTags(): array {
 		if ($this->tags === null) {
@@ -416,7 +416,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string[] $meta
+	 * @param array<string, string> $meta
 	 *
 	 * @return static
 	 */
@@ -429,7 +429,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string, string>
 	 */
 	public function getMeta(): array {
 		if ($this->meta === null) {
@@ -440,7 +440,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return string
 	 *
@@ -466,7 +466,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasMetaValue($key): bool {
@@ -474,7 +474,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param string $metaValue
 	 * @return static
 	 */

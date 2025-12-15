@@ -36,6 +36,9 @@ class DtoView extends TwigView {
 			Configure::write('App.paths.templates', $paths);
 		}
 
+		// Disable autoescape for code generation (matches php-collective/dto)
+		$this->setConfig('environment.autoescape', false);
+
 		parent::initialize();
 	}
 

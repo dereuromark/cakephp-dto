@@ -18,7 +18,7 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string $body
  * @property \Sandbox\Dto\Github\UserDto $user
  * @property string $createdAt
- * @property \Sandbox\Dto\Github\LabelDto[] $labels
+ * @property array<string, \Sandbox\Dto\Github\LabelDto> $labels
  * @property \Sandbox\Dto\Github\HeadDto|null $head
  * @property \Sandbox\Dto\Github\BaseDto|null $base
  */
@@ -101,7 +101,7 @@ class PullRequestDto extends AbstractDto {
 	protected $createdAt;
 
 	/**
-	 * @var \Sandbox\Dto\Github\LabelDto[]
+	 * @var array<string, \Sandbox\Dto\Github\LabelDto>
 	 */
 	protected $labels;
 
@@ -551,7 +551,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param \Sandbox\Dto\Github\LabelDto[] $labels
+	 * @param array<string, \Sandbox\Dto\Github\LabelDto> $labels
 	 *
 	 * @return $this
 	 */
@@ -563,7 +563,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @return \Sandbox\Dto\Github\LabelDto[]
+	 * @return array<string, \Sandbox\Dto\Github\LabelDto>
 	 */
 	public function getLabels(): array {
 		if ($this->labels === null) {
@@ -574,7 +574,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return \Sandbox\Dto\Github\LabelDto
 	 *
@@ -600,7 +600,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasLabel($key): bool {
@@ -608,7 +608,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param \Sandbox\Dto\Github\LabelDto $label
 	 * @return $this
 	 */
