@@ -350,6 +350,7 @@ class RepoDto extends AbstractDto {
 	 */
 	#[\Override]
 	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		/** @phpstan-ignore method.childParameterType (parent accepts any array, we provide shape for IDE) */
 		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
