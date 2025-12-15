@@ -506,8 +506,20 @@ $newCarDto = CarDto::fromUnserialized($serialized);
 These static methods are particularly useful when you want to avoid using `new` directly or when working with dependency injection containers.
 
 ### Fields and touched fields
-You can get a list of the DTOs fields using `fields()`.
-`touchedFields()` will give you the list of not fields that have been set or unset so far.
+You can introspect DTOs to get information about their fields:
+
+```php
+// Get all field names defined in the DTO
+$allFields = $carDto->fields(); // ['color', 'isNew', 'value', 'owner', ...]
+
+// Get only fields that have been set or modified
+$modifiedFields = $carDto->touchedFields(); // ['color', 'isNew']
+
+// Use with toArray to export only touched fields
+$partialArray = $carDto->touchedToArray();
+```
+
+This is useful for partial updates, dirty checking, or debugging which fields have been populated.
 
 ### Inflection usage
 
@@ -821,6 +833,33 @@ return [
         'defaultCollectionType' => null, // Defaults to \ArrayObject
     ],
 ];
+```
+
+### Runtime Configuration
+
+You can also configure DTOs at runtime using static methods:
+
+#### Default Key Type
+Set a global default key type for all DTOs, useful when your application consistently uses one format:
+```php
+use PhpCollective\Dto\Dto\AbstractDto;
+
+// In your bootstrap.php or Application.php
+AbstractDto::setDefaultKeyType(AbstractDto::TYPE_UNDERSCORED);
+
+// Now all DTOs will default to underscored keys
+$dto = new MyDto($data); // Uses TYPE_UNDERSCORED automatically
+$array = $dto->toArray(); // Returns underscored keys
+```
+
+#### Custom Collection Factory
+Set a custom factory for creating collections, useful for integrating with framework-specific collection classes:
+```php
+use PhpCollective\Dto\Dto\AbstractDto;
+use Cake\Collection\Collection;
+
+// Use CakePHP's Collection class for all DTO collections
+AbstractDto::setCollectionFactory(fn($items) => new Collection($items));
 ```
 
 
