@@ -21,6 +21,10 @@ parameters:
 		-
 			identifier: argument.type
 			path: tests/test_app/src/Dto/*Dto.php
+		# Array key type mismatch in add methods (int|string key vs string-keyed array)
+		-
+			identifier: assign.propertyType
+			path: tests/test_app/*Dto.php
 	# Generated test DTOs may have unmatched ignores (e.g., empty DTOs)
 	reportUnmatchedIgnoredErrors: false
 
