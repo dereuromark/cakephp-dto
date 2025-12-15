@@ -343,6 +343,7 @@ class TransactionDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

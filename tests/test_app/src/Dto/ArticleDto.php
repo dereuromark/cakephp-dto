@@ -507,6 +507,7 @@ class ArticleDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{id: int, author: array{id: int, name: string, email: string|null}, title: string, created: \Cake\I18n\Date, tags: array<int, array{id: int, name: string, weight: int}>, meta: array<string, string>} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

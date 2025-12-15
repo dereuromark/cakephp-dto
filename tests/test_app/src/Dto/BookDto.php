@@ -165,6 +165,7 @@ class BookDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{pages: array<int, array{number: int, content: string|null}>} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

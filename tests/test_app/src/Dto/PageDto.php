@@ -227,6 +227,7 @@ class PageDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{number: int, content: string|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

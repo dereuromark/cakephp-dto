@@ -80,6 +80,7 @@
 
 	/**
 	 * @param array{type: string|null, size: int|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

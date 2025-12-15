@@ -258,6 +258,7 @@ class TagDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{id: int, name: string, weight: int} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

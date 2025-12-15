@@ -273,6 +273,7 @@ class FlyingCarDto extends CarDto {
 
 	/**
 	 * @param array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

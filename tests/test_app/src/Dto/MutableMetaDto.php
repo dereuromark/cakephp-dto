@@ -238,6 +238,7 @@ class MutableMetaDto extends AbstractDto {
 
 	/**
 	 * @param array{title: string, meta: array<string, string>} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

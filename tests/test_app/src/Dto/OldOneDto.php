@@ -163,6 +163,7 @@ class OldOneDto extends CarDto {
 
 	/**
 	 * @param array{name: string|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

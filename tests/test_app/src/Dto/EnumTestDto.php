@@ -330,6 +330,7 @@ class EnumTestDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{someUnit: \TestApp\Model\Enum\MyUnit|null, someStringBacked: \TestApp\Model\Enum\MyStringBacked|null, someIntBacked: \TestApp\Model\Enum\MyIntBacked|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

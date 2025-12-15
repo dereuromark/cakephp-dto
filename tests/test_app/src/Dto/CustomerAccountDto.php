@@ -304,6 +304,7 @@ class CustomerAccountDto extends AbstractDto {
 
 	/**
 	 * @param array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

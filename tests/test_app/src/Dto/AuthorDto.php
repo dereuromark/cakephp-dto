@@ -284,6 +284,7 @@ class AuthorDto extends AbstractImmutableDto {
 
 	/**
 	 * @param array{id: int, name: string, email: string|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *

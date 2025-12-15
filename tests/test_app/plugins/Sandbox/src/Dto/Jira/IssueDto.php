@@ -448,6 +448,7 @@ class IssueDto extends AbstractDto {
 
 	/**
 	 * @param array{id: string, key: string, status: string, priority: string, summary: string, version: string|null} $data
+	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type
 	 *
