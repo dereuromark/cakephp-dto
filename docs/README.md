@@ -798,27 +798,6 @@ At the same time that means: If you want mutable collections, do not use `array`
 
 **Defensive Array Copying:** When creating an immutable DTO from an array, a defensive copy is made to prevent external modification of the source array from affecting the DTO's internal state.
 
-### Performance Optimizations
-
-Generated DTOs include several performance optimizations that provide significant speed improvements:
-
-**`setFromArrayFast()`** - Direct property assignment without dynamic method calls. This is automatically used when creating DTOs from arrays without special key transformations.
-
-**`$_setters`** - Pre-computed setter method names for fast lookup.
-
-**`setDefaults()`** - Optimized to only process fields that have default values defined.
-
-**`validate()`** - Optimized to only check required fields.
-
-These optimizations provide approximately **75% faster** `fromArray()` operations compared to the generic reflection-based approach:
-
-| Operation | Generic | Optimized | Improvement |
-|-----------|---------|-----------|-------------|
-| fromArray | 12.5 ms | 3.1 ms | **75%** |
-| toArray | 5.3 ms | 4.4 ms | 17% |
-
-*Benchmarked with 10,000 iterations on simple DTOs*
-
 
 ## Configuration
 You can set some defaults via `app.php` and global Configure settings:
@@ -920,7 +899,7 @@ For projects using PHP 8.3+, you can enable typed class constants instead of doc
 
 `'CakeDto.typedConstants'` set to `true` will enable this feature.
 
-**Default behavior (PHP 8.1+ compatible):**
+**Default behavior (PHP 8.2+ compatible):**
 ```php
 /**
  * @var string
