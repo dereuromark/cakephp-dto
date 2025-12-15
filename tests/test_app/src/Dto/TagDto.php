@@ -62,6 +62,8 @@ class TagDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'name' => [
 			'name' => 'name',
@@ -74,6 +76,8 @@ class TagDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'weight' => [
 			'name' => 'weight',
@@ -86,6 +90,8 @@ class TagDto extends AbstractImmutableDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
@@ -104,6 +110,62 @@ class TagDto extends AbstractImmutableDto {
 			'weight' => 'weight',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = true;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'id' => 'withId',
+		'name' => 'withName',
+		'weight' => 'withWeight',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+		if ($this->weight === null) {
+			$this->weight = 0;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->id === null || $this->name === null || $this->weight === null) {
+			$errors = [];
+			if ($this->id === null) {
+				$errors[] = 'id';
+			}
+			if ($this->name === null) {
+				$errors[] = 'name';
+			}
+			if ($this->weight === null) {
+				$errors[] = 'weight';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param int $id
@@ -179,5 +241,31 @@ class TagDto extends AbstractImmutableDto {
 		return $this->weight;
 	}
 
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{id: int, name: string, weight: int}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{id: int, name: string, weight: int} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override] // @phpstan-ignore method.childParameterType
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
+	}
 
 }

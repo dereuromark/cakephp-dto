@@ -52,6 +52,8 @@ class MutableMetaDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'meta' => [
 			'name' => 'meta',
@@ -64,6 +66,8 @@ class MutableMetaDto extends AbstractDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 			'singularType' => 'string',
 			'singularNullable' => true,
 			'singularTypeHint' => 'string',
@@ -83,6 +87,52 @@ class MutableMetaDto extends AbstractDto {
 			'meta' => 'meta',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'title' => 'setTitle',
+		'meta' => 'setMeta',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->title === null) {
+			$errors = [];
+			if ($this->title === null) {
+				$errors[] = 'title';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param string $title
@@ -170,6 +220,32 @@ class MutableMetaDto extends AbstractDto {
 		$this->_touchedFields[static::FIELD_META] = true;
 
 		return $this;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{title: string, meta: array<string, string>}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{title: string, meta: array<string, string>} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override] // @phpstan-ignore method.childParameterType
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

@@ -61,6 +61,8 @@ class FlyingCarDto extends CarDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'maxSpeed' => [
 			'name' => 'maxSpeed',
@@ -73,6 +75,8 @@ class FlyingCarDto extends CarDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 		'complexAttributes' => [
 			'name' => 'complexAttributes',
@@ -85,6 +89,8 @@ class FlyingCarDto extends CarDto {
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
+			'mapFrom' => null,
+			'mapTo' => null,
 		],
 	];
 
@@ -103,6 +109,62 @@ class FlyingCarDto extends CarDto {
 			'complex-attributes' => 'complexAttributes',
 		],
 	];
+
+	/**
+	 * Whether this DTO is immutable.
+	 */
+	protected const IS_IMMUTABLE = false;
+
+	/**
+	 * Pre-computed setter method names for fast lookup.
+	 *
+	 * @var array<string, string>
+	 */
+	protected static array $_setters = [
+		'maxAltitude' => 'setMaxaltitude',
+		'maxSpeed' => 'setMaxspeed',
+		'complexAttributes' => 'setComplexattributes',
+	];
+
+
+	/**
+	 * Optimized setDefaults - only processes fields with default values.
+	 *
+	 * @return $this
+	 */
+	protected function setDefaults() {
+		if ($this->maxAltitude === null) {
+			$this->maxAltitude = 0;
+		}
+		if ($this->maxSpeed === null) {
+			$this->maxSpeed = 0;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Optimized validate - only checks required fields.
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return void
+	 */
+	protected function validate(): void {
+		if ($this->maxAltitude === null || $this->maxSpeed === null) {
+			$errors = [];
+			if ($this->maxAltitude === null) {
+				$errors[] = 'maxAltitude';
+			}
+			if ($this->maxSpeed === null) {
+				$errors[] = 'maxSpeed';
+			}
+			if ($errors) {
+				throw new \InvalidArgumentException('Required fields missing: ' . implode(', ', $errors));
+			}
+		}
+	}
+
 
 	/**
 	 * @param int $maxAltitude
@@ -193,6 +255,32 @@ class FlyingCarDto extends CarDto {
 	 */
 	public function hasComplexAttributes(): bool {
 		return $this->complexAttributes !== null;
+	}
+
+
+	/**
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
+	 *
+	 * @return array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null}
+	 */
+	#[\Override]
+	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
+		return parent::toArray($type, $fields, $touched);
+	}
+
+	/**
+	 * @param array{maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
+	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 *
+	 * @return static
+	 */
+	#[\Override] // @phpstan-ignore method.childParameterType
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 
 }

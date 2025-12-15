@@ -208,39 +208,6 @@ class IssueDto extends AbstractDto {
 		'version' => 'setVersion',
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-		if (isset($data['id'])) {
-			$this->id = $data['id'];
-			$this->_touchedFields['id'] = true;
-		}
-		if (isset($data['key'])) {
-			$this->key = $data['key'];
-			$this->_touchedFields['key'] = true;
-		}
-		if (isset($data['status'])) {
-			$this->status = $data['status'];
-			$this->_touchedFields['status'] = true;
-		}
-		if (isset($data['priority'])) {
-			$this->priority = $data['priority'];
-			$this->_touchedFields['priority'] = true;
-		}
-		if (isset($data['summary'])) {
-			$this->summary = $data['summary'];
-			$this->_touchedFields['summary'] = true;
-		}
-		if (isset($data['version'])) {
-			$this->version = $data['version'];
-			$this->_touchedFields['version'] = true;
-		}
-	}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
@@ -475,7 +442,7 @@ class IssueDto extends AbstractDto {
 	 */
 	#[\Override]
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type (parent returns array, we provide shape for IDE) */
+		/** @phpstan-ignore return.type */
 		return parent::toArray($type, $fields, $touched);
 	}
 
@@ -486,9 +453,8 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return static
 	 */
-	#[\Override]
+	#[\Override] // @phpstan-ignore method.childParameterType
 	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
-		/** @phpstan-ignore method.childParameterType (parent accepts any array, we provide shape for IDE) */
 		return parent::createFromArray($data, $ignoreMissing, $type);
 	}
 

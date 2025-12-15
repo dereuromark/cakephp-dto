@@ -14,58 +14,6 @@
 {% endfor %}
 	];
 
-	/**
-	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * @param array<string, mixed> $data
-	 *
-	 * @return void
-	 */
-	protected function setFromArrayFast(array $data): void {
-{% for field in fields %}
-{% if field.dto %}
-		if (isset($data['{{ field.name }}'])) {
-			$value = $data['{{ field.name }}'];
-			if (is_array($value)) {
-				$value = new {{ field.typeHint }}($value);
-			}
-			$this->{{ field.name }} = $value;
-			$this->_touchedFields['{{ field.name }}'] = true;
-		}
-{% elseif field.collection and field.collectionType != 'array' %}
-		if (isset($data['{{ field.name }}'])) {
-			$collection = new {{ field.collectionType }}();
-			foreach ($data['{{ field.name }}'] as $item) {
-{% if field.singularClass is defined and field.singularClass %}
-				if (is_array($item)) {
-					$item = new {{ field.singularClass }}($item);
-				}
-{% endif %}
-				$collection->append($item);
-			}
-			$this->{{ field.name }} = $collection;
-			$this->_touchedFields['{{ field.name }}'] = true;
-		}
-{% elseif field.collection and field.collectionType == 'array' and field.singularClass is defined and field.singularClass %}
-		if (isset($data['{{ field.name }}'])) {
-			$collection = [];
-			foreach ($data['{{ field.name }}'] as $key => $item) {
-				if (is_array($item)) {
-					$item = new {{ field.singularClass }}($item);
-				}
-				$collection[$key] = $item;
-			}
-			$this->{{ field.name }} = $collection;
-			$this->_touchedFields['{{ field.name }}'] = true;
-		}
-{% else %}
-		if (isset($data['{{ field.name }}'])) {
-			$this->{{ field.name }} = $data['{{ field.name }}'];
-			$this->_touchedFields['{{ field.name }}'] = true;
-		}
-{% endif %}
-{% endfor %}
-	}
 {% set fieldsWithDefaults = [] %}
 {% for field in fields %}
 {% if field.defaultValue is not null %}
