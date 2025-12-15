@@ -27,4 +27,5 @@ class {{ className }} extends {% if extends starts with '\\' %}{{ extends[1:] | 
 {{ element('map', fields) }}
 {{ element('optimizations', {'fields': fields, 'immutable': immutable}) }}
 {{ element('methods', fields) -}}
+{{ element('array_shape', {'arrayShape': arrayShape}) }}
 }
