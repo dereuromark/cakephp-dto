@@ -9,3 +9,14 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
+		# Ignore type issues in generated setFromArrayFast method
+		# These are caused by parent library methods returning generic types
+		-
+			message: '#Parameter \#1 \$field of method PhpCollective\\Dto\\Dto\\Dto::createEnum\(\) expects class-string<UnitEnum>, string given#'
+			path: tests/test_app/src/Dto/
+		-
+			message: '#does not accept object\|null#'
+			path: tests/test_app/src/Dto/
+		-
+			message: '#does not accept ArrayObject<int, mixed>#'
+			path: tests/test_app/src/Dto/

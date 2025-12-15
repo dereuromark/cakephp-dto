@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * Article DTO
@@ -215,6 +215,58 @@ class ArticleDto extends AbstractImmutableDto {
 		'tags' => 'withTags',
 		'meta' => 'withMeta',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['id'])) {
+			$this->id = $data['id'];
+			$this->_touchedFields['id'] = true;
+		}
+		if (isset($data['author'])) {
+			$value = $data['author'];
+			if (is_array($value)) {
+				$value = new \TestApp\Dto\AuthorDto($value, true);
+			}
+			$this->author = $value;
+			$this->_touchedFields['author'] = true;
+		}
+		if (isset($data['title'])) {
+			$this->title = $data['title'];
+			$this->_touchedFields['title'] = true;
+		}
+		if (isset($data['created'])) {
+			$value = $data['created'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('created', $value, $this->_metadata['created']);
+			}
+			$this->created = $value;
+			$this->_touchedFields['created'] = true;
+		}
+		if (isset($data['tags'])) {
+			$collection = [];
+			foreach ($data['tags'] as $key => $item) {
+				if (is_array($item)) {
+					$item = new \TestApp\Dto\TagDto($item, true);
+				}
+				$collection[$key] = $item;
+			}
+			$this->tags = $collection;
+			$this->_touchedFields['tags'] = true;
+		}
+		if (isset($data['meta'])) {
+			$this->meta = $data['meta'];
+			$this->_touchedFields['meta'] = true;
+		}
+	}
 
 
 	/**

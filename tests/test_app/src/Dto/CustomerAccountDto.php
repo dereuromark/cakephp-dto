@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * CustomerAccount DTO
@@ -128,6 +128,35 @@ class CustomerAccountDto extends AbstractDto {
 		'birthYear' => 'setBirthyear',
 		'lastLogin' => 'setLastlogin',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['customerName'])) {
+			$this->customerName = $data['customerName'];
+			$this->_touchedFields['customerName'] = true;
+		}
+		if (isset($data['birthYear'])) {
+			$this->birthYear = $data['birthYear'];
+			$this->_touchedFields['birthYear'] = true;
+		}
+		if (isset($data['lastLogin'])) {
+			$value = $data['lastLogin'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('lastLogin', $value, $this->_metadata['lastLogin']);
+			}
+			$this->lastLogin = $value;
+			$this->_touchedFields['lastLogin'] = true;
+		}
+	}
 
 
 	/**

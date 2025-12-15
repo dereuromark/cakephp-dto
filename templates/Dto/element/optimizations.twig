@@ -14,6 +14,94 @@
 {% endfor %}
 	];
 
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+{% for field in fields %}
+{% if field.dto %}
+		if (isset($data['{{ field.name }}'])) {
+			$value = $data['{{ field.name }}'];
+			if (is_array($value)) {
+				$value = new {{ field.typeHint }}($value, true);
+			}
+			$this->{{ field.name }} = $value;
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.serialize == 'FromArrayToArray' or field.serialize == 'array' %}
+		if (isset($data['{{ field.name }}'])) {
+			$value = $data['{{ field.name }}'];
+			if (is_array($value)) {
+				$value = {{ field.typeHint }}::createFromArray($value);
+			}
+			$this->{{ field.name }} = $value;
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.factory %}
+		if (isset($data['{{ field.name }}'])) {
+			$this->{{ field.name }} = {{ field.factory }}($data['{{ field.name }}']);
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.enum is defined and field.enum %}
+		if (isset($data['{{ field.name }}'])) {
+			$value = $data['{{ field.name }}'];
+			if (!is_object($value)) {
+				$value = $this->createEnum('{{ field.name }}', $value);
+			}
+			$this->{{ field.name }} = $value;
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.isClass is defined and field.isClass %}
+		if (isset($data['{{ field.name }}'])) {
+			$value = $data['{{ field.name }}'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('{{ field.name }}', $value, $this->_metadata['{{ field.name }}']);
+			}
+			$this->{{ field.name }} = $value;
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.collection and field.collectionType != 'array' %}
+		if (isset($data['{{ field.name }}'])) {
+			$items = [];
+			foreach ($data['{{ field.name }}'] as $item) {
+{% if field.singularClass is defined and field.singularClass %}
+				if (is_array($item)) {
+					$item = new {{ field.singularClass }}($item, true);
+				}
+{% endif %}
+				$items[] = $item;
+			}
+			$this->{{ field.name }} = new {{ field.collectionType }}($items);
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% elseif field.collection and field.collectionType == 'array' and field.singularClass is defined and field.singularClass %}
+		if (isset($data['{{ field.name }}'])) {
+			$collection = [];
+			foreach ($data['{{ field.name }}'] as $key => $item) {
+				if (is_array($item)) {
+					$item = new {{ field.singularClass }}($item, true);
+				}
+				$collection[$key] = $item;
+			}
+			$this->{{ field.name }} = $collection;
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% else %}
+		if (isset($data['{{ field.name }}'])) {
+			$this->{{ field.name }} = $data['{{ field.name }}'];
+			$this->_touchedFields['{{ field.name }}'] = true;
+		}
+{% endif %}
+{% endfor %}
+	}
+
 {% set fieldsWithDefaults = [] %}
 {% for field in fields %}
 {% if field.defaultValue is not null %}

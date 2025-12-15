@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * EnumTest DTO
@@ -132,6 +132,43 @@ class EnumTestDto extends AbstractImmutableDto {
 		'someStringBacked' => 'withSomestringbacked',
 		'someIntBacked' => 'withSomeintbacked',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['someUnit'])) {
+			$value = $data['someUnit'];
+			if (!is_object($value)) {
+				$value = $this->createEnum('someUnit', $value);
+			}
+			$this->someUnit = $value;
+			$this->_touchedFields['someUnit'] = true;
+		}
+		if (isset($data['someStringBacked'])) {
+			$value = $data['someStringBacked'];
+			if (!is_object($value)) {
+				$value = $this->createEnum('someStringBacked', $value);
+			}
+			$this->someStringBacked = $value;
+			$this->_touchedFields['someStringBacked'] = true;
+		}
+		if (isset($data['someIntBacked'])) {
+			$value = $data['someIntBacked'];
+			if (!is_object($value)) {
+				$value = $this->createEnum('someIntBacked', $value);
+			}
+			$this->someIntBacked = $value;
+			$this->_touchedFields['someIntBacked'] = true;
+		}
+	}
 
 
 	/**

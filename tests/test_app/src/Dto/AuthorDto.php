@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * Author DTO
@@ -126,6 +126,31 @@ class AuthorDto extends AbstractImmutableDto {
 		'name' => 'withName',
 		'email' => 'withEmail',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['id'])) {
+			$this->id = $data['id'];
+			$this->_touchedFields['id'] = true;
+		}
+		if (isset($data['name'])) {
+			$this->name = $data['name'];
+			$this->_touchedFields['name'] = true;
+		}
+		if (isset($data['email'])) {
+			$this->email = $data['email'];
+			$this->_touchedFields['email'] = true;
+		}
+	}
 
 
 	/**

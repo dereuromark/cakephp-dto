@@ -6,7 +6,7 @@
 
 namespace Sandbox\Dto\Jira;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * Jira/Issue DTO
@@ -207,6 +207,43 @@ class IssueDto extends AbstractDto {
 		'summary' => 'setSummary',
 		'version' => 'setVersion',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['id'])) {
+			$this->id = $data['id'];
+			$this->_touchedFields['id'] = true;
+		}
+		if (isset($data['key'])) {
+			$this->key = $data['key'];
+			$this->_touchedFields['key'] = true;
+		}
+		if (isset($data['status'])) {
+			$this->status = $data['status'];
+			$this->_touchedFields['status'] = true;
+		}
+		if (isset($data['priority'])) {
+			$this->priority = $data['priority'];
+			$this->_touchedFields['priority'] = true;
+		}
+		if (isset($data['summary'])) {
+			$this->summary = $data['summary'];
+			$this->_touchedFields['summary'] = true;
+		}
+		if (isset($data['version'])) {
+			$this->version = $data['version'];
+			$this->_touchedFields['version'] = true;
+		}
+	}
 
 
 	/**

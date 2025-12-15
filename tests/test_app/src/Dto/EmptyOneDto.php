@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * EmptyOne DTO
@@ -45,6 +45,19 @@ class EmptyOneDto extends AbstractDto {
 	 */
 	protected static array $_setters = [
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+	}
 
 
 	/**
