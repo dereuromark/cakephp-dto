@@ -753,7 +753,8 @@ class BuilderTest extends TestCase {
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
-		// Array union types don't get native type hints (not valid PHP syntax)
+		// Array union types get 'array' as native type hint (best runtime type check available)
+		// PHPDoc @param string[]|int[] still provides precise type for static analysis
 		$expected = [
 			'associative' => false,
 			'name' => 'unionArrayField',
@@ -761,15 +762,16 @@ class BuilderTest extends TestCase {
 			'defaultValue' => null,
 			'required' => false,
 			'nullable' => true,
-			'nullableTypeHint' => null,
+			'nullableTypeHint' => '?array',
+			'nullableReturnTypeHint' => '?array',
 			'isArray' => false,
 			'dto' => null,
 			'collection' => false,
 			'collectionType' => null,
 			'key' => null,
-			'typeHint' => null,
+			'typeHint' => 'array',
 			'deprecated' => null,
-			'returnTypeHint' => null,
+			'returnTypeHint' => 'array',
 			'serialize' => null,
 			'factory' => null,
 			'mapFrom' => null,
