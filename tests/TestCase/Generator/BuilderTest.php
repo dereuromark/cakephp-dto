@@ -540,7 +540,7 @@ class BuilderTest extends TestCase {
 			'singularNullableReturnTypeHint' => '?string',
 			'singular' => 'mySingularNullable',
 			'typeHint' => '\ArrayObject',
-			'docBlockType' => '\ArrayObject<int, string>',
+			'docBlockType' => '\ArrayObject<int, string|null>',
 			'deprecated' => null,
 			'returnTypeHint' => '\ArrayObject',
 			'serialize' => null,

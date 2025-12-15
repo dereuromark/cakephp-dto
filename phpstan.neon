@@ -9,11 +9,6 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
-		# Collection::appendItem() returns CollectionInterface, not the specific Collection type
-		- '#Property TestApp\\Dto\\BookDto::\$pages .+ does not accept Cake\\Collection\\CollectionInterface.#'
-		# Nullable singular type vs non-nullable array element type
-		- '#Property TestApp\\Dto\\MutableMetaDto::\$meta .+ does not accept array<string, string\|null>.#'
-		- '#Parameter \#3 \$subject of method .+\\View::dispatchEvent\(\) expects .+\\View\|null, object\|null given.#'
 		# DTO inheritance with shaped arrays - child DTOs have different fields than parent
 		-
 			identifier: method.childReturnType

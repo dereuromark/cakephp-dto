@@ -20,7 +20,9 @@
 {% if associative %}
 		$new->{{ name }}[$key] = ${{ singular }};
 {% else %}
-		$new->{{ name }} = $new->{{ name }}->appendItem(${{ singular }});
+		/** @var {{ typeHint }} $collection */
+		$collection = $new->{{ name }}->appendItem(${{ singular }});
+		$new->{{ name }} = $collection;
 {% endif %}
 		$new->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
 
