@@ -35,15 +35,15 @@
 		"ext-json": "*",
 		"cakephp/cakephp": "^5.1.1",
 		"cakephp/twig-view": "^2.0.1",
-		"sebastian/diff": "^6.0.0 || ^7.0.0"
+		"sebastian/diff": "^6.0.0 || ^7.0.0",
+		"php-collective/dto": "dev-master"
 	},
 	"require-dev": {
 		"ext-dom": "*",
 		"ext-libxml": "*",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"nette/neon": "^2.4 || ^3.2",
-		"phpunit/phpunit": "^11.5 || ^12.1",
-		"php-collective/dto": "dev-master"
+		"phpunit/phpunit": "^11.5 || ^12.1"
 	},
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
