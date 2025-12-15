@@ -336,6 +336,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 * @return array{customerAccount: array{customerName: string, birthYear: int|null, lastLogin: \Cake\I18n\DateTime|null}, value: float, comment: string|null, created: \Cake\I18n\Date}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
 		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
@@ -346,7 +347,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 

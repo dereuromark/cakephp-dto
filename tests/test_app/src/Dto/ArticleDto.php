@@ -500,6 +500,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 * @return array{id: int, author: array{id: int, name: string, email: string|null}, title: string, created: \Cake\I18n\Date, tags: array<int, array{id: int, name: string, weight: int}>, meta: array<string, string>}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
 		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
@@ -510,7 +511,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 

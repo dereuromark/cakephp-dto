@@ -627,6 +627,7 @@ class CarDto extends AbstractDto {
 	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
 		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
@@ -637,7 +638,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 

@@ -441,6 +441,7 @@ class IssueDto extends AbstractDto {
 	 * @return array{id: string, key: string, status: string, priority: string, summary: string, version: string|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
+		/** @phpstan-ignore return.type */
 		return $this->_toArrayInternal($type, $fields, $touched);
 	}
 
@@ -451,7 +452,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
