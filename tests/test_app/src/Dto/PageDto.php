@@ -211,7 +211,6 @@ class PageDto extends AbstractImmutableDto {
 		return $this->content !== null;
 	}
 
-
 	/**
 	 * @param string|null $type
 	 * @param array<string>|null $fields
@@ -220,8 +219,10 @@ class PageDto extends AbstractImmutableDto {
 	 * @return array{number: int, content: string|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type */
-		return $this->_toArrayInternal($type, $fields, $touched);
+		/** @var array{number: int, content: string|null} $result */
+		$result = $this->_toArrayInternal($type, $fields, $touched);
+
+		return $result;
 	}
 
 	/**
@@ -231,7 +232,7 @@ class PageDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
