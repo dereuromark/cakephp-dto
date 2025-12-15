@@ -20,3 +20,4 @@ parameters:
 			path: tests/test_app/src/Dto/*Dto.php
 	# Generated test DTOs may have unmatched ignores (e.g., empty DTOs)
 	reportUnmatchedIgnoredErrors: false
+

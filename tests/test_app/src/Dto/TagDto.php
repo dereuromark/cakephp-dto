@@ -242,7 +242,6 @@ class TagDto extends AbstractImmutableDto {
 	}
 
 
-
 	/**
 	 * @param string|null $type
 	 * @param array<string>|null $fields
@@ -251,8 +250,10 @@ class TagDto extends AbstractImmutableDto {
 	 * @return array{id: int, name: string, weight: int}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @phpstan-ignore return.type */
-		return $this->_toArrayInternal($type, $fields, $touched);
+		/** @var array{id: int, name: string, weight: int} $result */
+		$result = $this->_toArrayInternal($type, $fields, $touched);
+
+		return $result;
 	}
 
 	/**
@@ -262,7 +263,7 @@ class TagDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static { // @phpstan-ignore method.childParameterType
+	public static function createFromArray(array $data, bool $ignoreMissing = false, ?string $type = null): static {
 		return static::_createFromArrayInternal($data, $ignoreMissing, $type);
 	}
 
