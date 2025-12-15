@@ -574,7 +574,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return \Sandbox\Dto\Github\LabelDto
 	 *
@@ -600,7 +600,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasLabel($key): bool {
@@ -608,7 +608,7 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param \Sandbox\Dto\Github\LabelDto $label
 	 * @return $this
 	 */

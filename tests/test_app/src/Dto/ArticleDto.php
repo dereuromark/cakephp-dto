@@ -440,7 +440,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return string
 	 *
@@ -466,7 +466,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasMetaValue($key): bool {
@@ -474,7 +474,7 @@ class ArticleDto extends AbstractImmutableDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param string $metaValue
 	 * @return static
 	 */

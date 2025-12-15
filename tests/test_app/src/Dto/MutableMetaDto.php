@@ -184,7 +184,7 @@ class MutableMetaDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return string|null
 	 */
@@ -207,7 +207,7 @@ class MutableMetaDto extends AbstractDto {
 		return count($this->meta) > 0;
 	}
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param string|null $metaValue
 	 * @return $this
 	 */

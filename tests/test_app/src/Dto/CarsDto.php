@@ -122,7 +122,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 *
 	 * @return \TestApp\Dto\CarDto
 	 *
@@ -148,7 +148,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @return bool
 	 */
 	public function hasCar($key): bool {
@@ -156,7 +156,7 @@ class CarsDto extends AbstractDto {
 	}
 
 	/**
-	 * @param string|int $key
+	 * @param string $key
 	 * @param \TestApp\Dto\CarDto $car
 	 * @return $this
 	 */

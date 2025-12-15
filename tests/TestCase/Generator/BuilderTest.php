@@ -230,6 +230,7 @@ class BuilderTest extends TestCase {
 				'singularTypeHint' => '\App\Dto\CodeDescriptionDto',
 				'singularReturnTypeHint' => '\App\Dto\CodeDescriptionDto',
 				'singularNullableReturnTypeHint' => null,
+				'keyType' => 'int',
 			],
 			'subCategories' => [
 				'name' => 'subCategories',
@@ -259,6 +260,7 @@ class BuilderTest extends TestCase {
 				'singularTypeHint' => '\App\Dto\FilterElementDto',
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
 				'singularNullableReturnTypeHint' => null,
+				'keyType' => 'int',
 			],
 			'brands' => [
 				'name' => 'brands',
@@ -288,6 +290,7 @@ class BuilderTest extends TestCase {
 				'singularTypeHint' => '\App\Dto\FilterElementDto',
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
 				'singularNullableReturnTypeHint' => null,
+				'keyType' => 'int',
 			],
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']);
@@ -420,6 +423,7 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
 
@@ -450,6 +454,7 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'keyType' => 'string',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
 
@@ -480,6 +485,7 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
 
@@ -510,6 +516,7 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 
@@ -540,6 +547,7 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
 	}
