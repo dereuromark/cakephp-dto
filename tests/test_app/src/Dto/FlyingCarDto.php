@@ -126,6 +126,31 @@ class FlyingCarDto extends CarDto {
 		'complexAttributes' => 'setComplexattributes',
 	];
 
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['maxAltitude'])) {
+			$this->maxAltitude = $data['maxAltitude'];
+			$this->_touchedFields['maxAltitude'] = true;
+		}
+		if (isset($data['maxSpeed'])) {
+			$this->maxSpeed = $data['maxSpeed'];
+			$this->_touchedFields['maxSpeed'] = true;
+		}
+		if (isset($data['complexAttributes'])) {
+			$this->complexAttributes = $data['complexAttributes'];
+			$this->_touchedFields['complexAttributes'] = true;
+		}
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

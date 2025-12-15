@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * Cars DTO
@@ -75,6 +75,30 @@ class CarsDto extends AbstractDto {
 	protected static array $_setters = [
 		'cars' => 'setCars',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['cars'])) {
+			$items = [];
+			foreach ($data['cars'] as $item) {
+				if (is_array($item)) {
+					$item = new \TestApp\Dto\CarDto($item, true);
+				}
+				$items[] = $item;
+			}
+			$this->cars = new \ArrayObject($items);
+			$this->_touchedFields['cars'] = true;
+		}
+	}
 
 
 	/**

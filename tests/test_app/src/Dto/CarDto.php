@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * Car DTO
@@ -238,6 +238,59 @@ class CarDto extends AbstractDto {
 		'manufactured' => 'setManufactured',
 		'owner' => 'setOwner',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['color'])) {
+			$value = $data['color'];
+			if (is_array($value)) {
+				$value = \TestApp\ValueObject\Paint::createFromArray($value);
+			}
+			$this->color = $value;
+			$this->_touchedFields['color'] = true;
+		}
+		if (isset($data['isNew'])) {
+			$this->isNew = $data['isNew'];
+			$this->_touchedFields['isNew'] = true;
+		}
+		if (isset($data['value'])) {
+			$this->value = $data['value'];
+			$this->_touchedFields['value'] = true;
+		}
+		if (isset($data['distanceTravelled'])) {
+			$this->distanceTravelled = $data['distanceTravelled'];
+			$this->_touchedFields['distanceTravelled'] = true;
+		}
+		if (isset($data['attributes'])) {
+			$this->attributes = $data['attributes'];
+			$this->_touchedFields['attributes'] = true;
+		}
+		if (isset($data['manufactured'])) {
+			$value = $data['manufactured'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('manufactured', $value, $this->_metadata['manufactured']);
+			}
+			$this->manufactured = $value;
+			$this->_touchedFields['manufactured'] = true;
+		}
+		if (isset($data['owner'])) {
+			$value = $data['owner'];
+			if (is_array($value)) {
+				$value = new \TestApp\Dto\OwnerDto($value, true);
+			}
+			$this->owner = $value;
+			$this->_touchedFields['owner'] = true;
+		}
+	}
 
 
 	/**

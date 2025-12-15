@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * Page DTO
@@ -99,6 +99,27 @@ class PageDto extends AbstractImmutableDto {
 		'number' => 'withNumber',
 		'content' => 'withContent',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['number'])) {
+			$this->number = $data['number'];
+			$this->_touchedFields['number'] = true;
+		}
+		if (isset($data['content'])) {
+			$this->content = $data['content'];
+			$this->_touchedFields['content'] = true;
+		}
+	}
 
 
 	/**

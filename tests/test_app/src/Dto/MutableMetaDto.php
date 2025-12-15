@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * MutableMeta DTO
@@ -102,6 +102,27 @@ class MutableMetaDto extends AbstractDto {
 		'title' => 'setTitle',
 		'meta' => 'setMeta',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['title'])) {
+			$this->title = $data['title'];
+			$this->_touchedFields['title'] = true;
+		}
+		if (isset($data['meta'])) {
+			$this->meta = $data['meta'];
+			$this->_touchedFields['meta'] = true;
+		}
+	}
 
 
 	/**

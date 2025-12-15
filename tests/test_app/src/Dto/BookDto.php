@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * Book DTO
@@ -75,6 +75,30 @@ class BookDto extends AbstractImmutableDto {
 	protected static array $_setters = [
 		'pages' => 'withPages',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['pages'])) {
+			$items = [];
+			foreach ($data['pages'] as $item) {
+				if (is_array($item)) {
+					$item = new \TestApp\Dto\PageDto($item, true);
+				}
+				$items[] = $item;
+			}
+			$this->pages = new \Cake\Collection\Collection($items);
+			$this->_touchedFields['pages'] = true;
+		}
+	}
 
 
 	/**

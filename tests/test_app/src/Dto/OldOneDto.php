@@ -74,6 +74,23 @@ class OldOneDto extends CarDto {
 		'name' => 'setName',
 	];
 
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['name'])) {
+			$this->name = $data['name'];
+			$this->_touchedFields['name'] = true;
+		}
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

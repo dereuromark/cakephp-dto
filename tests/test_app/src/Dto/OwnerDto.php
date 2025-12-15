@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractDto;
+use CakeDto\Dto\AbstractDto;
 
 /**
  * Owner DTO
@@ -157,6 +157,43 @@ class OwnerDto extends AbstractDto {
 		'attributes' => 'setAttributes',
 		'birthday' => 'setBirthday',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['name'])) {
+			$this->name = $data['name'];
+			$this->_touchedFields['name'] = true;
+		}
+		if (isset($data['insuranceProvider'])) {
+			$this->insuranceProvider = $data['insuranceProvider'];
+			$this->_touchedFields['insuranceProvider'] = true;
+		}
+		if (isset($data['attributes'])) {
+			$value = $data['attributes'];
+			if (is_array($value)) {
+				$value = \TestApp\ValueObject\KeyValuePair::createFromArray($value);
+			}
+			$this->attributes = $value;
+			$this->_touchedFields['attributes'] = true;
+		}
+		if (isset($data['birthday'])) {
+			$value = $data['birthday'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('birthday', $value, $this->_metadata['birthday']);
+			}
+			$this->birthday = $value;
+			$this->_touchedFields['birthday'] = true;
+		}
+	}
 
 
 	/**

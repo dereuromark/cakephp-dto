@@ -6,7 +6,7 @@
 
 namespace TestApp\Dto;
 
-use PhpCollective\Dto\Dto\AbstractImmutableDto;
+use CakeDto\Dto\AbstractImmutableDto;
 
 /**
  * Transaction DTO
@@ -155,6 +155,43 @@ class TransactionDto extends AbstractImmutableDto {
 		'comment' => 'withComment',
 		'created' => 'withCreated',
 	];
+
+	/**
+	 * Optimized array assignment without dynamic method calls.
+	 *
+	 * This method is only called in lenient mode (ignoreMissing=true),
+	 * where unknown fields are silently ignored.
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
+	protected function setFromArrayFast(array $data): void {
+		if (isset($data['customerAccount'])) {
+			$value = $data['customerAccount'];
+			if (is_array($value)) {
+				$value = new \TestApp\Dto\CustomerAccountDto($value, true);
+			}
+			$this->customerAccount = $value;
+			$this->_touchedFields['customerAccount'] = true;
+		}
+		if (isset($data['value'])) {
+			$this->value = $data['value'];
+			$this->_touchedFields['value'] = true;
+		}
+		if (isset($data['comment'])) {
+			$this->comment = $data['comment'];
+			$this->_touchedFields['comment'] = true;
+		}
+		if (isset($data['created'])) {
+			$value = $data['created'];
+			if (!is_object($value)) {
+				$value = $this->createWithConstructor('created', $value, $this->_metadata['created']);
+			}
+			$this->created = $value;
+			$this->_touchedFields['created'] = true;
+		}
+	}
 
 
 	/**
