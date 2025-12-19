@@ -153,6 +153,7 @@ class CustomerAccountDto extends AbstractDto {
 			if (!is_object($value)) {
 				$value = $this->createWithConstructor('lastLogin', $value, $this->_metadata['lastLogin']);
 			}
+			/** @var \Cake\I18n\DateTime $value */
 			$this->lastLogin = $value;
 			$this->_touchedFields['lastLogin'] = true;
 		}

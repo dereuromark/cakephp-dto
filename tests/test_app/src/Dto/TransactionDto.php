@@ -188,6 +188,7 @@ class TransactionDto extends AbstractImmutableDto {
 			if (!is_object($value)) {
 				$value = $this->createWithConstructor('created', $value, $this->_metadata['created']);
 			}
+			/** @var \Cake\I18n\Date $value */
 			$this->created = $value;
 			$this->_touchedFields['created'] = true;
 		}

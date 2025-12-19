@@ -279,6 +279,7 @@ class CarDto extends AbstractDto {
 			if (!is_object($value)) {
 				$value = $this->createWithConstructor('manufactured', $value, $this->_metadata['manufactured']);
 			}
+			/** @var \Cake\I18n\Date $value */
 			$this->manufactured = $value;
 			$this->_touchedFields['manufactured'] = true;
 		}

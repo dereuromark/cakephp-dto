@@ -64,6 +64,7 @@
 			if (!is_object($value)) {
 				$value = $this->createWithConstructor('{{ field.name }}', $value, $this->_metadata['{{ field.name }}']);
 			}
+			/** @var {{ field.typeHint }} $value */
 			$this->{{ field.name }} = $value;
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}

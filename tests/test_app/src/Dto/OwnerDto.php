@@ -190,6 +190,7 @@ class OwnerDto extends AbstractDto {
 			if (!is_object($value)) {
 				$value = $this->createWithConstructor('birthday', $value, $this->_metadata['birthday']);
 			}
+			/** @var \TestApp\ValueObject\Birthday $value */
 			$this->birthday = $value;
 			$this->_touchedFields['birthday'] = true;
 		}
