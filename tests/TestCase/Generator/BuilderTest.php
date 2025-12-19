@@ -572,7 +572,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid field attribute `name` in foo_bar DTO: `foo_bar`.');
+		$this->expectExceptionMessage("Invalid field name 'foo_bar' in 'FlyingCar' DTO.");
 
 		$this->builder->build(TMP);
 	}
@@ -593,7 +593,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `C?r`. Class does not seem to exist.');
+		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: class 'C?r' does not exist.");
 
 		$this->builder->build(TMP);
 	}
@@ -614,7 +614,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `Car`. Class does not seem to exist.');
+		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: class 'Car' does not exist.");
 
 		$this->builder->build(TMP);
 	}
@@ -655,7 +655,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\DtoCustom\DummyNonDtoClass`. Parent class should extend `PhpCollective\Dto\Dto\AbstractDto`.');
+		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: 'TestApp\DtoCustom\DummyNonDtoClass' must extend PhpCollective\Dto\Dto\AbstractDto.");
 
 		$this->builder->build(TMP);
 	}
@@ -676,7 +676,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid FlyingCar DTO attribute `extends`: `TestApp\Dto\AuthorDto`. Extended DTO is immutable.');
+		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: 'TestApp\Dto\AuthorDto' is immutable.");
 
 		$this->builder->build(TMP);
 	}
@@ -706,7 +706,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid field type `Wheel` in FlyingCar DTO, expected a collection `...[]`');
+		$this->expectExceptionMessage("Invalid collection type 'Wheel' for field 'wheels' in 'FlyingCar' DTO.");
 
 		$this->builder->build(TMP);
 	}
@@ -923,7 +923,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid singular name `person` for field `persons` in Demo DTO, already exists as field.');
+		$this->expectExceptionMessage("Invalid singular name 'person' for collection field 'persons' in 'Demo' DTO.");
 
 		$this->builder->build(TMP);
 	}
@@ -953,7 +953,7 @@ class BuilderTest extends TestCase {
 		$this->builder->expects($this->any())->method('_merge')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Collection field 'items' in Demo DTO has auto-generated singular 'item' that collides with existing field.");
+		$this->expectExceptionMessage("Auto-generated singular 'item' for collection field 'items' in 'Demo' DTO collides with existing field.");
 
 		$this->builder->build(TMP);
 	}
