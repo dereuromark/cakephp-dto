@@ -12,6 +12,15 @@ use PhpCollective\Dto\Generator\IoInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
+/**
+ * Generator - Generates DTO classes from configuration.
+ *
+ * Reads DTO definitions from XML configuration files and generates
+ * PHP class files with type-safe properties, getters, and setters.
+ *
+ * @author Mark Scherer
+ * @license MIT
+ */
 class Generator {
 
 	use DiffHelperTrait;
