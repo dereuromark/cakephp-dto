@@ -79,7 +79,9 @@
 {% endif %}
 				$items[] = $item;
 			}
-			$this->{{ field.name }} = new {{ field.collectionType }}($items);
+			/** @var {{ field.type }} $collection */
+			$collection = new {{ field.collectionType }}($items);
+			$this->{{ field.name }} = $collection;
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}
 {% elseif field.collection and field.collectionType == 'array' and field.singularClass is defined and field.singularClass %}

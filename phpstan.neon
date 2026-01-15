@@ -17,6 +17,7 @@ parameters:
 		-
 			message: '#does not accept object\|null#'
 			path: tests/test_app/src/Dto/
+		# CakePHP framework covariance issue with EventInterface generics
 		-
-			message: '#does not accept ArrayObject<int, mixed>#'
-			path: tests/test_app/src/Dto/
+			identifier: method.childReturnType
+			path: src/View/DtoView.php
