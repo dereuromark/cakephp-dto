@@ -95,7 +95,9 @@ class BookDto extends AbstractImmutableDto {
 				}
 				$items[] = $item;
 			}
-			$this->pages = new \Cake\Collection\Collection($items);
+			/** @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $collection */
+			$collection = new \Cake\Collection\Collection($items);
+			$this->pages = $collection;
 			$this->_touchedFields['pages'] = true;
 		}
 	}

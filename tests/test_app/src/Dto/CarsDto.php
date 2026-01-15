@@ -95,7 +95,9 @@ class CarsDto extends AbstractDto {
 				}
 				$items[] = $item;
 			}
-			$this->cars = new \ArrayObject($items);
+			/** @var \TestApp\Dto\CarDto[]|\ArrayObject $collection */
+			$collection = new \ArrayObject($items);
+			$this->cars = $collection;
 			$this->_touchedFields['cars'] = true;
 		}
 	}
