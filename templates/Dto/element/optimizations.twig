@@ -55,6 +55,7 @@
 			if (!is_object($value)) {
 				$value = $this->createEnum('{{ field.name }}', $value);
 			}
+			/** @var {{ field.typeHint }}|null $value */
 			$this->{{ field.name }} = $value;
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}
