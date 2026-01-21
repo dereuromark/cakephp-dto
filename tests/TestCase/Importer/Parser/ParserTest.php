@@ -5,6 +5,7 @@ namespace CakeDto\Test\TestCase\Importer\Parser;
 use Cake\TestSuite\TestCase;
 use DirectoryIterator;
 use PhpCollective\Dto\Importer\Importer;
+use PHPUnit\Framework\Attributes\Group;
 use TypeError;
 
 /**
@@ -14,6 +15,7 @@ use TypeError;
  * and parses all of them. It's very memory-intensive and can cause segfaults
  * when combined with code coverage. Excluded from normal CI runs.
  */
+#[Group('integration')]
 class ParserTest extends TestCase {
 
 	/**
