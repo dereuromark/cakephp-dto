@@ -1,9 +1,9 @@
 	/**
-	 * @param int $maxAltitude
+	 * @param int|null $maxAltitude
 	 *
 	 * @return $this
 	 */
-	public function setMaxAltitude(int $maxAltitude) {
+	public function setMaxAltitude(?int $maxAltitude) {
 		$this->maxAltitude = $maxAltitude;
 		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 

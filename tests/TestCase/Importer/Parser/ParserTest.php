@@ -5,8 +5,17 @@ namespace CakeDto\Test\TestCase\Importer\Parser;
 use Cake\TestSuite\TestCase;
 use DirectoryIterator;
 use PhpCollective\Dto\Importer\Importer;
+use PHPUnit\Framework\Attributes\Group;
 use TypeError;
 
+/**
+ * @group integration
+ *
+ * This test clones the entire SchemaStore repository (600+ JSON schemas)
+ * and parses all of them. It's very memory-intensive and can cause segfaults
+ * when combined with code coverage. Excluded from normal CI runs.
+ */
+#[Group('integration')]
 class ParserTest extends TestCase {
 
 	/**
