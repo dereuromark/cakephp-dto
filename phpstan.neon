@@ -14,9 +14,6 @@ parameters:
 		-
 			message: '#Parameter \#1 \$field of method PhpCollective\\Dto\\Dto\\Dto::createEnum\(\) expects class-string<UnitEnum>, string given#'
 			path: tests/test_app/src/Dto/
-		-
-			message: '#does not accept object\|null#'
-			path: tests/test_app/src/Dto/
 		# CakePHP framework covariance issue with EventInterface generics
 		-
 			identifier: method.childReturnType
