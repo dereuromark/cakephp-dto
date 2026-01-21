@@ -56,7 +56,7 @@ class DtoExtension extends AbstractExtension {
 	 * @return \PhpCollective\Dto\Collection\CollectionAdapterInterface
 	 */
 	public function getCollectionAdapter(string $collectionType): CollectionAdapterInterface {
-		return CollectionAdapterRegistry::getOrFail($collectionType);
+		return CollectionAdapterRegistry::getOrDefault($collectionType);
 	}
 
 }
