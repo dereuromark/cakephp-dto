@@ -313,7 +313,7 @@ class PullRequestDto extends AbstractDto {
 		'title' => 'setTitle',
 		'body' => 'setBody',
 		'user' => 'setUser',
-		'createdAt' => 'setCreatedat',
+		'createdAt' => 'setCreatedAt',
 		'labels' => 'setLabels',
 		'head' => 'setHead',
 		'base' => 'setBase',

@@ -149,7 +149,7 @@ class RepoDto extends AbstractDto {
 	 */
 	protected static array $_setters = [
 		'name' => 'setName',
-		'htmlUrl' => 'setHtmlurl',
+		'htmlUrl' => 'setHtmlUrl',
 		'private' => 'setPrivate',
 		'owner' => 'setOwner',
 	];

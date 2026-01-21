@@ -123,7 +123,7 @@ class UserDto extends AbstractDto {
 	 */
 	protected static array $_setters = [
 		'login' => 'setLogin',
-		'htmlUrl' => 'setHtmlurl',
+		'htmlUrl' => 'setHtmlUrl',
 		'type' => 'setType',
 	];
 

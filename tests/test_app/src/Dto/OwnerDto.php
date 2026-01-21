@@ -153,7 +153,7 @@ class OwnerDto extends AbstractDto {
 	 */
 	protected static array $_setters = [
 		'name' => 'setName',
-		'insuranceProvider' => 'setInsuranceprovider',
+		'insuranceProvider' => 'setInsuranceProvider',
 		'attributes' => 'setAttributes',
 		'birthday' => 'setBirthday',
 	];
