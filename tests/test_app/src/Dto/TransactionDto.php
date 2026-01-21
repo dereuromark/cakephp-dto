@@ -22,18 +22,22 @@ class TransactionDto extends AbstractImmutableDto {
 	 * @var string
 	 */
 	public const FIELD_CUSTOMER_ACCOUNT = 'customerAccount';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_VALUE = 'value';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_COMMENT = 'comment';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_CREATED = 'created';
+
 
 	/**
 	 * @var \TestApp\Dto\CustomerAccountDto
@@ -141,6 +145,8 @@ class TransactionDto extends AbstractImmutableDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = true;
 
@@ -193,7 +199,6 @@ class TransactionDto extends AbstractImmutableDto {
 			$this->_touchedFields['created'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

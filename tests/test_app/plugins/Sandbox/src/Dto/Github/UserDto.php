@@ -21,14 +21,17 @@ class UserDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_LOGIN = 'login';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_HTML_URL = 'htmlUrl';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_TYPE = 'type';
+
 
 	/**
 	 * @var string
@@ -113,6 +116,8 @@ class UserDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -151,7 +156,6 @@ class UserDto extends AbstractDto {
 			$this->_touchedFields['type'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

@@ -21,14 +21,17 @@ class CustomerAccountDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_CUSTOMER_NAME = 'customerName';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_BIRTH_YEAR = 'birthYear';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_LAST_LOGIN = 'lastLogin';
+
 
 	/**
 	 * @var string
@@ -115,6 +118,8 @@ class CustomerAccountDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -158,7 +163,6 @@ class CustomerAccountDto extends AbstractDto {
 			$this->_touchedFields['lastLogin'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

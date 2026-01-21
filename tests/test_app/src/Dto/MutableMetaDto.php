@@ -20,10 +20,12 @@ class MutableMetaDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_TITLE = 'title';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_META = 'meta';
+
 
 	/**
 	 * @var string
@@ -90,6 +92,8 @@ class MutableMetaDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -123,7 +127,6 @@ class MutableMetaDto extends AbstractDto {
 			$this->_touchedFields['meta'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

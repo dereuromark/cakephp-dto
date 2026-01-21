@@ -20,14 +20,17 @@ class FlyingCarDto extends CarDto {
 	 * @var string
 	 */
 	public const FIELD_MAX_ALTITUDE = 'maxAltitude';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_MAX_SPEED = 'maxSpeed';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
+
 
 	/**
 	 * @var int|null
@@ -112,6 +115,8 @@ class FlyingCarDto extends CarDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -150,7 +155,6 @@ class FlyingCarDto extends CarDto {
 			$this->_touchedFields['complexAttributes'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
