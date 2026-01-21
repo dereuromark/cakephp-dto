@@ -150,7 +150,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 * @var array<string, string>
 	 */
 	protected static array $_setters = [
-		'customerAccount' => 'withCustomeraccount',
+		'customerAccount' => 'withCustomerAccount',
 		'value' => 'withValue',
 		'comment' => 'withComment',
 		'created' => 'withCreated',

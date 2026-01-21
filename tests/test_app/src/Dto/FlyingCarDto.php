@@ -10,7 +10,7 @@ namespace TestApp\Dto;
 /**
  * FlyingCar DTO
  *
- * @property int $maxAltitude
+ * @property int|null $maxAltitude
  * @property int $maxSpeed
  * @property array|null $complexAttributes
  */
@@ -30,7 +30,7 @@ class FlyingCarDto extends CarDto {
 	public const FIELD_COMPLEX_ATTRIBUTES = 'complexAttributes';
 
 	/**
-	 * @var int
+	 * @var int|null
 	 */
 	protected $maxAltitude;
 
@@ -54,7 +54,7 @@ class FlyingCarDto extends CarDto {
 			'name' => 'maxAltitude',
 			'type' => 'int',
 			'defaultValue' => 0,
-			'required' => true,
+			'required' => false,
 			'dto' => null,
 			'collectionType' => null,
 			'associative' => false,
@@ -121,9 +121,9 @@ class FlyingCarDto extends CarDto {
 	 * @var array<string, string>
 	 */
 	protected static array $_setters = [
-		'maxAltitude' => 'setMaxaltitude',
-		'maxSpeed' => 'setMaxspeed',
-		'complexAttributes' => 'setComplexattributes',
+		'maxAltitude' => 'setMaxAltitude',
+		'maxSpeed' => 'setMaxSpeed',
+		'complexAttributes' => 'setComplexAttributes',
 	];
 
 	/**
@@ -176,11 +176,8 @@ class FlyingCarDto extends CarDto {
 	 * @return void
 	 */
 	protected function validate(): void {
-		if ($this->maxAltitude === null || $this->maxSpeed === null) {
+		if ($this->maxSpeed === null) {
 			$errors = [];
-			if ($this->maxAltitude === null) {
-				$errors[] = 'maxAltitude';
-			}
 			if ($this->maxSpeed === null) {
 				$errors[] = 'maxSpeed';
 			}
@@ -192,11 +189,11 @@ class FlyingCarDto extends CarDto {
 
 
 	/**
-	 * @param int $maxAltitude
+	 * @param int|null $maxAltitude
 	 *
 	 * @return $this
 	 */
-	public function setMaxAltitude(int $maxAltitude) {
+	public function setMaxAltitude(?int $maxAltitude) {
 		$this->maxAltitude = $maxAltitude;
 		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 
@@ -204,12 +201,43 @@ class FlyingCarDto extends CarDto {
 	}
 
 	/**
-	 * @return int
+	 * @param int $maxAltitude
+	 *
+	 * @return $this
 	 */
-	public function getMaxAltitude(): int {
+	public function setMaxAltitudeOrFail(int $maxAltitude) {
+		$this->maxAltitude = $maxAltitude;
+		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
+
+		return $this;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getMaxAltitude(): ?int {
 		return $this->maxAltitude;
 	}
 
+	/**
+	 * @throws \RuntimeException If value is not set.
+	 *
+	 * @return int
+	 */
+	public function getMaxAltitudeOrFail(): int {
+		if ($this->maxAltitude === null) {
+			throw new \RuntimeException('Value not set for field `maxAltitude` (expected to be not null)');
+		}
+
+		return $this->maxAltitude;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasMaxAltitude(): bool {
+		return $this->maxAltitude !== null;
+	}
 
 	/**
 	 * @param int $maxSpeed
@@ -287,17 +315,17 @@ class FlyingCarDto extends CarDto {
 	 * @param array<string>|null $fields
 	 * @param bool $touched
 	 *
-	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null}
+	 * @return array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int|null, maxSpeed: int, complexAttributes: array<int, mixed>|null}
 	 */
 	public function toArray(?string $type = null, ?array $fields = null, bool $touched = false): array {
-		/** @var array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $result */
+		/** @var array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int|null, maxSpeed: int, complexAttributes: array<int, mixed>|null} $result */
 		$result = $this->_toArrayInternal($type, $fields, $touched);
 
 		return $result;
 	}
 
 	/**
-	 * @param array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
+	 * @param array{color: \TestApp\ValueObject\Paint|null, isNew: bool|null, value: float|null, distanceTravelled: int|null, attributes: array<int, mixed>|null, manufactured: \Cake\I18n\Date|null, owner: array{name: string|null, insuranceProvider: string|null, attributes: \TestApp\ValueObject\KeyValuePair|null, birthday: \TestApp\ValueObject\Birthday|null}|null, maxAltitude: int|null, maxSpeed: int, complexAttributes: array<int, mixed>|null} $data
 	 * @phpstan-param array<string, mixed> $data
 	 * @param bool $ignoreMissing
 	 * @param string|null $type

@@ -128,9 +128,9 @@ class EnumTestDto extends AbstractImmutableDto {
 	 * @var array<string, string>
 	 */
 	protected static array $_setters = [
-		'someUnit' => 'withSomeunit',
-		'someStringBacked' => 'withSomestringbacked',
-		'someIntBacked' => 'withSomeintbacked',
+		'someUnit' => 'withSomeUnit',
+		'someStringBacked' => 'withSomeStringBacked',
+		'someIntBacked' => 'withSomeIntBacked',
 	];
 
 	/**
@@ -149,6 +149,7 @@ class EnumTestDto extends AbstractImmutableDto {
 			if (!is_object($value)) {
 				$value = $this->createEnum('someUnit', $value);
 			}
+			/** @var \TestApp\Model\Enum\MyUnit|null $value */
 			$this->someUnit = $value;
 			$this->_touchedFields['someUnit'] = true;
 		}
@@ -157,6 +158,7 @@ class EnumTestDto extends AbstractImmutableDto {
 			if (!is_object($value)) {
 				$value = $this->createEnum('someStringBacked', $value);
 			}
+			/** @var \TestApp\Model\Enum\MyStringBacked|null $value */
 			$this->someStringBacked = $value;
 			$this->_touchedFields['someStringBacked'] = true;
 		}
@@ -165,6 +167,7 @@ class EnumTestDto extends AbstractImmutableDto {
 			if (!is_object($value)) {
 				$value = $this->createEnum('someIntBacked', $value);
 			}
+			/** @var \TestApp\Model\Enum\MyIntBacked|null $value */
 			$this->someIntBacked = $value;
 			$this->_touchedFields['someIntBacked'] = true;
 		}

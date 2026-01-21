@@ -231,9 +231,9 @@ class CarDto extends AbstractDto {
 	 */
 	protected static array $_setters = [
 		'color' => 'setColor',
-		'isNew' => 'setIsnew',
+		'isNew' => 'setIsNew',
 		'value' => 'setValue',
-		'distanceTravelled' => 'setDistancetravelled',
+		'distanceTravelled' => 'setDistanceTravelled',
 		'attributes' => 'setAttributes',
 		'manufactured' => 'setManufactured',
 		'owner' => 'setOwner',

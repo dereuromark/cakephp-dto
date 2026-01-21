@@ -124,9 +124,9 @@ class CustomerAccountDto extends AbstractDto {
 	 * @var array<string, string>
 	 */
 	protected static array $_setters = [
-		'customerName' => 'setCustomername',
-		'birthYear' => 'setBirthyear',
-		'lastLogin' => 'setLastlogin',
+		'customerName' => 'setCustomerName',
+		'birthYear' => 'setBirthYear',
+		'lastLogin' => 'setLastLogin',
 	];
 
 	/**
