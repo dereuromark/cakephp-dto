@@ -205,12 +205,14 @@ TXT;
 		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.setMaxAltitude', $file);
 		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.getMaxSpeed', $file);
 		$this->assertTemplateContains('ScalarAndReturnTypes/FlyingCarDto.hasComplexAttributes', $file);
-		$this->assertStringNotContainsString(' getMaxAltitudeOrFail(', file_get_contents($file));
+		// maxAltitude has defaultValue but no required=true, so it's nullable and has OrFail/has methods
+		$this->assertStringContainsString(' getMaxAltitudeOrFail(', file_get_contents($file));
+		// maxSpeed has defaultValue AND required=true, so it's non-nullable and has no OrFail/has methods
 		$this->assertStringNotContainsString(' getMaxSpeedOrFail(', file_get_contents($file));
 		$this->assertStringContainsString(' getComplexAttributesOrFail(', file_get_contents($file));
 
-		$this->assertStringNotContainsString(' hasMaxAltitude(', file_get_contents($file));
-		$this->assertStringNotContainsString(' getMaxSpeedOrFail(', file_get_contents($file));
+		$this->assertStringContainsString(' hasMaxAltitude(', file_get_contents($file));
+		$this->assertStringNotContainsString(' hasMaxSpeed(', file_get_contents($file));
 		$this->assertStringContainsString(' hasComplexAttributes(', file_get_contents($file));
 
 		// Assoc
