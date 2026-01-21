@@ -24,26 +24,32 @@ class ArticleDto extends AbstractImmutableDto {
 	 * @var string
 	 */
 	public const FIELD_ID = 'id';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_AUTHOR = 'author';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_TITLE = 'title';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_CREATED = 'created';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_TAGS = 'tags';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_META = 'meta';
+
 
 	/**
 	 * @var int
@@ -199,6 +205,8 @@ class ArticleDto extends AbstractImmutableDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = true;
 
@@ -268,7 +276,6 @@ class ArticleDto extends AbstractImmutableDto {
 			$this->_touchedFields['meta'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

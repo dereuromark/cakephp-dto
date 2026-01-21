@@ -35,6 +35,8 @@ class EmptyOneDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -58,7 +60,6 @@ class EmptyOneDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

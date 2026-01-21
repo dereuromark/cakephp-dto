@@ -21,14 +21,17 @@ class EnumTestDto extends AbstractImmutableDto {
 	 * @var string
 	 */
 	public const FIELD_SOME_UNIT = 'someUnit';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_SOME_STRING_BACKED = 'someStringBacked';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_SOME_INT_BACKED = 'someIntBacked';
+
 
 	/**
 	 * @var \TestApp\Model\Enum\MyUnit|null
@@ -119,6 +122,8 @@ class EnumTestDto extends AbstractImmutableDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = true;
 
@@ -172,7 +177,6 @@ class EnumTestDto extends AbstractImmutableDto {
 			$this->_touchedFields['someIntBacked'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

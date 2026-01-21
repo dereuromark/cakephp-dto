@@ -20,6 +20,7 @@ class BookDto extends AbstractImmutableDto {
 	 */
 	public const FIELD_PAGES = 'pages';
 
+
 	/**
 	 * @var \Cake\Collection\Collection<int, \TestApp\Dto\PageDto>
 	 */
@@ -64,6 +65,8 @@ class BookDto extends AbstractImmutableDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = true;
 
@@ -101,7 +104,6 @@ class BookDto extends AbstractImmutableDto {
 			$this->_touchedFields['pages'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

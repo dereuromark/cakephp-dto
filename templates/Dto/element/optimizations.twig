@@ -1,5 +1,7 @@
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = {{ immutable ? 'true' : 'false' }};
 
@@ -106,13 +108,12 @@
 {% endif %}
 {% endfor %}
 	}
-
-{% set fieldsWithDefaults = [] %}
-{% for field in fields %}
-{% if field.defaultValue is not null %}
-{% set fieldsWithDefaults = fieldsWithDefaults | merge([field]) %}
-{% endif %}
-{% endfor %}
+{% set fieldsWithDefaults = [] -%}
+{%- for field in fields -%}
+{%- if field.defaultValue is not null -%}
+{%- set fieldsWithDefaults = fieldsWithDefaults | merge([field]) -%}
+{%- endif -%}
+{%- endfor %}
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
@@ -130,12 +131,12 @@
 
 		return $this;
 	}
-{% set requiredFields = [] %}
-{% for field in fields %}
-{% if field.required %}
-{% set requiredFields = requiredFields | merge([field]) %}
-{% endif %}
-{% endfor %}
+{% set requiredFields = [] -%}
+{%- for field in fields -%}
+{%- if field.required -%}
+{%- set requiredFields = requiredFields | merge([field]) -%}
+{%- endif -%}
+{%- endfor %}
 
 	/**
 	 * Optimized validate - only checks required fields.

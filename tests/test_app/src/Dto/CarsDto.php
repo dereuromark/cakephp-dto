@@ -20,6 +20,7 @@ class CarsDto extends AbstractDto {
 	 */
 	public const FIELD_CARS = 'cars';
 
+
 	/**
 	 * @var \ArrayObject<string, \TestApp\Dto\CarDto>
 	 */
@@ -64,6 +65,8 @@ class CarsDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -101,7 +104,6 @@ class CarsDto extends AbstractDto {
 			$this->_touchedFields['cars'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

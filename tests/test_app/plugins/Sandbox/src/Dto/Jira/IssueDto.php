@@ -24,26 +24,32 @@ class IssueDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_ID = 'id';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_KEY = 'key';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_STATUS = 'status';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_PRIORITY = 'priority';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_SUMMARY = 'summary';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_VERSION = 'version';
+
 
 	/**
 	 * @var string
@@ -191,6 +197,8 @@ class IssueDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -244,7 +252,6 @@ class IssueDto extends AbstractDto {
 			$this->_touchedFields['version'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

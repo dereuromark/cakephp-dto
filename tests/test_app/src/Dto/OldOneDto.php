@@ -21,6 +21,7 @@ class OldOneDto extends CarDto {
 	 */
 	public const FIELD_NAME = 'name';
 
+
 	/**
 	 * @var string|null
 	 */
@@ -62,6 +63,8 @@ class OldOneDto extends CarDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -90,7 +93,6 @@ class OldOneDto extends CarDto {
 			$this->_touchedFields['name'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
