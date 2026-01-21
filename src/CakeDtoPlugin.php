@@ -7,8 +7,10 @@ use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Routing\RouteBuilder;
+use CakeDto\Collection\CakeCollectionAdapter;
 use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Command\DtoInitCommand;
+use PhpCollective\Dto\Collection\CollectionAdapterRegistry;
 use PhpCollective\Dto\Dto\Dto;
 use PhpCollective\Dto\Engine\XmlValidator;
 
@@ -33,6 +35,7 @@ class CakeDtoPlugin extends BasePlugin {
 	 * Configures the standalone library for CakePHP integration:
 	 * - Sets XSD path for XML validation
 	 * - Configures collection factory to use Cake\Collection\Collection
+	 * - Registers CakeCollectionAdapter for proper code generation
 	 *
 	 * @param \Cake\Core\PluginApplicationInterface $app Application instance
 	 * @return void
@@ -45,6 +48,9 @@ class CakeDtoPlugin extends BasePlugin {
 
 		// Configure Dto to use Cake\Collection\Collection for collections
 		Dto::setCollectionFactory(fn ($items) => new Collection($items));
+
+		// Register CakeCollectionAdapter for proper template generation
+		CollectionAdapterRegistry::register(new CakeCollectionAdapter());
 	}
 
 	/**

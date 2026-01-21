@@ -17,16 +17,8 @@
 {{ element('method_has', field) }}
 {% endif %}
 {% if immutable %}
-{% if field.collectionType == '\\Cake\\Collection\\Collection' %}
-{{ element('method_with_added_cake_collection', field) }}
-{% else %}
 {{ element('method_with_added', field) }}
-{% endif %}
-{% else %}
-{% if field.collectionType == '\\Cake\\Collection\\Collection' %}
-{{ element('method_add_cake_collection', field) }}
 {% else %}
 {{ element('method_add', field) }}
-{% endif %}
 {% endif %}
 {% endfor -%}

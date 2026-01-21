@@ -9,11 +9,6 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
-		# Ignore type issues in generated setFromArrayFast method
-		# These are caused by parent library methods returning generic types
-		-
-			message: '#Parameter \#1 \$field of method PhpCollective\\Dto\\Dto\\Dto::createEnum\(\) expects class-string<UnitEnum>, string given#'
-			path: tests/test_app/src/Dto/
 		# CakePHP framework covariance issue with EventInterface generics
 		-
 			identifier: method.childReturnType

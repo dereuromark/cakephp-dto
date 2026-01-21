@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace CakeDto\Twig\Extension;
 
+use PhpCollective\Dto\Collection\CollectionAdapterInterface;
+use PhpCollective\Dto\Collection\CollectionAdapterRegistry;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
- * Twig extension for DTO-specific filters.
+ * Twig extension for DTO-specific filters and functions.
  */
 class DtoExtension extends AbstractExtension {
 
@@ -17,6 +20,15 @@ class DtoExtension extends AbstractExtension {
 	public function getFilters(): array {
 		return [
 			new TwigFilter('stripLeadingUnderscore', [$this, 'stripLeadingUnderscore']),
+		];
+	}
+
+	/**
+	 * @return array<\Twig\TwigFunction>
+	 */
+	public function getFunctions(): array {
+		return [
+			new TwigFunction('getCollectionAdapter', [$this, 'getCollectionAdapter']),
 		];
 	}
 
@@ -35,6 +47,16 @@ class DtoExtension extends AbstractExtension {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Get the collection adapter for a given collection type.
+	 *
+	 * @param string $collectionType The collection class name
+	 * @return \PhpCollective\Dto\Collection\CollectionAdapterInterface
+	 */
+	public function getCollectionAdapter(string $collectionType): CollectionAdapterInterface {
+		return CollectionAdapterRegistry::getOrDefault($collectionType);
 	}
 
 }
