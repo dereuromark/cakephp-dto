@@ -20,10 +20,12 @@ class PageDto extends AbstractImmutableDto {
 	 * @var string
 	 */
 	public const FIELD_NUMBER = 'number';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_CONTENT = 'content';
+
 
 	/**
 	 * @var int
@@ -87,6 +89,8 @@ class PageDto extends AbstractImmutableDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = true;
 
@@ -120,7 +124,6 @@ class PageDto extends AbstractImmutableDto {
 			$this->_touchedFields['content'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

@@ -25,30 +25,37 @@ class CarDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_COLOR = 'color';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_IS_NEW = 'isNew';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_VALUE = 'value';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_DISTANCE_TRAVELLED = 'distanceTravelled';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_ATTRIBUTES = 'attributes';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_MANUFACTURED = 'manufactured';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_OWNER = 'owner';
+
 
 	/**
 	 * @var \TestApp\ValueObject\Paint|null
@@ -221,6 +228,8 @@ class CarDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -292,7 +301,6 @@ class CarDto extends AbstractDto {
 			$this->_touchedFields['owner'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

@@ -22,18 +22,22 @@ class OwnerDto extends AbstractDto {
 	 * @var string
 	 */
 	public const FIELD_NAME = 'name';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_INSURANCE_PROVIDER = 'insuranceProvider';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_ATTRIBUTES = 'attributes';
+
 	/**
 	 * @var string
 	 */
 	public const FIELD_BIRTHDAY = 'birthday';
+
 
 	/**
 	 * @var string|null
@@ -143,6 +147,8 @@ class OwnerDto extends AbstractDto {
 
 	/**
 	 * Whether this DTO is immutable.
+	 *
+	 * @var bool
 	 */
 	protected const IS_IMMUTABLE = false;
 
@@ -195,7 +201,6 @@ class OwnerDto extends AbstractDto {
 			$this->_touchedFields['birthday'] = true;
 		}
 	}
-
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
