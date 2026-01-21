@@ -1,4 +1,5 @@
 {% if collectionType and singular %}
+{% set cleanSingular = singular | stripLeadingUnderscore %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -8,13 +9,13 @@
 	 *
 	 * @return $this
 	 */
-	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if ($this->{{ name }} === null) {
 			$this->{{ name }} = new {{ typeHint }}([]);
 		}
 
 		$this->{{ name }} = $this->{{ name }}->appendItem(${{ singular }});
-		$this->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
+		$this->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;
 
 		return $this;
 	}

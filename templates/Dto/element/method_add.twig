@@ -1,4 +1,5 @@
 {% if collectionType and singular %}
+{% set cleanSingular = singular | stripLeadingUnderscore %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -10,7 +11,7 @@
 	 * @param {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}{% if singularNullable %}|null{% endif %} ${{ singular }}
 	 * @return $this
 	 */
-	public function add{{ singular[:1]|upper ~ singular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if ($this->{{ name }} === null) {
 			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
 		}
@@ -20,7 +21,7 @@
 {% else %}
 		$this->{{ name }}[] = ${{ singular }};
 {% endif %}
-		$this->_touchedFields[static::FIELD_{{ name | underscore | upper }}] = true;
+		$this->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;
 
 		return $this;
 	}

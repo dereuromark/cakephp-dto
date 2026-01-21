@@ -10,7 +10,8 @@
 	 */
 	protected static array $_setters = [
 {% for field in fields %}
-		'{{ field.name }}' => '{% if immutable %}with{% else %}set{% endif %}{{ field.name | capitalize }}',
+{% set cleanName = field.name | stripLeadingUnderscore %}
+		'{{ field.name }}' => '{% if immutable %}with{% else %}set{% endif %}{{ cleanName[:1]|upper ~ cleanName[1:] }}',
 {% endfor %}
 	];
 

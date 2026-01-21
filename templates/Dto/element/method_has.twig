@@ -1,3 +1,4 @@
+{% set cleanName = name | stripLeadingUnderscore %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -5,7 +6,7 @@
 {% endif %}
 	 * @return bool
 	 */
-	public function has{{ name[:1]|upper ~ name[1:] }}(){% if scalarAndReturnTypes %}: bool{% endif %} {
+	public function has{{ cleanName[:1]|upper ~ cleanName[1:] }}(){% if scalarAndReturnTypes %}: bool{% endif %} {
 {% if collectionType %}
 		if ($this->{{ name }} === null) {
 			return false;
@@ -31,7 +32,8 @@
 	 * @param {{ keyType }} $key
 	 * @return bool
 	 */
-	public function has{{ singular[:1]|upper ~ singular[1:] }}($key){% if scalarAndReturnTypes %}: bool{% endif %} {
+{% set cleanSingular = singular | stripLeadingUnderscore %}
+	public function has{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}($key){% if scalarAndReturnTypes %}: bool{% endif %} {
 		return isset($this->{{ name }}[$key]);
 	}
 {% endif -%}

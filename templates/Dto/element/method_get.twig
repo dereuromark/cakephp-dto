@@ -1,3 +1,4 @@
+{% set cleanName = name | stripLeadingUnderscore %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -6,7 +7,7 @@
 	 * @return {{ docBlockType ?? type }}{% if nullable %}|null{% endif %}
 
 	 */
-	public function get{{ name[:1]|upper ~ name[1:] }}(){% if returnTypeHint %}: {% if nullable %}?{% endif %}{{ returnTypeHint }}{% endif %} {
+	public function get{{ cleanName[:1]|upper ~ cleanName[1:] }}(){% if returnTypeHint %}: {% if nullable %}?{% endif %}{{ returnTypeHint }}{% endif %} {
 {% if collection %}
 		if ($this->{{ name }} === null) {
 			return {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
@@ -31,7 +32,8 @@
 	 * @throws \RuntimeException If value with this key is not set.
 {% endif %}
 	 */
-	public function get{{ singular[:1]|upper ~ singular[1:] }}($key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+{% set cleanSingular = singular | stripLeadingUnderscore %}
+	public function get{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}($key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
 {% if singularNullable %}
 		if (!isset($this->{{ name }}[$key])) {
 			return null;

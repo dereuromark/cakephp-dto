@@ -10,6 +10,23 @@ class TemplateHelper extends Helper {
 	use ConventionsTrait;
 
 	/**
+	 * Strip leading underscore from a string.
+	 *
+	 * Used for underscore-prefixed field names (e.g., _joinData, _matchingData)
+	 * to generate proper camelCase method names and constant names.
+	 *
+	 * @param string $value
+	 * @return string
+	 */
+	public function stripLeadingUnderscore(string $value): string {
+		if (str_starts_with($value, '_')) {
+			return substr($value, 1);
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Returns an array converted into a formatted multiline string
 	 *
 	 * @param array $list array of items to be stringified

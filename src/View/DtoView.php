@@ -7,6 +7,7 @@ use Cake\Core\ConventionsTrait;
 use Cake\Core\InstanceConfigTrait;
 use Cake\Event\EventInterface;
 use Cake\TwigView\View\TwigView;
+use CakeDto\Twig\Extension\DtoExtension;
 
 class DtoView extends TwigView {
 
@@ -40,6 +41,9 @@ class DtoView extends TwigView {
 		$this->setConfig('environment.autoescape', false);
 
 		parent::initialize();
+
+		// Register custom DTO filters
+		$this->getTwig()->addExtension(new DtoExtension());
 	}
 
 	/**
