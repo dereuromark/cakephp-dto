@@ -41,6 +41,15 @@ class DtoView extends TwigView {
 		$this->setConfig('environment.autoescape', false);
 
 		parent::initialize();
+	}
+
+	/**
+	 * Initialize Twig extensions.
+	 *
+	 * @return void
+	 */
+	protected function initializeExtensions(): void {
+		parent::initializeExtensions();
 
 		// Register custom DTO filters
 		$this->getTwig()->addExtension(new DtoExtension());
