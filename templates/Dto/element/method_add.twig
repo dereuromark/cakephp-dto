@@ -1,5 +1,6 @@
 {% if collectionType and singular %}
 {% set cleanSingular = singular | stripLeadingUnderscore %}
+{% set adapter = getCollectionAdapter(collectionType) %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -13,13 +14,17 @@
 	 */
 	public function add{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
 		if ($this->{{ name }} === null) {
-			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
+			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}{{ adapter.createEmptyCode(typeHint) }}{% endif %};
 		}
 
 {% if associative %}
 		$this->{{ name }}[$key] = ${{ singular }};
-{% else %}
+{% elseif collectionType == 'array' %}
 		$this->{{ name }}[] = ${{ singular }};
+{% elseif adapter.immutable %}
+		$this->{{ name }} = $this->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
+{% else %}
+		$this->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
 {% endif %}
 		$this->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;
 

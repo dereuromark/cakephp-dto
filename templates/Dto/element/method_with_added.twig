@@ -1,5 +1,6 @@
 {% if collection %}
 {% set cleanSingular = singular | stripLeadingUnderscore %}
+{% set adapter = getCollectionAdapter(collectionType) %}
 	/**
 {% if deprecated is not null %}
 	 * @deprecated {{ deprecated }}
@@ -15,13 +16,17 @@
 		$new = clone $this;
 
 		if ($new->{{ name }} === null) {
-			$new->{{ name }} = {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
+			$new->{{ name }} = {% if collectionType == 'array' %}[]{% else %}{{ adapter.createEmptyCode(typeHint) }}{% endif %};
 		}
 
 {% if associative %}
 		$new->{{ name }}[$key] = ${{ singular }};
-{% else %}
+{% elseif collectionType == 'array' %}
 		$new->{{ name }}[] = ${{ singular }};
+{% elseif adapter.immutable %}
+		$new->{{ name }} = $new->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
+{% else %}
+		$new->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
 {% endif %}
 		$new->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;
 
