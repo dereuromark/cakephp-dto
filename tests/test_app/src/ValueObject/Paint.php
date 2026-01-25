@@ -81,7 +81,7 @@ class Paint implements FromArrayToArrayInterface {
 	 * new object, which is returned.
 	 *
 	 * @param self $another
-	 * @return static|self
+	 * @return static|$this
 	 */
 	public function mix(self $another): self {
 		return new static(
