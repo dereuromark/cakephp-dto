@@ -25,4 +25,7 @@
 	<li>
 		or let it <?php echo $this->Html->link('auto-detect', ['action' => 'schema']); ?>
 	</li>
+	<li>
+		<?php echo $this->Html->link('Database tables', ['action' => 'database']); ?>
+	</li>
 </ul>
