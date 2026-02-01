@@ -866,7 +866,27 @@ parameters:
         - src/Dto/
 ```
 
-See the base package's [SeparatingGeneratedCode.md](https://github.com/php-collective/dto/blob/master/docs/SeparatingGeneratedCode.md) for an alternative approach using a separate directory.
+Alternatively, you can avoid exclusions altogether by generating DTOs into a separate directory outside `src/` (e.g. `generated/`). Set the output path in your `app.php` config:
+
+```php
+'CakeDto' => [
+    'srcPath' => ROOT . DS . 'generated' . DS,
+],
+```
+
+Then add a PSR-4 autoload entry in your `composer.json`:
+
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "App\\Dto\\": "generated/"
+        }
+    }
+}
+```
+
+See the base package's [SeparatingGeneratedCode.md](https://github.com/php-collective/dto/blob/master/docs/SeparatingGeneratedCode.md) for details.
 
 
 ## Validate in CI
