@@ -5,16 +5,21 @@ require 'bootstrap.php';
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOutput;
 use Cake\Core\Configure;
+use CakeDto\Collection\CakeCollectionAdapter;
 use CakeDto\Console\Io;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
+use PhpCollective\Dto\Collection\CollectionAdapterRegistry;
 use PhpCollective\Dto\Engine\XmlEngine;
 use PhpCollective\Dto\Engine\XmlValidator;
 
 // Use CakePHP-DTO XSD for validation (different namespace than standalone)
 XmlValidator::setXsdPath(ROOT . DS . 'config' . DS . 'dto.xsd');
+
+// Register CakeCollectionAdapter for proper template generation
+CollectionAdapterRegistry::register(new CakeCollectionAdapter());
 
 Configure::write('CakeDto.scalarAndReturnTypes', true);
 Configure::write('CakeDto.strictTypes', true);

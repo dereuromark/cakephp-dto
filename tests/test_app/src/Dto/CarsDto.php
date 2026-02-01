@@ -71,6 +71,13 @@ class CarsDto extends AbstractDto {
 	protected const IS_IMMUTABLE = false;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -81,9 +88,6 @@ class CarsDto extends AbstractDto {
 
 	/**
 	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -104,6 +108,24 @@ class CarsDto extends AbstractDto {
 			$this->_touchedFields['cars'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'cars' => $this->cars !== null ? (static function (\Traversable $c): array {
+				$r = [];
+				foreach ($c as $k => $v) {
+					$r[$k] = $v->toArray();
+				}
+				return $r;
+			})($this->cars) : [],
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

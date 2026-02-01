@@ -124,6 +124,13 @@ class CustomerAccountDto extends AbstractDto {
 	protected const IS_IMMUTABLE = false;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -136,9 +143,6 @@ class CustomerAccountDto extends AbstractDto {
 
 	/**
 	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -163,6 +167,20 @@ class CustomerAccountDto extends AbstractDto {
 			$this->_touchedFields['lastLogin'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'customerName' => $this->customerName,
+			'birthYear' => $this->birthYear,
+			'lastLogin' => $this->lastLogin,
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
