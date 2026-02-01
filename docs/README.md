@@ -842,9 +842,31 @@ AbstractDto::setCollectionFactory(fn($items) => new Collection($items));
 ```
 
 
-## Disable Code Style Check
-Generated code usually shouldn't run through code-style checks.
-Disable the folder by using `--ignore=/src/Dto/`.
+## Exclude Generated DTOs from Static Analysis
+
+Generated code usually shouldn't run through code-style or static analysis checks.
+
+### PHP_CodeSniffer
+
+Add an exclude pattern to your `phpcs.xml`:
+
+```xml
+<rule ref="...">
+    <exclude-pattern>src/Dto/*</exclude-pattern>
+</rule>
+```
+
+### PHPStan
+
+Add an exclude path to your `phpstan.neon`:
+
+```yaml
+parameters:
+    excludePaths:
+        - src/Dto/
+```
+
+See the base package's [SeparatingGeneratedCode.md](https://github.com/php-collective/dto/blob/master/docs/SeparatingGeneratedCode.md) for an alternative approach using a separate directory.
 
 
 ## Validate in CI
@@ -859,6 +881,20 @@ If the error code is `2`, there are some changes detected, and the files need to
 Error code `1` is bad and basically means that the definitions are invalid. The error output should give some details here.
 
 Tip: Use `--verbose` (`-v`) to see a diff of what's changing.
+
+
+## Composer Scripts
+
+You can add convenience scripts to your `composer.json`:
+
+```json
+{
+    "scripts": {
+        "dto:generate": "bin/cake dto generate",
+        "dto:check": "bin/cake dto generate -d"
+    }
+}
+```
 
 
 ## Version Control
