@@ -24,7 +24,9 @@
 {% elseif collectionType == 'array' %}
 		$new->{{ name }}[] = ${{ singular }};
 {% elseif adapter.immutable %}
-		$new->{{ name }} = $new->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
+		/** @var {{ typeHint }} $collection */
+		$collection = $new->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
+		$new->{{ name }} = $collection;
 {% else %}
 		$new->{{ name }}->{{ adapter.appendMethod }}(${{ singular }});
 {% endif %}

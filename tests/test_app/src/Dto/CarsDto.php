@@ -119,7 +119,7 @@ class CarsDto extends AbstractDto {
 			'cars' => $this->cars !== null ? (static function (\Traversable $c): array {
 				$r = [];
 				foreach ($c as $k => $v) {
-					$r[$k] = is_object($v) && $v instanceof \PhpCollective\Dto\Dto\Dto ? $v->toArray() : $v;
+					$r[$k] = $v->toArray();
 				}
 				return $r;
 			})($this->cars) : [],

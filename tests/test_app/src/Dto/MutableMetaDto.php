@@ -140,7 +140,7 @@ class MutableMetaDto extends AbstractDto {
 	protected function toArrayFast(): array {
 		return [
 			'title' => $this->title,
-			'meta' => $this->meta ?? [],
+			'meta' => $this->meta ?: [],
 		];
 	}
 

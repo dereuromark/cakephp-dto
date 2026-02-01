@@ -119,7 +119,7 @@ class BookDto extends AbstractImmutableDto {
 			'pages' => $this->pages !== null ? (static function (\Traversable $c): array {
 				$r = [];
 				foreach ($c as $k => $v) {
-					$r[$k] = is_object($v) && $v instanceof \PhpCollective\Dto\Dto\Dto ? $v->toArray() : $v;
+					$r[$k] = $v->toArray();
 				}
 				return $r;
 			})($this->pages) : [],
@@ -193,7 +193,9 @@ class BookDto extends AbstractImmutableDto {
 			$new->pages = new \Cake\Collection\Collection([]);
 		}
 
-		$new->pages = $new->pages->appendItem($page);
+		/** @var \Cake\Collection\Collection $collection */
+		$collection = $new->pages->appendItem($page);
+		$new->pages = $collection;
 		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;

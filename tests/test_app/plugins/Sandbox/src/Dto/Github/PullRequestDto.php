@@ -427,7 +427,7 @@ class PullRequestDto extends AbstractDto {
 				}
 				$r = [];
 				foreach ($a as $k => $v) {
-					$r[$k] = is_object($v) && $v instanceof \PhpCollective\Dto\Dto\Dto ? $v->toArray() : $v;
+					$r[$k] = $v->toArray();
 				}
 				return $r;
 			})($this->labels),
