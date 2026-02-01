@@ -33,7 +33,7 @@
 {% endif %}
 	 */
 {% set cleanSingular = singular | stripLeadingUnderscore %}
-	public function get{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}($key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+	public function get{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({{ keyType }} $key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
 {% if singularNullable %}
 		if (!isset($this->{{ name }}[$key])) {
 			return null;

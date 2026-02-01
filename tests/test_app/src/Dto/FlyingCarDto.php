@@ -35,7 +35,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @var int|null
 	 */
-	protected $maxAltitude;
+	protected ?int $maxAltitude = null;
 
 	/**
 	 * @var int
@@ -45,7 +45,7 @@ class FlyingCarDto extends CarDto {
 	/**
 	 * @var array|null
 	 */
-	protected $complexAttributes;
+	protected ?array $complexAttributes = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -179,7 +179,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 		if ($this->maxAltitude === null) {
 			$this->maxAltitude = 0;
 		}
@@ -215,7 +215,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setMaxAltitude(?int $maxAltitude) {
+	public function setMaxAltitude(?int $maxAltitude): static {
 		$this->maxAltitude = $maxAltitude;
 		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 
@@ -227,7 +227,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setMaxAltitudeOrFail(int $maxAltitude) {
+	public function setMaxAltitudeOrFail(int $maxAltitude): static {
 		$this->maxAltitude = $maxAltitude;
 		$this->_touchedFields[static::FIELD_MAX_ALTITUDE] = true;
 
@@ -266,7 +266,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setMaxSpeed(int $maxSpeed) {
+	public function setMaxSpeed(int $maxSpeed): static {
 		$this->maxSpeed = $maxSpeed;
 		$this->_touchedFields[static::FIELD_MAX_SPEED] = true;
 
@@ -286,7 +286,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setComplexAttributes(?array $complexAttributes) {
+	public function setComplexAttributes(?array $complexAttributes): static {
 		$this->complexAttributes = $complexAttributes;
 		$this->_touchedFields[static::FIELD_COMPLEX_ATTRIBUTES] = true;
 
@@ -298,7 +298,7 @@ class FlyingCarDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setComplexAttributesOrFail(array $complexAttributes) {
+	public function setComplexAttributesOrFail(array $complexAttributes): static {
 		$this->complexAttributes = $complexAttributes;
 		$this->_touchedFields[static::FIELD_COMPLEX_ATTRIBUTES] = true;
 

@@ -132,7 +132,7 @@ class BookDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -153,7 +153,7 @@ class BookDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withPages(\Cake\Collection\Collection $pages) {
+	public function withPages(\Cake\Collection\Collection $pages): static {
 		$new = clone $this;
 		$new->pages = $pages;
 		$new->_touchedFields[static::FIELD_PAGES] = true;
@@ -186,7 +186,7 @@ class BookDto extends AbstractImmutableDto {
 	 * @param \TestApp\Dto\PageDto $page
 	 * @return static
 	 */
-	public function withAddedPage(\TestApp\Dto\PageDto $page) {
+	public function withAddedPage(\TestApp\Dto\PageDto $page): static {
 		$new = clone $this;
 
 		if ($new->pages === null) {

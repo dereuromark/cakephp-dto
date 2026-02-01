@@ -1,4 +1,4 @@
 	/**
 	 * @var {{ docBlockType ?? type }}{% if nullable %}|null{% endif ~%}
 	 */
-	protected ${{ name }};
+	protected {% if nullable and typeHint %}?{{ typeHint }} {% endif %}${{ name }}{% if nullable and typeHint %} = null{% endif %};

@@ -180,7 +180,7 @@ class TagDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 		if ($this->weight === null) {
 			$this->weight = 0;
 		}
@@ -219,7 +219,7 @@ class TagDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId(int $id) {
+	public function withId(int $id): static {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[static::FIELD_ID] = true;
@@ -246,7 +246,7 @@ class TagDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withName(string $name) {
+	public function withName(string $name): static {
 		$new = clone $this;
 		$new->name = $name;
 		$new->_touchedFields[static::FIELD_NAME] = true;
@@ -273,7 +273,7 @@ class TagDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withWeight(int $weight) {
+	public function withWeight(int $weight): static {
 		$new = clone $this;
 		$new->weight = $weight;
 		$new->_touchedFields[static::FIELD_WEIGHT] = true;

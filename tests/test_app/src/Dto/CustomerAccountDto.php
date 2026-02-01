@@ -41,12 +41,12 @@ class CustomerAccountDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	protected $birthYear;
+	protected ?int $birthYear = null;
 
 	/**
 	 * @var \Cake\I18n\DateTime|null
 	 */
-	protected $lastLogin;
+	protected ?\Cake\I18n\DateTime $lastLogin = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -187,7 +187,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -217,7 +217,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setCustomerName(string $customerName) {
+	public function setCustomerName(string $customerName): static {
 		$this->customerName = $customerName;
 		$this->_touchedFields[static::FIELD_CUSTOMER_NAME] = true;
 
@@ -243,7 +243,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthYear(?int $birthYear) {
+	public function setBirthYear(?int $birthYear): static {
 		$this->birthYear = $birthYear;
 		$this->_touchedFields[static::FIELD_BIRTH_YEAR] = true;
 
@@ -255,7 +255,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthYearOrFail(int $birthYear) {
+	public function setBirthYearOrFail(int $birthYear): static {
 		$this->birthYear = $birthYear;
 		$this->_touchedFields[static::FIELD_BIRTH_YEAR] = true;
 
@@ -294,7 +294,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setLastLogin(?\Cake\I18n\DateTime $lastLogin) {
+	public function setLastLogin(?\Cake\I18n\DateTime $lastLogin): static {
 		$this->lastLogin = $lastLogin;
 		$this->_touchedFields[static::FIELD_LAST_LOGIN] = true;
 
@@ -306,7 +306,7 @@ class CustomerAccountDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setLastLoginOrFail(\Cake\I18n\DateTime $lastLogin) {
+	public function setLastLoginOrFail(\Cake\I18n\DateTime $lastLogin): static {
 		$this->lastLogin = $lastLogin;
 		$this->_touchedFields[static::FIELD_LAST_LOGIN] = true;
 

@@ -12,7 +12,7 @@
 	 * @param {{ singularType }}{% if singularNullable %}|null{% endif %} ${{ singular }}
 	 * @return static
 	 */
-	public function withAdded{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function withAdded{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}{{ keyType }} $key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}): static {
 		$new = clone $this;
 
 		if ($new->{{ name }} === null) {

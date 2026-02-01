@@ -8,7 +8,7 @@
 	 *
 	 * @return $this
 	 */
-	public function set{{ cleanName[:1]|upper ~ cleanName[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable and not scalarAndReturnTypes %} = null{% endif %}) {
+	public function set{{ cleanName[:1]|upper ~ cleanName[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable and not scalarAndReturnTypes %} = null{% endif %}): static {
 		$this->{{ name }} = ${{ name }};
 		$this->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;
 

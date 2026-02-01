@@ -132,7 +132,7 @@ class CarsDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -153,7 +153,7 @@ class CarsDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setCars(\ArrayObject $cars) {
+	public function setCars(\ArrayObject $cars): static {
 		$this->cars = $cars;
 		$this->_touchedFields[static::FIELD_CARS] = true;
 
@@ -178,7 +178,7 @@ class CarsDto extends AbstractDto {
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getCar($key): \TestApp\Dto\CarDto {
+	public function getCar(string $key): \TestApp\Dto\CarDto {
 		if (!isset($this->cars[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `cars` and key `%s` (expected to be not null)', $key));
 		}
@@ -201,7 +201,7 @@ class CarsDto extends AbstractDto {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function hasCar($key): bool {
+	public function hasCar(string $key): bool {
 		return isset($this->cars[$key]);
 	}
 
@@ -210,7 +210,7 @@ class CarsDto extends AbstractDto {
 	 * @param \TestApp\Dto\CarDto $car
 	 * @return $this
 	 */
-	public function addCar($key, \TestApp\Dto\CarDto $car) {
+	public function addCar(string $key, \TestApp\Dto\CarDto $car): static {
 		if ($this->cars === null) {
 			$this->cars = new \ArrayObject([]);
 		}

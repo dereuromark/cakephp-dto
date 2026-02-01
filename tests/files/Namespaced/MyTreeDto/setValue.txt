@@ -3,7 +3,7 @@
 	 *
 	 * @return $this
 	 */
-	public function setValue($value) {
+	public function setValue($value): static {
 		$this->value = $value;
 		$this->_touchedFields[static::FIELD_VALUE] = true;
 

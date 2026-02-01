@@ -33,7 +33,7 @@
 	 * @return bool
 	 */
 {% set cleanSingular = singular | stripLeadingUnderscore %}
-	public function has{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}($key){% if scalarAndReturnTypes %}: bool{% endif %} {
+	public function has{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({{ keyType }} $key){% if scalarAndReturnTypes %}: bool{% endif %} {
 		return isset($this->{{ name }}[$key]);
 	}
 {% endif -%}

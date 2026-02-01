@@ -35,7 +35,7 @@ class PageDto extends AbstractImmutableDto {
 	/**
 	 * @var string|null
 	 */
-	protected $content;
+	protected ?string $content = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -147,7 +147,7 @@ class PageDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -177,7 +177,7 @@ class PageDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withNumber(int $number) {
+	public function withNumber(int $number): static {
 		$new = clone $this;
 		$new->number = $number;
 		$new->_touchedFields[static::FIELD_NUMBER] = true;
@@ -204,7 +204,7 @@ class PageDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withContent(?string $content = null) {
+	public function withContent(?string $content = null): static {
 		$new = clone $this;
 		$new->content = $content;
 		$new->_touchedFields[static::FIELD_CONTENT] = true;
@@ -217,7 +217,7 @@ class PageDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withContentOrFail(string $content) {
+	public function withContentOrFail(string $content): static {
 		$new = clone $this;
 		$new->content = $content;
 		$new->_touchedFields[static::FIELD_CONTENT] = true;

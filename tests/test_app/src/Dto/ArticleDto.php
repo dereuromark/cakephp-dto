@@ -312,7 +312,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -351,7 +351,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId(int $id) {
+	public function withId(int $id): static {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[static::FIELD_ID] = true;
@@ -378,7 +378,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withAuthor(\TestApp\Dto\AuthorDto $author) {
+	public function withAuthor(\TestApp\Dto\AuthorDto $author): static {
 		$new = clone $this;
 		$new->author = $author;
 		$new->_touchedFields[static::FIELD_AUTHOR] = true;
@@ -405,7 +405,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withTitle(string $title) {
+	public function withTitle(string $title): static {
 		$new = clone $this;
 		$new->title = $title;
 		$new->_touchedFields[static::FIELD_TITLE] = true;
@@ -432,7 +432,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withCreated(\Cake\I18n\Date $created) {
+	public function withCreated(\Cake\I18n\Date $created): static {
 		$new = clone $this;
 		$new->created = $created;
 		$new->_touchedFields[static::FIELD_CREATED] = true;
@@ -459,7 +459,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withTags(array $tags) {
+	public function withTags(array $tags): static {
 		$new = clone $this;
 		$new->tags = $tags;
 		$new->_touchedFields[static::FIELD_TAGS] = true;
@@ -492,7 +492,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 * @param \TestApp\Dto\TagDto $tag
 	 * @return static
 	 */
-	public function withAddedTag(\TestApp\Dto\TagDto $tag) {
+	public function withAddedTag(\TestApp\Dto\TagDto $tag): static {
 		$new = clone $this;
 
 		if ($new->tags === null) {
@@ -510,7 +510,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withMeta(array $meta) {
+	public function withMeta(array $meta): static {
 		$new = clone $this;
 		$new->meta = $meta;
 		$new->_touchedFields[static::FIELD_META] = true;
@@ -536,7 +536,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getMetaValue($key): string {
+	public function getMetaValue(string $key): string {
 		if (!isset($this->meta[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `meta` and key `%s` (expected to be not null)', $key));
 		}
@@ -559,7 +559,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function hasMetaValue($key): bool {
+	public function hasMetaValue(string $key): bool {
 		return isset($this->meta[$key]);
 	}
 
@@ -568,7 +568,7 @@ class ArticleDto extends AbstractImmutableDto {
 	 * @param string $metaValue
 	 * @return static
 	 */
-	public function withAddedMetaValue($key, string $metaValue) {
+	public function withAddedMetaValue(string $key, string $metaValue): static {
 		$new = clone $this;
 
 		if ($new->meta === null) {
