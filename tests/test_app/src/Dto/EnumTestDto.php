@@ -128,6 +128,13 @@ class EnumTestDto extends AbstractImmutableDto {
 	protected const IS_IMMUTABLE = true;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -140,9 +147,6 @@ class EnumTestDto extends AbstractImmutableDto {
 
 	/**
 	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -177,6 +181,20 @@ class EnumTestDto extends AbstractImmutableDto {
 			$this->_touchedFields['someIntBacked'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'someUnit' => $this->someUnit?->name,
+			'someStringBacked' => $this->someStringBacked,
+			'someIntBacked' => $this->someIntBacked,
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

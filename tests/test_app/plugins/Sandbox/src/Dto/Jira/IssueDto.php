@@ -203,6 +203,13 @@ class IssueDto extends AbstractDto {
 	protected const IS_IMMUTABLE = false;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -218,9 +225,6 @@ class IssueDto extends AbstractDto {
 
 	/**
 	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -252,6 +256,23 @@ class IssueDto extends AbstractDto {
 			$this->_touchedFields['version'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'id' => $this->id,
+			'key' => $this->key,
+			'status' => $this->status,
+			'priority' => $this->priority,
+			'summary' => $this->summary,
+			'version' => $this->version,
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

@@ -69,6 +69,13 @@ class OldOneDto extends CarDto {
 	protected const IS_IMMUTABLE = false;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -80,9 +87,6 @@ class OldOneDto extends CarDto {
 	/**
 	 * Optimized array assignment without dynamic method calls.
 	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
-	 *
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -93,6 +97,18 @@ class OldOneDto extends CarDto {
 			$this->_touchedFields['name'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'name' => $this->name,
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.

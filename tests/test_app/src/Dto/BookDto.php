@@ -71,6 +71,13 @@ class BookDto extends AbstractImmutableDto {
 	protected const IS_IMMUTABLE = true;
 
 	/**
+	 * Whether this DTO has generated fast-path methods.
+	 *
+	 * @var bool
+	 */
+	protected const HAS_FAST_PATH = true;
+
+	/**
 	 * Pre-computed setter method names for fast lookup.
 	 *
 	 * @var array<string, string>
@@ -81,9 +88,6 @@ class BookDto extends AbstractImmutableDto {
 
 	/**
 	 * Optimized array assignment without dynamic method calls.
-	 *
-	 * This method is only called in lenient mode (ignoreMissing=true),
-	 * where unknown fields are silently ignored.
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -104,6 +108,24 @@ class BookDto extends AbstractImmutableDto {
 			$this->_touchedFields['pages'] = true;
 		}
 	}
+
+	/**
+	 * Optimized toArray for default type without dynamic dispatch.
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function toArrayFast(): array {
+		return [
+			'pages' => $this->pages !== null ? (static function (\Traversable $c): array {
+				$r = [];
+				foreach ($c as $k => $v) {
+					$r[$k] = is_object($v) && $v instanceof \PhpCollective\Dto\Dto\Dto ? $v->toArray() : $v;
+				}
+				return $r;
+			})($this->pages) : [],
+		];
+	}
+
 
 	/**
 	 * Optimized setDefaults - only processes fields with default values.
@@ -171,9 +193,7 @@ class BookDto extends AbstractImmutableDto {
 			$new->pages = new \Cake\Collection\Collection([]);
 		}
 
-		/** @var \Cake\Collection\Collection $collection */
-		$collection = $new->pages->appendItem($page);
-		$new->pages = $collection;
+		$new->pages = $new->pages->appendItem($page);
 		$new->_touchedFields[static::FIELD_PAGES] = true;
 
 		return $new;
