@@ -79,7 +79,7 @@ class IssueDto extends AbstractDto {
 	/**
 	 * @var string|null
 	 */
-	protected $version;
+	protected ?string $version = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -279,7 +279,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -321,7 +321,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setId(string $id) {
+	public function setId(string $id): static {
 		$this->id = $id;
 		$this->_touchedFields[static::FIELD_ID] = true;
 
@@ -347,7 +347,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setKey(string $key) {
+	public function setKey(string $key): static {
 		$this->key = $key;
 		$this->_touchedFields[static::FIELD_KEY] = true;
 
@@ -373,7 +373,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setStatus(string $status) {
+	public function setStatus(string $status): static {
 		$this->status = $status;
 		$this->_touchedFields[static::FIELD_STATUS] = true;
 
@@ -399,7 +399,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setPriority(string $priority) {
+	public function setPriority(string $priority): static {
 		$this->priority = $priority;
 		$this->_touchedFields[static::FIELD_PRIORITY] = true;
 
@@ -425,7 +425,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setSummary(string $summary) {
+	public function setSummary(string $summary): static {
 		$this->summary = $summary;
 		$this->_touchedFields[static::FIELD_SUMMARY] = true;
 
@@ -451,7 +451,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setVersion(?string $version) {
+	public function setVersion(?string $version): static {
 		$this->version = $version;
 		$this->_touchedFields[static::FIELD_VERSION] = true;
 
@@ -463,7 +463,7 @@ class IssueDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setVersionOrFail(string $version) {
+	public function setVersionOrFail(string $version): static {
 		$this->version = $version;
 		$this->_touchedFields[static::FIELD_VERSION] = true;
 

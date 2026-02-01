@@ -3,7 +3,7 @@
 	 * @param \App\Dto\CarDto $car
 	 * @return $this
 	 */
-	public function addCar($key, \App\Dto\CarDto $car) {
+	public function addCar(string $key, \App\Dto\CarDto $car): static {
 		if ($this->cars === null) {
 			$this->cars = new \ArrayObject([]);
 		}

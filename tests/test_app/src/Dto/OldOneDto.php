@@ -25,7 +25,7 @@ class OldOneDto extends CarDto {
 	/**
 	 * @var string|null
 	 */
-	protected $name;
+	protected ?string $name = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -115,7 +115,7 @@ class OldOneDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -136,7 +136,7 @@ class OldOneDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setName(?string $name) {
+	public function setName(?string $name): static {
 		$this->name = $name;
 		$this->_touchedFields[static::FIELD_NAME] = true;
 
@@ -148,7 +148,7 @@ class OldOneDto extends CarDto {
 	 *
 	 * @return $this
 	 */
-	public function setNameOrFail(string $name) {
+	public function setNameOrFail(string $name): static {
 		$this->name = $name;
 		$this->_touchedFields[static::FIELD_NAME] = true;
 

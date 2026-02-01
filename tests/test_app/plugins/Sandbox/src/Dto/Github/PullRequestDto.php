@@ -118,12 +118,12 @@ class PullRequestDto extends AbstractDto {
 	/**
 	 * @var \Sandbox\Dto\Github\HeadDto|null
 	 */
-	protected $head;
+	protected ?\Sandbox\Dto\Github\HeadDto $head = null;
 
 	/**
 	 * @var \Sandbox\Dto\Github\BaseDto|null
 	 */
-	protected $base;
+	protected ?\Sandbox\Dto\Github\BaseDto $base = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -442,7 +442,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -490,7 +490,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setUrl(string $url) {
+	public function setUrl(string $url): static {
 		$this->url = $url;
 		$this->_touchedFields[static::FIELD_URL] = true;
 
@@ -516,7 +516,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setNumber(int $number) {
+	public function setNumber(int $number): static {
 		$this->number = $number;
 		$this->_touchedFields[static::FIELD_NUMBER] = true;
 
@@ -542,7 +542,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setState(string $state) {
+	public function setState(string $state): static {
 		$this->state = $state;
 		$this->_touchedFields[static::FIELD_STATE] = true;
 
@@ -568,7 +568,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setTitle(string $title) {
+	public function setTitle(string $title): static {
 		$this->title = $title;
 		$this->_touchedFields[static::FIELD_TITLE] = true;
 
@@ -594,7 +594,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBody(string $body) {
+	public function setBody(string $body): static {
 		$this->body = $body;
 		$this->_touchedFields[static::FIELD_BODY] = true;
 
@@ -620,7 +620,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setUser(\Sandbox\Dto\Github\UserDto $user) {
+	public function setUser(\Sandbox\Dto\Github\UserDto $user): static {
 		$this->user = $user;
 		$this->_touchedFields[static::FIELD_USER] = true;
 
@@ -646,7 +646,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setCreatedAt(string $createdAt) {
+	public function setCreatedAt(string $createdAt): static {
 		$this->createdAt = $createdAt;
 		$this->_touchedFields[static::FIELD_CREATED_AT] = true;
 
@@ -672,7 +672,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setLabels(array $labels) {
+	public function setLabels(array $labels): static {
 		$this->labels = $labels;
 		$this->_touchedFields[static::FIELD_LABELS] = true;
 
@@ -697,7 +697,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @throws \RuntimeException If value with this key is not set.
 	 */
-	public function getLabel($key): \Sandbox\Dto\Github\LabelDto {
+	public function getLabel(string $key): \Sandbox\Dto\Github\LabelDto {
 		if (!isset($this->labels[$key])) {
 			throw new \RuntimeException(sprintf('Value not set for field `labels` and key `%s` (expected to be not null)', $key));
 		}
@@ -720,7 +720,7 @@ class PullRequestDto extends AbstractDto {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function hasLabel($key): bool {
+	public function hasLabel(string $key): bool {
 		return isset($this->labels[$key]);
 	}
 
@@ -729,7 +729,7 @@ class PullRequestDto extends AbstractDto {
 	 * @param \Sandbox\Dto\Github\LabelDto $label
 	 * @return $this
 	 */
-	public function addLabel($key, \Sandbox\Dto\Github\LabelDto $label) {
+	public function addLabel(string $key, \Sandbox\Dto\Github\LabelDto $label): static {
 		if ($this->labels === null) {
 			$this->labels = [];
 		}
@@ -745,7 +745,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setHead(?\Sandbox\Dto\Github\HeadDto $head) {
+	public function setHead(?\Sandbox\Dto\Github\HeadDto $head): static {
 		$this->head = $head;
 		$this->_touchedFields[static::FIELD_HEAD] = true;
 
@@ -757,7 +757,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setHeadOrFail(\Sandbox\Dto\Github\HeadDto $head) {
+	public function setHeadOrFail(\Sandbox\Dto\Github\HeadDto $head): static {
 		$this->head = $head;
 		$this->_touchedFields[static::FIELD_HEAD] = true;
 
@@ -796,7 +796,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBase(?\Sandbox\Dto\Github\BaseDto $base) {
+	public function setBase(?\Sandbox\Dto\Github\BaseDto $base): static {
 		$this->base = $base;
 		$this->_touchedFields[static::FIELD_BASE] = true;
 
@@ -808,7 +808,7 @@ class PullRequestDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBaseOrFail(\Sandbox\Dto\Github\BaseDto $base) {
+	public function setBaseOrFail(\Sandbox\Dto\Github\BaseDto $base): static {
 		$this->base = $base;
 		$this->_touchedFields[static::FIELD_BASE] = true;
 

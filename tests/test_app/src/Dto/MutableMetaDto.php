@@ -150,7 +150,7 @@ class MutableMetaDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -180,7 +180,7 @@ class MutableMetaDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setTitle(string $title) {
+	public function setTitle(string $title): static {
 		$this->title = $title;
 		$this->_touchedFields[static::FIELD_TITLE] = true;
 
@@ -206,7 +206,7 @@ class MutableMetaDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setMeta(array $meta) {
+	public function setMeta(array $meta): static {
 		$this->meta = $meta;
 		$this->_touchedFields[static::FIELD_META] = true;
 
@@ -229,7 +229,7 @@ class MutableMetaDto extends AbstractDto {
 	 *
 	 * @return string|null
 	 */
-	public function getMetaValue($key): ?string {
+	public function getMetaValue(string $key): ?string {
 		if (!isset($this->meta[$key])) {
 			return null;
 		}
@@ -252,7 +252,7 @@ class MutableMetaDto extends AbstractDto {
 	 * @param string|null $metaValue
 	 * @return $this
 	 */
-	public function addMetaValue($key, ?string $metaValue) {
+	public function addMetaValue(string $key, ?string $metaValue): static {
 		if ($this->meta === null) {
 			$this->meta = [];
 		}

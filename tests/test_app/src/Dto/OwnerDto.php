@@ -42,22 +42,22 @@ class OwnerDto extends AbstractDto {
 	/**
 	 * @var string|null
 	 */
-	protected $name;
+	protected ?string $name = null;
 
 	/**
 	 * @var string|null
 	 */
-	protected $insuranceProvider;
+	protected ?string $insuranceProvider = null;
 
 	/**
 	 * @var \TestApp\ValueObject\KeyValuePair|null
 	 */
-	protected $attributes;
+	protected ?\TestApp\ValueObject\KeyValuePair $attributes = null;
 
 	/**
 	 * @var \TestApp\ValueObject\Birthday|null
 	 */
-	protected $birthday;
+	protected ?\TestApp\ValueObject\Birthday $birthday = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -226,7 +226,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -247,7 +247,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setName(?string $name) {
+	public function setName(?string $name): static {
 		$this->name = $name;
 		$this->_touchedFields[static::FIELD_NAME] = true;
 
@@ -259,7 +259,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setNameOrFail(string $name) {
+	public function setNameOrFail(string $name): static {
 		$this->name = $name;
 		$this->_touchedFields[static::FIELD_NAME] = true;
 
@@ -298,7 +298,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setInsuranceProvider(?string $insuranceProvider) {
+	public function setInsuranceProvider(?string $insuranceProvider): static {
 		$this->insuranceProvider = $insuranceProvider;
 		$this->_touchedFields[static::FIELD_INSURANCE_PROVIDER] = true;
 
@@ -310,7 +310,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setInsuranceProviderOrFail(string $insuranceProvider) {
+	public function setInsuranceProviderOrFail(string $insuranceProvider): static {
 		$this->insuranceProvider = $insuranceProvider;
 		$this->_touchedFields[static::FIELD_INSURANCE_PROVIDER] = true;
 
@@ -349,7 +349,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setAttributes(?\TestApp\ValueObject\KeyValuePair $attributes) {
+	public function setAttributes(?\TestApp\ValueObject\KeyValuePair $attributes): static {
 		$this->attributes = $attributes;
 		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
@@ -361,7 +361,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setAttributesOrFail(\TestApp\ValueObject\KeyValuePair $attributes) {
+	public function setAttributesOrFail(\TestApp\ValueObject\KeyValuePair $attributes): static {
 		$this->attributes = $attributes;
 		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
@@ -400,7 +400,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthday(?\TestApp\ValueObject\Birthday $birthday) {
+	public function setBirthday(?\TestApp\ValueObject\Birthday $birthday): static {
 		$this->birthday = $birthday;
 		$this->_touchedFields[static::FIELD_BIRTHDAY] = true;
 
@@ -412,7 +412,7 @@ class OwnerDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setBirthdayOrFail(\TestApp\ValueObject\Birthday $birthday) {
+	public function setBirthdayOrFail(\TestApp\ValueObject\Birthday $birthday): static {
 		$this->birthday = $birthday;
 		$this->_touchedFields[static::FIELD_BIRTHDAY] = true;
 

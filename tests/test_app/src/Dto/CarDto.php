@@ -60,37 +60,37 @@ class CarDto extends AbstractDto {
 	/**
 	 * @var \TestApp\ValueObject\Paint|null
 	 */
-	protected $color;
+	protected ?\TestApp\ValueObject\Paint $color = null;
 
 	/**
 	 * @var bool|null
 	 */
-	protected $isNew;
+	protected ?bool $isNew = null;
 
 	/**
 	 * @var float|null
 	 */
-	protected $value;
+	protected ?float $value = null;
 
 	/**
 	 * @var int|null
 	 */
-	protected $distanceTravelled;
+	protected ?int $distanceTravelled = null;
 
 	/**
 	 * @var array<int, string>|null
 	 */
-	protected $attributes;
+	protected ?array $attributes = null;
 
 	/**
 	 * @var \Cake\I18n\Date|null
 	 */
-	protected $manufactured;
+	protected ?\Cake\I18n\Date $manufactured = null;
 
 	/**
 	 * @var \TestApp\Dto\OwnerDto|null
 	 */
-	protected $owner;
+	protected ?\TestApp\Dto\OwnerDto $owner = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -329,7 +329,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -350,7 +350,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setColor(?\TestApp\ValueObject\Paint $color) {
+	public function setColor(?\TestApp\ValueObject\Paint $color): static {
 		$this->color = $color;
 		$this->_touchedFields[static::FIELD_COLOR] = true;
 
@@ -362,7 +362,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setColorOrFail(\TestApp\ValueObject\Paint $color) {
+	public function setColorOrFail(\TestApp\ValueObject\Paint $color): static {
 		$this->color = $color;
 		$this->_touchedFields[static::FIELD_COLOR] = true;
 
@@ -401,7 +401,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setIsNew(?bool $isNew) {
+	public function setIsNew(?bool $isNew): static {
 		$this->isNew = $isNew;
 		$this->_touchedFields[static::FIELD_IS_NEW] = true;
 
@@ -413,7 +413,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setIsNewOrFail(bool $isNew) {
+	public function setIsNewOrFail(bool $isNew): static {
 		$this->isNew = $isNew;
 		$this->_touchedFields[static::FIELD_IS_NEW] = true;
 
@@ -452,7 +452,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setValue(?float $value) {
+	public function setValue(?float $value): static {
 		$this->value = $value;
 		$this->_touchedFields[static::FIELD_VALUE] = true;
 
@@ -464,7 +464,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setValueOrFail(float $value) {
+	public function setValueOrFail(float $value): static {
 		$this->value = $value;
 		$this->_touchedFields[static::FIELD_VALUE] = true;
 
@@ -503,7 +503,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setDistanceTravelled(?int $distanceTravelled) {
+	public function setDistanceTravelled(?int $distanceTravelled): static {
 		$this->distanceTravelled = $distanceTravelled;
 		$this->_touchedFields[static::FIELD_DISTANCE_TRAVELLED] = true;
 
@@ -515,7 +515,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setDistanceTravelledOrFail(int $distanceTravelled) {
+	public function setDistanceTravelledOrFail(int $distanceTravelled): static {
 		$this->distanceTravelled = $distanceTravelled;
 		$this->_touchedFields[static::FIELD_DISTANCE_TRAVELLED] = true;
 
@@ -554,7 +554,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setAttributes(?array $attributes) {
+	public function setAttributes(?array $attributes): static {
 		$this->attributes = $attributes;
 		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
@@ -566,7 +566,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setAttributesOrFail(array $attributes) {
+	public function setAttributesOrFail(array $attributes): static {
 		$this->attributes = $attributes;
 		$this->_touchedFields[static::FIELD_ATTRIBUTES] = true;
 
@@ -605,7 +605,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setManufactured(?\Cake\I18n\Date $manufactured) {
+	public function setManufactured(?\Cake\I18n\Date $manufactured): static {
 		$this->manufactured = $manufactured;
 		$this->_touchedFields[static::FIELD_MANUFACTURED] = true;
 
@@ -617,7 +617,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setManufacturedOrFail(\Cake\I18n\Date $manufactured) {
+	public function setManufacturedOrFail(\Cake\I18n\Date $manufactured): static {
 		$this->manufactured = $manufactured;
 		$this->_touchedFields[static::FIELD_MANUFACTURED] = true;
 
@@ -656,7 +656,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setOwner(?\TestApp\Dto\OwnerDto $owner) {
+	public function setOwner(?\TestApp\Dto\OwnerDto $owner): static {
 		$this->owner = $owner;
 		$this->_touchedFields[static::FIELD_OWNER] = true;
 
@@ -668,7 +668,7 @@ class CarDto extends AbstractDto {
 	 *
 	 * @return $this
 	 */
-	public function setOwnerOrFail(\TestApp\Dto\OwnerDto $owner) {
+	public function setOwnerOrFail(\TestApp\Dto\OwnerDto $owner): static {
 		$this->owner = $owner;
 		$this->_touchedFields[static::FIELD_OWNER] = true;
 

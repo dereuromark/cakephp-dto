@@ -12,7 +12,7 @@
 	 * @param {% if singularType %}{{ singularType }}{% else %}mixed{% endif %}{% if singularNullable %}|null{% endif %} ${{ singular }}
 	 * @return $this
 	 */
-	public function add{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}$key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}) {
+	public function add{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({% if associative %}{{ keyType }} $key, {% endif %}{% if singularTypeHint %}{% if singularNullable %}?{% endif %}{{ singularTypeHint }} {% endif %}${{ singular }}): static {
 		if ($this->{{ name }} === null) {
 			$this->{{ name }} = {% if collectionType == 'array' %}[]{% else %}{{ adapter.createEmptyCode(typeHint) }}{% endif %};
 		}

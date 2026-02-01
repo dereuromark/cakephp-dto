@@ -178,7 +178,7 @@
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 {% if fieldsWithDefaults | length > 0 %}
 {% for field in fieldsWithDefaults %}
 		if ($this->{{ field.name }} === null) {

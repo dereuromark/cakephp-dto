@@ -3,7 +3,7 @@
 	 *
 	 * @return $this
 	 */
-	public function setDefaultedOptionalField(?int $defaultedOptionalField) {
+	public function setDefaultedOptionalField(?int $defaultedOptionalField): static {
 		$this->defaultedOptionalField = $defaultedOptionalField;
 		$this->_touchedFields[static::FIELD_DEFAULTED_OPTIONAL_FIELD] = true;
 

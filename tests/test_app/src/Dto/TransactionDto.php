@@ -52,7 +52,7 @@ class TransactionDto extends AbstractImmutableDto {
 	/**
 	 * @var string|null
 	 */
-	protected $comment;
+	protected ?string $comment = null;
 
 	/**
 	 * @var \Cake\I18n\Date
@@ -224,7 +224,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -260,7 +260,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withCustomerAccount(\TestApp\Dto\CustomerAccountDto $customerAccount) {
+	public function withCustomerAccount(\TestApp\Dto\CustomerAccountDto $customerAccount): static {
 		$new = clone $this;
 		$new->customerAccount = $customerAccount;
 		$new->_touchedFields[static::FIELD_CUSTOMER_ACCOUNT] = true;
@@ -287,7 +287,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withValue(float $value) {
+	public function withValue(float $value): static {
 		$new = clone $this;
 		$new->value = $value;
 		$new->_touchedFields[static::FIELD_VALUE] = true;
@@ -314,7 +314,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withComment(?string $comment = null) {
+	public function withComment(?string $comment = null): static {
 		$new = clone $this;
 		$new->comment = $comment;
 		$new->_touchedFields[static::FIELD_COMMENT] = true;
@@ -327,7 +327,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withCommentOrFail(string $comment) {
+	public function withCommentOrFail(string $comment): static {
 		$new = clone $this;
 		$new->comment = $comment;
 		$new->_touchedFields[static::FIELD_COMMENT] = true;
@@ -367,7 +367,7 @@ class TransactionDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withCreated(\Cake\I18n\Date $created) {
+	public function withCreated(\Cake\I18n\Date $created): static {
 		$new = clone $this;
 		$new->created = $created;
 		$new->_touchedFields[static::FIELD_CREATED] = true;

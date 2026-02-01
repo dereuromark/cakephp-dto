@@ -8,7 +8,7 @@
 	 *
 	 * @return static
 	 */
-	public function with{{ cleanName[:1]|upper ~ cleanName[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable %} = null{% endif %}) {
+	public function with{{ cleanName[:1]|upper ~ cleanName[1:] }}({% if typeHint %}{{ nullableTypeHint ?? typeHint }} {% endif %}${{ name }}{% if typeHint and nullable %} = null{% endif %}): static {
 		$new = clone $this;
 		$new->{{ name }} = ${{ name }};
 		$new->_touchedFields[static::FIELD_{{ name | stripLeadingUnderscore | underscore | upper }}] = true;

@@ -46,7 +46,7 @@ class AuthorDto extends AbstractImmutableDto {
 	/**
 	 * @var string|null
 	 */
-	protected $email;
+	protected ?string $email = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -180,7 +180,7 @@ class AuthorDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -213,7 +213,7 @@ class AuthorDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withId(int $id) {
+	public function withId(int $id): static {
 		$new = clone $this;
 		$new->id = $id;
 		$new->_touchedFields[static::FIELD_ID] = true;
@@ -240,7 +240,7 @@ class AuthorDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withName(string $name) {
+	public function withName(string $name): static {
 		$new = clone $this;
 		$new->name = $name;
 		$new->_touchedFields[static::FIELD_NAME] = true;
@@ -267,7 +267,7 @@ class AuthorDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withEmail(?string $email = null) {
+	public function withEmail(?string $email = null): static {
 		$new = clone $this;
 		$new->email = $email;
 		$new->_touchedFields[static::FIELD_EMAIL] = true;
@@ -280,7 +280,7 @@ class AuthorDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withEmailOrFail(string $email) {
+	public function withEmailOrFail(string $email): static {
 		$new = clone $this;
 		$new->email = $email;
 		$new->_touchedFields[static::FIELD_EMAIL] = true;

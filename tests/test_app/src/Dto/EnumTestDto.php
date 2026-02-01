@@ -36,17 +36,17 @@ class EnumTestDto extends AbstractImmutableDto {
 	/**
 	 * @var \TestApp\Model\Enum\MyUnit|null
 	 */
-	protected $someUnit;
+	protected ?\TestApp\Model\Enum\MyUnit $someUnit = null;
 
 	/**
 	 * @var \TestApp\Model\Enum\MyStringBacked|null
 	 */
-	protected $someStringBacked;
+	protected ?\TestApp\Model\Enum\MyStringBacked $someStringBacked = null;
 
 	/**
 	 * @var \TestApp\Model\Enum\MyIntBacked|null
 	 */
-	protected $someIntBacked;
+	protected ?\TestApp\Model\Enum\MyIntBacked $someIntBacked = null;
 
 	/**
 	 * Some data is only for debugging for now.
@@ -201,7 +201,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return $this
 	 */
-	protected function setDefaults() {
+	protected function setDefaults(): static {
 
 		return $this;
 	}
@@ -222,7 +222,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeUnit(?\TestApp\Model\Enum\MyUnit $someUnit = null) {
+	public function withSomeUnit(?\TestApp\Model\Enum\MyUnit $someUnit = null): static {
 		$new = clone $this;
 		$new->someUnit = $someUnit;
 		$new->_touchedFields[static::FIELD_SOME_UNIT] = true;
@@ -235,7 +235,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit) {
+	public function withSomeUnitOrFail(\TestApp\Model\Enum\MyUnit $someUnit): static {
 		$new = clone $this;
 		$new->someUnit = $someUnit;
 		$new->_touchedFields[static::FIELD_SOME_UNIT] = true;
@@ -275,7 +275,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeStringBacked(?\TestApp\Model\Enum\MyStringBacked $someStringBacked = null) {
+	public function withSomeStringBacked(?\TestApp\Model\Enum\MyStringBacked $someStringBacked = null): static {
 		$new = clone $this;
 		$new->someStringBacked = $someStringBacked;
 		$new->_touchedFields[static::FIELD_SOME_STRING_BACKED] = true;
@@ -288,7 +288,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked) {
+	public function withSomeStringBackedOrFail(\TestApp\Model\Enum\MyStringBacked $someStringBacked): static {
 		$new = clone $this;
 		$new->someStringBacked = $someStringBacked;
 		$new->_touchedFields[static::FIELD_SOME_STRING_BACKED] = true;
@@ -328,7 +328,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeIntBacked(?\TestApp\Model\Enum\MyIntBacked $someIntBacked = null) {
+	public function withSomeIntBacked(?\TestApp\Model\Enum\MyIntBacked $someIntBacked = null): static {
 		$new = clone $this;
 		$new->someIntBacked = $someIntBacked;
 		$new->_touchedFields[static::FIELD_SOME_INT_BACKED] = true;
@@ -341,7 +341,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	 *
 	 * @return static
 	 */
-	public function withSomeIntBackedOrFail(\TestApp\Model\Enum\MyIntBacked $someIntBacked) {
+	public function withSomeIntBackedOrFail(\TestApp\Model\Enum\MyIntBacked $someIntBacked): static {
 		$new = clone $this;
 		$new->someIntBacked = $someIntBacked;
 		$new->_touchedFields[static::FIELD_SOME_INT_BACKED] = true;
