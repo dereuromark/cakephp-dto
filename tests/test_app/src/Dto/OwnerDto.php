@@ -180,11 +180,15 @@ class OwnerDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['name'])) {
-			$this->name = $data['name'];
+			/** @var string|null $value */
+			$value = $data['name'];
+			$this->name = $value;
 			$this->_touchedFields['name'] = true;
 		}
 		if (isset($data['insuranceProvider'])) {
-			$this->insuranceProvider = $data['insuranceProvider'];
+			/** @var string|null $value */
+			$value = $data['insuranceProvider'];
+			$this->insuranceProvider = $value;
 			$this->_touchedFields['insuranceProvider'] = true;
 		}
 		if (isset($data['attributes'])) {
@@ -192,6 +196,7 @@ class OwnerDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = \TestApp\ValueObject\KeyValuePair::createFromArray($value);
 			}
+			/** @var ?\TestApp\ValueObject\KeyValuePair $value */
 			$this->attributes = $value;
 			$this->_touchedFields['attributes'] = true;
 		}

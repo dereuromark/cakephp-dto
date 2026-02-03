@@ -148,15 +148,21 @@ class TagDto extends AbstractImmutableDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['id'])) {
-			$this->id = $data['id'];
+			/** @var int $value */
+			$value = $data['id'];
+			$this->id = $value;
 			$this->_touchedFields['id'] = true;
 		}
 		if (isset($data['name'])) {
-			$this->name = $data['name'];
+			/** @var string $value */
+			$value = $data['name'];
+			$this->name = $value;
 			$this->_touchedFields['name'] = true;
 		}
 		if (isset($data['weight'])) {
-			$this->weight = $data['weight'];
+			/** @var int $value */
+			$value = $data['weight'];
+			$this->weight = $value;
 			$this->_touchedFields['weight'] = true;
 		}
 	}

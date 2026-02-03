@@ -96,7 +96,9 @@ class BookDto extends AbstractImmutableDto {
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['pages'])) {
 			$items = [];
-			foreach ($data['pages'] as $item) {
+			/** @var array $dataItems */
+			$dataItems = $data['pages'];
+			foreach ($dataItems as $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\PageDto($item, true);
 				}

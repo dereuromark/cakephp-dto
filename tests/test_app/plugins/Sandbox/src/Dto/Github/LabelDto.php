@@ -120,11 +120,15 @@ class LabelDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['name'])) {
-			$this->name = $data['name'];
+			/** @var string|null $value */
+			$value = $data['name'];
+			$this->name = $value;
 			$this->_touchedFields['name'] = true;
 		}
 		if (isset($data['color'])) {
-			$this->color = $data['color'];
+			/** @var string|null $value */
+			$value = $data['color'];
+			$this->color = $value;
 			$this->_touchedFields['color'] = true;
 		}
 	}

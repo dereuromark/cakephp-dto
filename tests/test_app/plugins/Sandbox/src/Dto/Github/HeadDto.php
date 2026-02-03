@@ -176,11 +176,15 @@ class HeadDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['ref'])) {
-			$this->ref = $data['ref'];
+			/** @var string $value */
+			$value = $data['ref'];
+			$this->ref = $value;
 			$this->_touchedFields['ref'] = true;
 		}
 		if (isset($data['sha'])) {
-			$this->sha = $data['sha'];
+			/** @var string $value */
+			$value = $data['sha'];
+			$this->sha = $value;
 			$this->_touchedFields['sha'] = true;
 		}
 		if (isset($data['user'])) {
@@ -188,6 +192,7 @@ class HeadDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \Sandbox\Dto\Github\UserDto($value, true);
 			}
+			/** @var \Sandbox\Dto\Github\UserDto $value */
 			$this->user = $value;
 			$this->_touchedFields['user'] = true;
 		}
@@ -196,6 +201,7 @@ class HeadDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \Sandbox\Dto\Github\RepoDto($value, true);
 			}
+			/** @var \Sandbox\Dto\Github\RepoDto $value */
 			$this->repo = $value;
 			$this->_touchedFields['repo'] = true;
 		}

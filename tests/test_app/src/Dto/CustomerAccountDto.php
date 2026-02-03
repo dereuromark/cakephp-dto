@@ -150,11 +150,15 @@ class CustomerAccountDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['customerName'])) {
-			$this->customerName = $data['customerName'];
+			/** @var string $value */
+			$value = $data['customerName'];
+			$this->customerName = $value;
 			$this->_touchedFields['customerName'] = true;
 		}
 		if (isset($data['birthYear'])) {
-			$this->birthYear = $data['birthYear'];
+			/** @var int|null $value */
+			$value = $data['birthYear'];
+			$this->birthYear = $value;
 			$this->_touchedFields['birthYear'] = true;
 		}
 		if (isset($data['lastLogin'])) {

@@ -232,27 +232,39 @@ class IssueDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['id'])) {
-			$this->id = $data['id'];
+			/** @var string $value */
+			$value = $data['id'];
+			$this->id = $value;
 			$this->_touchedFields['id'] = true;
 		}
 		if (isset($data['key'])) {
-			$this->key = $data['key'];
+			/** @var string $value */
+			$value = $data['key'];
+			$this->key = $value;
 			$this->_touchedFields['key'] = true;
 		}
 		if (isset($data['status'])) {
-			$this->status = $data['status'];
+			/** @var string $value */
+			$value = $data['status'];
+			$this->status = $value;
 			$this->_touchedFields['status'] = true;
 		}
 		if (isset($data['priority'])) {
-			$this->priority = $data['priority'];
+			/** @var string $value */
+			$value = $data['priority'];
+			$this->priority = $value;
 			$this->_touchedFields['priority'] = true;
 		}
 		if (isset($data['summary'])) {
-			$this->summary = $data['summary'];
+			/** @var string $value */
+			$value = $data['summary'];
+			$this->summary = $value;
 			$this->_touchedFields['summary'] = true;
 		}
 		if (isset($data['version'])) {
-			$this->version = $data['version'];
+			/** @var string|null $value */
+			$value = $data['version'];
+			$this->version = $value;
 			$this->_touchedFields['version'] = true;
 		}
 	}

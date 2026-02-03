@@ -240,7 +240,9 @@ class ArticleDto extends AbstractImmutableDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['id'])) {
-			$this->id = $data['id'];
+			/** @var int $value */
+			$value = $data['id'];
+			$this->id = $value;
 			$this->_touchedFields['id'] = true;
 		}
 		if (isset($data['author'])) {
@@ -248,11 +250,14 @@ class ArticleDto extends AbstractImmutableDto {
 			if (is_array($value)) {
 				$value = new \TestApp\Dto\AuthorDto($value, true);
 			}
+			/** @var \TestApp\Dto\AuthorDto $value */
 			$this->author = $value;
 			$this->_touchedFields['author'] = true;
 		}
 		if (isset($data['title'])) {
-			$this->title = $data['title'];
+			/** @var string $value */
+			$value = $data['title'];
+			$this->title = $value;
 			$this->_touchedFields['title'] = true;
 		}
 		if (isset($data['created'])) {
@@ -266,7 +271,9 @@ class ArticleDto extends AbstractImmutableDto {
 		}
 		if (isset($data['tags'])) {
 			$collection = [];
-			foreach ($data['tags'] as $key => $item) {
+			/** @var array $dataItems */
+			$dataItems = $data['tags'];
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\TagDto($item, true);
 				}
@@ -276,7 +283,9 @@ class ArticleDto extends AbstractImmutableDto {
 			$this->_touchedFields['tags'] = true;
 		}
 		if (isset($data['meta'])) {
-			$this->meta = $data['meta'];
+			/** @var array<string, string> $value */
+			$value = $data['meta'];
+			$this->meta = $value;
 			$this->_touchedFields['meta'] = true;
 		}
 	}

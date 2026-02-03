@@ -182,15 +182,20 @@ class TransactionDto extends AbstractImmutableDto {
 			if (is_array($value)) {
 				$value = new \TestApp\Dto\CustomerAccountDto($value, true);
 			}
+			/** @var \TestApp\Dto\CustomerAccountDto $value */
 			$this->customerAccount = $value;
 			$this->_touchedFields['customerAccount'] = true;
 		}
 		if (isset($data['value'])) {
-			$this->value = $data['value'];
+			/** @var float $value */
+			$value = $data['value'];
+			$this->value = $value;
 			$this->_touchedFields['value'] = true;
 		}
 		if (isset($data['comment'])) {
-			$this->comment = $data['comment'];
+			/** @var string|null $value */
+			$value = $data['comment'];
+			$this->comment = $value;
 			$this->_touchedFields['comment'] = true;
 		}
 		if (isset($data['created'])) {

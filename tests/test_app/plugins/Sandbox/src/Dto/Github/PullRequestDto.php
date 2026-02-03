@@ -347,23 +347,33 @@ class PullRequestDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['url'])) {
-			$this->url = $data['url'];
+			/** @var string $value */
+			$value = $data['url'];
+			$this->url = $value;
 			$this->_touchedFields['url'] = true;
 		}
 		if (isset($data['number'])) {
-			$this->number = $data['number'];
+			/** @var int $value */
+			$value = $data['number'];
+			$this->number = $value;
 			$this->_touchedFields['number'] = true;
 		}
 		if (isset($data['state'])) {
-			$this->state = $data['state'];
+			/** @var string $value */
+			$value = $data['state'];
+			$this->state = $value;
 			$this->_touchedFields['state'] = true;
 		}
 		if (isset($data['title'])) {
-			$this->title = $data['title'];
+			/** @var string $value */
+			$value = $data['title'];
+			$this->title = $value;
 			$this->_touchedFields['title'] = true;
 		}
 		if (isset($data['body'])) {
-			$this->body = $data['body'];
+			/** @var string $value */
+			$value = $data['body'];
+			$this->body = $value;
 			$this->_touchedFields['body'] = true;
 		}
 		if (isset($data['user'])) {
@@ -371,16 +381,21 @@ class PullRequestDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \Sandbox\Dto\Github\UserDto($value, true);
 			}
+			/** @var \Sandbox\Dto\Github\UserDto $value */
 			$this->user = $value;
 			$this->_touchedFields['user'] = true;
 		}
 		if (isset($data['createdAt'])) {
-			$this->createdAt = $data['createdAt'];
+			/** @var string $value */
+			$value = $data['createdAt'];
+			$this->createdAt = $value;
 			$this->_touchedFields['createdAt'] = true;
 		}
 		if (isset($data['labels'])) {
 			$collection = [];
-			foreach ($data['labels'] as $key => $item) {
+			/** @var array $dataItems */
+			$dataItems = $data['labels'];
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \Sandbox\Dto\Github\LabelDto($item, true);
 				}
@@ -394,6 +409,7 @@ class PullRequestDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \Sandbox\Dto\Github\HeadDto($value, true);
 			}
+			/** @var ?\Sandbox\Dto\Github\HeadDto $value */
 			$this->head = $value;
 			$this->_touchedFields['head'] = true;
 		}
@@ -402,6 +418,7 @@ class PullRequestDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \Sandbox\Dto\Github\BaseDto($value, true);
 			}
+			/** @var ?\Sandbox\Dto\Github\BaseDto $value */
 			$this->base = $value;
 			$this->_touchedFields['base'] = true;
 		}

@@ -123,11 +123,15 @@ class MutableMetaDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['title'])) {
-			$this->title = $data['title'];
+			/** @var string $value */
+			$value = $data['title'];
+			$this->title = $value;
 			$this->_touchedFields['title'] = true;
 		}
 		if (isset($data['meta'])) {
-			$this->meta = $data['meta'];
+			/** @var array<string, string|null> $value */
+			$value = $data['meta'];
+			$this->meta = $value;
 			$this->_touchedFields['meta'] = true;
 		}
 	}

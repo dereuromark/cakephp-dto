@@ -268,23 +268,32 @@ class CarDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = \TestApp\ValueObject\Paint::createFromArray($value);
 			}
+			/** @var ?\TestApp\ValueObject\Paint $value */
 			$this->color = $value;
 			$this->_touchedFields['color'] = true;
 		}
 		if (isset($data['isNew'])) {
-			$this->isNew = $data['isNew'];
+			/** @var bool|null $value */
+			$value = $data['isNew'];
+			$this->isNew = $value;
 			$this->_touchedFields['isNew'] = true;
 		}
 		if (isset($data['value'])) {
-			$this->value = $data['value'];
+			/** @var float|null $value */
+			$value = $data['value'];
+			$this->value = $value;
 			$this->_touchedFields['value'] = true;
 		}
 		if (isset($data['distanceTravelled'])) {
-			$this->distanceTravelled = $data['distanceTravelled'];
+			/** @var int|null $value */
+			$value = $data['distanceTravelled'];
+			$this->distanceTravelled = $value;
 			$this->_touchedFields['distanceTravelled'] = true;
 		}
 		if (isset($data['attributes'])) {
-			$this->attributes = $data['attributes'];
+			/** @var array<int, string>|null $value */
+			$value = $data['attributes'];
+			$this->attributes = $value;
 			$this->_touchedFields['attributes'] = true;
 		}
 		if (isset($data['manufactured'])) {
@@ -301,6 +310,7 @@ class CarDto extends AbstractDto {
 			if (is_array($value)) {
 				$value = new \TestApp\Dto\OwnerDto($value, true);
 			}
+			/** @var ?\TestApp\Dto\OwnerDto $value */
 			$this->owner = $value;
 			$this->_touchedFields['owner'] = true;
 		}

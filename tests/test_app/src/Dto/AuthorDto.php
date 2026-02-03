@@ -148,15 +148,21 @@ class AuthorDto extends AbstractImmutableDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['id'])) {
-			$this->id = $data['id'];
+			/** @var int $value */
+			$value = $data['id'];
+			$this->id = $value;
 			$this->_touchedFields['id'] = true;
 		}
 		if (isset($data['name'])) {
-			$this->name = $data['name'];
+			/** @var string $value */
+			$value = $data['name'];
+			$this->name = $value;
 			$this->_touchedFields['name'] = true;
 		}
 		if (isset($data['email'])) {
-			$this->email = $data['email'];
+			/** @var string|null $value */
+			$value = $data['email'];
+			$this->email = $value;
 			$this->_touchedFields['email'] = true;
 		}
 	}

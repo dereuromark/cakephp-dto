@@ -147,15 +147,21 @@ class FlyingCarDto extends CarDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['maxAltitude'])) {
-			$this->maxAltitude = $data['maxAltitude'];
+			/** @var int|null $value */
+			$value = $data['maxAltitude'];
+			$this->maxAltitude = $value;
 			$this->_touchedFields['maxAltitude'] = true;
 		}
 		if (isset($data['maxSpeed'])) {
-			$this->maxSpeed = $data['maxSpeed'];
+			/** @var int $value */
+			$value = $data['maxSpeed'];
+			$this->maxSpeed = $value;
 			$this->_touchedFields['maxSpeed'] = true;
 		}
 		if (isset($data['complexAttributes'])) {
-			$this->complexAttributes = $data['complexAttributes'];
+			/** @var array|null $value */
+			$value = $data['complexAttributes'];
+			$this->complexAttributes = $value;
 			$this->_touchedFields['complexAttributes'] = true;
 		}
 	}

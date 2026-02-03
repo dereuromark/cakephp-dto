@@ -120,11 +120,15 @@ class PageDto extends AbstractImmutableDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['number'])) {
-			$this->number = $data['number'];
+			/** @var int $value */
+			$value = $data['number'];
+			$this->number = $value;
 			$this->_touchedFields['number'] = true;
 		}
 		if (isset($data['content'])) {
-			$this->content = $data['content'];
+			/** @var string|null $value */
+			$value = $data['content'];
+			$this->content = $value;
 			$this->_touchedFields['content'] = true;
 		}
 	}

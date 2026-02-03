@@ -93,7 +93,9 @@ class OldOneDto extends CarDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['name'])) {
-			$this->name = $data['name'];
+			/** @var string|null $value */
+			$value = $data['name'];
+			$this->name = $value;
 			$this->_touchedFields['name'] = true;
 		}
 	}

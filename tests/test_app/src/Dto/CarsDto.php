@@ -96,7 +96,9 @@ class CarsDto extends AbstractDto {
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['cars'])) {
 			$items = [];
-			foreach ($data['cars'] as $item) {
+			/** @var array $dataItems */
+			$dataItems = $data['cars'];
+			foreach ($dataItems as $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\CarDto($item, true);
 				}
