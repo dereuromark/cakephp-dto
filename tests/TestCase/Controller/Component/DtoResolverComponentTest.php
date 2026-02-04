@@ -8,7 +8,7 @@ use Cake\Event\Event;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use CakeDto\Controller\Component\DtoResolverComponent;
-use TestApp\Controller\DtoResolverController;
+use TestApp\Controller\DtoResolverComponentController;
 use TestApp\Dto\PageDto;
 
 class DtoResolverComponentTest extends TestCase {
@@ -22,7 +22,7 @@ class DtoResolverComponentTest extends TestCase {
 			'query' => ['number' => 2, 'content' => 'Hello'],
 		]);
 
-		$controller = new DtoResolverController($request);
+		$controller = new DtoResolverComponentController($request);
 		$registry = new ComponentRegistry($controller);
 		$component = new DtoResolverComponent($registry);
 

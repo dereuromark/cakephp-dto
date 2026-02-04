@@ -67,6 +67,9 @@ class DtoResolverComponent extends Component {
 	 */
 	protected function mapRequestToDto(ServerRequest $request, MapRequestDto $config): ServerRequest {
 		$dtoClass = $config->class;
+		if ($dtoClass === null) {
+			throw new InvalidArgumentException('DTO class is required for method-level MapRequestDto attributes.');
+		}
 		if (!class_exists($dtoClass) || !is_subclass_of($dtoClass, Dto::class)) {
 			throw new InvalidArgumentException('DTO class must extend ' . Dto::class . ': ' . $dtoClass);
 		}

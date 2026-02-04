@@ -558,9 +558,33 @@ if ($article->getAbbreviation()) {
 }
 ```
 
-### Controller DTO Resolution
+### Controller DTO Resolution (Method Signatures)
 
-Load the resolver component in your `AppController`:
+Use the controller factory trait in your application to enable DTO parameter resolution:
+
+```php
+use CakeDto\Controller\DtoControllerFactoryTrait;
+
+class Application extends BaseApplication {
+	use DtoControllerFactoryTrait;
+}
+```
+
+Then annotate action parameters with `#[MapRequestDto]`:
+
+```php
+use CakeDto\Attribute\MapRequestDto;
+use App\Dto\UserDto;
+
+public function add(#[MapRequestDto(source: MapRequestDto::SOURCE_BODY)] UserDto $dto): void {
+}
+```
+
+Sources: `body`, `query`, `request`, or `auto` (default).
+
+### Controller DTO Resolution (Request Attributes)
+
+If you prefer request attributes, load the resolver component in your `AppController`:
 
 ```php
 public function initialize(): void {
@@ -570,20 +594,18 @@ public function initialize(): void {
 }
 ```
 
-Use `#[MapRequestDto]` to build DTOs from request data:
+Use `#[MapRequestDto]` on the action method:
 
 ```php
 use CakeDto\Attribute\MapRequestDto;
 use App\Dto\UserDto;
 
-#[MapRequestDto(UserDto::class, source: MapRequestDto::SOURCE_BODY)]
+#[MapRequestDto(UserDto::class, source: MapRequestDto::SOURCE_BODY, name: 'user')]
 public function add(): void {
 	/** @var \App\Dto\UserDto $dto */
 	$dto = $this->getRequest()->getAttribute('user');
 }
 ```
-
-Sources: `body`, `query`, `request`, or `auto` (default). The default request attribute name is inferred from the DTO class (`UserDto` → `user`), or you can pass `name:` explicitly.
 
 ### Custom Collections
 By default, working with collections can look like this:

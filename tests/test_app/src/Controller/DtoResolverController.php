@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 namespace TestApp\Controller;
 
+use Cake\Controller\Controller;
+use Cake\Http\Response;
 use CakeDto\Attribute\MapRequestDto;
 use TestApp\Dto\PageDto;
 
-class DtoResolverController extends AppController {
+class DtoResolverController extends Controller {
 
-	#[MapRequestDto(PageDto::class, source: MapRequestDto::SOURCE_QUERY, name: 'page')]
-	public function create(): void {
+	public function create(#[MapRequestDto(source: MapRequestDto::SOURCE_QUERY)] PageDto $page): Response {
+		return $this->response->withStringBody((string)$page->getNumber());
 	}
 
 }
