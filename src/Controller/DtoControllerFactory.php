@@ -26,10 +26,8 @@ class DtoControllerFactory extends ControllerFactory {
 	protected function getActionArgs(Closure $action, array $passedParams): array {
 		$resolved = [];
 		$function = new ReflectionFunction($action);
+		/** @var \Cake\Http\ServerRequest $request */
 		$request = $this->controller->getRequest();
-		if (!$request instanceof ServerRequest) {
-			throw new InvalidParameterException(['template' => 'missing_parameter', 'parameter' => 'request']);
-		}
 
 		foreach ($function->getParameters() as $parameter) {
 			$attribute = $this->getDtoAttribute($parameter);
@@ -122,7 +120,7 @@ class DtoControllerFactory extends ControllerFactory {
 	 * @return \CakeDto\Attribute\MapRequestDto|null
 	 */
 	protected function getDtoAttribute(ReflectionParameter $parameter): ?MapRequestDto {
-		/** @var array<\CakeDto\Attribute\MapRequestDto> $attributes */
+		/** @var array<\ReflectionAttribute<\CakeDto\Attribute\MapRequestDto>> $attributes */
 		$attributes = $parameter->getAttributes(MapRequestDto::class, ReflectionAttribute::IS_INSTANCEOF);
 		foreach ($attributes as $attribute) {
 			return $attribute->newInstance();

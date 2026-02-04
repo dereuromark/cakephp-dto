@@ -8,8 +8,11 @@ use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Cake\Routing\RouteBuilder;
+use CakeDto\Controller\DtoControllerFactoryTrait;
 
 class Application extends BaseApplication {
+
+	use DtoControllerFactoryTrait;
 
 	/**
 	 * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class

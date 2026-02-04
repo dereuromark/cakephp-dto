@@ -21,7 +21,7 @@ class DtoControllerFactoryTest extends TestCase {
 		]);
 
 		$controller = new DtoResolverController($request);
-		$factory = new DtoControllerFactory((new Application())->getContainer());
+		$factory = new DtoControllerFactory((new Application(CONFIG))->getContainer());
 
 		$response = $factory->invoke($controller);
 
