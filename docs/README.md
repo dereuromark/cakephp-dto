@@ -560,7 +560,7 @@ if ($article->getAbbreviation()) {
 
 ### Controller DTO Resolution (Method Signatures)
 
-Use the controller factory trait in your application to enable DTO parameter resolution:
+Use the controller factory trait in your application to enable DTO parameter resolution (or extend `CakeDto\Application\DtoApplication`):
 
 ```php
 use CakeDto\Controller\DtoControllerFactoryTrait;
