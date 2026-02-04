@@ -69,7 +69,8 @@ If you are looking for some inspiration or maybe schemas for existing APIs, chec
 
 #### Limitations
 
-Currently, it can not read schema file `#ref` elements, and ignores them.
+The importer can resolve local `$ref` pointers (e.g. `#/definitions/...`).
+External file `$ref` pointers require a base path and are not supported through the web UI yet.
 Also:
 - fields must not be prefixed with `_`
 - field names are currently expected to be under_scored. Other types might work, but are not fully tested.
