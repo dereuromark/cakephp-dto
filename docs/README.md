@@ -558,6 +558,33 @@ if ($article->getAbbreviation()) {
 }
 ```
 
+### Controller DTO Resolution
+
+Load the resolver component in your `AppController`:
+
+```php
+public function initialize(): void {
+	parent::initialize();
+
+	$this->loadComponent('CakeDto.DtoResolver');
+}
+```
+
+Use `#[MapRequestDto]` to build DTOs from request data:
+
+```php
+use CakeDto\Attribute\MapRequestDto;
+use App\Dto\UserDto;
+
+#[MapRequestDto(UserDto::class, source: MapRequestDto::SOURCE_BODY)]
+public function add(): void {
+	/** @var \App\Dto\UserDto $dto */
+	$dto = $this->getRequest()->getAttribute('user');
+}
+```
+
+Sources: `body`, `query`, `request`, or `auto` (default). The default request attribute name is inferred from the DTO class (`UserDto` → `user`), or you can pass `name:` explicitly.
+
 ### Custom Collections
 By default, working with collections can look like this:
 ```php
