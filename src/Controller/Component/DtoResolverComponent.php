@@ -11,7 +11,7 @@ use Cake\Http\ServerRequest;
 use Cake\Utility\Inflector;
 use CakeDto\Attribute\MapRequestDto;
 use InvalidArgumentException;
-use PhpCollective\Dto\Dto\AbstractDto;
+use PhpCollective\Dto\Dto\Dto;
 use ReflectionAttribute;
 use ReflectionMethod;
 
@@ -67,8 +67,8 @@ class DtoResolverComponent extends Component {
 	 */
 	protected function mapRequestToDto(ServerRequest $request, MapRequestDto $config): ServerRequest {
 		$dtoClass = $config->class;
-		if (!class_exists($dtoClass) || !is_subclass_of($dtoClass, AbstractDto::class)) {
-			throw new InvalidArgumentException('DTO class must extend ' . AbstractDto::class . ': ' . $dtoClass);
+		if (!class_exists($dtoClass) || !is_subclass_of($dtoClass, Dto::class)) {
+			throw new InvalidArgumentException('DTO class must extend ' . Dto::class . ': ' . $dtoClass);
 		}
 
 		$data = $this->extractData($request, $config->source);
