@@ -558,6 +558,55 @@ if ($article->getAbbreviation()) {
 }
 ```
 
+### Controller DTO Resolution (Method Signatures)
+
+Use the controller factory trait in your application to enable DTO parameter resolution (or extend `CakeDto\Application\DtoApplication`):
+
+```php
+use CakeDto\Controller\DtoControllerFactoryTrait;
+
+class Application extends BaseApplication {
+	use DtoControllerFactoryTrait;
+}
+```
+
+Then annotate action parameters with `#[MapRequestDto]`:
+
+```php
+use CakeDto\Attribute\MapRequestDto;
+use App\Dto\UserDto;
+
+public function add(#[MapRequestDto(source: MapRequestDto::SOURCE_BODY)] UserDto $dto): void {
+}
+```
+
+Sources: `body`, `query`, `request`, or `auto` (default).
+
+### Controller DTO Resolution (Request Attributes)
+
+If you prefer request attributes, load the resolver component in your `AppController`:
+
+```php
+public function initialize(): void {
+	parent::initialize();
+
+	$this->loadComponent('CakeDto.DtoResolver');
+}
+```
+
+Use `#[MapRequestDto]` on the action method:
+
+```php
+use CakeDto\Attribute\MapRequestDto;
+use App\Dto\UserDto;
+
+#[MapRequestDto(UserDto::class, source: MapRequestDto::SOURCE_BODY, name: 'user')]
+public function add(): void {
+	/** @var \App\Dto\UserDto $dto */
+	$dto = $this->getRequest()->getAttribute('user');
+}
+```
+
 ### Custom Collections
 By default, working with collections can look like this:
 ```php
