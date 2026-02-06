@@ -43,7 +43,7 @@
 		"ext-libxml": "*",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"nette/neon": "^2.4 || ^3.2",
-		"phpunit/phpunit": "^11.5 || ^12.1"
+		"phpunit/phpunit": "^11.5 || ^12.1 || ^13.0"
 	},
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."

@@ -50,7 +50,7 @@ class DtoInitCommandTest extends TestCase {
 			mkdir($tmp, 0700, true);
 		}
 
-		$this->command->expects($this->any())->method('_getConfigPath')->willReturn($tmp);
+		$this->command->method('_getConfigPath')->willReturn($tmp);
 	}
 
 	/**

@@ -29,8 +29,8 @@ class GithubTest extends TestCase {
 
 		$sandboxPluginPath = TESTS . 'test_app' . DS . 'plugins' . DS . 'Sandbox' . DS;
 
-		$command->expects($this->any())->method('_getConfigPath')->willReturn($sandboxPluginPath . 'config' . DS);
-		$command->expects($this->any())->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
+		$command->method('_getConfigPath')->willReturn($sandboxPluginPath . 'config' . DS);
+		$command->method('_getSrcPath')->willReturn($sandboxPluginPath . 'src' . DS);
 
 		$options = ['verbose' => true, 'plugin' => 'Sandbox', 'dry-run' => true]; // ['generate', '-v', '-p', 'Sandbox', '-d'];
 		if (!empty($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'], true)) {
