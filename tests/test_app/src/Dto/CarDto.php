@@ -111,6 +111,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -127,6 +129,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'value' => [
 			'name' => 'value',
@@ -141,6 +145,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'distanceTravelled' => [
 			'name' => 'distanceTravelled',
@@ -155,6 +161,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'attributes' => [
 			'name' => 'attributes',
@@ -169,6 +177,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'manufactured' => [
 			'name' => 'manufactured',
@@ -183,6 +193,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],
@@ -199,6 +211,8 @@ class CarDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 	];
 

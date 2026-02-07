@@ -78,6 +78,8 @@ class RepoDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'htmlUrl' => [
 			'name' => 'htmlUrl',
@@ -92,6 +94,8 @@ class RepoDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'private' => [
 			'name' => 'private',
@@ -106,6 +110,8 @@ class RepoDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'owner' => [
 			'name' => 'owner',
@@ -120,6 +126,8 @@ class RepoDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 	];
 

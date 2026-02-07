@@ -83,13 +83,20 @@
 			$items = [];
 			/** @var array $dataItems */
 			$dataItems = $data['{{ field.name }}'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 {% if field.singularClass is defined and field.singularClass %}
 				if (is_array($item)) {
 					$item = new {{ field.singularClass }}($item, true);
 				}
 {% endif %}
-				$items[] = $item;
+{% if field.associative and field.key %}
+				if (is_array($data['{{ field.name }}'][$key]) && isset($data['{{ field.name }}'][$key]['{{ field.key }}'])) {
+					$key = $data['{{ field.name }}'][$key]['{{ field.key }}'];
+				}
+{% elseif field.associative %}
+				// Keep original key for associative collections without specific key field
+{% endif %}
+				$items[$key] = $item;
 			}
 			/** @var {{ field.type }} $collection */
 			$collection = new {{ field.collectionType }}($items);

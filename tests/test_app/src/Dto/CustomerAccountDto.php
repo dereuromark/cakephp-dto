@@ -67,6 +67,8 @@ class CustomerAccountDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'birthYear' => [
 			'name' => 'birthYear',
@@ -81,6 +83,8 @@ class CustomerAccountDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'lastLogin' => [
 			'name' => 'lastLogin',
@@ -95,6 +99,8 @@ class CustomerAccountDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'isClass' => true,
 			'enum' => null,
 		],

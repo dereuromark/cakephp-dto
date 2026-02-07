@@ -36,7 +36,7 @@
 		"cakephp/cakephp": "^5.1.1",
 		"cakephp/twig-view": "^2.0.1",
 		"sebastian/diff": "^6.0.0 || ^7.0.0",
-		"php-collective/dto": "^0.1.8"
+		"php-collective/dto": "^0.1.11"
 	},
 	"require-dev": {
 		"ext-dom": "*",
@@ -79,7 +79,5 @@
 		"lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev dereuromark/composer-prefer-lowest && mv composer.backup composer.json",
 		"test": "phpunit",
 		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml"
-	},
-	"repositories": {
 	}
 }

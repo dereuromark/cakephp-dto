@@ -56,6 +56,8 @@ class MutableMetaDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'meta' => [
 			'name' => 'meta',
@@ -70,6 +72,8 @@ class MutableMetaDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => 'string',
 			'singularNullable' => true,
 			'singularTypeHint' => 'string',

@@ -45,6 +45,8 @@ class BookDto extends AbstractImmutableDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => '\TestApp\Dto\PageDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\PageDto',
@@ -98,11 +100,11 @@ class BookDto extends AbstractImmutableDto {
 			$items = [];
 			/** @var array $dataItems */
 			$dataItems = $data['pages'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\PageDto($item, true);
 				}
-				$items[] = $item;
+				$items[$key] = $item;
 			}
 			/** @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $collection */
 			$collection = new \Cake\Collection\Collection($items);

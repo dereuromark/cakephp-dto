@@ -2,6 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
@@ -101,9 +102,13 @@ class BuilderTest extends TestCase {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $configPath . 'dto.xml');
 
+		// Suffix must be set before Builder construction as components are created in constructor
+		Configure::write('CakeDto.suffix', '');
+		$engine = new XmlEngine();
+		$builder = new Builder($engine);
+
 		$options = [];
-		$this->builder->setConfig('suffix', '');
-		$result = $this->builder->build($configPath, $options);
+		$result = $builder->build($configPath, $options);
 
 		$expected = [
 			'Car',
@@ -124,6 +129,9 @@ class BuilderTest extends TestCase {
 
 		$this->assertSame('\App\Dto\Owner', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\Owner', $result['Car']['fields']['owner']['nullableTypeHint']);
+
+		// Reset suffix to default to avoid polluting other tests
+		Configure::write('CakeDto.suffix', 'Dto');
 	}
 
 	/**
@@ -144,9 +152,13 @@ class BuilderTest extends TestCase {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $configPath . 'dto.xml');
 
+		// Suffix must be set before Builder construction as components are created in constructor
+		Configure::write('CakeDto.suffix', 'Data');
+		$engine = new XmlEngine();
+		$builder = new Builder($engine);
+
 		$options = [];
-		$this->builder->setConfig('suffix', 'Data');
-		$result = $this->builder->build($configPath, $options);
+		$result = $builder->build($configPath, $options);
 
 		$expected = [
 			'Car',
@@ -167,6 +179,9 @@ class BuilderTest extends TestCase {
 
 		$this->assertSame('\App\Dto\OwnerData', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerData', $result['Car']['fields']['owner']['nullableTypeHint']);
+
+		// Reset suffix to default to avoid polluting other tests
+		Configure::write('CakeDto.suffix', 'Dto');
 	}
 
 	/**
@@ -197,7 +212,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -221,6 +236,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\CodeDescriptionDto',
 				'singularClass' => '\App\Dto\CodeDescriptionDto',
 				'singular' => 'parentCategory',
@@ -251,6 +268,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'subCategory',
@@ -281,6 +300,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'brand',
@@ -343,7 +364,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -368,6 +389,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -393,6 +416,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -423,6 +448,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
@@ -454,6 +481,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'string',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
@@ -485,6 +514,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
@@ -516,6 +547,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
@@ -547,6 +580,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
@@ -569,10 +604,10 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid field name 'foo_bar' in 'FlyingCar' DTO.");
+		$this->expectExceptionMessage('Invalid field name `foo_bar` in `FlyingCar` DTO.');
 
 		$this->builder->build(TMP);
 	}
@@ -590,10 +625,10 @@ class BuilderTest extends TestCase {
 				'fields' => [],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: class 'C?r' does not exist.");
+		$this->expectExceptionMessage('Invalid `extends` attribute for `FlyingCar` DTO: class `C?r` does not exist.');
 
 		$this->builder->build(TMP);
 	}
@@ -611,10 +646,10 @@ class BuilderTest extends TestCase {
 				'fields' => [],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: class 'Car' does not exist.");
+		$this->expectExceptionMessage('Invalid `extends` attribute for `FlyingCar` DTO: class `Car` does not exist.');
 
 		$this->builder->build(TMP);
 	}
@@ -632,7 +667,7 @@ class BuilderTest extends TestCase {
 				'fields' => [],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 		$this->assertSame(CarDto::class, $result['FlyingCar']['extends']);
@@ -652,10 +687,10 @@ class BuilderTest extends TestCase {
 				'fields' => [],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: 'TestApp\DtoCustom\DummyNonDtoClass' must extend PhpCollective\Dto\Dto\AbstractDto.");
+		$this->expectExceptionMessage('Invalid `extends` attribute for `FlyingCar` DTO: `TestApp\\DtoCustom\\DummyNonDtoClass` must extend PhpCollective\\Dto\\Dto\\AbstractDto.');
 
 		$this->builder->build(TMP);
 	}
@@ -673,10 +708,10 @@ class BuilderTest extends TestCase {
 				'fields' => [],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid 'extends' attribute for 'FlyingCar' DTO: 'TestApp\Dto\AuthorDto' is immutable.");
+		$this->expectExceptionMessage('Invalid `extends` attribute for `FlyingCar` DTO: `TestApp\\Dto\\AuthorDto` is immutable.');
 
 		$this->builder->build(TMP);
 	}
@@ -703,10 +738,10 @@ class BuilderTest extends TestCase {
 				'name' => 'Wheel',
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid collection type 'Wheel' for field 'wheels' in 'FlyingCar' DTO.");
+		$this->expectExceptionMessage('Invalid collection type `Wheel` for field `wheels` in `FlyingCar` DTO.');
 
 		$this->builder->build(TMP);
 	}
@@ -732,7 +767,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -758,6 +793,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -784,6 +821,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
@@ -814,7 +853,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -841,6 +880,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
 
@@ -867,6 +908,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
 
@@ -893,6 +936,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
@@ -920,10 +965,10 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Invalid singular name 'person' for collection field 'persons' in 'Demo' DTO.");
+		$this->expectExceptionMessage('Invalid singular name `person` for collection field `persons` in `Demo` DTO.');
 
 		$this->builder->build(TMP);
 	}
@@ -950,10 +995,10 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage("Auto-generated singular 'item' for collection field 'items' in 'Demo' DTO collides with existing field.");
+		$this->expectExceptionMessage('Auto-generated singular `item` for collection field `items` in `Demo` DTO collides with existing field.');
 
 		$this->builder->build(TMP);
 	}
@@ -977,7 +1022,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -1003,7 +1048,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -1028,7 +1073,7 @@ class BuilderTest extends TestCase {
 				],
 			],
 		];
-		$this->builder->method('_merge')->willReturn($result);
+		$this->builder->method('mergeConfigs')->willReturn($result);
 
 		$result = $this->builder->build(TMP);
 
@@ -1040,8 +1085,8 @@ class BuilderTest extends TestCase {
 	 */
 	protected function createBuilder(): Builder {
 		$engine = $this->getMockBuilder(EngineInterface::class)->getMock();
-		$builder = $this->getMockBuilder(Builder::class)->onlyMethods(['_merge', '_getFiles'])->setConstructorArgs([$engine])->getMock();
-		$builder->method('_getFiles')->willReturn([]);
+		$builder = $this->getMockBuilder(Builder::class)->onlyMethods(['mergeConfigs', 'getFiles'])->setConstructorArgs([$engine])->getMock();
+		$builder->method('getFiles')->willReturn([]);
 
 		return $builder;
 	}

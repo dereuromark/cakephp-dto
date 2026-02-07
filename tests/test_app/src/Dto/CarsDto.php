@@ -45,6 +45,8 @@ class CarsDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => '\TestApp\Dto\CarDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\CarDto',
@@ -98,11 +100,12 @@ class CarsDto extends AbstractDto {
 			$items = [];
 			/** @var array $dataItems */
 			$dataItems = $data['cars'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\CarDto($item, true);
 				}
-				$items[] = $item;
+				// Keep original key for associative collections without specific key field
+				$items[$key] = $item;
 			}
 			/** @var \TestApp\Dto\CarDto[]|\ArrayObject $collection */
 			$collection = new \ArrayObject($items);

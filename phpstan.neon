@@ -13,3 +13,4 @@ parameters:
 		-
 			identifier: method.childReturnType
 			path: src/View/DtoView.php
+			reportUnmatched: false

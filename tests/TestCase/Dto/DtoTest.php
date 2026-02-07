@@ -303,6 +303,7 @@ class DtoTest extends TestCase {
 		$expected = '{"color":{"red":12,"green":13,"blue":14},"distanceTravelled":11,"owner":{"name":"Foo"}}';
 		$this->assertSame($expected, $result);
 
+		$carDto = new CarDto();
 		$carDto->unserialize($expected);
 		$this->assertSame(11, $carDto->getDistanceTravelledOrFail());
 
@@ -327,21 +328,21 @@ class DtoTest extends TestCase {
 		$expected = '{"cars":{"one":{"distanceTravelled":123},"two":{"distanceTravelled":234},"three":{"distanceTravelled":345}}}';
 		$this->assertSame($expected, $result);
 
+		$carsDto = new CarsDto();
 		$carsDto->unserialize($expected);
-		$this->assertSame(123, $carsDto->getCars()[0]->getDistanceTravelledOrFail());
-		$this->assertSame(234, $carsDto->getCars()[1]->getDistanceTravelledOrFail());
-		$this->assertSame(345, $carsDto->getCars()[2]->getDistanceTravelledOrFail());
+		$this->assertSame(123, $carsDto->getCars()['one']->getDistanceTravelledOrFail());
+		$this->assertSame(234, $carsDto->getCars()['two']->getDistanceTravelledOrFail());
+		$this->assertSame(345, $carsDto->getCars()['three']->getDistanceTravelledOrFail());
 	}
 
 	/**
 	 * @return void
 	 */
 	public function testUnserialize() {
-		$carDto = new CarDto();
-
 		$serializedDto = '{"distanceTravelled":11}';
 
-		$carDto = $carDto->unserialize($serializedDto);
+		$carDto = new CarDto();
+		$carDto->unserialize($serializedDto);
 		$this->assertSame(11, $carDto->getDistanceTravelledOrFail());
 	}
 
