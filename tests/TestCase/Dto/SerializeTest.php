@@ -29,7 +29,7 @@ class SerializeTest extends TestCase {
 		];
 		$this->assertSame($attributes, $newArray['attributes']);
 
-		$serialized = $owner->serialize();
+		$serialized = json_encode($owner->touchedToArray());
 		$expected = '{"name":"My Name","attributes":{"key":"x","value":"y"}}';
 		$this->assertSame($expected, $serialized);
 

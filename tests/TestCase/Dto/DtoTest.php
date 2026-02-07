@@ -298,12 +298,12 @@ class DtoTest extends TestCase {
 		$ownerDto->setName('Foo');
 		$carDto->setOwner($ownerDto);
 
-		$result = $carDto->serialize();
+		$result = json_encode($carDto->touchedToArray());
 
 		$expected = '{"color":{"red":12,"green":13,"blue":14},"distanceTravelled":11,"owner":{"name":"Foo"}}';
 		$this->assertSame($expected, $result);
 
-		$carDto->unserialize($expected);
+		$carDto = CarDto::fromUnserialized($expected);
 		$this->assertSame(11, $carDto->getDistanceTravelledOrFail());
 
 		$this->assertInstanceOf(Paint::class, $carDto->getColorOrFail());
@@ -322,12 +322,12 @@ class DtoTest extends TestCase {
 		$carsDto->addCar('two', new CarDto(['distanceTravelled' => 234]));
 		$carsDto->addCar('three', new CarDto(['distanceTravelled' => 345]));
 
-		$result = $carsDto->serialize();
+		$result = json_encode($carsDto->touchedToArray());
 
 		$expected = '{"cars":{"one":{"distanceTravelled":123},"two":{"distanceTravelled":234},"three":{"distanceTravelled":345}}}';
 		$this->assertSame($expected, $result);
 
-		$carsDto->unserialize($expected);
+		$carsDto = CarsDto::fromUnserialized($expected);
 		$this->assertSame(123, $carsDto->getCars()[0]->getDistanceTravelledOrFail());
 		$this->assertSame(234, $carsDto->getCars()[1]->getDistanceTravelledOrFail());
 		$this->assertSame(345, $carsDto->getCars()[2]->getDistanceTravelledOrFail());
@@ -337,11 +337,9 @@ class DtoTest extends TestCase {
 	 * @return void
 	 */
 	public function testUnserialize() {
-		$carDto = new CarDto();
-
 		$serializedDto = '{"distanceTravelled":11}';
 
-		$carDto = $carDto->unserialize($serializedDto);
+		$carDto = CarDto::fromUnserialized($serializedDto);
 		$this->assertSame(11, $carDto->getDistanceTravelledOrFail());
 	}
 

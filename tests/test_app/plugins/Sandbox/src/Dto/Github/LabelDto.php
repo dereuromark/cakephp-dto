@@ -56,6 +56,8 @@ class LabelDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'color' => [
 			'name' => 'color',
@@ -70,6 +72,8 @@ class LabelDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 	];
 

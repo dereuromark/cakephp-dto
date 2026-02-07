@@ -45,6 +45,8 @@ class CarsDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => '\TestApp\Dto\CarDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\CarDto',

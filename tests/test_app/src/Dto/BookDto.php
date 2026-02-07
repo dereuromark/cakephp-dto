@@ -45,6 +45,8 @@ class BookDto extends AbstractImmutableDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => '\TestApp\Dto\PageDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\TestApp\Dto\PageDto',

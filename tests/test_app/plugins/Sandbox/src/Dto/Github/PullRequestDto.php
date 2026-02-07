@@ -18,7 +18,7 @@ use PhpCollective\Dto\Dto\AbstractDto;
  * @property string $body
  * @property \Sandbox\Dto\Github\UserDto $user
  * @property string $createdAt
- * @property array<string, \Sandbox\Dto\Github\LabelDto> $labels
+ * @property \ArrayObject<string, \Sandbox\Dto\Github\LabelDto> $labels
  * @property \Sandbox\Dto\Github\HeadDto|null $head
  * @property \Sandbox\Dto\Github\BaseDto|null $base
  */
@@ -111,7 +111,7 @@ class PullRequestDto extends AbstractDto {
 	protected $createdAt;
 
 	/**
-	 * @var array<string, \Sandbox\Dto\Github\LabelDto>
+	 * @var \ArrayObject<string, \Sandbox\Dto\Github\LabelDto>
 	 */
 	protected $labels;
 
@@ -144,6 +144,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'number' => [
 			'name' => 'number',
@@ -158,6 +160,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'state' => [
 			'name' => 'state',
@@ -172,6 +176,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'title' => [
 			'name' => 'title',
@@ -186,6 +192,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'body' => [
 			'name' => 'body',
@@ -200,6 +208,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'user' => [
 			'name' => 'user',
@@ -214,6 +224,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'createdAt' => [
 			'name' => 'createdAt',
@@ -228,20 +240,24 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'labels' => [
 			'name' => 'labels',
-			'type' => '\Sandbox\Dto\Github\LabelDto[]',
+			'type' => '\Sandbox\Dto\Github\LabelDto[]|\ArrayObject',
 			'associative' => true,
 			'key' => 'name',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
-			'collectionType' => 'array',
+			'collectionType' => '\ArrayObject',
 			'serialize' => null,
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'singularType' => '\Sandbox\Dto\Github\LabelDto',
 			'singularNullable' => false,
 			'singularTypeHint' => '\Sandbox\Dto\Github\LabelDto',
@@ -259,6 +275,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 		'base' => [
 			'name' => 'base',
@@ -273,6 +291,8 @@ class PullRequestDto extends AbstractDto {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		],
 	];
 
@@ -392,15 +412,17 @@ class PullRequestDto extends AbstractDto {
 			$this->_touchedFields['createdAt'] = true;
 		}
 		if (isset($data['labels'])) {
-			$collection = [];
+			$items = [];
 			/** @var array $dataItems */
 			$dataItems = $data['labels'];
-			foreach ($dataItems as $key => $item) {
+			foreach ($dataItems as $item) {
 				if (is_array($item)) {
 					$item = new \Sandbox\Dto\Github\LabelDto($item, true);
 				}
-				$collection[$key] = $item;
+				$items[] = $item;
 			}
+			/** @var \Sandbox\Dto\Github\LabelDto[]|\ArrayObject $collection */
+			$collection = new \ArrayObject($items);
 			$this->labels = $collection;
 			$this->_touchedFields['labels'] = true;
 		}
@@ -438,16 +460,13 @@ class PullRequestDto extends AbstractDto {
 			'body' => $this->body,
 			'user' => $this->user !== null ? $this->user->toArray() : null,
 			'createdAt' => $this->createdAt,
-			'labels' => (static function (?array $a): array {
-				if (!$a) {
-					return [];
-				}
+			'labels' => $this->labels !== null ? (static function (\Traversable $c): array {
 				$r = [];
-				foreach ($a as $k => $v) {
+				foreach ($c as $k => $v) {
 					$r[$k] = $v->toArray();
 				}
 				return $r;
-			})($this->labels),
+			})($this->labels) : [],
 			'head' => $this->head !== null ? $this->head->toArray() : null,
 			'base' => $this->base !== null ? $this->base->toArray() : null,
 		];
@@ -685,11 +704,11 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @param array<string, \Sandbox\Dto\Github\LabelDto> $labels
+	 * @param \ArrayObject<string, \Sandbox\Dto\Github\LabelDto> $labels
 	 *
 	 * @return $this
 	 */
-	public function setLabels(array $labels): static {
+	public function setLabels(\ArrayObject $labels): static {
 		$this->labels = $labels;
 		$this->_touchedFields[static::FIELD_LABELS] = true;
 
@@ -697,11 +716,11 @@ class PullRequestDto extends AbstractDto {
 	}
 
 	/**
-	 * @return array<string, \Sandbox\Dto\Github\LabelDto>
+	 * @return \ArrayObject<string, \Sandbox\Dto\Github\LabelDto>
 	 */
-	public function getLabels(): array {
+	public function getLabels(): \ArrayObject {
 		if ($this->labels === null) {
-			return [];
+			return new \ArrayObject([]);
 		}
 
 		return $this->labels;
@@ -730,7 +749,7 @@ class PullRequestDto extends AbstractDto {
 			return false;
 		}
 
-		return count($this->labels) > 0;
+		return $this->labels->count() > 0;
 	}
 
 	/**
@@ -748,7 +767,7 @@ class PullRequestDto extends AbstractDto {
 	 */
 	public function addLabel(string $key, \Sandbox\Dto\Github\LabelDto $label): static {
 		if ($this->labels === null) {
-			$this->labels = [];
+			$this->labels = new \ArrayObject([]);
 		}
 
 		$this->labels[$key] = $label;
