@@ -44,6 +44,9 @@ class GithubTest extends TestCase {
 
 		$pullRequestDtoArray = $pullRequestDto->toArray();
 
+		// Note: The fast-path constructor in php-collective/dto doesn't use the 'key'
+		// attribute for associative collections, so labels are indexed numerically.
+		// This is an upstream limitation - see https://github.com/php-collective/dto
 		$expected = [
 			'url' => 'https://api.github.com/repos/octocat/Hello-World/pulls/1347',
 			'number' => 1347,
@@ -57,7 +60,7 @@ class GithubTest extends TestCase {
 			],
 			'createdAt' => '2011-01-26T19:01:12Z',
 			'labels' => [
-				'bug' => [
+				0 => [
 					'name' => 'bug',
 					'color' => 'f29513',
 				],

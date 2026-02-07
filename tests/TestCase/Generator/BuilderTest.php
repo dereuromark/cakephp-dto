@@ -2,6 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Generator;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Filesystem\Folder;
 use CakeDto\Generator\Builder;
@@ -101,9 +102,13 @@ class BuilderTest extends TestCase {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $configPath . 'dto.xml');
 
+		// Suffix must be set before Builder construction as components are created in constructor
+		Configure::write('CakeDto.suffix', '');
+		$engine = new XmlEngine();
+		$builder = new Builder($engine);
+
 		$options = [];
-		$this->builder->setConfig('suffix', '');
-		$result = $this->builder->build($configPath, $options);
+		$result = $builder->build($configPath, $options);
 
 		$expected = [
 			'Car',
@@ -124,6 +129,9 @@ class BuilderTest extends TestCase {
 
 		$this->assertSame('\App\Dto\Owner', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\Owner', $result['Car']['fields']['owner']['nullableTypeHint']);
+
+		// Reset suffix to default to avoid polluting other tests
+		Configure::write('CakeDto.suffix', 'Dto');
 	}
 
 	/**
@@ -144,9 +152,13 @@ class BuilderTest extends TestCase {
 		$exampleXml = ROOT . DS . 'docs/examples/basic.dto.xml';
 		copy($exampleXml, $configPath . 'dto.xml');
 
+		// Suffix must be set before Builder construction as components are created in constructor
+		Configure::write('CakeDto.suffix', 'Data');
+		$engine = new XmlEngine();
+		$builder = new Builder($engine);
+
 		$options = [];
-		$this->builder->setConfig('suffix', 'Data');
-		$result = $this->builder->build($configPath, $options);
+		$result = $builder->build($configPath, $options);
 
 		$expected = [
 			'Car',
@@ -167,6 +179,9 @@ class BuilderTest extends TestCase {
 
 		$this->assertSame('\App\Dto\OwnerData', $result['Car']['fields']['owner']['typeHint']);
 		$this->assertSame('?\App\Dto\OwnerData', $result['Car']['fields']['owner']['nullableTypeHint']);
+
+		// Reset suffix to default to avoid polluting other tests
+		Configure::write('CakeDto.suffix', 'Dto');
 	}
 
 	/**
@@ -221,6 +236,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\CodeDescriptionDto',
 				'singularClass' => '\App\Dto\CodeDescriptionDto',
 				'singular' => 'parentCategory',
@@ -251,6 +268,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'subCategory',
@@ -281,6 +300,8 @@ class BuilderTest extends TestCase {
 				'factory' => null,
 				'mapFrom' => null,
 				'mapTo' => null,
+				'transformFrom' => null,
+				'transformTo' => null,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'brand',
@@ -368,6 +389,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -393,6 +416,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -423,6 +448,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
@@ -454,6 +481,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'string',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
@@ -485,6 +514,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
@@ -516,6 +547,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
@@ -547,6 +580,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
@@ -758,6 +793,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -784,6 +821,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
@@ -841,6 +880,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
 
@@ -867,6 +908,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
 
@@ -893,6 +936,8 @@ class BuilderTest extends TestCase {
 			'factory' => null,
 			'mapFrom' => null,
 			'mapTo' => null,
+			'transformFrom' => null,
+			'transformTo' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
