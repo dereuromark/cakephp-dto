@@ -9,7 +9,3 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
-		# CakePHP framework covariance issue with EventInterface generics
-		-
-			identifier: method.childReturnType
-			path: src/View/DtoView.php
