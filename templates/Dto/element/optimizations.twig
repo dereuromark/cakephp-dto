@@ -80,7 +80,7 @@
 		}
 {% elseif field.collection and field.collectionType != 'array' %}
 		if (isset($data['{{ field.name }}'])) {
-			$collection = new {{ field.collectionType }}();
+			$items = [];
 			/** @var array $dataItems */
 			$dataItems = $data['{{ field.name }}'];
 			foreach ($dataItems as $key => $item) {
@@ -93,11 +93,13 @@
 				if (is_array($data['{{ field.name }}'][$key]) && isset($data['{{ field.name }}'][$key]['{{ field.key }}'])) {
 					$key = $data['{{ field.name }}'][$key]['{{ field.key }}'];
 				}
-				$collection[$key] = $item;
-{% else %}
-				$collection->append($item);
+{% elseif field.associative %}
+				// Keep original key for associative collections without specific key field
 {% endif %}
+				$items[$key] = $item;
 			}
+			/** @var {{ field.type }} $collection */
+			$collection = new {{ field.collectionType }}($items);
 			$this->{{ field.name }} = $collection;
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}
