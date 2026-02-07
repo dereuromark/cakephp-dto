@@ -36,7 +36,7 @@
 		"cakephp/cakephp": "^5.1.1",
 		"cakephp/twig-view": "^2.0.1",
 		"sebastian/diff": "^6.0.0 || ^7.0.0",
-		"php-collective/dto": "^0.1.10"
+		"php-collective/dto": "dev-feature/serialize-convenience-methods as 0.1.11"
 	},
 	"require-dev": {
 		"ext-dom": "*",
@@ -48,7 +48,7 @@
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
 	},
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
@@ -80,6 +80,10 @@
 		"test": "phpunit",
 		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml"
 	},
-	"repositories": {
-	}
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/php-collective/dto"
+		}
+	]
 }
