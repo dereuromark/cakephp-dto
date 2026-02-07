@@ -48,7 +48,7 @@
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
