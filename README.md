@@ -29,6 +29,8 @@ Especially with modern PHP and more strict typehinting moving forward this is ra
 
 This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
 
+CakePHP integration for [php-collective/dto](https://github.com/php-collective/dto).
+
 This branch is for use with **CakePHP 5.1+**. For details see [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map).
 
 ## Examples
