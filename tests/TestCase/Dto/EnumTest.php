@@ -33,7 +33,7 @@ class EnumTest extends TestCase {
 		$testArray[EnumTestDto::FIELD_SOME_UNIT] = 'Y';
 		$this->assertSame($testArray, $newArray);
 
-		$serialized = json_encode($dto->touchedToArray());
+		$serialized = $dto->serialize();
 		$expected = '{"someUnit":"Y","someStringBacked":"b","someIntBacked":1}';
 		$this->assertSame($expected, $serialized);
 

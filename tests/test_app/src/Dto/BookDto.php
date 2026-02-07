@@ -97,17 +97,15 @@ class BookDto extends AbstractImmutableDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['pages'])) {
-			$items = [];
+			$collection = new \Cake\Collection\Collection();
 			/** @var array $dataItems */
 			$dataItems = $data['pages'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\PageDto($item, true);
 				}
-				$items[] = $item;
+				$collection->append($item);
 			}
-			/** @var \TestApp\Dto\PageDto[]|\Cake\Collection\Collection $collection */
-			$collection = new \Cake\Collection\Collection($items);
 			$this->pages = $collection;
 			$this->_touchedFields['pages'] = true;
 		}

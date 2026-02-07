@@ -29,11 +29,12 @@ class SerializeTest extends TestCase {
 		];
 		$this->assertSame($attributes, $newArray['attributes']);
 
-		$serialized = json_encode($owner->touchedToArray());
+		$serialized = $owner->serialize();
 		$expected = '{"name":"My Name","attributes":{"key":"x","value":"y"}}';
 		$this->assertSame($expected, $serialized);
 
-		$unserialized = OwnerDto::fromUnserialized($serialized);
+		$unserialized = new OwnerDto();
+		$unserialized->unserialize($serialized);
 		$this->assertSame($newArray, $unserialized->toArray());
 	}
 

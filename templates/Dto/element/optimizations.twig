@@ -80,19 +80,24 @@
 		}
 {% elseif field.collection and field.collectionType != 'array' %}
 		if (isset($data['{{ field.name }}'])) {
-			$items = [];
+			$collection = new {{ field.collectionType }}();
 			/** @var array $dataItems */
 			$dataItems = $data['{{ field.name }}'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 {% if field.singularClass is defined and field.singularClass %}
 				if (is_array($item)) {
 					$item = new {{ field.singularClass }}($item, true);
 				}
 {% endif %}
-				$items[] = $item;
+{% if field.associative and field.key %}
+				if (is_array($data['{{ field.name }}'][$key]) && isset($data['{{ field.name }}'][$key]['{{ field.key }}'])) {
+					$key = $data['{{ field.name }}'][$key]['{{ field.key }}'];
+				}
+				$collection[$key] = $item;
+{% else %}
+				$collection->append($item);
+{% endif %}
 			}
-			/** @var {{ field.type }} $collection */
-			$collection = new {{ field.collectionType }}($items);
 			$this->{{ field.name }} = $collection;
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}

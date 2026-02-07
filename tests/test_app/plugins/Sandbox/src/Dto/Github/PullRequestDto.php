@@ -412,17 +412,18 @@ class PullRequestDto extends AbstractDto {
 			$this->_touchedFields['createdAt'] = true;
 		}
 		if (isset($data['labels'])) {
-			$items = [];
+			$collection = new \ArrayObject();
 			/** @var array $dataItems */
 			$dataItems = $data['labels'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \Sandbox\Dto\Github\LabelDto($item, true);
 				}
-				$items[] = $item;
+				if (is_array($data['labels'][$key]) && isset($data['labels'][$key]['name'])) {
+					$key = $data['labels'][$key]['name'];
+				}
+				$collection[$key] = $item;
 			}
-			/** @var \Sandbox\Dto\Github\LabelDto[]|\ArrayObject $collection */
-			$collection = new \ArrayObject($items);
 			$this->labels = $collection;
 			$this->_touchedFields['labels'] = true;
 		}

@@ -97,17 +97,15 @@ class CarsDto extends AbstractDto {
 	 */
 	protected function setFromArrayFast(array $data): void {
 		if (isset($data['cars'])) {
-			$items = [];
+			$collection = new \ArrayObject();
 			/** @var array $dataItems */
 			$dataItems = $data['cars'];
-			foreach ($dataItems as $item) {
+			foreach ($dataItems as $key => $item) {
 				if (is_array($item)) {
 					$item = new \TestApp\Dto\CarDto($item, true);
 				}
-				$items[] = $item;
+				$collection->append($item);
 			}
-			/** @var \TestApp\Dto\CarDto[]|\ArrayObject $collection */
-			$collection = new \ArrayObject($items);
 			$this->cars = $collection;
 			$this->_touchedFields['cars'] = true;
 		}
