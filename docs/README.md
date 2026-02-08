@@ -1051,6 +1051,48 @@ See [Examples](Examples.md) for basic, immutable and complex entity use cases.
 ## Generating from JSON
 See [Generating from JSON](Generating.md)
 
+## Validation Bridge
+
+The `DtoValidator` class bridges DTO validation rules into CakePHP's `Validator`, allowing you to
+validate request data against the rules defined in your DTOs.
+
+### Usage
+
+```php
+use CakeDto\Validation\DtoValidator;
+use App\Dto\UserDto;
+
+$validator = DtoValidator::fromDto(new UserDto());
+$errors = $validator->validate($this->request->getData());
+if ($errors) {
+    // Handle validation errors
+}
+```
+
+The validation rules come from the DTO's `validationRules()` method (provided by the core dto library).
+For example, a DTO might define:
+
+```php
+public function validationRules(): array {
+    return [
+        'name' => ['required' => true, 'minLength' => 2, 'maxLength' => 50],
+        'email' => ['pattern' => '/^[^@]+@[^@]+$/'],
+        'age' => ['min' => 0, 'max' => 150],
+    ];
+}
+```
+
+### Rule Mappings
+
+| DTO Rule    | CakePHP Validator Method              |
+|-------------|---------------------------------------|
+| `required`  | `requirePresence()` + `notEmptyString()` |
+| `minLength` | `minLength()`                         |
+| `maxLength` | `maxLength()`                         |
+| `min`       | `greaterThanOrEqual()`                |
+| `max`       | `lessThanOrEqual()`                   |
+| `pattern`   | `regex()`                             |
+
 ## TODOs
 
 See https://github.com/dereuromark/cakephp-dto/wiki and open issues.
