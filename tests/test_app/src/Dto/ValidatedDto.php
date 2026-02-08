@@ -104,8 +104,9 @@ class ValidatedDto extends AbstractDto {
 	}
 
 	/**
-	 * @param array<string, mixed> $data
-	 * @param bool $ignoreMissing
+	 * @param string|null $type
+	 * @param array<string>|null $fields
+	 * @param bool $touched
 	 *
 	 * @return array<string, mixed>
 	 */
