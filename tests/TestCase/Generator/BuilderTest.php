@@ -238,6 +238,12 @@ class BuilderTest extends TestCase {
 				'mapTo' => null,
 				'transformFrom' => null,
 				'transformTo' => null,
+				'minLength' => null,
+				'maxLength' => null,
+				'min' => null,
+				'max' => null,
+				'pattern' => null,
+				'lazy' => false,
 				'singularType' => '\App\Dto\CodeDescriptionDto',
 				'singularClass' => '\App\Dto\CodeDescriptionDto',
 				'singular' => 'parentCategory',
@@ -270,6 +276,12 @@ class BuilderTest extends TestCase {
 				'mapTo' => null,
 				'transformFrom' => null,
 				'transformTo' => null,
+				'minLength' => null,
+				'maxLength' => null,
+				'min' => null,
+				'max' => null,
+				'pattern' => null,
+				'lazy' => false,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'subCategory',
@@ -302,6 +314,12 @@ class BuilderTest extends TestCase {
 				'mapTo' => null,
 				'transformFrom' => null,
 				'transformTo' => null,
+				'minLength' => null,
+				'maxLength' => null,
+				'min' => null,
+				'max' => null,
+				'pattern' => null,
+				'lazy' => false,
 				'singularType' => '\App\Dto\FilterElementDto',
 				'singularClass' => '\App\Dto\FilterElementDto',
 				'singular' => 'brand',
@@ -391,6 +409,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -418,6 +442,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -450,6 +480,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
@@ -483,6 +519,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 			'keyType' => 'string',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
@@ -516,6 +558,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
@@ -549,6 +597,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
@@ -582,6 +636,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 			'keyType' => 'int',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
@@ -795,6 +855,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -823,6 +889,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
@@ -882,6 +954,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
 
@@ -910,6 +988,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
 
@@ -938,6 +1022,12 @@ class BuilderTest extends TestCase {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
