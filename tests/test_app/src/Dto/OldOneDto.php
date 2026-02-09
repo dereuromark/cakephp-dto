@@ -48,6 +48,12 @@ class OldOneDto extends CarDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 	];
 

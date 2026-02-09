@@ -68,6 +68,12 @@ class FlyingCarDto extends CarDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 		'maxSpeed' => [
 			'name' => 'maxSpeed',
@@ -84,6 +90,12 @@ class FlyingCarDto extends CarDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 		'complexAttributes' => [
 			'name' => 'complexAttributes',
@@ -100,6 +112,12 @@ class FlyingCarDto extends CarDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 	];
 
