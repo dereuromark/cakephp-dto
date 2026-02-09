@@ -69,6 +69,12 @@ class TagDto extends AbstractImmutableDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 		'name' => [
 			'name' => 'name',
@@ -85,6 +91,12 @@ class TagDto extends AbstractImmutableDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 		'weight' => [
 			'name' => 'weight',
@@ -101,6 +113,12 @@ class TagDto extends AbstractImmutableDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 	];
 

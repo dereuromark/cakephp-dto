@@ -14,13 +14,9 @@ parameters:
 			identifier: method.childReturnType
 			path: src/View/DtoView.php
 			reportUnmatched: false
-		# validationRules() will be available after php-collective/dto next release
-		-
-			identifier: method.notFound
-			path: src/Validation/DtoValidator.php
-			reportUnmatched: false
 		# Test DTOs are not designed to be extended
 		-
 			identifier: new.static
 			paths:
 				- tests/test_app/src/Dto/
+			reportUnmatched: false

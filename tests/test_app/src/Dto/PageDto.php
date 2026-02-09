@@ -58,6 +58,12 @@ class PageDto extends AbstractImmutableDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 		'content' => [
 			'name' => 'content',
@@ -74,6 +80,12 @@ class PageDto extends AbstractImmutableDto {
 			'mapTo' => null,
 			'transformFrom' => null,
 			'transformTo' => null,
+			'minLength' => null,
+			'maxLength' => null,
+			'min' => null,
+			'max' => null,
+			'pattern' => null,
+			'lazy' => false,
 		],
 	];
 
