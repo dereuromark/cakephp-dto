@@ -37,7 +37,7 @@ This branch is for use with **CakePHP 5.1+**. For details see [version map](http
 
 Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
 
-See [Examples](docs/Examples.md) for basic, immutable and complex entity use cases.
+See [Examples](docs/Examples.md) for basic, immutable, mapper, and complex entity use cases.
 The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/).
 
 Note: Param/return types are enabled and strict types disabled by default.

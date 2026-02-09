@@ -146,3 +146,25 @@ echo h($articleDto->getTitle());
 ```
 
 And you also then know: Based on the fact that required fields in this (immutable) entity must be there, this method cannot return an empty value.
+
+### Mapping helpers
+
+You can also use the mapper helpers to keep entity-to-DTO conversion and pagination output consistent.
+
+```php
+use CakeDto\Http\DtoJsonResponse;
+use CakeDto\Mapper\DtoMapper;
+use TestApp\Dto\ArticleDto;
+
+$article = $this->Articles->get(1, contain: ['Authors', 'Tags']);
+$articleDto = DtoMapper::fromEntity($article, ArticleDto::class, ignoreMissing: true);
+
+$articles = $this->Articles->find()->contain(['Authors', 'Tags'])->all();
+$articleDtos = DtoMapper::fromIterable($articles, ArticleDto::class, ignoreMissing: true);
+
+$paged = $this->paginate($this->Articles->find()->contain(['Authors', 'Tags']));
+$paging = $this->request->getAttribute('paging');
+$pagination = DtoMapper::fromPaginated($paged, $paging, 'Articles', ArticleDto::class, ignoreMissing: true);
+
+return DtoJsonResponse::fromPagination($pagination);
+```
