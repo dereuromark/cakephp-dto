@@ -1,12 +1,16 @@
 {
 	"name": "dereuromark/cakephp-dto",
-	"description": "CakePHP DTO Plugin",
+	"description": "A CakePHP plugin for generating immutable Data Transfer Objects with full type safety",
 	"license": "MIT",
 	"type": "cakephp-plugin",
 	"keywords": [
 		"cakephp",
 		"dto",
-		"plugin"
+		"plugin",
+		"data-transfer",
+		"type-safety",
+		"immutable",
+		"code-generation"
 	],
 	"authors": [
 		{
