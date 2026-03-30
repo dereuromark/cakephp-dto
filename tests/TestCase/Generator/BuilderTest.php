@@ -254,6 +254,14 @@ class BuilderTest extends TestCase {
 				'singularReturnTypeHint' => '\App\Dto\CodeDescriptionDto',
 				'singularNullableReturnTypeHint' => null,
 				'keyType' => 'int',
+				'useWithMethod' => false,
+				'needsOrFailMethod' => false,
+				'needsHasMethod' => true,
+				'useImmutableCollectionMethods' => false,
+				'useMutableCollectionMethods' => true,
+				'propertyVisibility' => 'protected',
+				'propertyTypeHint' => '?\ArrayObject',
+				'propertyDefault' => 'null',
 			],
 			'subCategories' => [
 				'name' => 'subCategories',
@@ -292,6 +300,14 @@ class BuilderTest extends TestCase {
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
 				'singularNullableReturnTypeHint' => null,
 				'keyType' => 'int',
+				'useWithMethod' => false,
+				'needsOrFailMethod' => false,
+				'needsHasMethod' => true,
+				'useImmutableCollectionMethods' => false,
+				'useMutableCollectionMethods' => true,
+				'propertyVisibility' => 'protected',
+				'propertyTypeHint' => '?\ArrayObject',
+				'propertyDefault' => 'null',
 			],
 			'brands' => [
 				'name' => 'brands',
@@ -330,6 +346,14 @@ class BuilderTest extends TestCase {
 				'singularReturnTypeHint' => '\App\Dto\FilterElementDto',
 				'singularNullableReturnTypeHint' => null,
 				'keyType' => 'int',
+				'useWithMethod' => false,
+				'needsOrFailMethod' => false,
+				'needsHasMethod' => true,
+				'useImmutableCollectionMethods' => false,
+				'useMutableCollectionMethods' => true,
+				'propertyVisibility' => 'protected',
+				'propertyTypeHint' => '?\ArrayObject',
+				'propertyDefault' => 'null',
 			],
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']);
@@ -415,6 +439,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?array',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['simpleAttributes']);
 
@@ -448,6 +480,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?array',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['attributes']);
 
@@ -487,6 +527,14 @@ class BuilderTest extends TestCase {
 			'pattern' => null,
 			'lazy' => false,
 			'keyType' => 'int',
+			'useWithMethod' => false,
+			'needsOrFailMethod' => false,
+			'needsHasMethod' => true,
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => true,
+			'propertyVisibility' => 'protected',
+			'propertyTypeHint' => '?\ArrayObject',
+			'propertyDefault' => 'null',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['collectionAttributes']);
 
@@ -526,6 +574,14 @@ class BuilderTest extends TestCase {
 			'pattern' => null,
 			'lazy' => false,
 			'keyType' => 'string',
+			'useWithMethod' => false,
+			'needsOrFailMethod' => false,
+			'needsHasMethod' => true,
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => true,
+			'propertyVisibility' => 'protected',
+			'propertyTypeHint' => 'array',
+			'propertyDefault' => null,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['arrayAttributes']);
 
@@ -565,6 +621,14 @@ class BuilderTest extends TestCase {
 			'pattern' => null,
 			'lazy' => false,
 			'keyType' => 'int',
+			'useWithMethod' => false,
+			'needsOrFailMethod' => false,
+			'needsHasMethod' => true,
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => true,
+			'propertyVisibility' => 'protected',
+			'propertyTypeHint' => '?\Cake\Collection\Collection',
+			'propertyDefault' => 'null',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['customCollectionAttributes']);
 
@@ -604,6 +668,14 @@ class BuilderTest extends TestCase {
 			'pattern' => null,
 			'lazy' => false,
 			'keyType' => 'int',
+			'useWithMethod' => false,
+			'needsOrFailMethod' => false,
+			'needsHasMethod' => true,
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => true,
+			'propertyVisibility' => 'protected',
+			'propertyTypeHint' => '?\ArrayObject',
+			'propertyDefault' => 'null',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingular']);
 
@@ -643,6 +715,14 @@ class BuilderTest extends TestCase {
 			'pattern' => null,
 			'lazy' => false,
 			'keyType' => 'int',
+			'useWithMethod' => false,
+			'needsOrFailMethod' => false,
+			'needsHasMethod' => true,
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => true,
+			'propertyVisibility' => 'protected',
+			'propertyTypeHint' => '?\ArrayObject',
+			'propertyDefault' => 'null',
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['autoCollectionBySingularNullable']);
 	}
@@ -861,6 +941,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => 'string|float|int|null',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionScalarField']);
 
@@ -895,6 +983,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?array',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['unionArrayField']);
 	}
@@ -960,6 +1056,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?\DateTimeImmutable',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['lastLogin']);
 
@@ -994,6 +1098,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?\TestApp\ValueObject\Paint',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['color']);
 
@@ -1028,6 +1140,14 @@ class BuilderTest extends TestCase {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
+			'needsHasMethod' => true,
+			'needsOrFailMethod' => true,
+			'propertyDefault' => 'null',
+			'propertyTypeHint' => '?\TestApp\ValueObject\Birthday',
+			'propertyVisibility' => 'protected',
+			'useImmutableCollectionMethods' => false,
+			'useMutableCollectionMethods' => false,
+			'useWithMethod' => false,
 		];
 		$this->assertAssociativeArraySame($expected, $result['Demo']['fields']['birthday']);
 	}
