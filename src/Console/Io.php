@@ -112,6 +112,17 @@ class Io implements IoInterface {
 	}
 
 	/**
+	 * Convenience method for err() that wraps message between <warning /> tag
+	 *
+	 * @param string|null $message A string or an array of strings to output
+	 * @param int $newlines Number of newlines to append
+	 * @return int|null The number of bytes returned from writing to stderr.
+	 */
+	public function warning(?string $message = null, int $newlines = 1): ?int {
+		return $this->_io->warning((string)$message, $newlines);
+	}
+
+	/**
 	 * Convenience method for out() that wraps message between <success /> tag
 	 *
 	 * @see http://book.cakephp.org/3.0/en/console-and-shells.html#Shell::out
