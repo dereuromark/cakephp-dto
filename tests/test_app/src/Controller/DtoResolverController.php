@@ -10,7 +10,10 @@ use TestApp\Dto\PageDto;
 
 class DtoResolverController extends Controller {
 
-	public function create(#[MapRequestDto(source: MapRequestDto::SOURCE_QUERY)] PageDto $page): Response {
+	public function create(
+		#[MapRequestDto(source: MapRequestDto::SOURCE_QUERY)]
+		PageDto $page,
+	): Response {
 		return $this->response->withStringBody((string)$page->getNumber());
 	}
 
