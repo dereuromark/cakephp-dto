@@ -7,6 +7,7 @@
  * @var mixed $result
  * @var mixed $schema
  */
+$cspNonce = (string)$this->getRequest()->getAttribute('cspNonce', '');
 ?>
 <h1>Generate DTO Schema from JSON/Structure</h1>
 
@@ -49,7 +50,7 @@
 		</button>
 		<pre id="result-code" class="pt-5"><?php echo h($result); ?></pre>
 	</div>
-	<script>
+	<script<?= $cspNonce !== '' ? ' nonce="' . h($cspNonce) . '"' : '' ?>>
 	document.getElementById('copy-btn').addEventListener('click', function() {
 		var code = document.getElementById('result-code').textContent;
 		var btn = document.getElementById('copy-btn');
@@ -147,7 +148,7 @@
 
 	<?php if ($compressed) { ?>
 	<?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js'); ?>
-	<script>
+	<script<?= $cspNonce !== '' ? ' nonce="' . h($cspNonce) . '"' : '' ?>>
 	document.addEventListener('DOMContentLoaded', function() {
 		var field = document.getElementById('input-field');
 		var compressed = field.dataset.compressed;
