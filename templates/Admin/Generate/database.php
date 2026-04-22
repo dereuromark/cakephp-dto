@@ -8,6 +8,7 @@
  * @var mixed $result
  * @var mixed $schema
  */
+$cspNonce = (string)$this->getRequest()->getAttribute('cspNonce', '');
 ?>
 <h1>Generate DTO Schema from Database Tables</h1>
 
@@ -50,7 +51,7 @@
 		</button>
 		<pre id="result-code" class="pt-5"><?php echo h($result); ?></pre>
 	</div>
-	<script>
+	<script<?= $cspNonce !== '' ? ' nonce="' . h($cspNonce) . '"' : '' ?>>
 	document.getElementById('copy-btn').addEventListener('click', function() {
 		var code = document.getElementById('result-code').textContent;
 		var btn = document.getElementById('copy-btn');
@@ -152,7 +153,7 @@
 	<?php echo $this->Form->button('Parse Selected Tables'); ?>
 	<?php echo $this->Form->end(); ?>
 
-	<script>
+	<script<?= $cspNonce !== '' ? ' nonce="' . h($cspNonce) . '"' : '' ?>>
 	document.getElementById('select-all').addEventListener('change', function() {
 		var checkboxes = document.querySelectorAll('.table-checkbox');
 		for (var i = 0; i < checkboxes.length; i++) {
