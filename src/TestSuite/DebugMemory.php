@@ -24,11 +24,9 @@ use Cake\Error\Debugger;
 class DebugMemory {
 
 	/**
-	 * An array of recorded memory use points.
-	 *
-	 * @var array
+	 * @var array<string, int>
 	 */
-	protected static $_points = [];
+	protected static array $_points = [];
 
 	/**
 	 * Get current memory usage

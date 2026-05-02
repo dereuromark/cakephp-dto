@@ -1006,7 +1006,7 @@ object(TestApp\Dto\ArticleDto) {
     'touched' => [
         ...
     ],
-    'extends' => 'CakeDto\Dto\AbstractImmutableDto',
+    'extends' => 'PhpCollective\Dto\Dto\AbstractImmutableDto',
     'immutable' => true
 }
 ```
