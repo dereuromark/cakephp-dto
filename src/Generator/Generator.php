@@ -32,15 +32,9 @@ class Generator {
 	public const CODE_SUCCESS = Command::CODE_SUCCESS;
 	public const CODE_ERROR = Command::CODE_ERROR;
 
-	/**
-	 * @var \CakeDto\Generator\Builder
-	 */
-	protected $builder;
+	protected Builder $builder;
 
-	/**
-	 * @var \CakeDto\View\Renderer
-	 */
-	protected $renderer;
+	protected Renderer $renderer;
 
 	/**
 	 * @param \CakeDto\Generator\Builder $builder

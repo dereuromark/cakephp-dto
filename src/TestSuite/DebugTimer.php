@@ -24,11 +24,9 @@ use Cake\Error\Debugger;
 class DebugTimer {
 
 	/**
-	 * Internal timers array
-	 *
-	 * @var array
+	 * @var array<string, array{start: float, message: string, named: bool, end?: float}>
 	 */
-	protected static $_timers = [];
+	protected static array $_timers = [];
 
 	/**
 	 * Start an benchmarking timer.

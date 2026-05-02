@@ -13,10 +13,7 @@ use PhpCollective\Dto\Generator\IoInterface;
  */
 class Io implements IoInterface {
 
-	/**
-	 * @var \Cake\Console\ConsoleIo
-	 */
-	protected $_io;
+	protected ConsoleIo $_io;
 
 	/**
 	 * @param \Cake\Console\ConsoleIo $io
@@ -32,7 +29,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function verbose($message, int $newlines = 1): ?int {
+	public function verbose(array|string $message, int $newlines = 1): ?int {
 		return $this->_io->verbose($message, $newlines);
 	}
 
@@ -43,7 +40,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function quiet($message, int $newlines = 1): ?int {
+	public function quiet(array|string $message, int $newlines = 1): ?int {
 		return $this->_io->quiet($message, $newlines);
 	}
 
@@ -56,7 +53,7 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function out($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
+	public function out(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->out((string)$message, $newlines, $level);
 	}
 
@@ -68,7 +65,7 @@ class Io implements IoInterface {
 	 * @param int $newlines Number of newlines to append
 	 * @return int|null The number of bytes returned from writing to stderr.
 	 */
-	public function error($message = null, int $newlines = 1): ?int {
+	public function error(?string $message = null, int $newlines = 1): ?int {
 		return $this->_io->error((string)$message, $newlines);
 	}
 
@@ -80,7 +77,7 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function info($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
+	public function info(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->info((string)$message, $level);
 	}
 
@@ -92,20 +89,8 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function comment($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL) {
+	public function comment(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->comment((string)$message, $level);
-	}
-
-	/**
-	 * Convenience method for err() that wraps message between <warning /> tag
-	 *
-     * @deprecated Use warning() instead.
-     * @param string|null $message A string or an array of strings to output
-     * @param int $newlines Number of newlines to append
-     * @return int|null The number of bytes returned from writing to stderr.
-	 */
-	public function warn($message = null, int $newlines = 1) {
-		return $this->_io->warning((string)$message, $newlines);
 	}
 
 	/**
@@ -127,7 +112,7 @@ class Io implements IoInterface {
 	 * @param int $level The message's output level, see above.
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
-	public function success($message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
+	public function success(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
 		return $this->_io->success((string)$message, $level);
 	}
 
