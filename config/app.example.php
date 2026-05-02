@@ -1,5 +1,7 @@
 <?php
 
+use Cake\Http\ServerRequest;
+
 // The following configs can be globally configured, copy the array content over to your ROOT/config/app.php
 
 return [
@@ -13,9 +15,10 @@ return [
 		'defaultCollectionType' => null, // Defaults to `\ArrayObject`
 		'debug' => false, // Add all meta data into DTOs for debugging
 		'keyType' => null, // Dto::TYPE_DEFAULT by default which uses Dto::TYPE_CAMEL
-		'adminAccess' => function (\Cake\Http\ServerRequest $request): bool {
+		'adminAccess' => function (ServerRequest $request): bool {
 			// Default-deny gate for /admin/cake-dto/generate. Must return literal `true` to grant access.
 			$identity = $request->getAttribute('identity');
+
 			return $identity !== null && in_array('admin', (array)$identity->roles, true);
 		},
 	],
