@@ -200,11 +200,4 @@ class DtoControllerFactory extends ControllerFactory {
 		return $request->getQueryParams();
 	}
 
-	/**
-	 * @param \ReflectionParameter $parameter
-	 * @param array $passedParams
-	 *
-	 * @return mixed
-	 */
-
 }

@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace CakeDto\Test\TestCase\Controller\Admin;
 
+use Cake\Core\Configure;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Sqlite;
 use Cake\Datasource\ConnectionManager;
+use Cake\Http\Exception\ForbiddenException;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -24,6 +26,15 @@ class GenerateControllerTest extends TestCase {
 
 		$this->loadPlugins(['CakeDto']);
 		$this->disableErrorHandlerMiddleware();
+		Configure::write('CakeDto.adminAccess', fn (): bool => true);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function tearDown(): void {
+		Configure::delete('CakeDto.adminAccess');
+		parent::tearDown();
 	}
 
 	/**
@@ -96,6 +107,42 @@ class GenerateControllerTest extends TestCase {
 		$this->assertResponseContains('title');
 
 		ConnectionManager::drop('default');
+	}
+
+	/**
+	 * Default-deny: with `CakeDto.adminAccess` unset, the gate must reject every admin request.
+	 *
+	 * @return void
+	 */
+	public function testIndexDeniedByDefault(): void {
+		Configure::delete('CakeDto.adminAccess');
+		$this->expectException(ForbiddenException::class);
+
+		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'index']);
+	}
+
+	/**
+	 * A non-Closure value for the gate config must also be rejected.
+	 *
+	 * @return void
+	 */
+	public function testIndexDeniedWhenAdminAccessIsNotAClosure(): void {
+		Configure::write('CakeDto.adminAccess', true);
+		$this->expectException(ForbiddenException::class);
+
+		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'index']);
+	}
+
+	/**
+	 * A Closure that returns a non-true value (false, truthy non-bool, null) must be rejected.
+	 *
+	 * @return void
+	 */
+	public function testIndexDeniedWhenClosureReturnsNonTrue(): void {
+		Configure::write('CakeDto.adminAccess', fn (): bool => false);
+		$this->expectException(ForbiddenException::class);
+
+		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'index']);
 	}
 
 }

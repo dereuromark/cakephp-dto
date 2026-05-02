@@ -1,30 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace CakeDto\Controller\Admin;
 
-use App\Controller\AppController;
-use Cake\Event\EventInterface;
 use CakeDto\Importer\DatabaseParser;
 use Exception;
 use PhpCollective\Dto\Importer\Importer;
 
 class GenerateController extends AppController {
-
-	/**
-	 * @param \Cake\Event\EventInterface $event
-	 *
-	 * @return void
-	 */
-	public function beforeFilter(EventInterface $event): void {
-		if ($this->components()->has('Auth') && method_exists($this->components()->get('Auth'), 'allow')) {
-			$this->components()->get('Auth')->allow();
-		} elseif ($this->components()->has('Authentication') && method_exists($this->components()->get('Authentication'), 'addUnauthenticatedActions')) {
-			$this->components()->get('Authentication')->addUnauthenticatedActions(['display']);
-		}
-		if ($this->components()->has('Authorization') && method_exists($this->components()->get('Authorization'), 'skipAuthorization')) {
-			$this->components()->get('Authorization')->skipAuthorization();
-		}
-	}
 
 	/**
 	 * @return void
