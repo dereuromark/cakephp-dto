@@ -7,6 +7,18 @@ In this case, you can either write them manually, or let a tool convert it for y
 
 The plugin provides a web-based interface for generating DTO definitions from JSON data. This is particularly useful for quickly converting API responses or existing data structures into DTO schemas.
 
+**Configuring access:**
+The admin UI introspects your application's database schema and generates files, so it is **default-deny** — every request returns 403 unless `CakeDto.adminAccess` is set to a `Closure` that returns literal `true`. Configure it in your `config/app.php` or `config/bootstrap.php`:
+
+```php
+Configure::write('CakeDto.adminAccess', function (\Cake\Http\ServerRequest $request): bool {
+    $identity = $request->getAttribute('identity');
+    return $identity !== null && in_array('admin', (array)$identity->roles, true);
+});
+```
+
+The Closure receives the current `ServerRequest`. Anything other than a literal `true` return value (false, truthy non-bool, null, or an exception) yields a 403, so the gate fails closed.
+
 **Accessing the UI:**
 Navigate to `/admin/cake-dto/generate` in your browser. This route is provided by the plugin and includes:
 
