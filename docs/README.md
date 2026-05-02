@@ -558,54 +558,21 @@ if ($article->getAbbreviation()) {
 }
 ```
 
-### Controller DTO Resolution (Method Signatures)
+### Controller DTO Resolution
 
-Use the controller factory trait in your application to enable DTO parameter resolution (or extend `CakeDto\Application\DtoApplication`):
+**Note:** Controller DTO resolution has been removed from this plugin. CakePHP 5.3+ now provides native support via the `#[RequestToDto]` attribute.
 
-```php
-use CakeDto\Controller\DtoControllerFactoryTrait;
+See the [CakePHP documentation](https://book.cakephp.org/5.x/controllers.html) for details.
 
-class Application extends BaseApplication {
-	use DtoControllerFactoryTrait;
-}
-```
+**Migration from plugin to core:**
 
-Then annotate action parameters with `#[MapRequestDto]`:
+| Plugin | Core |
+|--------|------|
+| `#[MapRequestDto]` | `#[RequestToDto]` |
+| `MapRequestDto::SOURCE_*` constants | `RequestToDtoSource` enum |
+| `DtoApplication` / trait | Standard `Application` |
 
-```php
-use CakeDto\Attribute\MapRequestDto;
-use App\Dto\UserDto;
-
-public function add(#[MapRequestDto(source: MapRequestDto::SOURCE_BODY)] UserDto $dto): void {
-}
-```
-
-Sources: `body`, `query`, `request`, or `auto` (default).
-
-### Controller DTO Resolution (Request Attributes)
-
-If you prefer request attributes, load the resolver component in your `AppController`:
-
-```php
-public function initialize(): void {
-	parent::initialize();
-
-	$this->loadComponent('CakeDto.DtoResolver');
-}
-```
-
-Use `#[MapRequestDto]` on the action method:
-
-```php
-use CakeDto\Attribute\MapRequestDto;
-use App\Dto\UserDto;
-
-#[MapRequestDto(UserDto::class, source: MapRequestDto::SOURCE_BODY, name: 'user')]
-public function add(): void {
-	/** @var \App\Dto\UserDto $dto */
-	$dto = $this->getRequest()->getAttribute('user');
-}
-```
+DTOs still require a `createFromArray()` static method.
 
 ### Custom Collections
 By default, working with collections can look like this:
