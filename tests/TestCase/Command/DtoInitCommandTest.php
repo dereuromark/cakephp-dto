@@ -8,8 +8,10 @@ use Cake\Console\Exception\StopException;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoInitCommand;
 use CakeDto\Filesystem\Folder;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use TestApp\TestSuite\ConsoleOutput;
 
+#[AllowMockObjectsWithoutExpectations]
 class DtoInitCommandTest extends TestCase {
 
 	/**

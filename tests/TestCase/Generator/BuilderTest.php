@@ -9,11 +9,13 @@ use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use PhpCollective\Dto\Engine\EngineInterface;
 use PhpCollective\Dto\Engine\XmlEngine;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\DtoCustom\DummyNonDtoClass;
 use TestApp\TestSuite\AssociativeArrayTestTrait;
 
+#[AllowMockObjectsWithoutExpectations]
 class BuilderTest extends TestCase {
 
 	use AssociativeArrayTestTrait;
@@ -1294,7 +1296,7 @@ class BuilderTest extends TestCase {
 	 * @return \CakeDto\Generator\Builder|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	protected function createBuilder(): Builder {
-		$engine = $this->getMockBuilder(EngineInterface::class)->getMock();
+		$engine = $this->createStub(EngineInterface::class);
 		$builder = $this->getMockBuilder(Builder::class)->onlyMethods(['mergeConfigs', 'getFiles'])->setConstructorArgs([$engine])->getMock();
 		$builder->method('getFiles')->willReturn([]);
 
