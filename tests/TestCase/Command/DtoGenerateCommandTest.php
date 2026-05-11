@@ -7,8 +7,10 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Filesystem\Folder;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use TestApp\TestSuite\ConsoleOutput;
 
+#[AllowMockObjectsWithoutExpectations]
 class DtoGenerateCommandTest extends TestCase {
 
 	/**

@@ -7,9 +7,11 @@ use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 
+#[AllowMockObjectsWithoutExpectations]
 class GithubTest extends TestCase {
 
 	/**
