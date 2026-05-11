@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<dtos
+	xmlns="cakephp-dto"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="cakephp-dto https://github.com/dereuromark/cakephp-dto">
+
+	<dto name="DriftAuthor">
+		<field name="name" type="string"/>
+		<field name="email" type="string"/>
+	</dto>
+
+	<dto name="DriftArticle">
+		<field name="id" type="int" required="true"/>
+		<field name="title" type="string" required="true"/>
+		<field name="body" type="string"/>
+		<field name="tags" type="string[]"/>
+		<field name="author" type="DriftAuthor"/>
+		<field name="published" type="bool" defaultValue="false"/>
+		<field name="views" type="int" defaultValue="0"/>
+	</dto>
+
+	<dto name="DriftFeaturedArticle" extends="DriftArticle">
+		<field name="featuredUntil" type="\Cake\I18n\Date"/>
+	</dto>
+
+</dtos>
