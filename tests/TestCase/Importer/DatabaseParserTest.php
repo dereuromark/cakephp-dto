@@ -120,14 +120,14 @@ class DatabaseParserTest extends TestCase {
 	}
 
 	/**
-	 * @return void
-	 */
-	/**
-	 * Regression: `decimal` defaults to the cakephp-decimal value object class
-	 * instead of `float`, so generated DTOs keep full precision rather than
-	 * silently lossily-coercing on every constructor call. `json` defaults to
-	 * `mixed` instead of `array` so single-object / scalar JSON columns aren't
-	 * incorrectly forced into list shape.
+	 * Regression: `decimal` defaults to `string` — precision-safe and
+	 * dependency-free. We don't default to a value-object class like
+	 * `\PhpCollective\DecimalObject\Decimal` because cakephp-dto doesn't
+	 * require that package; baking it in would generate DTOs that reference
+	 * a class the host app may not have installed. Apps that DO use
+	 * cakephp-decimal opt in via the Configure override (next test).
+	 * `json` defaults to `mixed` instead of `array` so single-object /
+	 * scalar JSON columns aren't incorrectly forced into list shape.
 	 *
 	 * @return void
 	 */
@@ -136,7 +136,7 @@ class DatabaseParserTest extends TestCase {
 		$prop = $ref->getProperty('typeMap');
 		$map = $prop->getValue($this->parser);
 
-		$this->assertSame('\PhpCollective\DecimalObject\Decimal', $map['decimal']);
+		$this->assertSame('string', $map['decimal']);
 		$this->assertSame('mixed', $map['json']);
 	}
 
