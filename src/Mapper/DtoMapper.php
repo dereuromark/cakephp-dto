@@ -23,7 +23,49 @@ class DtoMapper {
 	public static function fromEntity(EntityInterface $entity, string $dtoClass, bool $ignoreMissing = false, ?string $type = null): Dto {
 		static::assertDtoClass($dtoClass);
 
-		return $dtoClass::createFromArray($entity->toArray(), $ignoreMissing, $type);
+		return $dtoClass::createFromArray(static::extractEntity($entity), $ignoreMissing, $type);
+	}
+
+	/**
+	 * Flatten an entity to an associative array, preserving scalar value
+	 * objects (Decimal, DateTime, custom VOs) but unwrapping nested entities
+	 * one level at a time so the DTO library can recursively rebuild nested
+	 * DTOs.
+	 *
+	 * Cake's `EntityInterface::toArray()` arraifies nested entities AND
+	 * strips object-typed values along the way — fine for JSON, wrong for
+	 * DTO mapping because a typed `Decimal $price` field then gets a string
+	 * from the DTO constructor and either re-coerces (slow) or fails
+	 * type-check. The previous implementation lost Decimal/DateTime/Chronos
+	 * types on every save.
+	 *
+	 * The hybrid approach below: `extract(getVisible())` for value preservation,
+	 * then explicitly arraify EntityInterface values (and arrays of them) so
+	 * the DTO library still has the recursive shape it expects for nested
+	 * typed DTO properties.
+	 *
+	 * @param \Cake\Datasource\EntityInterface $entity
+	 * @return array<string, mixed>
+	 */
+	protected static function extractEntity(EntityInterface $entity): array {
+		$out = $entity->extract($entity->getVisible());
+		foreach ($out as $field => $value) {
+			if ($value instanceof EntityInterface) {
+				$out[$field] = static::extractEntity($value);
+
+				continue;
+			}
+			if (is_array($value)) {
+				foreach ($value as $k => $inner) {
+					if ($inner instanceof EntityInterface) {
+						$value[$k] = static::extractEntity($inner);
+					}
+				}
+				$out[$field] = $value;
+			}
+		}
+
+		return $out;
 	}
 
 	/**
@@ -102,7 +144,7 @@ class DtoMapper {
 		}
 
 		if ($item instanceof EntityInterface) {
-			$data = $item->toArray();
+			$data = static::extractEntity($item);
 		} elseif (is_array($item)) {
 			$data = $item;
 		} else {

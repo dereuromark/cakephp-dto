@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace CakeDto\Test\TestCase\Importer;
 
+use Cake\Core\Configure;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Sqlite;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
 use CakeDto\Importer\DatabaseParser;
+use ReflectionClass;
 
 class DatabaseParserTest extends TestCase {
 
@@ -115,6 +117,51 @@ class DatabaseParserTest extends TestCase {
 
 		// body is nullable => not required
 		$this->assertArrayNotHasKey('required', $fields['body']);
+	}
+
+	/**
+	 * @return void
+	 */
+	/**
+	 * Regression: `decimal` defaults to the cakephp-decimal value object class
+	 * instead of `float`, so generated DTOs keep full precision rather than
+	 * silently lossily-coercing on every constructor call. `json` defaults to
+	 * `mixed` instead of `array` so single-object / scalar JSON columns aren't
+	 * incorrectly forced into list shape.
+	 *
+	 * @return void
+	 */
+	public function testParseDefaultTypeMapPreservesDecimalAndJsonShape(): void {
+		$ref = new ReflectionClass(DatabaseParser::class);
+		$prop = $ref->getProperty('typeMap');
+		$map = $prop->getValue($this->parser);
+
+		$this->assertSame('\PhpCollective\DecimalObject\Decimal', $map['decimal']);
+		$this->assertSame('mixed', $map['json']);
+	}
+
+	/**
+	 * Regression: `Configure::write('CakeDto.databaseTypeMap', ...)` overrides
+	 * the defaults entry-by-entry without subclassing. Apps that don't use
+	 * cakephp-decimal can opt back into `float` for decimal columns.
+	 *
+	 * @return void
+	 */
+	public function testConfigureCanOverrideTypeMap(): void {
+		Configure::write('CakeDto.databaseTypeMap', ['decimal' => 'float', 'json' => 'array']);
+		try {
+			$parser = new DatabaseParser();
+			$ref = new ReflectionClass(DatabaseParser::class);
+			$prop = $ref->getProperty('typeMap');
+			$map = $prop->getValue($parser);
+
+			$this->assertSame('float', $map['decimal']);
+			$this->assertSame('array', $map['json']);
+			// Unchanged entries still match their defaults.
+			$this->assertSame('int', $map['integer']);
+		} finally {
+			Configure::delete('CakeDto.databaseTypeMap');
+		}
 	}
 
 	/**
