@@ -31,6 +31,9 @@ use PhpCollective\Dto\Engine\PhpEngine;
 ]
 ```
 
+For the full plugin config surface, including `databaseTypeMap`, `assocKeyFields`,
+admin access, and generator overrides, see [`config/app.example.php`](../config/app.example.php).
+
 YAML or alike might have the advantage of less typing, but the power of XML comes with its XSD validation and full auto-complete/typehinting.
 Just start typing and you will see how it already gives you all the options to chose from.
 

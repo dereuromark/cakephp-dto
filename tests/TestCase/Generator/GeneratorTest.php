@@ -11,6 +11,7 @@ use CakeDto\Generator\Builder;
 use CakeDto\Generator\Generator;
 use CakeDto\View\Renderer;
 use PhpCollective\Dto\Engine\XmlEngine;
+use ReflectionMethod;
 use TestApp\TestSuite\ConsoleOutput;
 use TestApp\TestSuite\PhpFileTemplateTestTrait;
 
@@ -52,6 +53,51 @@ class GeneratorTest extends TestCase {
 		$this->generator = $this->createGenerator();
 
 		$this->prepareDirectories();
+	}
+
+	/**
+	 * Regression: `findExistingDtos()` matched `#src/Dto/(.+)<suffix>\.php$#`
+	 * which hardcodes forward slashes. On Windows the iterator yields paths
+	 * with backslashes and the regex never matched — so the "delete DTOs no
+	 * longer in the spec" pass silently no-op'd, leaving stale generated
+	 * files behind. The replacement pattern accepts either separator.
+	 *
+	 * Exercising the Windows path directly on a Linux CI box is awkward, so
+	 * we drive the now-DS-tolerant regex itself with both shapes via a tiny
+	 * temp-dir round trip that fakes a Windows-style nested path.
+	 *
+	 * @return void
+	 */
+	public function testFindExistingDtosToleratesEitherDirectorySeparator(): void {
+		// Use reflection to reach the protected method; the alternative would
+		// be exposing it just for tests.
+		$method = new ReflectionMethod(Generator::class, 'findExistingDtos');
+
+		// Linux/macOS path layout — both DTO files should be found and indexed
+		// under their plain camel-case name.
+		$dir = TMP . 'dto-fed-test-' . uniqid();
+		mkdir($dir . '/src/Dto/Nested', 0777, true);
+		file_put_contents($dir . '/src/Dto/FooDto.php', '<?php');
+		file_put_contents($dir . '/src/Dto/Nested/BarDto.php', '<?php');
+
+		try {
+			$result = $method->invoke($this->generator, $dir . '/src/Dto');
+			$keys = array_keys($result);
+			sort($keys);
+			$this->assertSame(['Foo', 'Nested/Bar'], $keys);
+
+			// The captured key for nested entries is normalized to a forward
+			// slash, regardless of the host OS, so callers can use it as a
+			// stable map key.
+			$this->assertArrayHasKey('Nested/Bar', $result);
+		} finally {
+			array_map('unlink', glob($dir . '/src/Dto/*.php') ?: []);
+			array_map('unlink', glob($dir . '/src/Dto/Nested/*.php') ?: []);
+			@rmdir($dir . '/src/Dto/Nested');
+			@rmdir($dir . '/src/Dto');
+			@rmdir($dir . '/src');
+			@rmdir($dir);
+		}
 	}
 
 	/**

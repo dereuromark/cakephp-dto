@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace CakeDto\Test\TestCase\Importer;
 
+use Cake\Core\Configure;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Sqlite;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
 use CakeDto\Importer\DatabaseParser;
+use ReflectionClass;
 
 class DatabaseParserTest extends TestCase {
 
@@ -115,6 +117,53 @@ class DatabaseParserTest extends TestCase {
 
 		// body is nullable => not required
 		$this->assertArrayNotHasKey('required', $fields['body']);
+	}
+
+	/**
+	 * Regression: `decimal` defaults to `string` — precision-safe and
+	 * dependency-free. We don't default to a value-object class like
+	 * `\PhpCollective\DecimalObject\Decimal` because cakephp-dto doesn't
+	 * require that package; baking it in would generate DTOs that reference
+	 * a class the host app may not have installed. Apps that DO use
+	 * cakephp-decimal opt in via the Configure override (next test).
+	 *
+	 * `json` intentionally stays at `array` in the current release line for
+	 * generation-output backward compatibility. Projects that prefer a more
+	 * schema-honest `mixed` type can opt in via the same override hook.
+	 *
+	 * @return void
+	 */
+	public function testParseDefaultTypeMapPreservesDecimalAndJsonShape(): void {
+		$ref = new ReflectionClass(DatabaseParser::class);
+		$prop = $ref->getProperty('typeMap');
+		$map = $prop->getValue($this->parser);
+
+		$this->assertSame('string', $map['decimal']);
+		$this->assertSame('array', $map['json']);
+	}
+
+	/**
+	 * Regression: `Configure::write('CakeDto.databaseTypeMap', ...)` overrides
+	 * the defaults entry-by-entry without subclassing. Apps that don't use
+	 * cakephp-decimal can opt back into `float` for decimal columns.
+	 *
+	 * @return void
+	 */
+	public function testConfigureCanOverrideTypeMap(): void {
+		Configure::write('CakeDto.databaseTypeMap', ['decimal' => 'float', 'json' => 'mixed']);
+		try {
+			$parser = new DatabaseParser();
+			$ref = new ReflectionClass(DatabaseParser::class);
+			$prop = $ref->getProperty('typeMap');
+			$map = $prop->getValue($parser);
+
+			$this->assertSame('float', $map['decimal']);
+			$this->assertSame('mixed', $map['json']);
+			// Unchanged entries still match their defaults.
+			$this->assertSame('int', $map['integer']);
+		} finally {
+			Configure::delete('CakeDto.databaseTypeMap');
+		}
 	}
 
 	/**

@@ -57,6 +57,45 @@ Best to check and fine tune your DTO schema afterwards.
 
 ### Tips and useful notes
 
+#### Database import type defaults
+When generating DTO definitions from your database schema, the plugin maps CakePHP
+column types to DTO field types using `CakeDto\Importer\DatabaseParser`.
+
+Current defaults of note:
+- `decimal` => `string`
+- `json` => `array`
+
+The `decimal` change is an intentional generation-output BC break in the current
+minor line. The previous `float` default was convenient, but wrong for exact decimal
+storage because it silently reintroduced precision loss into generated DTOs. Cake's
+ORM already hydrates decimal columns as strings by default, so the importer now
+matches the runtime data shape instead of a lossy convenience type.
+
+If you need the former behavior for an incremental upgrade, restore it explicitly:
+
+```php
+Configure::write('CakeDto.databaseTypeMap', [
+    'decimal' => 'float',
+]);
+```
+
+If your project uses a custom value object instead, opt in explicitly:
+
+```php
+Configure::write('CakeDto.databaseTypeMap', [
+    'decimal' => '\PhpCollective\DecimalObject\Decimal',
+]);
+```
+
+`json` intentionally remains `array` in the current release line for backward
+compatibility. Projects that prefer schema-honest JSON typing can override it:
+
+```php
+Configure::write('CakeDto.databaseTypeMap', [
+    'json' => 'mixed',
+]);
+```
+
 #### Associative collections
 You want to look into associative collections. In some cases you can - after parsing -
   adjust the schema field definitions to set a "key" for the associative array/object collection.

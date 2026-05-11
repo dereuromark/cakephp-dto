@@ -1,0 +1,28 @@
+<?php
+declare(strict_types=1);
+
+return [
+	'DriftAuthor' => [
+		'fields' => [
+			'name' => 'string',
+			'email' => 'string',
+		],
+	],
+	'DriftArticle' => [
+		'fields' => [
+			'id' => ['type' => 'int', 'required' => true],
+			'title' => ['type' => 'string', 'required' => true],
+			'body' => 'string',
+			'tags' => 'string[]',
+			'author' => 'DriftAuthor',
+			'published' => ['type' => 'bool', 'defaultValue' => false],
+			'views' => ['type' => 'int', 'defaultValue' => 0],
+		],
+	],
+	'DriftFeaturedArticle' => [
+		'extends' => 'DriftArticle',
+		'fields' => [
+			'featuredUntil' => '\Cake\I18n\Date',
+		],
+	],
+];

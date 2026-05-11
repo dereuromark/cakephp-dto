@@ -132,21 +132,34 @@ class Generator {
 	 * @return array<string>
 	 */
 	protected function findExistingDtos(string $path): array {
-		if (!is_dir($path)) {
-			mkdir($path, 0755, true);
+		if (!is_dir($path) && @mkdir($path, 0755, true) === false && !is_dir($path)) {
+			// Either the path exists as a file (a real misconfiguration) or
+			// the filesystem rejected the mkdir. Bail with an empty result
+			// instead of letting a later `is_dir` failure cascade through
+			// the iterator — the caller will surface a useful error.
+			return [];
 		}
 
 		$files = [];
 
 		$directory = new RecursiveDirectoryIterator($path);
 		$iterator = new RecursiveIteratorIterator($directory);
+		$suffix = Configure::read('CakeDto.suffix', 'Dto');
+		// Use DIRECTORY_SEPARATOR via a character class so the pattern matches
+		// on both `src/Dto/Foo.php` (Linux/macOS) and `src\Dto\Foo.php` (Windows).
+		// The previous `#src/Dto/(.+)...#` hardcoded forward slashes, so the
+		// "find existing DTOs to delete" pass silently returned nothing on
+		// Windows and left stale files behind.
+		$pattern = '#[/\\\\]src[/\\\\]Dto[/\\\\](.+)' . preg_quote($suffix, '#') . '\.php$#';
 		foreach ($iterator as $fileInfo) {
 			$file = $fileInfo->getPathname();
-			$suffix = Configure::read('CakeDto.suffix', 'Dto');
-			if (!preg_match('#src/Dto/(.+)' . $suffix . '\.php$#', $file, $matches)) {
+			if (!preg_match($pattern, $file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];
+			// Normalize captured nested paths so "Sub/Foo" and "Sub\\Foo"
+			// don't both land in the result map as separate entries.
+			$name = strtr($name, '\\', '/');
 			$files[$name] = $file;
 		}
 

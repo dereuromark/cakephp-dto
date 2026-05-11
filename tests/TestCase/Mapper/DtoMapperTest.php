@@ -2,6 +2,7 @@
 
 namespace CakeDto\Test\TestCase\Mapper;
 
+use Cake\I18n\Date;
 use Cake\I18n\DateTime;
 use Cake\TestSuite\TestCase;
 use CakeDto\Mapper\DtoMapper;
@@ -92,6 +93,42 @@ class DtoMapperTest extends TestCase {
 		$data = $pagination->toArray();
 		$this->assertSame('My title', $data['data'][0]['title']);
 		$this->assertSame(2, $data['meta']['page']);
+	}
+
+	/**
+	 * Regression: object-typed entity properties (DateTime, Decimal, custom
+	 * value objects) used to be serialized to scalars via `$entity->toArray()`
+	 * and re-coerced by the DTO constructor. The mapper now extracts the raw
+	 * properties so the DateTime instance passes straight through.
+	 *
+	 * @return void
+	 */
+	public function testFromEntityPreservesObjectTypedProperty(): void {
+		// The DTO's `created` is typed `\Cake\I18n\Date`. With the pre-fix
+		// `toArray()` path this exact instance got serialized to a string
+		// and the DTO constructor had to re-parse it; with the new
+		// `extract()` path the very same object passes straight through.
+		$created = Date::parseDate('2026-05-11', 'yyyy-MM-dd');
+		$this->assertNotNull($created);
+		$article = new Article([
+			'id' => 7,
+			'author_id' => 1,
+			'author' => new Author(['id' => 1, 'name' => 'me']),
+			'title' => 'Title',
+			'created' => $created,
+		]);
+
+		$dto = DtoMapper::fromEntity(
+			entity: $article,
+			dtoClass: ArticleDto::class,
+			ignoreMissing: true,
+		);
+
+		$result = $dto->getCreated();
+		$this->assertInstanceOf(Date::class, $result);
+		// Same instance, not a re-parsed copy — proves the value object
+		// survived the mapper without an intermediate string round-trip.
+		$this->assertSame($created, $result);
 	}
 
 	/**
