@@ -10,11 +10,13 @@ use Cake\Utility\Inflector;
 class DatabaseParser {
 
 	/**
-	 * Defaults are precision-safe and dependency-free:
+	 * Defaults are precision-safe and dependency-aware:
 	 *
 	 * - `decimal` maps to `string` instead of `float`. Mapping to `float`
 	 *   reintroduces the precision loss that decimal columns exist to
-	 *   prevent. We don't default to a value-object like
+	 *   prevent. This is an intentional generation-output BC break in a
+	 *   bugfix release line: the previous `float` default was convenient,
+	 *   but wrong for exact decimal storage. We don't default to a value-object like
 	 *   `\PhpCollective\DecimalObject\Decimal` because cakephp-dto does
 	 *   not require that package — generating a DTO referencing a class
 	 *   that may not be installed is a worse failure mode than the
@@ -22,18 +24,19 @@ class DatabaseParser {
 	 *   decimal columns as strings by default, so this aligns with what
 	 *   the entity layer hands you. Apps using cakephp-decimal can opt in
 	 *   via the Configure override below.
-	 * - `json` maps to `mixed` instead of `array`. A JSON column may hold a
-	 *   single object, a scalar, or an array, and forcing `array` strips
-	 *   that information at the type level. `mixed` lets the generated DTO
-	 *   round-trip whatever the column actually contains.
+	 * - `json` stays `array` for backward compatibility in the current major/minor
+	 *   line. Applications that need schema-honest typing for scalar/object JSON
+	 *   payloads can override this to `mixed` (or a project-specific DTO/value
+	 *   object type) via Configure.
 	 *
 	 * Apps that prefer different shapes override entry-by-entry via
 	 * `Configure::write('CakeDto.databaseTypeMap', [...])`, e.g.:
 	 *
 	 * ```php
 	 * Configure::write('CakeDto.databaseTypeMap', [
-	 *     'decimal' => '\PhpCollective\DecimalObject\Decimal',  // for cakephp-decimal users
-	 *     'json'    => 'array',                                  // pre-fix behavior
+	 *     'decimal' => 'float', // restore pre-fix behavior
+	 *     'json' => 'mixed', // opt into schema-honest JSON typing
+	 *     // or: 'decimal' => '\PhpCollective\DecimalObject\Decimal', // for cakephp-decimal users
 	 * ]);
 	 * ```
 	 *
@@ -58,7 +61,7 @@ class DatabaseParser {
 		'timestampfractional' => '\Cake\I18n\DateTime',
 		'timestamptimezone' => '\Cake\I18n\DateTime',
 		'time' => '\Cake\I18n\Time',
-		'json' => 'mixed',
+		'json' => 'array',
 		'binary' => 'string',
 	];
 

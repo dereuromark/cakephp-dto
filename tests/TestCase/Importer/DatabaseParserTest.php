@@ -126,8 +126,10 @@ class DatabaseParserTest extends TestCase {
 	 * require that package; baking it in would generate DTOs that reference
 	 * a class the host app may not have installed. Apps that DO use
 	 * cakephp-decimal opt in via the Configure override (next test).
-	 * `json` defaults to `mixed` instead of `array` so single-object /
-	 * scalar JSON columns aren't incorrectly forced into list shape.
+	 *
+	 * `json` intentionally stays at `array` in the current release line for
+	 * generation-output backward compatibility. Projects that prefer a more
+	 * schema-honest `mixed` type can opt in via the same override hook.
 	 *
 	 * @return void
 	 */
@@ -137,7 +139,7 @@ class DatabaseParserTest extends TestCase {
 		$map = $prop->getValue($this->parser);
 
 		$this->assertSame('string', $map['decimal']);
-		$this->assertSame('mixed', $map['json']);
+		$this->assertSame('array', $map['json']);
 	}
 
 	/**
@@ -148,7 +150,7 @@ class DatabaseParserTest extends TestCase {
 	 * @return void
 	 */
 	public function testConfigureCanOverrideTypeMap(): void {
-		Configure::write('CakeDto.databaseTypeMap', ['decimal' => 'float', 'json' => 'array']);
+		Configure::write('CakeDto.databaseTypeMap', ['decimal' => 'float', 'json' => 'mixed']);
 		try {
 			$parser = new DatabaseParser();
 			$ref = new ReflectionClass(DatabaseParser::class);
@@ -156,7 +158,7 @@ class DatabaseParserTest extends TestCase {
 			$map = $prop->getValue($parser);
 
 			$this->assertSame('float', $map['decimal']);
-			$this->assertSame('array', $map['json']);
+			$this->assertSame('mixed', $map['json']);
 			// Unchanged entries still match their defaults.
 			$this->assertSame('int', $map['integer']);
 		} finally {
