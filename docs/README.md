@@ -1059,7 +1059,3 @@ public function validationRules(): array {
 | `min`       | `greaterThanOrEqual()`                |
 | `max`       | `lessThanOrEqual()`                   |
 | `pattern`   | `regex()`                             |
-
-## TODOs
-
-See https://github.com/dereuromark/cakephp-dto/wiki and open issues.
