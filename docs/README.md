@@ -563,7 +563,7 @@ if ($article->getAbbreviation()) {
 
 ### Controller DTO Resolution
 
-**Note:** Controller DTO resolution has been removed from this plugin. CakePHP 5.3+ now provides native support via the `#[RequestToDto]` attribute.
+**Note:** Controller DTO resolution has been removed from this plugin. CakePHP 5.2+ now provides native support via the `#[RequestToDto]` attribute.
 
 See the [CakePHP documentation](https://book.cakephp.org/5.x/controllers.html) for details.
 
