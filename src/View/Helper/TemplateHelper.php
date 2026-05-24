@@ -59,10 +59,10 @@ class TemplateHelper extends Helper {
 					$nestedOptions['indent'] += 1;
 				}
 				$v = is_array($v) ? sprintf(
-						"'%s' => [%s]",
-						$k,
-						$this->stringifyList($v, $nestedOptions),
-					) : "'$k' => $v";
+					"'%s' => [%s]",
+					$k,
+					$this->stringifyList($v, $nestedOptions),
+				) : "'$k' => $v";
 			} elseif (is_array($v)) {
 				$nestedOptions = $options;
 				if ($nestedOptions['indent']) {
@@ -79,9 +79,9 @@ class TemplateHelper extends Helper {
 		$join = ', ';
 		if ($options['indent']) {
 			$join = ',';
-			$start = "\n" . str_repeat((string) $options['tab'], $options['indent']);
+			$start = "\n" . str_repeat((string)$options['tab'], $options['indent']);
 			$join .= $start;
-			$end = "\n" . str_repeat((string) $options['tab'], $options['indent'] - 1);
+			$end = "\n" . str_repeat((string)$options['tab'], $options['indent'] - 1);
 		}
 
 		if ($options['trailingComma']) {

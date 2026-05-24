@@ -89,7 +89,7 @@ class DtoView extends TwigView {
 			$this->Blocks->set('content', $this->renderLayout('', $layout));
 		}
 
-		return rtrim((string) $this->Blocks->get('content'), "\n") . "\n";
+		return rtrim((string)$this->Blocks->get('content'), "\n") . "\n";
 	}
 
 	/**

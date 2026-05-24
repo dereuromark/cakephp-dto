@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CakeDto\Filesystem;
 
 use Exception;
+use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -155,7 +156,7 @@ class Folder {
 		$path = static::slashTerm($path);
 		if (is_dir($path)) {
 			try {
-				$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::CURRENT_AS_SELF | \FilesystemIterator::SKIP_DOTS);
+				$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::CURRENT_AS_SELF | FilesystemIterator::SKIP_DOTS);
 				$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
 			} catch (Exception) {
 				return false;
