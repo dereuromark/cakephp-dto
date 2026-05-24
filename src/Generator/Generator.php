@@ -153,7 +153,7 @@ class Generator {
 		$pattern = '#[/\\\\]src[/\\\\]Dto[/\\\\](.+)' . preg_quote($suffix, '#') . '\.php$#';
 		foreach ($iterator as $fileInfo) {
 			$file = $fileInfo->getPathname();
-			if (!preg_match($pattern, $file, $matches)) {
+			if (!preg_match($pattern, (string)$file, $matches)) {
 				continue;
 			}
 			$name = $matches[1];

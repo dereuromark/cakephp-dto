@@ -80,7 +80,6 @@ class AppController extends Controller {
 		try {
 			$allowed = $gate() === true;
 		} catch (ForbiddenException $e) {
-			// Caller explicitly chose the 403 path - respect it.
 			throw $e;
 		} catch (Throwable $e) {
 			// Convert any other failure (broken callable, transient DB

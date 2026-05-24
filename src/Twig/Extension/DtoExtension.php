@@ -19,7 +19,7 @@ class DtoExtension extends AbstractExtension {
 	 */
 	public function getFilters(): array {
 		return [
-			new TwigFilter('stripLeadingUnderscore', [$this, 'stripLeadingUnderscore']),
+			new TwigFilter('stripLeadingUnderscore', $this->stripLeadingUnderscore(...)),
 		];
 	}
 
@@ -28,7 +28,7 @@ class DtoExtension extends AbstractExtension {
 	 */
 	public function getFunctions(): array {
 		return [
-			new TwigFunction('getCollectionAdapter', [$this, 'getCollectionAdapter']),
+			new TwigFunction('getCollectionAdapter', $this->getCollectionAdapter(...)),
 		];
 	}
 
