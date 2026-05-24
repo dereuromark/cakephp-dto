@@ -119,7 +119,7 @@ class DtoPaginationTest extends TestCase {
 		];
 
 		$pagination = new DtoPagination($items, $meta);
-		$result = $pagination->toArray();
+		$result = $pagination->toArray(null);
 
 		$this->assertEmpty($result['data']);
 		$this->assertSame($meta, $result['meta']);
