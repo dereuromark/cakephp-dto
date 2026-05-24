@@ -391,12 +391,12 @@ class DtoTest extends TestCase {
 
 		$this->assertNull($carDto->distanceTravelled);
 
-		$this->assertFalse($carDto->distanceTravelled !== null);
+		$this->assertFalse(isset($carDto->distanceTravelled));
 		$this->assertFalse(!empty($carDto->distanceTravelled));
 
 		$carDto->setDistanceTravelled(111);
 
-		$this->assertTrue($carDto->distanceTravelled !== null);
+		$this->assertTrue(isset($carDto->distanceTravelled));
 		$this->assertTrue(!empty($carDto->distanceTravelled));
 
 		$result = $carDto->distanceTravelled;

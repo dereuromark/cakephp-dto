@@ -256,7 +256,7 @@ class FolderTest extends TestCase {
 	 */
 	public function testDeleteWithNullPath(): void {
 		$folder = new Folder($this->testPath, true);
-		$result = $folder->delete();
+		$result = $folder->delete(null);
 
 		$this->assertTrue($result);
 	}
