@@ -1,6 +1,6 @@
 <?php
 
-require 'bootstrap.php';
+require __DIR__ . '/bootstrap.php';
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOutput;

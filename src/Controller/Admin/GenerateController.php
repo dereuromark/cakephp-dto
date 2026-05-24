@@ -29,7 +29,7 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
-				$this->set(compact('result', 'dto', 'namespace', 'format'));
+				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
 			} else {
 				$json = $this->request->getData('input');
 				$type = $this->request->getData('type');
@@ -46,7 +46,7 @@ class GenerateController extends AppController {
 					$this->Flash->error($e->getMessage());
 				}
 
-				$this->set(compact('schema'));
+				$this->set(['schema' => $schema]);
 			}
 		}
 
@@ -58,7 +58,7 @@ class GenerateController extends AppController {
 	public function database(): void {
 		$parser = new DatabaseParser();
 		$tables = $parser->listTables();
-		$this->set(compact('tables'));
+		$this->set(['tables' => $tables]);
 
 		if ($this->request->is(['post', 'put'])) {
 			if ($this->request->getData('dto')) {
@@ -70,7 +70,7 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
-				$this->set(compact('result', 'dto', 'namespace', 'format'));
+				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
 			} elseif ($this->request->getData('tables')) {
 				$selectedTables = array_keys(array_filter($this->request->getData('tables')));
 
@@ -81,7 +81,7 @@ class GenerateController extends AppController {
 					$this->Flash->error($e->getMessage());
 				}
 
-				$this->set(compact('schema'));
+				$this->set(['schema' => $schema]);
 			}
 		}
 	}

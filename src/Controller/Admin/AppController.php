@@ -79,9 +79,6 @@ class AppController extends Controller {
 	private function runGate(Closure $gate): void {
 		try {
 			$allowed = $gate() === true;
-		} catch (ForbiddenException $e) {
-			// Caller explicitly chose the 403 path - respect it.
-			throw $e;
 		} catch (Throwable $e) {
 			// Convert any other failure (broken callable, transient DB
 			// error in a role lookup, etc.) to a generic 403. Logging the

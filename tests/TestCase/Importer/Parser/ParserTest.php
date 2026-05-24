@@ -67,7 +67,7 @@ class ParserTest extends TestCase {
 				if (!empty($array)) {
 					$this->assertStringContainsString('<dto', $schema, $file . ': ' . $schema);
 				}
-			} catch (TypeError $e) {
+			} catch (TypeError) {
 				// Some JSON schemas have unusual structures that cause type errors
 				// Just skip these files silently
 				continue;
