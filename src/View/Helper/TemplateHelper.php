@@ -79,9 +79,9 @@ class TemplateHelper extends Helper {
 		$join = ', ';
 		if ($options['indent']) {
 			$join = ',';
-			$start = "\n" . str_repeat((string)$options['tab'], $options['indent']);
+			$start = "\n" . str_repeat($options['tab'], $options['indent']);
 			$join .= $start;
-			$end = "\n" . str_repeat((string)$options['tab'], $options['indent'] - 1);
+			$end = "\n" . str_repeat($options['tab'], $options['indent'] - 1);
 		}
 
 		if ($options['trailingComma']) {
