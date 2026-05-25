@@ -46,7 +46,7 @@ class GenerateController extends AppController {
 					$this->Flash->error($e->getMessage());
 				}
 
-				$this->set(['schema' => $schema]);
+				$this->set(compact('schema'));
 			}
 		}
 
@@ -58,7 +58,7 @@ class GenerateController extends AppController {
 	public function database(): void {
 		$parser = new DatabaseParser();
 		$tables = $parser->listTables();
-		$this->set(['tables' => $tables]);
+		$this->set(compact('tables'));
 
 		if ($this->request->is(['post', 'put'])) {
 			if ($this->request->getData('dto')) {
@@ -81,7 +81,7 @@ class GenerateController extends AppController {
 					$this->Flash->error($e->getMessage());
 				}
 
-				$this->set(['schema' => $schema]);
+				$this->set(compact('schema'));
 			}
 		}
 	}
