@@ -29,7 +29,7 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
-				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
+				$this->set(compact('result', 'dto', 'namespace', 'format'));
 			} else {
 				$json = $this->request->getData('input');
 				$type = $this->request->getData('type');
@@ -70,7 +70,7 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
-				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
+				$this->set(compact('result', 'dto', 'namespace', 'format'));
 			} elseif ($this->request->getData('tables')) {
 				$selectedTables = array_keys(array_filter($this->request->getData('tables')));
 

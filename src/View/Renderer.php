@@ -83,7 +83,7 @@ class Renderer implements RendererInterface {
 		$scalarAndReturnTypes = (bool)Configure::read('CakeDto.scalarAndReturnTypes', true);
 		$typedConstants = (bool)Configure::read('CakeDto.typedConstants', false);
 
-		$this->set(['strictTypes' => $strictTypes, 'scalarAndReturnTypes' => $scalarAndReturnTypes, 'typedConstants' => $typedConstants]);
+		$this->set(compact('strictTypes', 'scalarAndReturnTypes', 'typedConstants'));
 	}
 
 }
