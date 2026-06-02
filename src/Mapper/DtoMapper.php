@@ -126,7 +126,7 @@ class DtoMapper {
 	 * @return \PhpCollective\Dto\Dto\Dto
 	 */
 	protected static function mapItem(
-		EntityInterface|array|Dto $item,
+		EntityInterface|Dto|array $item,
 		string $dtoClass,
 		bool $ignoreMissing,
 		?string $type,
