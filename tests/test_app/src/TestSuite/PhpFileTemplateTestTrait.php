@@ -5,7 +5,7 @@ namespace TestApp\TestSuite;
 use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
 use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Output\DiffOnlyOutputBuilder;
 
 /**
  * @mixin \Cake\TestSuite\TestCase
@@ -31,7 +31,7 @@ trait PhpFileTemplateTestTrait {
 		try {
 			$this->assertTextContains($needle, $content, $folder . '.' . $template . ' does not match file ' . $file);
 		} catch (ExpectationFailedException $e) {
-			$differ = new Differ(new UnifiedDiffOutputBuilder("\n--- Expected\n+++ Actual\n"));
+			$differ = new Differ(new DiffOnlyOutputBuilder());
 
 			$diff = $differ->diff($needle, $content);
 			$lines = explode("\n", trim($diff));
