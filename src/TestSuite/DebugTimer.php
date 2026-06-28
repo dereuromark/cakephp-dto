@@ -101,7 +101,7 @@ class DebugTimer {
 				$name = $_name . ' #' . $i;
 			}
 		}
-		if (!isset(static::$_timers[$name])) {
+		if ($name === null || !isset(static::$_timers[$name])) {
 			return false;
 		}
 		static::$_timers[$name]['end'] = $end;
