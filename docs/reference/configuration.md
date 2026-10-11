@@ -15,14 +15,14 @@ Generation settings take effect after regeneration; they do not change already g
 | --- | --- | --- |
 | `engine` | `XmlEngine` | Definition parser implementing `EngineInterface`. |
 | `suffix` | `Dto` | Generated class suffix. An empty string removes it; avoid reserved PHP class names. |
-| `srcPath` | Application or plugin `src/` | Output root. The generator adds a `Dto/` subdirectory. |
+| `srcPath` | Application or plugin `src/` | Application output root. The generator adds a `Dto/` subdirectory; plugin generation uses its own `src/`. |
 | `strictTypes` | `false` | Add `declare(strict_types=1)` to generated files. PHP scalar coercion also depends on the calling file's strict-types setting. |
 | `scalarAndReturnTypes` | `true` | Generate scalar parameter and return declarations. |
 | `typedConstants` | `false` | Use typed class constants. Enable only when the runtime is PHP 8.3 or newer. |
 | `immutable` | `false` | Default immutability for definitions without an explicit setting. |
 | `defaultCollectionType` | `\ArrayObject` | Default generated collection type. |
 | `debug` | `false` | Include additional definition metadata in generated DTOs. |
-| `assocKeyFields` | `slug`, `login`, `name` | Candidate string keys when inferring associative collections from example JSON. |
+| `assocKeyFields` | `slug`, `login`, `name`, `id` | Candidate string keys when inferring associative collections from example JSON. |
 | `databaseTypeMap` | Importer defaults | Override database-to-DTO type mappings entry by entry. |
 | `adminAccess` | Unset, deny | Closure that must return literal `true` for access to importer pages. |
 | `finder` | Library `Finder` | Definition file finder. |
@@ -40,7 +40,7 @@ Nullable override settings such as `engine` and `builder` use their default clas
 ],
 ```
 
-This writes into `generated/Dto/`, including when `--plugin` is supplied. Set the override only for the generation jobs that should share that output location.
+This writes application DTOs into `generated/Dto/`. With `--plugin`, the generator uses that plugin's `src/Dto/` instead; an application output override never redirects plugin classes into the same directory.
 
 Add a matching Composer autoload entry alongside your existing application mapping:
 

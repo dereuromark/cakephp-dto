@@ -86,6 +86,7 @@ class DtoInitCommand extends Command {
 				'help' => 'The plugin to run it for. Defaults to the application otherwise.',
 			],
 			'force' => [
+				'boolean' => true,
 				'short' => 'f',
 				'help' => 'Overwrite if existing (emptying it). Warning: Make sure to commit or have a backup file before doing so.',
 			],

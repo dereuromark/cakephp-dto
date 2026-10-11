@@ -28,7 +28,7 @@ bin/cake dto generate --namespace MyApp
 | `--dry-run` | `-d` | Report pending changes without writing files or creating directories. |
 | `--confirm` | `-c` | Lint files that are written with the current PHP interpreter. |
 | `--force` | `-f` | Write every definition, including unchanged classes. This mode skips obsolete-file removal. |
-| `--plugin` | `-p` | Read the plugin's definitions and write into its `src/Dto/` directory unless `CakeDto.srcPath` overrides the output. |
+| `--plugin` | `-p` | Read the plugin's definitions and write into its `src/Dto/` directory. Application `CakeDto.srcPath` overrides do not apply. |
 | `--namespace` | `-n` | Override the namespace used for generated classes. |
 | `--verbose` | `-v` | Show skipped files and differences; this is CakePHP's console verbosity option. |
 

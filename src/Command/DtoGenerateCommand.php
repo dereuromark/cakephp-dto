@@ -58,15 +58,15 @@ class DtoGenerateCommand extends Command {
 	 * @return string
 	 */
 	protected function _getSrcPath(Arguments $args): string {
-		$srcPath = Configure::read('CakeDto.srcPath');
-		if (is_string($srcPath) && $srcPath !== '') {
-			return rtrim($srcPath, '/\\') . DS;
-		}
-
 		if ($args->getOption('plugin')) {
 			$path = Plugin::path((string)$args->getOption('plugin'));
 
 			return $path . 'src' . DS;
+		}
+
+		$srcPath = Configure::read('CakeDto.srcPath');
+		if (is_string($srcPath) && $srcPath !== '') {
+			return rtrim($srcPath, '/\\') . DS;
 		}
 
 		return ROOT . DS . 'src' . DS;

@@ -5,6 +5,7 @@ namespace CakeDto;
 use Cake\Collection\Collection;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
+use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
@@ -14,6 +15,7 @@ use CakeDto\Command\DtoInitCommand;
 use PhpCollective\Dto\Collection\CollectionAdapterRegistry;
 use PhpCollective\Dto\Dto\Dto;
 use PhpCollective\Dto\Engine\XmlValidator;
+use PhpCollective\Dto\Importer\Parser\Config as ParserConfig;
 
 /**
  * Plugin for CakeDto
@@ -52,6 +54,11 @@ class CakeDtoPlugin extends BasePlugin {
 
 		// Register CakeCollectionAdapter for proper template generation
 		CollectionAdapterRegistry::register(new CakeCollectionAdapter());
+
+		$keyFields = Configure::read('CakeDto.assocKeyFields');
+		if (is_array($keyFields)) {
+			ParserConfig::setKeyFields(array_values(array_filter($keyFields, is_string(...))));
+		}
 	}
 
 	/**

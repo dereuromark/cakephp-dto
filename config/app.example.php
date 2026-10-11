@@ -15,7 +15,7 @@ return [
 		'immutable' => false, // This can have a negative performance impact
 		'defaultCollectionType' => null, // Defaults to `\ArrayObject`
 		'debug' => false, // Add all meta data into DTOs for debugging
-		'assocKeyFields' => ['slug', 'login', 'name'], // Candidate keys when inferring associative collections from example JSON
+		'assocKeyFields' => ['slug', 'login', 'name', 'id'], // Candidate keys when inferring associative collections from example JSON
 		'databaseTypeMap' => [
 			// `decimal` intentionally defaults to `string` in the importer to avoid precision loss.
 			// Uncomment to restore the pre-2.10 behavior if your generated DTOs still expect float:

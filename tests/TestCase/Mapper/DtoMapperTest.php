@@ -2,12 +2,18 @@
 
 namespace CakeDto\Test\TestCase\Mapper;
 
+use Cake\Database\Connection;
+use Cake\Database\Driver\Sqlite;
+use Cake\Datasource\ConnectionManager;
+use Cake\Datasource\Paging\NumericPaginator;
 use Cake\I18n\Date;
 use Cake\I18n\DateTime;
+use Cake\ORM\Table;
 use Cake\TestSuite\TestCase;
 use CakeDto\Mapper\DtoMapper;
 use CakeDto\Mapper\DtoPagination;
 use TestApp\Dto\ArticleDto;
+use TestApp\Dto\AuthorDto;
 use TestApp\Model\Entity\Article;
 use TestApp\Model\Entity\Author;
 use TestApp\Model\Entity\Tag;
@@ -148,6 +154,38 @@ class DtoMapperTest extends TestCase {
 				'source' => 'test',
 			],
 		]);
+	}
+
+	public function testCurrentCakePhpPagination(): void {
+		ConnectionManager::setConfig('dto_paging', [
+			'className' => Connection::class,
+			'driver' => Sqlite::class,
+			'database' => ':memory:',
+		]);
+		try {
+			$connection = ConnectionManager::get('dto_paging');
+			$this->assertInstanceOf(Connection::class, $connection);
+			$connection->execute('CREATE TABLE authors (id INTEGER PRIMARY KEY, name VARCHAR(255))');
+			$connection->execute("INSERT INTO authors VALUES (1, 'One'), (2, 'Two'), (3, 'Three')");
+			$table = new Table(['alias' => 'Authors', 'table' => 'authors', 'connection' => $connection]);
+			$results = (new NumericPaginator())->paginate($table, ['page' => 2], ['limit' => 2]);
+
+			$pagination = DtoMapper::fromPaginated($results, ['Authors' => $results->pagingParams()], 'Authors', AuthorDto::class);
+
+			$this->assertSame([
+				'page' => 2,
+				'perPage' => 2,
+				'count' => 3,
+				'pageCount' => 2,
+				'current' => 1,
+				'hasNext' => false,
+				'hasPrev' => true,
+			], $pagination->getMeta());
+			$this->assertCount(1, $pagination->getItems());
+			$this->assertSame('Three', $pagination->getItems()[0]->name);
+		} finally {
+			ConnectionManager::drop('dto_paging');
+		}
 	}
 
 }

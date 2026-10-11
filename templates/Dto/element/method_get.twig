@@ -7,7 +7,7 @@
 	 * @return {{ docBlockType ?? type }}{% if nullable %}|null{% endif %}
 
 	 */
-	public function get{{ cleanName[:1]|upper ~ cleanName[1:] }}(){% if returnTypeHint %}: {% if nullable %}?{% endif %}{{ returnTypeHint }}{% endif %} {
+	public function get{{ cleanName[:1]|upper ~ cleanName[1:] }}(){% if returnTypeHint %}: {{ nullableReturnTypeHint ?? returnTypeHint }}{% endif %} {
 {% if collection %}
 		if ($this->{{ name }} === null) {
 			return {% if collectionType == 'array' %}[]{% else %}new {{ typeHint }}([]){% endif %};
@@ -33,7 +33,7 @@
 {% endif %}
 	 */
 {% set cleanSingular = singular | stripLeadingUnderscore %}
-	public function get{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({{ keyType }} $key){% if singularReturnTypeHint %}: {% if singularNullable %}?{% endif %}{{ singularReturnTypeHint }}{% endif %} {
+	public function get{{ cleanSingular[:1]|upper ~ cleanSingular[1:] }}({{ keyType }} $key){% if singularReturnTypeHint %}: {{ singularNullableReturnTypeHint ?? singularReturnTypeHint }}{% endif %} {
 {% if singularNullable %}
 		if (!isset($this->{{ name }}[$key])) {
 			return null;

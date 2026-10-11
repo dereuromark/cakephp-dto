@@ -54,7 +54,7 @@ use CakeDto\Mapper\DtoMapper;
 use CakeDto\Http\DtoJsonResponse;
 
 $entities = $this->paginate($this->fetchTable('Products'));
-$paging = $this->request->getAttribute('paging');
+$paging = ['Products' => $entities->pagingParams()];
 $pagination = DtoMapper::fromPaginated(
     $entities,
     $paging,
@@ -67,7 +67,7 @@ $pagination = DtoMapper::fromPaginated(
 return DtoJsonResponse::fromPagination($pagination);
 ```
 
-The response contains `data` and `meta`. Metadata includes `page`, `perPage`, `count`, `pageCount`, `current`, `hasNext` and `hasPrev`. The alias must match the paging entry; missing metadata throws `InvalidArgumentException`. `getItems()` and `getMeta()` expose the mapped values separately.
+The response contains `data` and `meta`. Metadata includes `page`, `perPage`, `count`, `pageCount`, `current`, `hasNext` and `hasPrev`. The alias must match the paging entry. Use the paginated result's `pagingParams()`; CakePHP 5 does not set a request `paging` attribute. This mapper requires numeric pagination with total counts; count-free simple pagination is not supported. Missing metadata throws `InvalidArgumentException`. `getItems()` and `getMeta()` expose the mapped values separately.
 
 ## Validate input
 

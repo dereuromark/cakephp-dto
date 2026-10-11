@@ -35,7 +35,7 @@ JSON Schema can supply more detail, including required fields. Local `$ref` poin
 
 Choose PHP, YAML, XML or NEON on the result page, then copy the definition into a file matching your configured engine. The web interface produces XML with the plugin's `cakephp-dto` namespace. XML produced by the standalone library uses a different namespace and must be adapted before generation. Run `bin/cake dto generate --confirm` after saving the definition.
 
-The `CakeDto.assocKeyFields` candidates default to `slug`, `login` and `name`. Review inferred collection keys for uniqueness and string type.
+The `CakeDto.assocKeyFields` candidates default to `slug`, `login`, `name` and `id`. Set this option before plugin bootstrap. Review inferred collection keys for uniqueness and string type.
 
 ## Database columns
 
