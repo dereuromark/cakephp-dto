@@ -32,6 +32,6 @@ export default defineConfig({
     ],
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/dereuromark/cakephp-dto' }],
-    editLink: { pattern: 'https://github.com/dereuromark/cakephp-dto/edit/master/docs/:path' },
+    editLink: { pattern: 'https://github.com/dereuromark/cakephp-dto/edit/cake6/docs/:path' },
   },
 })

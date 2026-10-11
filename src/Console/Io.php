@@ -4,6 +4,7 @@ namespace CakeDto\Console;
 
 use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
+use Cake\Console\ConsoleIoInterface;
 use Cake\Console\Exception\StopException;
 use PhpCollective\Dto\Generator\IoInterface;
 
@@ -13,12 +14,12 @@ use PhpCollective\Dto\Generator\IoInterface;
  */
 class Io implements IoInterface {
 
-	protected ConsoleIo $_io;
+	protected ConsoleIoInterface $_io;
 
 	/**
-	 * @param \Cake\Console\ConsoleIo $io
+	 * @param \Cake\Console\ConsoleIoInterface $io
 	 */
-	public function __construct(ConsoleIo $io) {
+	public function __construct(ConsoleIoInterface $io) {
 		$this->_io = $io;
 	}
 

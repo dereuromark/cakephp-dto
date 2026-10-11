@@ -67,7 +67,7 @@ $pagination = DtoMapper::fromPaginated(
 return DtoJsonResponse::fromPagination($pagination);
 ```
 
-The response contains `data` and `meta`. Metadata includes `page`, `perPage`, `count`, `pageCount`, `current`, `hasNext` and `hasPrev`. The alias must match the paging entry. Use the paginated result's `pagingParams()`; CakePHP 5 does not set a request `paging` attribute. This mapper requires numeric pagination with total counts; count-free simple pagination is not supported. Missing metadata throws `InvalidArgumentException`. `getItems()` and `getMeta()` expose the mapped values separately.
+The response contains `data` and `meta`. Metadata includes `page`, `perPage`, `count`, `pageCount`, `current`, `hasNext` and `hasPrev`. The alias must match the paging entry. Use the paginated result's `pagingParams()`; CakePHP 6 does not set a request `paging` attribute. This mapper requires numeric pagination with total counts; count-free simple pagination is not supported. Missing metadata throws `InvalidArgumentException`. `getItems()` and `getMeta()` expose the mapped values separately.
 
 ## Validate input
 
@@ -93,7 +93,7 @@ The bridge does not add type validation for every declared field or convert inco
 
 ## Request parameters
 
-CakePHP 5.4 introduced the core `#[RequestToDto]` parameter attribute. Earlier CakePHP 5 releases need explicit mapping with `createFromArray()` inside the action. The plugin no longer provides its former request-resolution attribute or application trait.
+CakePHP 6 includes the core `#[RequestToDto]` parameter attribute. You can also map explicitly with `createFromArray()` inside the action. The plugin no longer provides its former request-resolution attribute or application trait.
 
 ```php
 use App\Dto\ProductDto;
@@ -106,4 +106,4 @@ public function preview(#[RequestToDto] ProductDto $product): Response {
 }
 ```
 
-The core resolver calls `createFromArray()` on the DTO. Its default input source depends on the request method, and it does not enable `ignoreMissing` for you. Keep request fields compatible with the DTO definition. See the [CakePHP 5.4 release notes](https://bakery.cakephp.org/2026/07/19/cakephp_540.html) and [attribute implementation](https://github.com/cakephp/cakephp/blob/5.x/src/Controller/Attribute/RequestToDto.php).
+The core resolver calls `createFromArray()` on the DTO. Its default input source depends on the request method, and it does not enable `ignoreMissing` for you. Keep request fields compatible with the DTO definition. See the [attribute implementation](https://github.com/cakephp/cakephp/blob/6.x/src/Controller/Attribute/RequestToDto.php).

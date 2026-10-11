@@ -24,7 +24,7 @@ class Builder extends BaseBuilder {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [];
+	protected array $defaultConfig = [];
 
 	/**
 	 * @param \PhpCollective\Dto\Engine\EngineInterface $engine
@@ -34,7 +34,7 @@ class Builder extends BaseBuilder {
 		parent::__construct($engine, $config);
 
 		// Sync the config for InstanceConfigTrait compatibility
-		$this->_defaultConfig = $this->config;
+		$this->defaultConfig = $this->config;
 	}
 
 	/**

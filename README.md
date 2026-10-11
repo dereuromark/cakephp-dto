@@ -1,9 +1,9 @@
 # CakePHP DTO plugin
 
-[![CI](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml?query=branch%3Amaster)
-[![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/master.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
+[![CI](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml/badge.svg?branch=cake6)](https://github.com/dereuromark/cakephp-dto/actions/workflows/ci.yml?query=branch%3Acake6)
+[![codecov](https://img.shields.io/codecov/c/github/dereuromark/cakephp-dto/cake6.svg)](https://codecov.io/gh/dereuromark/cakephp-dto)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-dto/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.5-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-dto/license.svg)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-purple.svg?style=flat-square)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -14,6 +14,10 @@ Generate typed data transfer objects from XML, PHP, YAML or NEON definitions. Th
 Generated DTOs have named getters, setters or immutable `with...()` methods. They carry data between application layers; ORM entities still represent persisted records.
 
 ## Documentation
+
+This development branch targets CakePHP 6 and PHP 8.5. Read the
+[branch installation guide](docs/guide/installation.md). The published website
+below covers CakePHP 5.
 
 - [Installation](https://dereuromark.github.io/cakephp-dto/guide/installation)
 - [Getting started](https://dereuromark.github.io/cakephp-dto/guide/getting-started)

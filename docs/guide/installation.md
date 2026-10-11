@@ -1,15 +1,18 @@
 # Installation
 
-Run these commands from your CakePHP application's root:
+This development branch requires CakePHP 6, PHP 8.5 and TwigView 3. Run these
+commands from your application's root:
 
 ```sh
-composer require dereuromark/cakephp-dto
+composer config minimum-stability dev
+composer config prefer-stable true
+composer require cakephp/cakephp:^6.0@dev dereuromark/cakephp-dto:dev-cake6
 bin/cake plugin load CakeDto
 ```
 
 Plugin loading registers the `dto init` and `dto generate` commands and the CakePHP collection adapter. If you load plugins in `Application::bootstrap()` instead, add `$this->addPlugin('CakeDto');` there once.
 
-Composer checks PHP and CakePHP compatibility against the [package constraints](https://github.com/dereuromark/cakephp-dto/blob/master/composer.json). The default XML engine also needs PHP's DOM and libxml extensions. Check the CLI interpreter used by `bin/cake`:
+Composer checks PHP and CakePHP compatibility against the [package constraints](https://github.com/dereuromark/cakephp-dto/blob/cake6/composer.json). The default XML engine also needs PHP's DOM and libxml extensions. Check the CLI interpreter used by `bin/cake`:
 
 ```sh
 php -m

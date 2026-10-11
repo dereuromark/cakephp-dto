@@ -2,7 +2,9 @@
 
 namespace CakeDto\Test\TestCase\Command;
 
+use Cake\Command\Command;
 use Cake\Console\Arguments;
+use Cake\Console\BaseCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
@@ -12,6 +14,7 @@ use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Filesystem\Folder;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use ReflectionMethod;
+use ReflectionProperty;
 use TestApp\TestSuite\ConsoleOutput;
 
 #[AllowMockObjectsWithoutExpectations]
@@ -62,10 +65,20 @@ class DtoGenerateCommandTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testNativeCommandRun(): void {
+		$root = TMP . 'command' . DS;
+		file_put_contents($root . 'dto.xml', '<dtos xmlns="cakephp-dto"><dto name="Native"><field name="title" type="string"/></dto></dtos>');
+		$this->assertSame(0, $this->command->run([], $this->io));
+		$this->assertFileExists($root . 'Dto' . DS . 'NativeDto.php');
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testGenerate() {
 		$args = new Arguments([], ['verbose' => true], []); // ['generate', '-v']
 
-		$result = $this->command->execute($args, $this->io);
+		$result = $this->executeWithArguments($this->command, $args);
 		$this->assertSame(0, $result);
 
 		//TODO
@@ -97,12 +110,12 @@ class DtoGenerateCommandTest extends TestCase {
 		file_put_contents($root . 'dto.xml', '<dtos xmlns="cakephp-dto"><dto name="Product"><field name="title" type="string"/></dto></dtos>');
 
 		try {
-			$this->assertSame(0, $command->execute(new Arguments([], [], []), $this->io));
+			$this->assertSame(0, $this->executeWithArguments($command, new Arguments([], [], [])));
 			$appFile = $root . 'generated' . DS . 'Dto' . DS . 'ProductDto.php';
 			$appContent = file_get_contents($appFile);
 			file_put_contents($root . 'dto.xml', '<dtos xmlns="cakephp-dto"><dto name="PluginProduct"><field name="title" type="string"/></dto></dtos>');
 
-			$this->assertSame(0, $command->execute(new Arguments([], ['plugin' => 'OutputTest'], []), $this->io));
+			$this->assertSame(0, $this->executeWithArguments($command, new Arguments([], ['plugin' => 'OutputTest'], [])));
 
 			$this->assertSame($appContent, file_get_contents($appFile));
 			$this->assertFileExists($pluginPath . 'src' . DS . 'Dto' . DS . 'PluginProductDto.php');
@@ -111,6 +124,18 @@ class DtoGenerateCommandTest extends TestCase {
 			Configure::delete('CakeDto.srcPath');
 			Plugin::getCollection()->remove('OutputTest');
 		}
+	}
+
+	/**
+	 * @param \Cake\Command\Command $command
+	 * @param \Cake\Console\Arguments $args
+	 * @return int|null
+	 */
+	private function executeWithArguments(Command $command, Arguments $args): ?int {
+		(new ReflectionProperty(BaseCommand::class, 'args'))->setValue($command, $args);
+		(new ReflectionProperty(BaseCommand::class, 'io'))->setValue($command, $this->io);
+
+		return $command->execute();
 	}
 
 }

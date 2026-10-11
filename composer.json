@@ -35,11 +35,11 @@
 		"source": "https://github.com/dereuromark/cakephp-dto/"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=8.5",
 		"ext-json": "*",
-		"cakephp/cakephp": "^5.1.1",
-		"cakephp/twig-view": "^2.0.1",
-		"sebastian/diff": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+		"cakephp/cakephp": "^6.0@dev",
+		"cakephp/twig-view": "^3.0@dev",
+		"sebastian/diff": "^8.0.0 || ^9.0.0",
 		"php-collective/dto": "^0.1.17"
 	},
 	"require-dev": {
@@ -47,12 +47,12 @@
 		"ext-libxml": "*",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"nette/neon": "^2.4 || ^3.2",
-		"phpunit/phpunit": "^11.5 || ^12.1 || ^13.0"
+		"phpunit/phpunit": "^13.0"
 	},
 	"suggest": {
 		"nette/neon": "If you want to add a NEON file engine instead of XML."
 	},
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
