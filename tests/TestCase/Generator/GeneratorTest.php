@@ -306,4 +306,158 @@ TXT;
 		return new Generator($builder, $renderer, $io);
 	}
 
+	public function testDryRunDetectsOnlyObsoleteFiles(): void {
+		copy(ROOT . DS . 'files/dto.xml', $this->configPath . 'dto.xml');
+		$file = $this->srcPath . 'Dto' . DS . 'ObsoleteDto.php';
+		file_put_contents($file, '<?php');
+
+		$result = $this->generator->generate($this->configPath, $this->srcPath, ['dryRun' => true]);
+
+		$this->assertSame(Generator::CODE_CHANGES, $result);
+		$this->assertFileExists($file);
+	}
+
+	public function testDryRunDoesNotCreateOutputDirectory(): void {
+		copy(ROOT . DS . 'files/dto.xml', $this->configPath . 'dto.xml');
+		(new Folder($this->srcPath . 'Dto'))->delete();
+
+		$result = $this->generator->generate($this->configPath, $this->srcPath, ['dryRun' => true]);
+
+		$this->assertSame(Generator::CODE_SUCCESS, $result);
+		$this->assertDirectoryDoesNotExist($this->srcPath . 'Dto');
+	}
+
+	public function testDryRunWithDefinitionsDoesNotCreateOutputDirectory(): void {
+		copy(ROOT . DS . 'docs/examples/basic.dto.xml', $this->configPath . 'dto.xml');
+		(new Folder($this->srcPath . 'Dto'))->delete();
+
+		$result = $this->generator->generate($this->configPath, $this->srcPath, ['dryRun' => true]);
+
+		$this->assertSame(Generator::CODE_CHANGES, $result);
+		$this->assertDirectoryDoesNotExist($this->srcPath . 'Dto');
+	}
+
+	public function testCustomOutputPathRecognizesUnchangedAndObsoleteFiles(): void {
+		$srcPath = TMP . 'generated' . DS;
+		(new Folder($srcPath))->delete();
+		copy(ROOT . DS . 'docs/examples/basic.dto.xml', $this->configPath . 'dto.xml');
+
+		try {
+			$this->assertSame(Generator::CODE_CHANGES, $this->generator->generate($this->configPath, $srcPath, ['verbose' => true]));
+			$this->assertSame(Generator::CODE_SUCCESS, $this->generator->generate($this->configPath, $srcPath, ['dryRun' => true]));
+			copy(ROOT . DS . 'files/dto.xml', $this->configPath . 'dto.xml');
+			$this->assertSame(Generator::CODE_CHANGES, $this->generator->generate($this->configPath, $srcPath, ['dryRun' => true]));
+		} finally {
+			(new Folder($srcPath))->delete();
+		}
+	}
+
+	public function testExampleConfigurationGeneratesSuccessfully(): void {
+		$config = Configure::read('CakeDto');
+		Configure::write(require ROOT . DS . 'config/app.example.php');
+		copy(ROOT . DS . 'docs/examples/basic.dto.xml', $this->configPath . 'dto.xml');
+		try {
+			$generator = $this->createGenerator();
+			$this->assertSame(Generator::CODE_SUCCESS, $generator->generate($this->configPath, $this->srcPath, ['confirm' => true]));
+		} finally {
+			Configure::write('CakeDto', $config);
+		}
+	}
+
+	public function testStringDefaultsWithQuotesAndBackslashes(): void {
+		file_put_contents($this->configPath . 'dto.xml', <<<'XML'
+<?xml version="1.0"?>
+<dtos xmlns="cakephp-dto">
+    <dto name="Quoted">
+        <field name="title" type="string" defaultValue="O&apos;Reilly\Books"/>
+    </dto>
+</dtos>
+XML);
+
+		$result = $this->generator->generate($this->configPath, $this->srcPath, ['confirm' => true, 'namespace' => 'TestApp']);
+
+		$this->assertSame(Generator::CODE_SUCCESS, $result);
+		require $this->srcPath . 'Dto' . DS . 'QuotedDto.php';
+		$className = 'TestApp\\Dto\\QuotedDto';
+		$dto = new $className();
+		$this->assertSame("O'Reilly\\Books", $dto->getTitle());
+	}
+
+	public function testNullableUnionWorksAtRuntime(): void {
+		file_put_contents($this->configPath . 'dto.xml', <<<'XML'
+<?xml version="1.0"?>
+<dtos xmlns="cakephp-dto">
+    <dto name="UnionReview">
+        <field name="reference" type="int|string"/>
+    </dto>
+</dtos>
+XML);
+		$this->assertSame(Generator::CODE_SUCCESS, $this->generator->generate($this->configPath, $this->srcPath, ['confirm' => true, 'namespace' => 'TestApp']));
+		require $this->srcPath . 'Dto' . DS . 'UnionReviewDto.php';
+		$className = 'TestApp\\Dto\\UnionReviewDto';
+		$dto = new $className();
+		$this->assertNull($dto->getReference());
+		$dto->setReference(3);
+		$this->assertSame(3, $dto->getReference());
+		$dto->setReference('external');
+		$this->assertSame('external', $dto->getReferenceOrFail());
+		$dto->setReference(null);
+		$this->assertNull($dto->getReference());
+	}
+
+	public function testFactoriesAcceptMethodsAndExistingObjects(): void {
+		file_put_contents($this->configPath . 'dto.xml', <<<'XML'
+<?xml version="1.0"?>
+<dtos xmlns="cakephp-dto">
+    <dto name="FactoryReview">
+        <field name="created" type="\Cake\I18n\DateTime" factory="parse"/>
+        <field name="updated" type="\Cake\I18n\DateTime" factory="\Cake\I18n\DateTime::parse"/>
+    </dto>
+</dtos>
+XML);
+		$this->assertSame(Generator::CODE_SUCCESS, $this->generator->generate($this->configPath, $this->srcPath, ['confirm' => true, 'namespace' => 'TestApp']));
+		require $this->srcPath . 'Dto' . DS . 'FactoryReviewDto.php';
+		$className = 'TestApp\\Dto\\FactoryReviewDto';
+		$dto = new $className(['created' => '2026-01-02 03:04:05', 'updated' => '2026-02-03 04:05:06']);
+		$this->assertSame('2026-01-02', $dto->getCreated()->format('Y-m-d'));
+		$this->assertSame('2026-02-03', $dto->getUpdated()->format('Y-m-d'));
+		$dto->fromArray(['created' => '2026-03-04 05:06:07']);
+		$this->assertSame('2026-03-04', $dto->getCreated()->format('Y-m-d'));
+		$value = $dto->getCreated();
+		$dto->fromArray(['created' => $value]);
+		$this->assertSame($value, $dto->getCreated());
+	}
+
+	public function testCustomFieldMappingRoundTrips(): void {
+		file_put_contents($this->configPath . 'dto.xml', <<<'XML'
+<?xml version="1.0"?>
+<dtos xmlns="cakephp-dto">
+    <dto name="MappingReview">
+        <field name="firstName" type="string" mapFrom="first_name" mapTo="first_name"/>
+    </dto>
+</dtos>
+XML);
+		$this->assertSame(Generator::CODE_SUCCESS, $this->generator->generate($this->configPath, $this->srcPath, ['confirm' => true, 'namespace' => 'TestApp']));
+		require $this->srcPath . 'Dto' . DS . 'MappingReviewDto.php';
+		$className = 'TestApp\\Dto\\MappingReviewDto';
+		$dto = $className::createFromArray(['first_name' => 'Bob']);
+		$this->assertSame('Bob', $dto->getFirstName());
+		$this->assertSame(['first_name' => 'Bob'], $dto->toArray());
+		$dto->fromArray(['first_name' => 'Ann']);
+		$this->assertSame('Ann', $dto->getFirstName());
+		$this->assertSame(['first_name' => 'Ann'], $dto->toArray($dto::TYPE_UNDERSCORED));
+	}
+
+	public function testConfirmReturnsErrorForInvalidGeneratedPhp(): void {
+		copy(ROOT . DS . 'docs/examples/basic.dto.xml', $this->configPath . 'dto.xml');
+		$renderer = $this->getMockBuilder(Renderer::class)->onlyMethods(['generate'])->getMock();
+		$renderer->expects($this->atLeastOnce())->method('generate')->willReturn('<?php invalid PHP code');
+		$generator = new Generator(new Builder(new XmlEngine()), $renderer, new Io(new ConsoleIo($this->out, $this->err)));
+
+		$result = $generator->generate($this->configPath, $this->srcPath, ['confirm' => true]);
+
+		$this->assertSame(Generator::CODE_ERROR, $result);
+		$this->assertTextContains('PHP file invalid:', $this->err->output());
+	}
+
 }

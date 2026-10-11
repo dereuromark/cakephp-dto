@@ -34,12 +34,12 @@ class CarsDto extends AbstractDto {
 	protected array $_metadata = [
 		'cars' => [
 			'name' => 'cars',
-			'type' => '\TestApp\Dto\CarDto[]|\ArrayObject',
+			'type' => '\\TestApp\\Dto\\CarDto[]|\\ArrayObject',
 			'associative' => true,
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
-			'collectionType' => '\ArrayObject',
+			'collectionType' => '\\ArrayObject',
 			'key' => null,
 			'serialize' => null,
 			'factory' => null,
@@ -53,9 +53,9 @@ class CarsDto extends AbstractDto {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
-			'singularType' => '\TestApp\Dto\CarDto',
+			'singularType' => '\\TestApp\\Dto\\CarDto',
 			'singularNullable' => false,
-			'singularTypeHint' => '\TestApp\Dto\CarDto',
+			'singularTypeHint' => '\\TestApp\\Dto\\CarDto',
 		],
 	];
 

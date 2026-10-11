@@ -175,6 +175,21 @@ class DtoMapper {
 			throw new InvalidArgumentException(sprintf('Invalid paging data for alias `%s`.', $alias));
 		}
 
+		if (array_key_exists('currentPage', $params)) {
+			foreach (['currentPage', 'perPage', 'totalCount', 'pageCount', 'count'] as $key) {
+				if (!isset($params[$key])) {
+					throw new InvalidArgumentException(sprintf('Missing `%s` paging key for alias `%s`.', $key, $alias));
+				}
+			}
+			$params = [
+				'page' => $params['currentPage'],
+				'perPage' => $params['perPage'],
+				'count' => $params['totalCount'],
+				'pageCount' => $params['pageCount'],
+				'current' => $params['count'],
+			];
+		}
+
 		$required = ['page', 'perPage', 'count', 'pageCount', 'current'];
 		foreach ($required as $key) {
 			if (!array_key_exists($key, $params)) {

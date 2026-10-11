@@ -19,7 +19,7 @@ class DtoInitCommand extends Command {
 
 	/**
 	 * E.g.:
-	 * bin/cake upgrade /path/to/app --level=cakephp40
+	 * bin/cake dto init Customer
 	 *
 	 * @param \Cake\Console\Arguments $args The command arguments.
 	 * @param \Cake\Console\ConsoleIo $io The console io
@@ -86,6 +86,7 @@ class DtoInitCommand extends Command {
 				'help' => 'The plugin to run it for. Defaults to the application otherwise.',
 			],
 			'force' => [
+				'boolean' => true,
 				'short' => 'f',
 				'help' => 'Overwrite if existing (emptying it). Warning: Make sure to commit or have a backup file before doing so.',
 			],
@@ -93,7 +94,8 @@ class DtoInitCommand extends Command {
 
 		return $parser
 			->setDescription(static::getDescription())
-			->addOptions($options);
+			->addOptions($options)
+			->addArgument('name', ['help' => 'Optional definition file name within config/dto.']);
 	}
 
 }

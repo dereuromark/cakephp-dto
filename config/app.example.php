@@ -15,8 +15,7 @@ return [
 		'immutable' => false, // This can have a negative performance impact
 		'defaultCollectionType' => null, // Defaults to `\ArrayObject`
 		'debug' => false, // Add all meta data into DTOs for debugging
-		'keyType' => null, // Dto::TYPE_DEFAULT by default which uses Dto::TYPE_CAMEL
-		'assocKeyFields' => ['slug', 'login', 'name'], // Candidate keys when inferring associative collections from example JSON
+		'assocKeyFields' => ['slug', 'login', 'name', 'id'], // Candidate keys when inferring associative collections from example JSON
 		'databaseTypeMap' => [
 			// `decimal` intentionally defaults to `string` in the importer to avoid precision loss.
 			// Uncomment to restore the pre-2.10 behavior if your generated DTOs still expect float:
@@ -34,9 +33,9 @@ return [
 		'renderer' => null, // Defaults to `CakeDto\View\Renderer`
 		'adminAccess' => function (ServerRequest $request): bool {
 			// Default-deny gate for /admin/cake-dto/generate. Must return literal `true` to grant access.
-			$identity = $request->getAttribute('identity');
+			// Replace this with your application's access check using $request.
 
-			return $identity !== null && in_array('admin', (array)$identity->roles, true);
+			return false;
 		},
 	],
 ];

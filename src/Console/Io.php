@@ -78,7 +78,7 @@ class Io implements IoInterface {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function info(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
-		return $this->_io->info((string)$message, $level);
+		return $this->_io->info((string)$message, $newlines, $level);
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Io implements IoInterface {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function comment(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
-		return $this->_io->comment((string)$message, $level);
+		return $this->_io->comment((string)$message, $newlines, $level);
 	}
 
 	/**
@@ -113,7 +113,7 @@ class Io implements IoInterface {
 	 * @return int|null The number of bytes returned from writing to stdout.
 	 */
 	public function success(?string $message = null, int $newlines = 1, int $level = ConsoleIo::NORMAL): ?int {
-		return $this->_io->success((string)$message, $level);
+		return $this->_io->success((string)$message, $newlines, $level);
 	}
 
 	/**

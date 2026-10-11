@@ -100,7 +100,7 @@ class CarDto extends AbstractDto {
 	protected array $_metadata = [
 		'color' => [
 			'name' => 'color',
-			'type' => '\TestApp\ValueObject\Paint',
+			'type' => '\\TestApp\\ValueObject\\Paint',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -212,7 +212,7 @@ class CarDto extends AbstractDto {
 		],
 		'manufactured' => [
 			'name' => 'manufactured',
-			'type' => '\Cake\I18n\Date',
+			'type' => '\\Cake\\I18n\\Date',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -236,7 +236,7 @@ class CarDto extends AbstractDto {
 		],
 		'owner' => [
 			'name' => 'owner',
-			'type' => '\TestApp\Dto\OwnerDto',
+			'type' => '\\TestApp\\Dto\\OwnerDto',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => 'Owner',

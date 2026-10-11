@@ -5,10 +5,9 @@ namespace CakeDto\Test\TestCase\TestSuite;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\TestSuite\DebugMemory;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-/**
- * @uses \CakeDto\TestSuite\DebugMemory
- */
+#[UsesClass(DebugMemory::class)]
 class DebugMemoryTest extends TestCase {
 
 	/**

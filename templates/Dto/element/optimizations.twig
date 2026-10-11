@@ -33,6 +33,13 @@
 	 */
 	protected function setFromArrayFast(array $data): void {
 {% for field in fields %}
+{% if field.mapFrom is not null %}
+		if (array_key_exists({{ Template.stringifyList([field.mapFrom], {'indent': 0, 'trailingComma': false}) | raw }}, $data)) {
+			$data['{{ field.name }}'] = $data[{{ Template.stringifyList([field.mapFrom], {'indent': 0, 'trailingComma': false}) | raw }}];
+		}
+{% endif %}
+{% endfor %}
+{% for field in fields %}
 {% if field.dto %}
 		if (isset($data['{{ field.name }}'])) {
 			$value = $data['{{ field.name }}'];
@@ -55,7 +62,7 @@
 		}
 {% elseif field.factory %}
 		if (isset($data['{{ field.name }}'])) {
-			$this->{{ field.name }} = {{ field.factory }}($data['{{ field.name }}']);
+			$this->{{ field.name }} = $this->createWithFactory('{{ field.name }}', $data['{{ field.name }}']);
 			$this->_touchedFields['{{ field.name }}'] = true;
 		}
 {% elseif field.enum is defined and field.enum %}

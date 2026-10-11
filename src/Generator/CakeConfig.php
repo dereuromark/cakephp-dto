@@ -28,10 +28,10 @@ class CakeConfig implements ConfigInterface {
 		$this->config = [
 			'scalarAndReturnTypes' => Configure::read('CakeDto.scalarAndReturnTypes', true),
 			'typedConstants' => Configure::read('CakeDto.typedConstants', false),
-			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType', '\ArrayObject'),
+			'defaultCollectionType' => Configure::read('CakeDto.defaultCollectionType') ?? '\ArrayObject',
 			'debug' => (bool)Configure::read('CakeDto.debug'),
 			'immutable' => (bool)Configure::read('CakeDto.immutable'),
-			'finder' => Configure::read('CakeDto.finder', Finder::class),
+			'finder' => Configure::read('CakeDto.finder') ?? Finder::class,
 			'suffix' => Configure::read('CakeDto.suffix', 'Dto'),
 			'namespace' => Configure::read('App.namespace', 'App'),
 		];

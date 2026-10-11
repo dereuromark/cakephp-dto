@@ -5,7 +5,9 @@ namespace CakeDto;
 use Cake\Collection\Collection;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
+use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 use CakeDto\Collection\CakeCollectionAdapter;
 use CakeDto\Command\DtoGenerateCommand;
@@ -13,6 +15,7 @@ use CakeDto\Command\DtoInitCommand;
 use PhpCollective\Dto\Collection\CollectionAdapterRegistry;
 use PhpCollective\Dto\Dto\Dto;
 use PhpCollective\Dto\Engine\XmlValidator;
+use PhpCollective\Dto\Importer\Parser\Config as ParserConfig;
 
 /**
  * Plugin for CakeDto
@@ -51,6 +54,11 @@ class CakeDtoPlugin extends BasePlugin {
 
 		// Register CakeCollectionAdapter for proper template generation
 		CollectionAdapterRegistry::register(new CakeCollectionAdapter());
+
+		$keyFields = Configure::read('CakeDto.assocKeyFields');
+		if (is_array($keyFields)) {
+			ParserConfig::setKeyFields(array_values(array_filter($keyFields, is_string(...))));
+		}
 	}
 
 	/**
@@ -61,7 +69,8 @@ class CakeDtoPlugin extends BasePlugin {
 	public function routes(RouteBuilder $routes): void {
 		$routes->prefix('Admin', function (RouteBuilder $routes): void {
 			$routes->plugin('CakeDto', function (RouteBuilder $routes): void {
-				$routes->connect('/', ['controller' => 'CakeDto', 'action' => 'index']);
+				$routes->setRouteClass(DashedRoute::class);
+				$routes->connect('/', ['controller' => 'Generate', 'action' => 'index']);
 
 				$routes->fallbacks();
 			});

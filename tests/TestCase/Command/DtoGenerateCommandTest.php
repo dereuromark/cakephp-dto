@@ -4,10 +4,14 @@ namespace CakeDto\Test\TestCase\Command;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\Core\BasePlugin;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Filesystem\Folder;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use ReflectionMethod;
 use TestApp\TestSuite\ConsoleOutput;
 
 #[AllowMockObjectsWithoutExpectations]
@@ -70,6 +74,43 @@ class DtoGenerateCommandTest extends TestCase {
 		$this->assertEmpty($this->err->output(), $this->err->output());
 
 		$this->assertEmpty($this->out->output(), $this->out->output());
+	}
+
+	public function testConfiguredSourcePath(): void {
+		Configure::write('CakeDto.srcPath', TMP . 'generated');
+		try {
+			$method = new ReflectionMethod(DtoGenerateCommand::class, '_getSrcPath');
+			$this->assertSame(TMP . 'generated' . DS, $method->invoke(new DtoGenerateCommand(), new Arguments([], [], [])));
+		} finally {
+			Configure::delete('CakeDto.srcPath');
+		}
+	}
+
+	public function testPluginGenerationPreservesApplicationOutput(): void {
+		$root = TMP . 'command' . DS;
+		$pluginPath = $root . 'plugin' . DS;
+		mkdir($pluginPath . 'config', 0700, true);
+		Plugin::getCollection()->add(new BasePlugin(['name' => 'OutputTest', 'path' => $pluginPath]));
+		Configure::write('CakeDto.srcPath', $root . 'generated');
+		$command = $this->getMockBuilder(DtoGenerateCommand::class)->onlyMethods(['_getConfigPath'])->getMock();
+		$command->expects($this->exactly(2))->method('_getConfigPath')->willReturn($root);
+		file_put_contents($root . 'dto.xml', '<dtos xmlns="cakephp-dto"><dto name="Product"><field name="title" type="string"/></dto></dtos>');
+
+		try {
+			$this->assertSame(0, $command->execute(new Arguments([], [], []), $this->io));
+			$appFile = $root . 'generated' . DS . 'Dto' . DS . 'ProductDto.php';
+			$appContent = file_get_contents($appFile);
+			file_put_contents($root . 'dto.xml', '<dtos xmlns="cakephp-dto"><dto name="PluginProduct"><field name="title" type="string"/></dto></dtos>');
+
+			$this->assertSame(0, $command->execute(new Arguments([], ['plugin' => 'OutputTest'], []), $this->io));
+
+			$this->assertSame($appContent, file_get_contents($appFile));
+			$this->assertFileExists($pluginPath . 'src' . DS . 'Dto' . DS . 'PluginProductDto.php');
+			$this->assertFileDoesNotExist($root . 'generated' . DS . 'Dto' . DS . 'PluginProductDto.php');
+		} finally {
+			Configure::delete('CakeDto.srcPath');
+			Plugin::getCollection()->remove('OutputTest');
+		}
 	}
 
 }

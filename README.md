@@ -8,53 +8,21 @@
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-dto/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-dto)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-purple.svg?style=flat-square)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
-A Data Transfer Object (DTO) is an object used to pass typed data between layers in your application, similar in
-concept to [Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_language)) in C, Martin Fowler's [Transfer
- Objects](http://martinfowler.com/eaaCatalog/dataTransferObject.html), or [Value Objects](https://en.wikipedia.org/wiki/Value_object).
 
-The goal of this package is to structure "unstructured data", replacing simple (associative) arrays with a more speaking solution.
+Generate typed data transfer objects from XML, PHP, YAML or NEON definitions. The plugin integrates [php-collective/dto](https://github.com/php-collective/dto) with CakePHP and adds console generation, entity mapping, JSON responses and schema import tools.
 
-**Unique approach:** Unlike other PHP DTO libraries that use runtime reflection, this plugin generates actual PHP code from configuration files.
-This provides the best possible IDE support, static analysis compatibility, and runtime performance.
-See [Motivation](https://github.com/php-collective/dto/blob/master/docs/Motivation.md) for a comparison with alternatives.
+Generated DTOs have named getters, setters or immutable `with...()` methods. They carry data between application layers; ORM entities still represent persisted records.
 
-- By making all fields typeable, we can be sure that their values are never something we didn't expect.
-Especially with modern PHP and more strict typehinting moving forward this is rather important to detect and fail early.
-- We can have full IDE autocomplete and typehinting.
-- We can use tools like PHPStan to statically analyze the code (more strictly).
-- We can simplify the logic where required fields will now just throw a meaningful exception.
-- We can work with different inflections of field names more easily.
-- Easy way of immutable DTOs with required fields, to trust them in following code.
-- Works out of the box with any [value object](https://github.com/Serhii-DV/awesome-php-value-objects) that is serializable (either as array or string).
+## Documentation
 
-This plugin will provide you with a tool to quickly generate custom and optimized DTOs for your special use cases.
+- [Installation](https://dereuromark.github.io/cakephp-dto/guide/installation)
+- [Getting started](https://dereuromark.github.io/cakephp-dto/guide/getting-started)
+- [Definitions](https://dereuromark.github.io/cakephp-dto/guide/definitions)
+- [CakePHP integration](https://dereuromark.github.io/cakephp-dto/guide/integration)
+- [Commands and CI](https://dereuromark.github.io/cakephp-dto/reference/commands)
 
-CakePHP integration for [php-collective/dto](https://github.com/php-collective/dto).
-
-This branch is for use with **CakePHP 5.1+**. For details see [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map).
+See the [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map) for older CakePHP branches and [Composer constraints](composer.json) for package compatibility.
 
 ## Examples
 
-Live examples in the Sandbox: [Github Demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github).
-
-See [Examples](docs/Examples.md) for basic, immutable, mapper, and complex entity use cases.
-The generated demo DTOs of those are in [tests/test_app/src/Dto/](tests/test_app/src/Dto/).
-
-Note: Param/return types are enabled and strict types disabled by default.
-
-## Installation
-
-You can install this plugin into your CakePHP application using [Composer](https://getcomposer.org/).
-
-```
-composer require dereuromark/cakephp-dto
-```
-
-Then load the plugin with the following command:
-```
-bin/cake plugin load CakeDto
-```
-
-## Usage
-
-See [Docs](docs/README.md) for details.
+Try the [Sandbox demo](https://sandbox.dereuromark.de/sandbox/dto-examples/github), browse [definition examples](docs/examples/), or inspect the [generated test DTOs](tests/test_app/src/Dto/).

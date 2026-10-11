@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TestApp\Dto;
+namespace TestApp\Validation;
 
 use PhpCollective\Dto\Dto\AbstractDto;
 
@@ -11,10 +11,19 @@ use PhpCollective\Dto\Dto\AbstractDto;
  */
 class ValidatedDto extends AbstractDto {
 
+	/**
+     * @var string
+     */
 	public const FIELD_NAME = 'name';
 
+	/**
+     * @var string
+     */
 	public const FIELD_EMAIL = 'email';
 
+	/**
+     * @var string
+     */
 	public const FIELD_AGE = 'age';
 
 	protected ?string $name = null;

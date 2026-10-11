@@ -13,3 +13,6 @@ phpunit.xml.dist export-ignore
 .editorconfig export-ignore
 tests/test_app export-ignore
 tests/files export-ignore
+
+docs export-ignore
+.github export-ignore

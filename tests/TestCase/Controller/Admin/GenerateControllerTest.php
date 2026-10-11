@@ -7,13 +7,18 @@ use Cake\Core\Configure;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Sqlite;
 use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
 use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\UnauthorizedException;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use CakeDto\Controller\Admin\GenerateController;
+use DOMDocument;
+use PHPUnit\Framework\Attributes\UsesClass;
+use RuntimeException;
 
-/**
- * @uses \CakeDto\Controller\Admin\GenerateController
- */
+#[UsesClass(GenerateController::class)]
 class GenerateControllerTest extends TestCase {
 
 	use IntegrationTestTrait;
@@ -143,6 +148,76 @@ class GenerateControllerTest extends TestCase {
 		$this->expectException(ForbiddenException::class);
 
 		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'index']);
+	}
+
+	public function testAdminRoot(): void {
+		$this->get('/admin/cake-dto');
+
+		$this->assertResponseCode(200);
+	}
+
+	public function testInvalidJsonShowsFeedback(): void {
+		$this->post('/admin/cake-dto/generate/schema', ['input' => '{invalid', 'type' => 'json']);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseContains('message error');
+		$this->assertResponseContains('Syntax error');
+	}
+
+	public function testExplicitHttpExceptionIsPreserved(): void {
+		Configure::write('CakeDto.adminAccess', static function (): never {
+			throw new UnauthorizedException('Sign in first');
+		});
+		$this->expectException(UnauthorizedException::class);
+		$this->expectExceptionMessage('Sign in first');
+
+		$this->get('/admin/cake-dto');
+	}
+
+	public function testAuthorizationServiceIsSkippedWithoutComponent(): void {
+		$service = new class {
+			public bool $skipped = false;
+
+			public function skipAuthorization(): void {
+				$this->skipped = true;
+			}
+		};
+		$request = (new ServerRequest())->withAttribute('authorization', $service);
+		$controller = new GenerateController($request);
+
+		$controller->beforeFilter(new Event('Controller.initialize', $controller));
+
+		$this->assertTrue($service->skipped);
+	}
+
+	public function testUnexpectedGateFailureDeniesAccess(): void {
+		Configure::write('CakeDto.adminAccess', static function (): never {
+			throw new RuntimeException('Private credentials');
+		});
+		$this->expectException(ForbiddenException::class);
+		$this->expectExceptionMessage('Not authorized to access CakeDto admin UI');
+
+		$this->get('/admin/cake-dto');
+	}
+
+	public function testImportedXmlUsesPluginSchema(): void {
+		$this->post('/admin/cake-dto/generate/schema', [
+			'dto' => ['Product' => ['title' => ['type' => 'string']]],
+			'format' => 'xml',
+		]);
+
+		$this->assertResponseCode(200);
+		$result = $this->viewVariable('result');
+		$this->assertIsString($result);
+		$xml = new DOMDocument();
+		$previous = libxml_use_internal_errors(true);
+		try {
+			$this->assertTrue($xml->loadXML($result));
+			$this->assertTrue($xml->schemaValidate(ROOT . DS . 'config/dto.xsd'));
+		} finally {
+			libxml_clear_errors();
+			libxml_use_internal_errors($previous);
+		}
 	}
 
 }

@@ -95,4 +95,41 @@ class DtoInitCommandTest extends TestCase {
 		$this->assertEmpty($this->err->output(), $this->err->output());
 	}
 
+	public function testNamedDefinitionThroughCommandParser(): void {
+		$parser = $this->command->getOptionParser();
+		[$options, $arguments] = $parser->parse(['Customer']);
+		$args = new Arguments($arguments, $options, $parser->argumentNames());
+
+		$this->command->execute($args, $this->io);
+
+		$this->assertFileExists(TMP . 'command' . DS . 'dto' . DS . 'Customer.dto.xml');
+	}
+
+	public function testForcedNamedDefinitionThroughParser(): void {
+		$path = TMP . 'command' . DS;
+		mkdir($path . 'dto');
+		file_put_contents($path . 'dto.xml', 'Keep root definition');
+		file_put_contents($path . 'dto' . DS . 'Customer.dto.xml', 'Replace named definition');
+		$parser = $this->command->getOptionParser();
+		[$options, $arguments] = $parser->parse(['--force', 'Customer']);
+		$args = new Arguments($arguments, $options, $parser->argumentNames());
+
+		$this->command->execute($args, $this->io);
+
+		$this->assertSame('Keep root definition', file_get_contents($path . 'dto.xml'));
+		$this->assertTextContains('<dtos', file_get_contents($path . 'dto' . DS . 'Customer.dto.xml'));
+	}
+
+	public function testForceFlagThroughParser(): void {
+		$path = TMP . 'command' . DS . 'dto.xml';
+		file_put_contents($path, 'Old definition');
+		$parser = $this->command->getOptionParser();
+		[$options, $arguments] = $parser->parse(['-f']);
+		$args = new Arguments($arguments, $options, $parser->argumentNames());
+
+		$this->command->execute($args, $this->io);
+
+		$this->assertTextContains('<dtos', file_get_contents($path));
+	}
+
 }

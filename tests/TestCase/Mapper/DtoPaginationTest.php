@@ -5,11 +5,10 @@ namespace CakeDto\Test\TestCase\Mapper;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\Mapper\DtoPagination;
+use PHPUnit\Framework\Attributes\UsesClass;
 use TestApp\Dto\CarDto;
 
-/**
- * @uses \CakeDto\Mapper\DtoPagination
- */
+#[UsesClass(DtoPagination::class)]
 class DtoPaginationTest extends TestCase {
 
 	/**

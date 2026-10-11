@@ -111,7 +111,7 @@ class ArticleDto extends AbstractImmutableDto {
 		],
 		'author' => [
 			'name' => 'author',
-			'type' => '\TestApp\Dto\AuthorDto',
+			'type' => '\\TestApp\\Dto\\AuthorDto',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => 'Author',
@@ -155,7 +155,7 @@ class ArticleDto extends AbstractImmutableDto {
 		],
 		'created' => [
 			'name' => 'created',
-			'type' => '\Cake\I18n\Date',
+			'type' => '\\Cake\\I18n\\Date',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => null,
@@ -179,7 +179,7 @@ class ArticleDto extends AbstractImmutableDto {
 		],
 		'tags' => [
 			'name' => 'tags',
-			'type' => '\TestApp\Dto\TagDto[]',
+			'type' => '\\TestApp\\Dto\\TagDto[]',
 			'collectionType' => 'array',
 			'required' => false,
 			'defaultValue' => null,
@@ -198,9 +198,9 @@ class ArticleDto extends AbstractImmutableDto {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
-			'singularType' => '\TestApp\Dto\TagDto',
+			'singularType' => '\\TestApp\\Dto\\TagDto',
 			'singularNullable' => false,
-			'singularTypeHint' => '\TestApp\Dto\TagDto',
+			'singularTypeHint' => '\\TestApp\\Dto\\TagDto',
 		],
 		'meta' => [
 			'name' => 'meta',

@@ -32,7 +32,7 @@ class DtoGenerateCommand extends Command {
 
 	/**
 	 * E.g.:
-	 * bin/cake upgrade /path/to/app --level=cakephp40
+	 * bin/cake dto generate --confirm
 	 *
 	 * @param \Cake\Console\Arguments $args The command arguments.
 	 * @param \Cake\Console\ConsoleIo $io The console io
@@ -62,6 +62,11 @@ class DtoGenerateCommand extends Command {
 			$path = Plugin::path((string)$args->getOption('plugin'));
 
 			return $path . 'src' . DS;
+		}
+
+		$srcPath = Configure::read('CakeDto.srcPath');
+		if (is_string($srcPath) && $srcPath !== '') {
+			return rtrim($srcPath, '/\\') . DS;
 		}
 
 		return ROOT . DS . 'src' . DS;

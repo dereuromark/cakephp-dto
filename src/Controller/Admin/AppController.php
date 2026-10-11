@@ -7,34 +7,24 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\HttpException;
 use Cake\Log\Log;
 use Closure;
 use Throwable;
 
 /**
- * Base controller for CakeDto Admin controllers.
+ * Access gate for the schema preview and database importer.
  *
- * The admin UI introspects the application's database schema and writes
- * generated DTO files, so accidental exposure to anonymous users is a
- * serious problem. The default policy is therefore **deny**. The host
- * application MUST set `CakeDto.adminAccess` to a `Closure` that receives
- * the current request and returns literal `true` to grant access; anything
- * else (unset, non-Closure, returns false, returns a truthy non-bool, or
- * throws) yields a 403.
- *
- * ```php
- * Configure::write('CakeDto.adminAccess', function (\Cake\Http\ServerRequest $request): bool {
- *     $identity = $request->getAttribute('identity');
- *     return $identity !== null && in_array('admin', (array)$identity->roles, true);
- * });
- * ```
- *
- * Subclasses do not need to opt out of authentication / authorization
- * components: this gate is the authorization decision for the admin UI,
- * and the `Authorization` component policy check is silenced here so
- * controllers do not have to call `skipAuthorization()` themselves.
+ * Configure CakeDto.adminAccess with a Closure returning literal true for
+ * permitted requests. The controller extends CakePHP's base Controller;
+ * application middleware still applies.
  */
 class AppController extends Controller {
+
+	public function initialize(): void {
+		parent::initialize();
+		$this->loadComponent('Flash');
+	}
 
 	/**
 	 * Default-deny access gate.
@@ -46,10 +36,16 @@ class AppController extends Controller {
 	public function beforeFilter(EventInterface $event): void {
 		parent::beforeFilter($event);
 
-		// Coexist with cakephp/authorization: this gate IS the authorization
-		// decision for the CakeDto admin, so silence the policy check.
-		if ($this->components()->has('Authorization') && method_exists($this->components()->get('Authorization'), 'skipAuthorization')) {
-			$this->components()->get('Authorization')->skipAuthorization();
+		$authorization = $this->request->getAttribute('authorization');
+		if (is_object($authorization)) {
+			if ($this->components()->has('Authorization')) {
+				$component = $this->components()->get('Authorization');
+				if (method_exists($component, 'skipAuthorization')) {
+					$component->skipAuthorization();
+				}
+			} elseif (method_exists($authorization, 'skipAuthorization')) {
+				$authorization->skipAuthorization();
+			}
 		}
 
 		$adminAccess = Configure::read('CakeDto.adminAccess');
@@ -79,17 +75,14 @@ class AppController extends Controller {
 	private function runGate(Closure $gate): void {
 		try {
 			$allowed = $gate() === true;
-		} catch (ForbiddenException $e) {
+		} catch (HttpException $e) {
 			throw $e;
 		} catch (Throwable $e) {
-			// Convert any other failure (broken callable, transient DB
-			// error in a role lookup, etc.) to a generic 403. Logging the
-			// concrete exception class + message lets operators diagnose
-			// it without leaking a stack trace to the client.
 			Log::warning(sprintf(
-				'CakeDto admin gate threw %s: %s',
+				'CakeDto admin gate threw %s in %s:%d',
 				$e::class,
-				$e->getMessage(),
+				$e->getFile(),
+				$e->getLine(),
 			));
 
 			throw new ForbiddenException('Not authorized to access CakeDto admin UI');
