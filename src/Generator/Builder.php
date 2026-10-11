@@ -29,9 +29,9 @@ class Builder extends BaseBuilder {
 	 * @param array<string, mixed>|string $key
 	 * @param mixed $value
 	 * @param bool $merge
-	 * @return $this
+	 * @return static
 	 */
-	public function setConfig(array|string $key, mixed $value = null, bool $merge = true) {
+	public function setConfig(array|string $key, mixed $value = null, bool $merge = true): static {
 		if (is_string($key) && $value === null) {
 			return $this->deleteConfig($key);
 		}
@@ -72,9 +72,9 @@ class Builder extends BaseBuilder {
 	/**
 	 * @param array<string, mixed>|string $key
 	 * @param mixed $value
-	 * @return $this
+	 * @return static
 	 */
-	public function configShallow(array|string $key, mixed $value = null) {
+	public function configShallow(array|string $key, mixed $value = null): static {
 		$this->config = array_merge($this->config, Hash::expand(is_array($key) ? $key : [$key => $value]));
 
 		return $this;
@@ -82,9 +82,9 @@ class Builder extends BaseBuilder {
 
 	/**
 	 * @param string $key
-	 * @return $this
+	 * @return static
 	 */
-	public function deleteConfig(string $key) {
+	public function deleteConfig(string $key): static {
 		$this->config = Hash::remove($this->config, $key);
 
 		return $this;

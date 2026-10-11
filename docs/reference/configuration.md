@@ -18,7 +18,7 @@ Generation settings take effect after regeneration; they do not change already g
 | `srcPath` | Application or plugin `src/` | Application output root. The generator adds a `Dto/` subdirectory; plugin generation uses its own `src/`. |
 | `strictTypes` | `false` | Add `declare(strict_types=1)` to generated files. PHP scalar coercion also depends on the calling file's strict-types setting. |
 | `scalarAndReturnTypes` | `true` | Generate scalar parameter and return declarations. |
-| `typedConstants` | `false` | Use typed class constants. Enable it if you want typed class constants. |
+| `typedConstants` | `false` | Use typed class constants. |
 | `immutable` | `false` | Default immutability for definitions without an explicit setting. |
 | `defaultCollectionType` | `\ArrayObject` | Default generated collection type. |
 | `debug` | `false` | Include additional definition metadata in generated DTOs. |
