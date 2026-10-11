@@ -14,6 +14,9 @@ hero:
     - theme: alt
       text: Build your first DTO
       link: /guide/getting-started
+    - theme: alt
+      text: Parent library docs
+      link: https://php-collective.github.io/dto/
 features:
   - title: Generated PHP classes
     details: Named getters, setters, field constants and type declarations come from your schema.
@@ -26,3 +29,5 @@ features:
 CakePHP DTO integrates [php-collective/dto](https://github.com/php-collective/dto) with CakePHP. A DTO carries data with named fields; it does not save records or replace ORM entities.
 
 Start with one small DTO. The [beginner guide](/guide/getting-started) creates a working class without a database or admin interface.
+
+For shared DTO features, see the [parent library documentation](https://php-collective.github.io/dto/) and [php-collective/dto repository](https://github.com/php-collective/dto). Use this site for CakePHP setup, commands and ORM integration.

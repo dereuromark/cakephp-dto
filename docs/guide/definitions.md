@@ -81,7 +81,9 @@ Use `mapFrom` and `mapTo` when an external API's key differs from the DTO field:
 <field name="firstName" type="string" mapFrom="first_name" mapTo="first_name"/>
 ```
 
-This field-specific mapping differs from applying a key format to the entire input array.
+Use the default input key format with custom `mapFrom` aliases. The parent library currently rejects arbitrary aliases when reading underscored or dashed input. If both an alias and its field name appear in the input, the last supplied value wins.
+
+The [parent library documentation](https://php-collective.github.io/dto/) covers definition options and serialization beyond the CakePHP integration.
 
 Object fields can use a factory instead of their constructor:
 
