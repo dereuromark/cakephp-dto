@@ -9,7 +9,9 @@ use CakeDto\Generator\Builder;
 use InvalidArgumentException;
 use PhpCollective\Dto\Engine\EngineInterface;
 use PhpCollective\Dto\Engine\XmlEngine;
+use PhpCollective\Dto\Generator\Builder as GeneratorBuilder;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use ReflectionProperty;
 use TestApp\Dto\AuthorDto;
 use TestApp\Dto\CarDto;
 use TestApp\DtoCustom\DummyNonDtoClass;
@@ -33,6 +35,28 @@ class BuilderTest extends TestCase {
 
 		$engine = new XmlEngine();
 		$this->builder = new Builder($engine);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testConfigPreservesParentStorageAndNestedUpdates(): void {
+		$property = new ReflectionProperty(Builder::class, 'config');
+		$this->assertSame(GeneratorBuilder::class, $property->getDeclaringClass()->getName());
+		$config = $property->getValue($this->builder);
+		$config['futureDefault'] = 'kept';
+		$property->setValue($this->builder, $config);
+
+		$this->assertSame('kept', $this->builder->getConfig('futureDefault'));
+		$this->builder->setConfig('nested.first', 1);
+		$this->builder->setConfig('nested.second', 2);
+		$this->assertSame(['first' => 1, 'second' => 2], $this->builder->getConfig('nested'));
+		$this->assertArrayNotHasKey('nested.first', $this->builder->getConfig());
+		$this->builder->setConfig('nested', ['replacement' => true], false);
+		$this->assertSame(['replacement' => true], $this->builder->getConfigOrFail('nested'));
+		$this->assertSame('kept', $this->builder->getConfig('futureDefault'));
+		$this->builder->deleteConfig('nested.replacement');
+		$this->assertSame([], $this->builder->getConfig('nested'));
 	}
 
 	/**
