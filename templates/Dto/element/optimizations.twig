@@ -32,13 +32,20 @@
 	 * @return void
 	 */
 	protected function setFromArrayFast(array $data): void {
+{% set hasMapFrom = false %}
 {% for field in fields %}
 {% if field.mapFrom is not null %}
-		if (array_key_exists({{ Template.stringifyList([field.mapFrom], {'indent': 0, 'trailingComma': false}) | raw }}, $data)) {
-			$data['{{ field.name }}'] = $data[{{ Template.stringifyList([field.mapFrom], {'indent': 0, 'trailingComma': false}) | raw }}];
-		}
+{% set hasMapFrom = true %}
 {% endif %}
 {% endfor %}
+{% if hasMapFrom %}
+		$mappedData = [];
+		foreach ($data as $field => $value) {
+			$field = $this->_fieldMap['mapFrom'][$field] ?? $field;
+			$mappedData[$field] = $value;
+		}
+		$data = $mappedData;
+{% endif %}
 {% for field in fields %}
 {% if field.dto %}
 		if (isset($data['{{ field.name }}'])) {
@@ -145,11 +152,11 @@
 {% for field in fields %}
 {% set key = field.mapTo is not null ? field.mapTo : field.name %}
 {% if field.dto %}
-			'{{ key }}' => $this->{{ field.name }} !== null ? $this->{{ field.name }}->toArray() : null,
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} !== null ? $this->{{ field.name }}->toArray() : null,
 {% elseif field.serialize == 'FromArrayToArray' or field.serialize == 'array' %}
-			'{{ key }}' => $this->{{ field.name }} !== null ? $this->{{ field.name }}->toArray() : null,
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} !== null ? $this->{{ field.name }}->toArray() : null,
 {% elseif field.collection and field.collectionType != 'array' and field.singularClass is defined and field.singularClass %}
-			'{{ key }}' => $this->{{ field.name }} !== null ? (static function (\Traversable $c): array {
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} !== null ? (static function (\Traversable $c): array {
 				$r = [];
 				foreach ($c as $k => $v) {
 					$r[$k] = $v->toArray();
@@ -157,7 +164,7 @@
 				return $r;
 			})($this->{{ field.name }}) : [],
 {% elseif field.collection and field.collectionType != 'array' %}
-			'{{ key }}' => $this->{{ field.name }} !== null ? (static function (\Traversable $c): array {
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} !== null ? (static function (\Traversable $c): array {
 				$r = [];
 				foreach ($c as $k => $v) {
 					$r[$k] = $v;
@@ -165,7 +172,7 @@
 				return $r;
 			})($this->{{ field.name }}) : [],
 {% elseif field.collection and field.collectionType == 'array' and field.singularClass is defined and field.singularClass %}
-			'{{ key }}' => (static function (?array $a): array {
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => (static function (?array $a): array {
 				if (!$a) {
 					return [];
 				}
@@ -176,13 +183,13 @@
 				return $r;
 			})($this->{{ field.name }}),
 {% elseif field.enum is defined and field.enum == 'unit' %}
-			'{{ key }}' => $this->{{ field.name }}?->name,
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }}?->name,
 {% elseif field.isClass is defined and field.isClass and field.serialize is defined and field.serialize == 'string' %}
-			'{{ key }}' => $this->{{ field.name }} !== null ? (string)$this->{{ field.name }} : null,
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} !== null ? (string)$this->{{ field.name }} : null,
 {% elseif field.collection and field.collectionType == 'array' %}
-			'{{ key }}' => $this->{{ field.name }} ?: [],
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }} ?: [],
 {% else %}
-			'{{ key }}' => $this->{{ field.name }},
+			{{ Template.stringifyList([key], {'indent': 0, 'trailingComma': false}) | raw }} => $this->{{ field.name }},
 {% endif %}
 {% endfor %}
 		];

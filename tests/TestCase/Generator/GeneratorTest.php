@@ -448,6 +448,33 @@ XML);
 		$this->assertSame(['first_name' => 'Ann'], $dto->toArray($dto::TYPE_UNDERSCORED));
 	}
 
+	public function testMappedKeysPreserveInputOrderAndEscapeOutput(): void {
+		file_put_contents($this->configPath . 'dto.xml', <<<'XML'
+<?xml version="1.0"?>
+<dtos xmlns="cakephp-dto">
+    <dto name="MappingOrderReview">
+        <field name="emailAddress" type="string" mapFrom="mail" mapTo="it's"/>
+    </dto>
+</dtos>
+XML);
+		$this->assertSame(Generator::CODE_SUCCESS, $this->generator->generate($this->configPath, $this->srcPath, ['confirm' => true, 'namespace' => 'TestApp']));
+		require $this->srcPath . 'Dto' . DS . 'MappingOrderReviewDto.php';
+		$className = 'TestApp\\Dto\\MappingOrderReviewDto';
+		foreach ([
+			[['mail' => 'mapped', 'emailAddress' => 'direct'], 'direct'],
+			[['emailAddress' => 'direct', 'mail' => 'mapped'], 'mapped'],
+		] as [$input, $expected]) {
+			$fast = $className::createFromArray($input);
+			$slow = $className::createFromArray($input, false, $className::TYPE_DEFAULT);
+			$this->assertSame($expected, $fast->getEmailAddress());
+			$this->assertSame($expected, $slow->getEmailAddress());
+			$this->assertSame(["it's" => $expected], $fast->toArray());
+			$this->assertSame($slow->toArray($className::TYPE_DEFAULT), $fast->toArray());
+			$fast->fromArray($input);
+			$this->assertSame($expected, $fast->getEmailAddress());
+		}
+	}
+
 	public function testConfirmReturnsErrorForInvalidGeneratedPhp(): void {
 		copy(ROOT . DS . 'docs/examples/basic.dto.xml', $this->configPath . 'dto.xml');
 		$renderer = $this->getMockBuilder(Renderer::class)->onlyMethods(['generate'])->getMock();

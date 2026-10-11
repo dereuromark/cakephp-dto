@@ -78,3 +78,5 @@ The plugin sets the library's collection factory to create `Cake\Collection\Coll
 ## PHP compatibility
 
 The default generated syntax supports the package's minimum PHP version. Typed constants require a newer runtime and are opt-in. Check generated output with `--confirm` under the PHP version used by your application, especially after changing templates or generation settings.
+
+See the [parent library documentation](https://php-collective.github.io/dto/) for shared DTO behavior and configuration beyond this CakePHP integration.

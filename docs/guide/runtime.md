@@ -112,3 +112,5 @@ With TwigView, getters can be called as methods:
 ```
 
 The plugin's internal code-generation renderer disables Twig autoescaping to produce PHP source. That setting belongs to code generation, not to your application's HTML templates.
+
+See the [parent library documentation](https://php-collective.github.io/dto/) for shared DTO behavior and configuration beyond this CakePHP integration.
