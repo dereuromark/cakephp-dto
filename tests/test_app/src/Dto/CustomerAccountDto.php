@@ -100,7 +100,7 @@ class CustomerAccountDto extends AbstractDto {
 		],
 		'lastLogin' => [
 			'name' => 'lastLogin',
-			'type' => '\Cake\I18n\DateTime',
+			'type' => '\\Cake\\I18n\\DateTime',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,

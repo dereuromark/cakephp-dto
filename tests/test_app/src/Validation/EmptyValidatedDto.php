@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TestApp\Dto;
+namespace TestApp\Validation;
 
 use PhpCollective\Dto\Dto\AbstractDto;
 

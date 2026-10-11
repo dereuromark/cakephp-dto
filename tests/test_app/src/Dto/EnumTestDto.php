@@ -56,7 +56,7 @@ class EnumTestDto extends AbstractImmutableDto {
 	protected array $_metadata = [
 		'someUnit' => [
 			'name' => 'someUnit',
-			'type' => '\TestApp\Model\Enum\MyUnit',
+			'type' => '\\TestApp\\Model\\Enum\\MyUnit',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -80,7 +80,7 @@ class EnumTestDto extends AbstractImmutableDto {
 		],
 		'someStringBacked' => [
 			'name' => 'someStringBacked',
-			'type' => '\TestApp\Model\Enum\MyStringBacked',
+			'type' => '\\TestApp\\Model\\Enum\\MyStringBacked',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -104,7 +104,7 @@ class EnumTestDto extends AbstractImmutableDto {
 		],
 		'someIntBacked' => [
 			'name' => 'someIntBacked',
-			'type' => '\TestApp\Model\Enum\MyIntBacked',
+			'type' => '\\TestApp\\Model\\Enum\\MyIntBacked',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,

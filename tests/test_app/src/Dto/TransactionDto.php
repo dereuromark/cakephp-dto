@@ -67,7 +67,7 @@ class TransactionDto extends AbstractImmutableDto {
 	protected array $_metadata = [
 		'customerAccount' => [
 			'name' => 'customerAccount',
-			'type' => '\TestApp\Dto\CustomerAccountDto',
+			'type' => '\\TestApp\\Dto\\CustomerAccountDto',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => 'CustomerAccount',
@@ -133,7 +133,7 @@ class TransactionDto extends AbstractImmutableDto {
 		],
 		'created' => [
 			'name' => 'created',
-			'type' => '\Cake\I18n\Date',
+			'type' => '\\Cake\\I18n\\Date',
 			'required' => true,
 			'defaultValue' => null,
 			'dto' => null,

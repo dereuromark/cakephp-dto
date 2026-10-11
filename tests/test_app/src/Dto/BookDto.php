@@ -34,8 +34,8 @@ class BookDto extends AbstractImmutableDto {
 	protected array $_metadata = [
 		'pages' => [
 			'name' => 'pages',
-			'type' => '\TestApp\Dto\PageDto[]|\Cake\Collection\Collection',
-			'collectionType' => '\Cake\Collection\Collection',
+			'type' => '\\TestApp\\Dto\\PageDto[]|\\Cake\\Collection\\Collection',
+			'collectionType' => '\\Cake\\Collection\\Collection',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -53,9 +53,9 @@ class BookDto extends AbstractImmutableDto {
 			'max' => null,
 			'pattern' => null,
 			'lazy' => false,
-			'singularType' => '\TestApp\Dto\PageDto',
+			'singularType' => '\\TestApp\\Dto\\PageDto',
 			'singularNullable' => false,
-			'singularTypeHint' => '\TestApp\Dto\PageDto',
+			'singularTypeHint' => '\\TestApp\\Dto\\PageDto',
 		],
 	];
 

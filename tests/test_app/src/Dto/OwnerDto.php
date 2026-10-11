@@ -111,7 +111,7 @@ class OwnerDto extends AbstractDto {
 		],
 		'attributes' => [
 			'name' => 'attributes',
-			'type' => '\TestApp\ValueObject\KeyValuePair',
+			'type' => '\\TestApp\\ValueObject\\KeyValuePair',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,
@@ -135,7 +135,7 @@ class OwnerDto extends AbstractDto {
 		],
 		'birthday' => [
 			'name' => 'birthday',
-			'type' => '\TestApp\ValueObject\Birthday',
+			'type' => '\\TestApp\\ValueObject\\Birthday',
 			'required' => false,
 			'defaultValue' => null,
 			'dto' => null,

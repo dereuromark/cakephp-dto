@@ -6,8 +6,8 @@ namespace CakeDto\Test\TestCase\Validation;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\Validation\DtoValidator;
-use TestApp\Dto\EmptyValidatedDto;
-use TestApp\Dto\ValidatedDto;
+use TestApp\Validation\EmptyValidatedDto;
+use TestApp\Validation\ValidatedDto;
 
 class DtoValidatorTest extends TestCase {
 
