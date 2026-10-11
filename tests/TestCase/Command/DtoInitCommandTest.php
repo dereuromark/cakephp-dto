@@ -2,13 +2,16 @@
 
 namespace CakeDto\Test\TestCase\Command;
 
+use Cake\Command\Command;
 use Cake\Console\Arguments;
+use Cake\Console\BaseCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoInitCommand;
 use CakeDto\Filesystem\Folder;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use ReflectionProperty;
 use TestApp\TestSuite\ConsoleOutput;
 
 #[AllowMockObjectsWithoutExpectations]
@@ -58,10 +61,19 @@ class DtoInitCommandTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testNativeCommandRun(): void {
+		$this->assertNull($this->command->run(['Native'], $this->io));
+		$this->assertFileExists(TMP . 'command' . DS . 'dto' . DS . 'Native.dto.xml');
+		$this->assertTextContains('File generated: dto' . DS . 'Native.dto.xml', $this->out->output());
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testInit() {
 		$args = new Arguments([], ['verbose' => true], []); // ['init', '-v']
 
-		$result = $this->command->execute($args, $this->io);
+		$result = $this->executeWithArguments($this->command, $args);
 		$this->assertNull($result);
 
 		$expected = 'File generated: dto.xml';
@@ -71,7 +83,7 @@ class DtoInitCommandTest extends TestCase {
 		$this->expectException(StopException::class);
 		$this->expectExceptionMessage('Command aborted');
 
-		$this->command->execute($args, $this->io);
+		$this->executeWithArguments($this->command, $args);
 	}
 
 	/**
@@ -80,14 +92,14 @@ class DtoInitCommandTest extends TestCase {
 	public function testInitForced() {
 		$args = new Arguments([], ['verbose' => true, 'force' => true], []); // ['init', '-v', '-f']
 
-		$result = $this->command->execute($args, $this->io);
+		$result = $this->executeWithArguments($this->command, $args);
 		$this->assertNull($result);
 
 		$expected = 'File generated: dto.xml';
 		$this->assertTextContains($expected, $this->out->output());
 		$this->assertEmpty($this->err->output(), $this->err->output());
 
-		$result = $this->command->execute($args, $this->io);
+		$result = $this->executeWithArguments($this->command, $args);
 		$this->assertNull($result);
 
 		$expected = 'File re-generated: dto.xml';
@@ -100,7 +112,7 @@ class DtoInitCommandTest extends TestCase {
 		[$options, $arguments] = $parser->parse(['Customer']);
 		$args = new Arguments($arguments, $options, $parser->argumentNames());
 
-		$this->command->execute($args, $this->io);
+		$this->executeWithArguments($this->command, $args);
 
 		$this->assertFileExists(TMP . 'command' . DS . 'dto' . DS . 'Customer.dto.xml');
 	}
@@ -114,7 +126,7 @@ class DtoInitCommandTest extends TestCase {
 		[$options, $arguments] = $parser->parse(['--force', 'Customer']);
 		$args = new Arguments($arguments, $options, $parser->argumentNames());
 
-		$this->command->execute($args, $this->io);
+		$this->executeWithArguments($this->command, $args);
 
 		$this->assertSame('Keep root definition', file_get_contents($path . 'dto.xml'));
 		$this->assertTextContains('<dtos', file_get_contents($path . 'dto' . DS . 'Customer.dto.xml'));
@@ -127,9 +139,21 @@ class DtoInitCommandTest extends TestCase {
 		[$options, $arguments] = $parser->parse(['-f']);
 		$args = new Arguments($arguments, $options, $parser->argumentNames());
 
-		$this->command->execute($args, $this->io);
+		$this->executeWithArguments($this->command, $args);
 
 		$this->assertTextContains('<dtos', file_get_contents($path));
+	}
+
+	/**
+	 * @param \Cake\Command\Command $command
+	 * @param \Cake\Console\Arguments $args
+	 * @return int|null
+	 */
+	private function executeWithArguments(Command $command, Arguments $args): ?int {
+		(new ReflectionProperty(BaseCommand::class, 'args'))->setValue($command, $args);
+		(new ReflectionProperty(BaseCommand::class, 'io'))->setValue($command, $this->io);
+
+		return $command->execute();
 	}
 
 }

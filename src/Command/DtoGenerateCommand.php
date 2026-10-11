@@ -4,7 +4,7 @@ namespace CakeDto\Command;
 
 use Cake\Command\Command;
 use Cake\Console\Arguments;
-use Cake\Console\ConsoleIo;
+use Cake\Console\ConsoleIoInterface;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -34,13 +34,13 @@ class DtoGenerateCommand extends Command {
 	 * E.g.:
 	 * bin/cake dto generate --confirm
 	 *
-	 * @param \Cake\Console\Arguments $args The command arguments.
-	 * @param \Cake\Console\ConsoleIo $io The console io
 	 *
 	 * @throws \Cake\Console\Exception\StopException
 	 * @return int|null The exit code or null for success
 	 */
-	public function execute(Arguments $args, ConsoleIo $io): ?int {
+	public function execute(): ?int {
+		$args = $this->args;
+		$io = $this->io;
 		$options = [
 			'dryRun' => $args->getOption('dry-run'),
 			'confirm' => $args->getOption('confirm'),
@@ -102,11 +102,11 @@ class DtoGenerateCommand extends Command {
 	}
 
 	/**
-	 * @param \Cake\Console\ConsoleIo $io
+	 * @param \Cake\Console\ConsoleIoInterface $io
 	 *
 	 * @return \CakeDto\Generator\Generator
 	 */
-	protected function _generator(ConsoleIo $io): Generator {
+	protected function _generator(ConsoleIoInterface $io): Generator {
 		/** @phpstan-var class-string<\CakeDto\Generator\Generator> $generatorClass */
 		$generatorClass = Configure::read('CakeDto.generator') ?: Generator::class;
 
@@ -128,11 +128,11 @@ class DtoGenerateCommand extends Command {
 	}
 
 	/**
-	 * @param \Cake\Console\ConsoleIo $io
+	 * @param \Cake\Console\ConsoleIoInterface $io
 	 *
 	 * @return \CakeDto\Console\Io
 	 */
-	protected function io(ConsoleIo $io): Io {
+	protected function io(ConsoleIoInterface $io): Io {
 		return new Io($io);
 	}
 

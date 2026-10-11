@@ -1,6 +1,6 @@
 # Upgrading
 
-This branch targets CakePHP 5. Composer's [package constraints](https://github.com/dereuromark/cakephp-dto/blob/master/composer.json) define supported versions; the [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map) covers older CakePHP branches.
+This development branch targets CakePHP 6 and PHP 8.5. Composer's [package constraints](https://github.com/dereuromark/cakephp-dto/blob/cake6/composer.json) define supported versions; the [version map](https://github.com/dereuromark/cakephp-dto/wiki#cakephp-version-map) covers older CakePHP branches.
 
 After upgrading the plugin or `php-collective/dto`, regenerate classes and review the diff:
 
@@ -31,8 +31,14 @@ The plugin's former `MapRequestDto` attribute and application integration were r
 $product = ProductDto::createFromArray($this->request->getData());
 ```
 
-On CakePHP 5.4 or newer, use the core attribute and its `RequestToDtoSource` enum. See [Request parameters](/guide/integration#request-parameters).
+Use the core attribute and its `RequestToDtoSource` enum. See [Request parameters](/guide/integration#request-parameters).
 
-## CakePHP 6 preparation
+## CakePHP 6 development branch
 
-The package currently requires CakePHP 5; these changes do not declare CakePHP 6 support. Keep generated files in sync, use current CakePHP APIs and run your application's tests on its supported PHP versions. Typed class constants remain disabled by default for compatibility with the minimum PHP runtime.
+Follow [Installation](../guide/installation.md) for development dependencies. Console
+commands use the parameterless CakePHP 6 API, and the generator uses TwigView 3
+and renamed view hooks. Custom command overrides access inherited `args` and
+`io` properties; console adapters accept `ConsoleIoInterface`.
+
+Keep generated DTO files in sync with their definitions. Typed class constants
+remain disabled by default; enable `CakeDto.typedConstants` if desired.

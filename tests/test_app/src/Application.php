@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TestApp;
 
-use Cake\Core\ContainerInterface;
+use Cake\Container\ContainerInterface;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
@@ -37,7 +37,7 @@ class Application extends BaseApplication {
 	}
 
 	/**
-	 * @param \Cake\Core\ContainerInterface $container
+	 * @param \Cake\Container\ContainerInterface $container
 	 *
 	 * @return void
 	 */

@@ -75,11 +75,11 @@ class DtoView extends TwigView {
 	 * @return string Rendered content.
 	 */
 	public function render(?string $view = null, $layout = null): string {
-		$viewFileName = $this->_getTemplateFileName($view);
+		$viewFileName = $this->getTemplateFileName($view);
 
-		$this->_currentType = static::TYPE_TEMPLATE;
+		$this->currentType = static::TYPE_TEMPLATE;
 		$this->dispatchEvent('View.beforeRender', [$viewFileName]);
-		$this->Blocks->set('content', $this->_render($viewFileName));
+		$this->Blocks->set('content', $this->renderFile($viewFileName));
 		$this->dispatchEvent('View.afterRender', [$viewFileName]);
 
 		if ($layout === null) {
@@ -108,8 +108,8 @@ class DtoView extends TwigView {
 	 * @param bool $cached Set to false to force a refresh of view paths. Default true.
 	 * @return array paths
 	 */
-	protected function _paths(?string $plugin = null, bool $cached = true): array {
-		$paths = parent::_paths($plugin, false);
+	protected function paths(?string $plugin = null, bool $cached = true): array {
+		$paths = parent::paths($plugin, false);
 		foreach ($paths as &$path) {
 			$path .= 'Dto' . DS;
 		}

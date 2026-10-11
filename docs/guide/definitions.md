@@ -4,7 +4,7 @@ The generator reads `config/dto.xml` and XML files directly inside `config/dto/`
 
 ## XML
 
-Use the plugin's `cakephp-dto` namespace. The bundled [XSD](https://github.com/dereuromark/cakephp-dto/blob/master/config/dto.xsd) lists the supported attributes and can provide completion in an XML editor.
+Use the plugin's `cakephp-dto` namespace. The bundled [XSD](https://github.com/dereuromark/cakephp-dto/blob/cake6/config/dto.xsd) lists the supported attributes and can provide completion in an XML editor.
 
 ```xml
 <?xml version="1.0"?>
@@ -131,4 +131,4 @@ return Schema::create()
     ->toArray();
 ```
 
-Generation uses the same command for every engine. The initializer creates XML only. Sample definitions for each engine are in [docs/examples](https://github.com/dereuromark/cakephp-dto/tree/master/docs/examples).
+Generation uses the same command for every engine. The initializer creates XML only. Sample definitions for each engine are in [docs/examples](https://github.com/dereuromark/cakephp-dto/tree/cake6/docs/examples).

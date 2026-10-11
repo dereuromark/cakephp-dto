@@ -3,11 +3,13 @@
 namespace CakeDto\Test\TestCase\Dto;
 
 use Cake\Console\Arguments;
+use Cake\Console\BaseCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use ReflectionProperty;
 use Sandbox\Dto\Github\PullRequestDto;
 use TestApp\TestSuite\ConsoleOutput;
 
@@ -39,7 +41,9 @@ class GithubTest extends TestCase {
 			$options['dry-run'] = false;
 		}
 		$args = new Arguments([], $options, []);
-		$result = $command->execute($args, $io);
+		(new ReflectionProperty(BaseCommand::class, 'args'))->setValue($command, $args);
+		(new ReflectionProperty(BaseCommand::class, 'io'))->setValue($command, $io);
+		$result = $command->execute();
 		$this->assertSame(0, $result, 'Code: ' . $result . ' (expected 0, no change). Remove -d and re-run. ' . $out->output());
 
 		$pullRequestDto = PullRequestDto::create($simulatedDataFromGitHubApi, true, PullRequestDto::TYPE_UNDERSCORED);

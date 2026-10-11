@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace CakeDto\Generator;
 
 use Cake\Core\Configure;
-use Cake\Core\InstanceConfigTrait;
+use Cake\Utility\Hash;
+use InvalidArgumentException;
 use PhpCollective\Dto\Engine\EngineInterface;
 use PhpCollective\Dto\Generator\Builder as BaseBuilder;
 
@@ -17,48 +18,74 @@ use PhpCollective\Dto\Generator\Builder as BaseBuilder;
  */
 class Builder extends BaseBuilder {
 
-	use InstanceConfigTrait {
-		setConfig as traitSetConfig;
-	}
-
-	/**
-	 * @var array<string, mixed>
-	 */
-	protected array $_defaultConfig = [];
-
 	/**
 	 * @param \PhpCollective\Dto\Engine\EngineInterface $engine
 	 */
 	public function __construct(EngineInterface $engine) {
-		$config = new CakeConfig();
-		parent::__construct($engine, $config);
-
-		// Sync the config for InstanceConfigTrait compatibility
-		$this->_defaultConfig = $this->config;
+		parent::__construct($engine, new CakeConfig());
 	}
 
 	/**
-	 * Set configuration values.
-	 *
-	 * Also syncs to parent's config array for compatibility.
-	 *
-	 * @param array<string, mixed>|string $key The key to set, or array of key/value pairs.
-	 * @param mixed $value Value to set (if $key is a string).
-	 * @param bool $merge Whether to merge or overwrite existing config.
-	 *
-	 * @return $this
+	 * @param array<string, mixed>|string $key
+	 * @param mixed $value
+	 * @param bool $merge
+	 * @return static
 	 */
-	public function setConfig(array|string $key, mixed $value = null, bool $merge = true) {
-		$this->traitSetConfig($key, $value, $merge);
-
-		// Sync to parent's config array
-		if (is_array($key)) {
-			foreach ($key as $k => $v) {
-				$this->config[$k] = $v;
-			}
-		} else {
-			$this->config[$key] = $value;
+	public function setConfig(array|string $key, mixed $value = null, bool $merge = true): static {
+		if (is_string($key) && $value === null) {
+			return $this->deleteConfig($key);
 		}
+		$values = is_array($key) ? $key : [$key => $value];
+		if ($merge) {
+			$this->config = Hash::merge($this->config, Hash::expand($values));
+		} else {
+			foreach ($values as $path => $setting) {
+				$this->config = Hash::insert($this->config, $path, $setting);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|null $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function getConfig(?string $key = null, mixed $default = null): mixed {
+		return $key === null ? $this->config : Hash::get($this->config, $key, $default);
+	}
+
+	/**
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function getConfigOrFail(string $key): mixed {
+		$value = $this->getConfig($key);
+		if ($value === null) {
+			throw new InvalidArgumentException(sprintf('Expected configuration `%s` not found.', $key));
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @param array<string, mixed>|string $key
+	 * @param mixed $value
+	 * @return static
+	 */
+	public function configShallow(array|string $key, mixed $value = null): static {
+		$this->config = array_merge($this->config, Hash::expand(is_array($key) ? $key : [$key => $value]));
+
+		return $this;
+	}
+
+	/**
+	 * @param string $key
+	 * @return static
+	 */
+	public function deleteConfig(string $key): static {
+		$this->config = Hash::remove($this->config, $key);
 
 		return $this;
 	}
