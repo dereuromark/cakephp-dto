@@ -7,10 +7,9 @@ use Cake\Console\CommandCollection;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use CakeDto\CakeDtoPlugin;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-/**
- * @uses \CakeDto\CakeDtoPlugin
- */
+#[UsesClass(CakeDtoPlugin::class)]
 class CakeDtoPluginTest extends TestCase {
 
 	/**

@@ -95,4 +95,14 @@ class DtoInitCommandTest extends TestCase {
 		$this->assertEmpty($this->err->output(), $this->err->output());
 	}
 
+	public function testNamedDefinitionThroughCommandParser(): void {
+		$parser = $this->command->getOptionParser();
+		[$options, $arguments] = $parser->parse(['Customer']);
+		$args = new Arguments($arguments, $options, $parser->argumentNames());
+
+		$this->command->execute($args, $this->io);
+
+		$this->assertFileExists(TMP . 'command' . DS . 'dto' . DS . 'Customer.dto.xml');
+	}
+
 }

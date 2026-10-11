@@ -5,10 +5,9 @@ namespace CakeDto\Test\TestCase\Filesystem;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\Filesystem\Folder;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-/**
- * @uses \CakeDto\Filesystem\Folder
- */
+#[UsesClass(Folder::class)]
 class FolderTest extends TestCase {
 
 	/**
@@ -272,6 +271,11 @@ class FolderTest extends TestCase {
 		$result = $folder->delete();
 
 		$this->assertFalse($result);
+	}
+
+	public function testEmptyPathHasNoTrailingSlash(): void {
+		$this->assertFalse(Folder::isSlashTerm(''));
+		$this->assertSame(DS, Folder::slashTerm(''));
 	}
 
 }

@@ -5,10 +5,9 @@ namespace CakeDto\Test\TestCase\TestSuite;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\TestSuite\DebugTimer;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-/**
- * @uses \CakeDto\TestSuite\DebugTimer
- */
+#[UsesClass(DebugTimer::class)]
 class DebugTimerTest extends TestCase {
 
 	/**

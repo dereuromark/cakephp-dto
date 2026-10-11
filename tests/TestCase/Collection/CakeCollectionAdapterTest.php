@@ -5,10 +5,9 @@ namespace CakeDto\Test\TestCase\Collection;
 
 use Cake\TestSuite\TestCase;
 use CakeDto\Collection\CakeCollectionAdapter;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-/**
- * @uses \CakeDto\Collection\CakeCollectionAdapter
- */
+#[UsesClass(CakeCollectionAdapter::class)]
 class CakeCollectionAdapterTest extends TestCase {
 
 	/**

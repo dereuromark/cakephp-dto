@@ -6,6 +6,7 @@ use Cake\Collection\Collection;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 use CakeDto\Collection\CakeCollectionAdapter;
 use CakeDto\Command\DtoGenerateCommand;
@@ -61,7 +62,8 @@ class CakeDtoPlugin extends BasePlugin {
 	public function routes(RouteBuilder $routes): void {
 		$routes->prefix('Admin', function (RouteBuilder $routes): void {
 			$routes->plugin('CakeDto', function (RouteBuilder $routes): void {
-				$routes->connect('/', ['controller' => 'CakeDto', 'action' => 'index']);
+				$routes->setRouteClass(DashedRoute::class);
+				$routes->connect('/', ['controller' => 'Generate', 'action' => 'index']);
 
 				$routes->fallbacks();
 			});

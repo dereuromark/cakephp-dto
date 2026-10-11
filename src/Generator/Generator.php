@@ -89,7 +89,7 @@ class Generator {
 
 			$target = $srcPath . 'Dto' . DS . $name . Configure::read('CakeDto.suffix', 'Dto') . '.php';
 			$targetPath = dirname($target);
-			if (!is_dir($targetPath)) {
+			if (!$options['dryRun'] && !is_dir($targetPath)) {
 				mkdir($targetPath, 0755, true);
 			}
 
@@ -111,6 +111,7 @@ class Generator {
 		}
 
 		foreach ($foundDtos as $name => $file) {
+			$changes++;
 			if (!$options['dryRun']) {
 				unlink($file);
 			}
@@ -118,6 +119,10 @@ class Generator {
 		}
 
 		$this->io->verbose('Done, ' . $changes . ' file(s) changed.');
+
+		if ($returnCode !== static::CODE_SUCCESS) {
+			return $returnCode;
+		}
 
 		if ($options['dryRun'] || $options['verbose']) {
 			return $changes ? static::CODE_CHANGES : static::CODE_SUCCESS;
@@ -132,11 +137,7 @@ class Generator {
 	 * @return array<string>
 	 */
 	protected function findExistingDtos(string $path): array {
-		if (!is_dir($path) && @mkdir($path, 0755, true) === false && !is_dir($path)) {
-			// Either the path exists as a file (a real misconfiguration) or
-			// the filesystem rejected the mkdir. Bail with an empty result
-			// instead of letting a later `is_dir` failure cascade through
-			// the iterator — the caller will surface a useful error.
+		if (!is_dir($path)) {
 			return [];
 		}
 
@@ -145,15 +146,10 @@ class Generator {
 		$directory = new RecursiveDirectoryIterator($path);
 		$iterator = new RecursiveIteratorIterator($directory);
 		$suffix = Configure::read('CakeDto.suffix', 'Dto');
-		// Use DIRECTORY_SEPARATOR via a character class so the pattern matches
-		// on both `src/Dto/Foo.php` (Linux/macOS) and `src\Dto\Foo.php` (Windows).
-		// The previous `#src/Dto/(.+)...#` hardcoded forward slashes, so the
-		// "find existing DTOs to delete" pass silently returned nothing on
-		// Windows and left stale files behind.
-		$pattern = '#[/\\\\]src[/\\\\]Dto[/\\\\](.+)' . preg_quote($suffix, '#') . '\.php$#';
+		$pattern = '#(.+)' . preg_quote($suffix, '#') . '\.php$#';
 		foreach ($iterator as $fileInfo) {
 			$file = $fileInfo->getPathname();
-			if (!preg_match($pattern, (string)$file, $matches)) {
+			if (!$fileInfo->isFile() || !preg_match($pattern, substr($file, strlen(rtrim($path, '/\\')) + 1), $matches)) {
 				continue;
 			}
 			$name = $matches[1];
@@ -198,7 +194,7 @@ class Generator {
 	 * @return bool
 	 */
 	protected function checkPhpFileSyntax(string $file): bool {
-		exec('php -l ' . escapeshellarg($file), $output, $returnValue);
+		exec(escapeshellarg(PHP_BINARY) . ' -l ' . escapeshellarg($file) . ' 2>&1', $output, $returnValue);
 
 		if ($returnValue !== static::CODE_SUCCESS) {
 			$this->io->error('PHP file invalid: ' . implode("\n", $output));

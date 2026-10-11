@@ -46,7 +46,7 @@ class TemplateHelper extends Helper {
 
 		foreach ($list as $k => &$v) {
 			if (is_string($v)) {
-				$v = "'$v'";
+				$v = var_export($v, true);
 			} elseif (is_bool($v)) {
 				$v = $v ? 'true' : 'false';
 			} elseif ($v === null) {
@@ -59,10 +59,10 @@ class TemplateHelper extends Helper {
 					$nestedOptions['indent'] += 1;
 				}
 				$v = is_array($v) ? sprintf(
-					"'%s' => [%s]",
-					$k,
+					'%s => [%s]',
+					var_export($k, true),
 					$this->stringifyList($v, $nestedOptions),
-				) : "'$k' => $v";
+				) : var_export($k, true) . " => $v";
 			} elseif (is_array($v)) {
 				$nestedOptions = $options;
 				if ($nestedOptions['indent']) {

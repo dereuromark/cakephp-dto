@@ -4,10 +4,12 @@ namespace CakeDto\Test\TestCase\Command;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use CakeDto\Command\DtoGenerateCommand;
 use CakeDto\Filesystem\Folder;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use ReflectionMethod;
 use TestApp\TestSuite\ConsoleOutput;
 
 #[AllowMockObjectsWithoutExpectations]
@@ -70,6 +72,16 @@ class DtoGenerateCommandTest extends TestCase {
 		$this->assertEmpty($this->err->output(), $this->err->output());
 
 		$this->assertEmpty($this->out->output(), $this->out->output());
+	}
+
+	public function testConfiguredSourcePath(): void {
+		Configure::write('CakeDto.srcPath', TMP . 'generated');
+		try {
+			$method = new ReflectionMethod(DtoGenerateCommand::class, '_getSrcPath');
+			$this->assertSame(TMP . 'generated' . DS, $method->invoke(new DtoGenerateCommand(), new Arguments([], [], [])));
+		} finally {
+			Configure::delete('CakeDto.srcPath');
+		}
 	}
 
 }

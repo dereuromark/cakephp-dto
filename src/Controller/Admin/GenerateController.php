@@ -29,6 +29,9 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
+				if ($format === 'xml') {
+					$result = str_replace('xmlns="php-collective-dto"', 'xmlns="cakephp-dto"', $result);
+				}
 				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
 			} else {
 				$json = $this->request->getData('input');
@@ -70,6 +73,9 @@ class GenerateController extends AppController {
 				$dto = $this->request->getData('dto');
 				$namespace = $this->request->getData('namespace');
 				$result = (new Importer())->buildSchema($dto, $options);
+				if ($format === 'xml') {
+					$result = str_replace('xmlns="php-collective-dto"', 'xmlns="cakephp-dto"', $result);
+				}
 				$this->set(['result' => $result, 'dto' => $dto, 'namespace' => $namespace, 'format' => $format]);
 			} elseif ($this->request->getData('tables')) {
 				$selectedTables = array_keys(array_filter($this->request->getData('tables')));
