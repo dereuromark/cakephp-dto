@@ -86,9 +86,9 @@ class Folder {
 			return false;
 		}
 
-		return $path[0] === '/' ||
-			preg_match('/^[A-Z]:\\\\/i', $path) ||
-			str_starts_with($path, '\\\\');
+		return $path[0] === '/'
+			|| preg_match('/^[A-Z]:\\\\/i', $path)
+			|| str_starts_with($path, '\\\\');
 	}
 
 	/**
