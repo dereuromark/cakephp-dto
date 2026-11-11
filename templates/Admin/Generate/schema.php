@@ -7,7 +7,7 @@
  * @var mixed $result
  * @var mixed $schema
  */
-$cspNonce = (string)$this->getRequest()->getAttribute('cspNonce', '');
+$cspNonce = (string)($this->getRequest()->getAttribute('cspScriptNonce') ?? $this->getRequest()->getAttribute('cspNonce', ''));
 ?>
 <h1>Generate DTO Schema from JSON/Structure</h1>
 

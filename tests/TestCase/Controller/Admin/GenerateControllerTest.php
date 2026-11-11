@@ -8,14 +8,20 @@ use Cake\Database\Connection;
 use Cake\Database\Driver\Sqlite;
 use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
+use Cake\Event\EventInterface;
+use Cake\Event\EventManager;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\UnauthorizedException;
+use Cake\Http\MiddlewareQueue;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 use CakeDto\Controller\Admin\GenerateController;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 
 #[UsesClass(GenerateController::class)]
@@ -218,6 +224,92 @@ class GenerateControllerTest extends TestCase {
 			libxml_clear_errors();
 			libxml_use_internal_errors($previous);
 		}
+	}
+
+	/**
+	 * CakePHP's CspMiddleware stores the nonce as `cspScriptNonce`.
+	 *
+	 * @return void
+	 */
+	public function testSchemaResultUsesCspScriptNonce(): void {
+		$this->withRequestAttribute('cspScriptNonce', 'core-nonce');
+
+		$this->post('/admin/cake-dto/generate/schema', [
+			'dto' => ['Product' => ['title' => ['type' => 'string']]],
+		]);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseContains('<script nonce="core-nonce">');
+		$this->assertResponseNotRegExp('/<script(?![^>]*nonce=)/');
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testSchemaCompressedInputUsesCspScriptNonce(): void {
+		$this->withRequestAttribute('cspScriptNonce', 'core-nonce');
+
+		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'schema', '?' => ['compressed' => '1', 'input' => 'abc']]);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseContains('<script nonce="core-nonce">');
+		$this->assertResponseNotRegExp('/<script(?![^>]*nonce=)/');
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testDatabaseUsesCspScriptNonce(): void {
+		ConnectionManager::setConfig('default', [
+			'className' => Connection::class,
+			'driver' => Sqlite::class,
+			'database' => ':memory:',
+		]);
+		$connection = ConnectionManager::get('default');
+		/** @var \Cake\Database\Connection $connection */
+		$connection->execute('CREATE TABLE articles (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(255) NOT NULL)');
+		$this->withRequestAttribute('cspScriptNonce', 'core-nonce');
+
+		$this->get(['prefix' => 'Admin', 'plugin' => 'CakeDto', 'controller' => 'Generate', 'action' => 'database']);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseContains('<script nonce="core-nonce">');
+		$this->assertResponseNotRegExp('/<script(?![^>]*nonce=)/');
+
+		ConnectionManager::drop('default');
+	}
+
+	/**
+	 * A custom middleware may still provide the nonce as `cspNonce`.
+	 *
+	 * @return void
+	 */
+	public function testSchemaResultFallsBackToCspNonce(): void {
+		$this->withRequestAttribute('cspNonce', 'custom-nonce');
+
+		$this->post('/admin/cake-dto/generate/schema', [
+			'dto' => ['Product' => ['title' => ['type' => 'string']]],
+		]);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseContains('<script nonce="custom-nonce">');
+		$this->assertResponseNotRegExp('/<script(?![^>]*nonce=)/');
+	}
+
+	/**
+	 * Adds a middleware that sets a request attribute, like a CSP middleware would.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 *
+	 * @return void
+	 */
+	protected function withRequestAttribute(string $name, string $value): void {
+		EventManager::instance()->on('Server.buildMiddleware', function (EventInterface $event, MiddlewareQueue $queue) use ($name, $value): void {
+			$queue->prepend(function (ServerRequestInterface $request, RequestHandlerInterface $handler) use ($name, $value): ResponseInterface {
+				return $handler->handle($request->withAttribute($name, $value));
+			});
+		});
 	}
 
 }
